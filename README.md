@@ -1,3 +1,7 @@
+# Portalul bunurilor confiscate
+
+Dezvoltăm pentru Agenția Națională pentru Administrarea Bunurilor Indisponibilizate (ANABI) o platformă despre ce, cât și de unde se confiscă în România, din infracțiuni. Punem totul pe hartă, pentru ca tu să știi ce se petrece. ANABI va folosi platforma pentru a gestiona aceste bunuri la nivel național, inclusiv re-directionarea acestor resurse. Astfel, platforma va transparentiza procesul de utilizare a bunurilor confiscate.
+
 # anabi-gestiune-client
 Clientul portalului de gestiune pentru ANABI
 
@@ -16,4 +20,6 @@ Clientul portalului de gestiune pentru ANABI
 3. in consola de windows: dotnet run
 4. deschide un browser cu adresa localhost:5000 (sau unde spune in consola de windows ca se asculta)
 
+# Contributing
 
+Branch -> Commit -> Pull request cu Code Review
