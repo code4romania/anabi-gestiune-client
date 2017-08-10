@@ -1,3 +1,9 @@
 <section id="dictionaries-page">
-  {{ page }}
+  <ul>
+    <li *ngFor="let dictionary of dictionaries" (click)="setActiveDictionary(dictionary)">
+      {{ dictionary.name }}
+    </li>
+  </ul>
+
+  <pre *ngIf="activeDictionary">{{ activeDictionary.data | json }}</pre>
 </section>
