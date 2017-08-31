@@ -20,6 +20,7 @@
 
   <Target Name="Build Angular" BeforeTargets="Build">
     <Message Text="* * * * * * Building Angular App * * * * * *" Importance="high" />
+    <Exec Command="npm install" />
     <Exec Command="npm run ng build -prod" />
   </Target>
   
