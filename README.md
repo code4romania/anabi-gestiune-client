@@ -1,28 +1,25 @@
-# Anabi
+# Portalul bunurilor confiscate
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.3.
+Dezvoltăm pentru Agenția Națională pentru Administrarea Bunurilor Indisponibilizate (ANABI) o platformă despre ce, cât și de unde se confiscă în România, din infracțiuni. Punem totul pe hartă, pentru ca tu să știi ce se petrece. ANABI va folosi platforma pentru a gestiona aceste bunuri la nivel național, inclusiv re-directionarea acestor resurse. Astfel, platforma va transparentiza procesul de utilizare a bunurilor confiscate.
 
-## Development server
+# anabi-gestiune-client
+Clientul portalului de gestiune pentru ANABI
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Pentru functionare (Windows)
 
-## Code scaffolding
+1. se instaleaza Node si npm
+2. se instaleaza angular cli: npm install @angular/cli --global
+3. deschide o consola (ca admin sau consola de NodeJs)
+4. mergi (in consola: cd X:\cale\cod\sursa) la calea unde a fost descarcat codul sursa de pe github
+5. npm install
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+## Pentru rularea aplicatiei (Windows)
 
-## Build
+1. deschide o consola NodeJs si o consola de windows (cmd) ca admin, ambele cu calea in aplicatie
+2. in consola node js: ng build
+3. in consola de windows: dotnet run
+4. deschide un browser cu adresa localhost:5000 (sau unde spune in consola de windows ca se asculta)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+# Contributing
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Branch -> Commit -> Pull request cu Code Review
