@@ -1,3 +1,6 @@
 <section id="search-page">
   {{ page }}
+  <div *ngFor="let result of results">
+    {{result.number}} - {{result.date}} - {{result.fileNumber}} - {{result.emitterInstitution}} - {{result.historicalStageId}}
+  </div>
 </section>
