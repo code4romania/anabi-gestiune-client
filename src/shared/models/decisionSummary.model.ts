@@ -1,4 +1,4 @@
-﻿export class DecisionSummary {
+export class DecisionSummary {
     number: string;
     date: Date;
     fileNumber: string;
