@@ -15,10 +15,10 @@ Clientul portalului de gestiune pentru ANABI
 
 ## Pentru rularea aplicatiei (Windows)
 
-1. deschide o consola NodeJs si o consola de windows (cmd) ca admin, ambele cu calea in aplicatie
+1. deschide o consola NodeJs cu calea in aplicatie
 2. in consola node js: ng build
-3. in consola de windows: dotnet run
-4. deschide un browser cu adresa localhost:5000 (sau unde spune in consola de windows ca se asculta)
+3. in consola node js: ng serve
+4. deschide un browser cu adresa localhost:4200 (sau unde spune in consola de windows ca se asculta)
 
 # Contributing
 
