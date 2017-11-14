@@ -7,6 +7,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 
 import {HomeComponent} from './components/home/home.component';
+import {AssetComponent} from './components/asset/asset.component';
 import {DecisionComponent} from './components/decision/decision.component';
 import {SearchComponent} from './components/search/search.component';
 import {ReportsComponent} from './components/reports/reports.component';
@@ -17,6 +18,7 @@ const ROUTES: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
   {path: 'search', component: SearchComponent},
   {path: 'decision', component: DecisionComponent},
+  {path: 'asset/:id', component: AssetComponent},
   {path: 'reports', component: ReportsComponent},
   {path: 'dictionaries', component: DictionariesComponent},
   {path: 'admin', component: AdminComponent},
@@ -33,6 +35,7 @@ const ROUTES: Routes = [
   declarations: [
     HomeComponent,
     SearchComponent,
+    AssetComponent,
     DecisionComponent,
     ReportsComponent,
     DictionariesComponent,

@@ -11,6 +11,6 @@
       Numar Decizie - Data Decizie - Numar Dosar - Instanta eminenta
   </div>
   <div *ngFor="let result of results">
-    {{result.number}} - {{result.date}} - {{result.fileNumber}} - {{result.emitterInstitution}} - {{result.historicalStageId}}
+    {{result.number}} - {{result.date}} - {{result.fileNumber}} - {{result.emitterInstitution}} - {{result.historicalStageId}} <button [routerLink]="['/asset', 1]">Details</button>
   </div>
 </section>
