@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
 
 import {HomeComponent} from './components/home/home.component';
 import {AssetComponent} from './components/asset/asset.component';
@@ -42,7 +41,6 @@ const ROUTES: Routes = [
     AdminComponent
   ],
   providers: [
-    {provide: APP_BASE_HREF, useValue: '/'}
   ],
   bootstrap: [HomeComponent]
 })
