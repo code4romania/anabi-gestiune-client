@@ -1,0 +1,30 @@
+<section id="asset-page">
+  <h1>{{ asset.asset.identifier }}</h1>
+
+  <h4>Adresa</h4>
+  <div>
+    <div>
+      <span>{{ asset.asset.address.street }}</span>
+    </div>
+    <div>
+      <span>Bl. {{ asset.asset.address.building }},</span>
+      <span *ngIf="asset.asset.address.stair">Sc. {{ asset.asset.address.stair }},</span>
+      <span *ngIf="asset.asset.address.floor">Et. {{ asset.asset.address.floor }},</span>
+      <span *ngIf="asset.asset.address.flatNo">Ap. {{ asset.asset.address.flatNo }},</span>
+      <span>{{ asset.asset.address.city }}</span>
+    </div>
+    <div>
+      <span>Judet: {{ asset.asset.address.countyName }}</span>
+    </div>
+  </div>
+
+  <h4>Decizii</h4>
+  <div *ngFor="let decision of asset.decisions">
+    <div>Nume: {{ decision.decisionName }}</div>
+    <div>Numar: {{ decision.decisionNumber }}</div>
+    <div>Institutie: {{ decision.institutionName }}</div>
+    <div>Stadiu: {{ decision.stageName }}</div>
+    <div>Valoare estimata: {{ decision.estimatedAmount }} {{ decision.estimatedAmountCurrency }}</div>
+    <div>Valoare reala: {{ decision.actualValue }} {{ decision.actualValueCurrency }}</div>
+  </div>
+</section>
