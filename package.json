@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npm install -g angular-cli",
+    "preinstall": "npm install --unsafe-perm -g @angular/cli",
     "ng": "ng",
     "start": "ng serve --host localhost --port 5000 --output-hashing=bundles",
     "build": "ng build --output-hashing=bundles",
