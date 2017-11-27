@@ -24,10 +24,11 @@
     "@angular/router": "^5.0.2",
     "core-js": "^2.5.1",
     "rxjs": "^5.5.2",
+    "typescript": "~2.4.2",
     "zone.js": "^0.8.18"
   },
   "devDependencies": {
-    "@angular/cli": "1.5.2",
+    "@angular/cli": "^1.5.4",
     "@angular/compiler-cli": "5.0.2",
     "@angular/language-service": "5.0.2",
     "@types/jasmine": "2.8.2",
@@ -44,6 +45,6 @@
     "protractor": "5.2.0",
     "ts-node": "3.3.0",
     "tslint": "5.8.0",
-    "typescript": "2.6.1"
+    "typescript": "~2.4.2"
   }
 }
