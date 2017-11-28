@@ -1,10 +1,10 @@
 <section id="home-page">
-  <nav>
-    <a routerLink="/search" routerLinkActive="active">Search</a>
-    <a routerLink="/decision" routerLinkActive="active">Decision</a>
-    <a routerLink="/reports" routerLinkActive="active">Reports</a>
-    <a routerLink="/dictionaries" routerLinkActive="active">Dictionaries</a>
-    <a routerLink="/admin" routerLinkActive="active">Admin</a>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link routerLink="/search" routerLinkActive="active">Search</a>
+    <a mat-tab-link routerLink="/decision" routerLinkActive="active">Decision</a>
+    <a mat-tab-link routerLink="/reports" routerLinkActive="active">Reports</a>
+    <a mat-tab-link routerLink="/dictionaries" routerLinkActive="active">Dictionaries</a>
+    <a mat-tab-link routerLink="/admin" routerLinkActive="active">Admin</a>
   </nav>
 
   <router-outlet></router-outlet>

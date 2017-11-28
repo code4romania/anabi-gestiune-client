@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
+import {MaterialModule} from './app/material/material.module';
 
 import {HomeComponent} from './components/home/home.component';
 import {AssetComponent} from './components/asset/asset.component';
@@ -31,7 +32,8 @@ const ROUTES: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    MaterialModule
   ],
   declarations: [
     HomeComponent,
