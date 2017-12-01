@@ -31,7 +31,7 @@ const ROUTES: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES, {useHash: true})
   ],
   declarations: [
     HomeComponent,
