@@ -14,6 +14,9 @@ import {ReportsComponent} from './components/reports/reports.component';
 import {DictionariesComponent} from './components/dictionaries/dictionaries.component';
 import {AdminComponent} from './components/admin/admin.component';
 import { AddassetComponent } from './components/asset/addasset.component';
+import {AnabiEntityModule} from './components/entities/entity.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {storageSpacesRoute} from './components/entities/storage-spaces-anabi';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
@@ -24,6 +27,7 @@ const ROUTES: Routes = [
   {path: 'reports', component: ReportsComponent},
   {path: 'dictionaries', component: DictionariesComponent},
   {path: 'admin', component: AdminComponent},
+  ...storageSpacesRoute,
   {path: '**', redirectTo: '/search'}
 ];
 
@@ -32,7 +36,9 @@ const ROUTES: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     MaterialModule,
+    AnabiEntityModule,
     RouterModule.forRoot(ROUTES, {useHash: true})
   ],
   declarations: [

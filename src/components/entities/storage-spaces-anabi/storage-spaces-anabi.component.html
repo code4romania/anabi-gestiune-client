@@ -1,0 +1,68 @@
+<div>
+  <h2>
+    <span>Storage Spaces</span>
+    <button class="btn btn-primary float-right jh-create-entity create-storage-spaces-anabi"
+            [routerLink]="['/', { outlets: { popup: ['storage-spaces-anabi-new'] } }]">
+      <span class="fa fa-plus"></span>
+      <span>
+            Create new Storage Spaces
+            </span>
+    </button>
+  </h2>
+  <div class="row">
+  </div>
+  <br/>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="street">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Street </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.street}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.city}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="building">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Building </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.building}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="stair">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Stair </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.stair}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="floor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Floor </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.floor}} </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="flatNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Flat No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.flatNo}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>
