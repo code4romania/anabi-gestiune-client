@@ -1,0 +1,38 @@
+
+
+<form class="question-form">
+  <div class="row">
+    <mat-form-field>
+      <mat-select placeholder="Disponibil" [formControl]="pokemonControl">
+        <mat-option>&#45;&#45; None &#45;&#45;</mat-option>
+        <mat-optgroup *ngFor="let group of disponibilGroups"
+                      [label]="group.name"
+                      [disabled]="group.disabled">
+          <mat-option *ngFor="let disponibil of group.disponibil" [value]="disponibil.value">
+            {{ disponibil.viewValue }}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+</form>
+
+<form>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Name"></textarea>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Numar Adresa"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Judet"></textarea>
+  </mat-form-field>
+</form>
+
+
+
+<pre> {{ pokemonGroups }}</pre>
+

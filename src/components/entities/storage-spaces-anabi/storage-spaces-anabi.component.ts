@@ -9,7 +9,8 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'jhi-storage-spaces-anabi',
-  templateUrl: './storage-spaces-anabi.component.html'
+  templateUrl: './storage-spaces-anabi.component.html',
+  styleUrls: ['input-overview-example.css']
 })
 export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   storageSpaces: StorageSpacesAnabi[];

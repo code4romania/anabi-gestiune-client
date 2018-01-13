@@ -7,8 +7,12 @@ import {
   StorageSpacesAnabiComponent,
   storageSpacesRoute
 } from './';
-import {MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatSortModule, MatTableModule} from '@angular/material';
-import {FormsModule} from '@angular/forms';
+import {
+  MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatSortModule,
+  MatTableModule
+} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {StorageSpacesAnabiEditorComponent} from './storage-spaces-anabi-editor.component';
 
 const ENTITY_STATES = [
   ...storageSpacesRoute,
@@ -22,16 +26,20 @@ const ENTITY_STATES = [
     MatButtonToggleModule,
     MatSortModule,
     MatTableModule,
-    FormsModule
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
-    StorageSpacesAnabiComponent
+    StorageSpacesAnabiComponent, StorageSpacesAnabiEditorComponent
   ],
   entryComponents: [
-    StorageSpacesAnabiComponent
+    StorageSpacesAnabiComponent, StorageSpacesAnabiEditorComponent
   ],
   providers: [
-    StorageSpacesAnabiService,
+    StorageSpacesAnabiService, StorageSpacesAnabiEditorComponent
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
