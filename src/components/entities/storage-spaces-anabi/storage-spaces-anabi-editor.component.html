@@ -1,38 +1,62 @@
+<div>
+  <form class="question-form">
+
+    <div class="mat-row">
+      <mat-form-field>
+        <input matInput placeholder="Name"/>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-select placeholder="Disponibil" [formControl]="pokemonControl">
+          <mat-option>&#45;&#45; None &#45;&#45;</mat-option>
+          <mat-optgroup *ngFor="let group of disponibilGroups"
+                        [label]="group.name"
+                        [disabled]="group.disabled">
+            <mat-option *ngFor="let disponibil of group.disponibil" [value]="disponibil.value">
+              {{ disponibil.viewValue }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <mat-card>
+      <div class="mat-row">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Strada"/>
+        </mat-form-field>
+        <mat-form-field class="smallInputContainer">
+          <input type="number" matInput placeholder="Nr. adresa"/>
+        </mat-form-field>
+      </div>
+      <div class="mat-row">
+        <mat-form-field>
+          <input matInput placeholder="Scara"/>
+        </mat-form-field>
+        <mat-form-field class="smallInputContainer">
+          <input matInput type="number" placeholder="Nr. apartament"/>
+        </mat-form-field>
+      </div>
+
+      <div class="mat-row">
+        <mat-form-field>
+          <input matInput placeholder="Oras"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Judet" [formControl]="pokemonControl">
+            <mat-option *ngFor="let county of counties" [value]="county.id">
+              {{county.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card>
 
 
-<form class="question-form">
-  <div class="row">
-    <mat-form-field>
-      <mat-select placeholder="Disponibil" [formControl]="pokemonControl">
-        <mat-option>&#45;&#45; None &#45;&#45;</mat-option>
-        <mat-optgroup *ngFor="let group of disponibilGroups"
-                      [label]="group.name"
-                      [disabled]="group.disabled">
-          <mat-option *ngFor="let disponibil of group.disponibil" [value]="disponibil.value">
-            {{ disponibil.viewValue }}
-          </mat-option>
-        </mat-optgroup>
-      </mat-select>
-    </mat-form-field>
-
-  </div>
-
-</form>
-
-<form>
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Name"></textarea>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Numar Adresa"></textarea>
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Judet"></textarea>
-  </mat-form-field>
-</form>
-
-
-
-<pre> {{ pokemonGroups }}</pre>
-
+    <button mat-button (click)="onClick">Salveza</button>
+    <button mat-button (click)="onClick()">Anulare</button>
+  </form>
+</div>

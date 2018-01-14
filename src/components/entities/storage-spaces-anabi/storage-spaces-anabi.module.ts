@@ -30,7 +30,7 @@ const ENTITY_STATES = [
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule, MatButtonModule
   ],
   declarations: [
     StorageSpacesAnabiComponent, StorageSpacesAnabiEditorComponent

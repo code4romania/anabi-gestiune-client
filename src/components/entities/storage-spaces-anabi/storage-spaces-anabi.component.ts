@@ -10,7 +10,7 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 @Component({
   selector: 'jhi-storage-spaces-anabi',
   templateUrl: './storage-spaces-anabi.component.html',
-  styleUrls: ['input-overview-example.css']
+  styleUrls: ['storage-spaces-anabi.css']
 })
 export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   storageSpaces: StorageSpacesAnabi[];
@@ -19,13 +19,6 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   displayedColumns = ['name', 'street', 'city', 'building', 'stair', 'floor', 'flatNo'];
 
   dataSource = new MatTableDataSource();
-
-  @ViewChild(MatSort) sort: MatSort;
-
-  /**
-   * Set the sort after the view init since this component will
-   * be able to query its view for the initialized sort.
-   */
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.loadAll();
@@ -44,6 +37,13 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
       (res: ResponseWrapper) => this.onError(res.json)
     );
   }
+  @ViewChild(MatSort) sort: MatSort;
+
+  /**
+   * Set the sort after the view init since this component will
+   * be able to query its view for the initialized sort.
+   */
+
 
   ngOnDestroy() {
   }

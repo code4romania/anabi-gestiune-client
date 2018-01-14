@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
@@ -6,16 +6,19 @@ import { Observable } from 'rxjs/Rx';
 import { StorageSpacesAnabi } from './storage-spaces-anabi.model';
 import { StorageSpacesAnabiService } from './storage-spaces-anabi.service';
 import {FormControl} from '@angular/forms';
+import {County} from '../../../shared/models/county.model';
+import {CountiesHttp} from '../../../shared/http/counties.http';
 
 @Component({
     selector: 'jhi-storage-spaces-anabi-editor',
-    templateUrl: './storage-spaces-anabi-editor.component.html'
+    templateUrl: './storage-spaces-anabi-editor.component.html',
+    styleUrls: ['./storage-spaces-anabi.css']
 })
-export class StorageSpacesAnabiEditorComponent implements OnInit {
+export class StorageSpacesAnabiEditorComponent implements OnInit, AfterViewInit {
 
-    storageSpaces: StorageSpacesAnabi;
-    isSaving: boolean;
-
+  storageSpaces: StorageSpacesAnabi;
+  isSaving: boolean;
+  counties: County[];
   pokemonControl = new FormControl();
 
   disponibilGroups = [
@@ -39,9 +42,21 @@ export class StorageSpacesAnabiEditorComponent implements OnInit {
   ];
 
     constructor(
-        private storageSpacesService: StorageSpacesAnabiService
-    ) {
+        private storageSpacesService: StorageSpacesAnabiService, private  countiesHttp: CountiesHttp) {
     }
+
+  ngAfterViewInit() {
+    this.loadAll();
+  }
+
+
+  loadAll() {
+    this.countiesHttp.list().subscribe(
+      (res: County []) => {
+        this.counties = res;
+      }
+    );
+  }
 
     ngOnInit() {
         this.isSaving = false;
