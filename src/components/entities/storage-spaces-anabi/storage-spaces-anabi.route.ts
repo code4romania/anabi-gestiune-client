@@ -12,7 +12,7 @@ export const storageSpacesRoute: Routes = [
         },
     },
   {
-    path: 'storage-spaces-anabi-edit',
+    path: 'storage-spaces-anabi-add',
     component: StorageSpacesAnabiEditorComponent,
     data: {
       pageTitle: 'anabiApp.storageSpaces.home.title'

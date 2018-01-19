@@ -2,10 +2,10 @@ import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/c
 import {Subscription} from 'rxjs/Rx';
 
 
-import {StorageSpacesAnabi} from './storage-spaces-anabi.model';
 import {StorageSpacesAnabiService} from './storage-spaces-anabi.service';
 import {ResponseWrapper} from '../model/response-wrapper.model';
 import {MatSort, MatTableDataSource} from '@angular/material';
+import {StorageSpace} from '../../../shared/models/storageSpace.model';
 
 @Component({
   selector: 'jhi-storage-spaces-anabi',
@@ -13,7 +13,7 @@ import {MatSort, MatTableDataSource} from '@angular/material';
   styleUrls: ['storage-spaces-anabi.css']
 })
 export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
-  storageSpaces: StorageSpacesAnabi[];
+  storageSpaces: StorageSpace[];
 
 
   displayedColumns = ['name', 'street', 'city', 'building', 'stair', 'floor', 'flatNo'];
@@ -48,7 +48,7 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  trackId(index: number, item: StorageSpacesAnabi) {
+  trackId(index: number, item: StorageSpace) {
     return item.id;
   }
 

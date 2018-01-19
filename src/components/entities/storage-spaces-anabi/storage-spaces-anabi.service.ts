@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import {environment} from 'environments/environment';
-import { StorageSpacesAnabi } from './storage-spaces-anabi.model';
 import {ResponseWrapper} from '../model/response-wrapper.model';
 import {createRequestOption} from '../model/request-util';
+import {StorageSpace} from '../../../shared/models/storageSpace.model';
 
 @Injectable()
 export class StorageSpacesAnabiService {
@@ -13,7 +13,7 @@ export class StorageSpacesAnabiService {
 
     constructor(private http: Http) { }
 
-    create(storageSpaces: StorageSpacesAnabi): Observable<StorageSpacesAnabi> {
+    create(storageSpaces: StorageSpace): Observable<StorageSpace> {
         const copy = this.convert(storageSpaces);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
@@ -21,7 +21,7 @@ export class StorageSpacesAnabiService {
         });
     }
 
-    update(storageSpaces: StorageSpacesAnabi): Observable<StorageSpacesAnabi> {
+    update(storageSpaces: StorageSpace): Observable<StorageSpace> {
         const copy = this.convert(storageSpaces);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
@@ -29,7 +29,7 @@ export class StorageSpacesAnabiService {
         });
     }
 
-    find(id: number): Observable<StorageSpacesAnabi> {
+    find(id: number): Observable<StorageSpace> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
@@ -58,16 +58,16 @@ export class StorageSpacesAnabiService {
     /**
      * Convert a returned JSON object to StorageSpacesAnabi.
      */
-    private convertItemFromServer(json: any): StorageSpacesAnabi {
-        const entity: StorageSpacesAnabi = Object.assign(new StorageSpacesAnabi(), json);
+    private convertItemFromServer(json: any): StorageSpace {
+        const entity: StorageSpace = Object.assign(StorageSpace.empty(), json);
         return entity;
     }
 
     /**
-     * Convert a StorageSpacesAnabi to a JSON which can be sent to the server.
+     * Convert a StorageSpace to a JSON which can be sent to the server.
      */
-    private convert(storageSpaces: StorageSpacesAnabi): StorageSpacesAnabi {
-        const copy: StorageSpacesAnabi = Object.assign({}, storageSpaces);
+    private convert(storageSpaces: StorageSpace): StorageSpace {
+        const copy: StorageSpace = Object.assign({}, storageSpaces);
         return copy;
     }
 }
