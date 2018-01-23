@@ -12,7 +12,8 @@ import {
   MatTableModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {StorageSpacesAnabiEditorComponent} from './storage-spaces-anabi-editor.component';
+import {StorageSpacesAnabiAddComponent} from './storage-spaces-anabi-add.component';
+import {StorageSpacesAnabiEditComponent} from './storage-spaces-anabi-edit.component';
 
 const ENTITY_STATES = [
   ...storageSpacesRoute,
@@ -33,13 +34,13 @@ const ENTITY_STATES = [
     MatInputModule, MatButtonModule
   ],
   declarations: [
-    StorageSpacesAnabiComponent, StorageSpacesAnabiEditorComponent
+    StorageSpacesAnabiComponent, StorageSpacesAnabiAddComponent, StorageSpacesAnabiEditComponent
   ],
   entryComponents: [
-    StorageSpacesAnabiComponent, StorageSpacesAnabiEditorComponent
+    StorageSpacesAnabiComponent, StorageSpacesAnabiAddComponent, StorageSpacesAnabiEditComponent
   ],
   providers: [
-    StorageSpacesAnabiService, StorageSpacesAnabiEditorComponent
+    StorageSpacesAnabiService, StorageSpacesAnabiAddComponent, StorageSpacesAnabiEditComponent
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

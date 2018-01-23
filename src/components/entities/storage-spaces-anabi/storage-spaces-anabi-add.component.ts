@@ -12,11 +12,11 @@ import {Address} from '../../../shared/models/address.model';
 import {FormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'jhi-storage-spaces-anabi-editor',
-  templateUrl: './storage-spaces-anabi-editor.component.html',
+  selector: 'jhi-storage-spaces-anabi-add',
+  templateUrl: './storage-spaces-anabi-add.component.html',
   styleUrls: ['./storage-spaces-anabi.css']
 })
-export class StorageSpacesAnabiEditorComponent implements OnInit {
+export class StorageSpacesAnabiAddComponent implements OnInit {
 
   isSaving: boolean;
   counties: County[];
