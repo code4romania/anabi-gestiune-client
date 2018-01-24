@@ -15,4 +15,8 @@ export class StorageSpace {
   static empty(): StorageSpace {
     return new StorageSpace(0, new Address(), '');
   }
+
+  static create(id: number, name: string, address: Address): StorageSpace {
+    return new StorageSpace(id, address, name);
+  }
 }

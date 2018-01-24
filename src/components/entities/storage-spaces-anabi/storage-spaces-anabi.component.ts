@@ -6,6 +6,8 @@ import {StorageSpacesAnabiService} from './storage-spaces-anabi.service';
 import {ResponseWrapper} from '../model/response-wrapper.model';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
+import {Address} from '../../../shared/models/address.model';
+import {County} from '../../../shared/models/county.model';
 
 @Component({
   selector: 'jhi-storage-spaces-anabi',
@@ -16,7 +18,7 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   storageSpaces: StorageSpace[];
 
 
-  displayedColumns = ['name', 'street', 'city', 'building', 'stair', 'floor', 'flatNo'];
+  displayedColumns = ['name', 'street', 'city', 'building', 'stair', 'floor', 'flatNo', 'controls'];
 
   dataSource = new MatTableDataSource();
   ngAfterViewInit() {
@@ -55,7 +57,20 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   registerChangeInStorageSpaces() {
   }
 
+  editStorage(element: StorageSpace) {
+    console.log(element.id + 'seected');
+  }
+
   private onError(error) {
+    this.dataSource.data = [
+      StorageSpace.create(1, 'My storage Space',
+        Address.create('Address Name', '1', 'Romania', 'A street', 'Bucharest', 'Building No', 'stairs', 'fllor', '3')
+      ),
+      StorageSpace.create(2, 'My storage Space 2',
+        Address.create('Address Name', '1', 'Romania', 'A street', 'Bucharest', 'Building No', 'stairs', 'fllor', '3')
+      )
+    ];
+    this.storageSpacesService.setCache(this.dataSource.data);
   }
 
 

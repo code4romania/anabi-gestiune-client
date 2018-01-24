@@ -1,15 +1,14 @@
 <div>
   <h2>
     <span>Storage Spaces</span>
-    <button class="btn btn-primary float-right jh-create-entity create-storage-spaces-anabi"
-            [routerLink]="['/', { outlets: { popup: ['storage-spaces-anabi-new'] } }]">
-      <span class="fa fa-plus"></span>
-      <span>
-            Create new Storage Spaces
-            </span>
-    </button>
+
   </h2>
   <div class="row">
+    <button class="btn btn-primary"
+            [routerLink]="['/storage-spaces-anabi-add']">
+      <span class="fa fa-plus"></span>
+      <span>New</span>
+    </button>
   </div>
   <br/>
 
@@ -60,6 +59,20 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Flat No. </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.address.flatNo}} </mat-cell>
     </ng-container>
+
+
+    <ng-container matColumnDef="controls">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button class="btn"
+                [routerLink]="['/storage-spaces-anabi-edit', element.id ]">
+          <span class="fa fa-plus"></span>
+          <span>Edit</span>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

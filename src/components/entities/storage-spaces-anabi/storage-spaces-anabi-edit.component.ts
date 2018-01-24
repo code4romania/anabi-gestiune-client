@@ -11,6 +11,7 @@ import {StorageSpace} from '../../../shared/models/storageSpace.model';
 import {Address} from '../../../shared/models/address.model';
 import {FormsModule} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-storage-spaces-anabi-edit',
@@ -25,6 +26,7 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
   storageSpace: StorageSpace;
   private subscription: Subscription;
   private eventSubscriber: Subscription;
+  private id : number;
   disponibilGroups = [
     {
       name: 'Disponibil',
@@ -47,7 +49,8 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
 
   constructor(private storageSpacesService: StorageSpacesAnabiService, private countiesHttp: CountiesHttp, private route: ActivatedRoute) {
     this.subscription = this.route.params.subscribe((params) => {
-      this.load(params['id']);
+      this.id = params['id'];
+        this.load(params['id']);
     });
     this.loadAll();
   }
@@ -76,7 +79,7 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
   load(id) {
     this.storageSpacesService.find(id).subscribe((storageSpace) => {
       this.storageSpace = storageSpace;
-    });
+    }, (res: Response) => this.onLoadError());
   }
 
 
@@ -105,5 +108,9 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
 
   private onSaveError() {
     this.isSaving = false;
+  }
+
+  private onLoadError() {
+    this.storageSpace = this.storageSpacesService.getFronCache(this.id)
   }
 }
