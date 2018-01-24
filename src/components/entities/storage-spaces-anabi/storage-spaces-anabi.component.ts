@@ -18,7 +18,7 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   storageSpaces: StorageSpace[];
 
 
-  displayedColumns = ['name', 'street', 'city', 'building', 'stair', 'floor', 'flatNo', 'controls'];
+  displayedColumns = ['name', 'street', 'city',  'building', 'stair', 'county', 'floor', 'flatNo', 'controls'];
 
   dataSource = new MatTableDataSource();
   ngAfterViewInit() {
@@ -31,9 +31,9 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   constructor(private storageSpacesService: StorageSpacesAnabiService) {}
 
   loadAll() {
-    this.storageSpacesService.query().subscribe(
-      (res: ResponseWrapper) => {
-        this.storageSpaces = res.json;
+    this.storageSpacesService.list().subscribe(
+      (res: StorageSpace []) => {
+        this.storageSpaces = res;
         this.dataSource.data = this.storageSpaces;
       },
       (res: ResponseWrapper) => this.onError(res.json)
@@ -62,15 +62,7 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   }
 
   private onError(error) {
-    this.dataSource.data = [
-      StorageSpace.create(1, 'My storage Space',
-        Address.create('Address Name', '1', 'Romania', 'A street', 'Bucharest', 'Building No', 'stairs', 'fllor', '3')
-      ),
-      StorageSpace.create(2, 'My storage Space 2',
-        Address.create('Address Name', '1', 'Romania', 'A street', 'Bucharest', 'Building No', 'stairs', 'fllor', '3')
-      )
-    ];
-    this.storageSpacesService.setCache(this.dataSource.data);
+    console.error(error);
   }
 
 

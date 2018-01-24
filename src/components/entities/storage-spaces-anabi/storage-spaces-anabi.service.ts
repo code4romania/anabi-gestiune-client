@@ -16,19 +16,6 @@ export class StorageSpacesAnabiService {
   constructor(private http: Http) {
   }
 
-
-  setCache(storageSpaces: StorageSpace []) {
-    this.storageSpaces = storageSpaces;
-  }
-
-  getFronCache(id: number): StorageSpace {
-    const storage = this.storageSpaces[1];
-     if(storage isUndefined()){
-       console.log("Storage not found")
-    }
-    return storage;
-  }
-
   create(storageSpaces: StorageSpace): Observable<StorageSpace> {
     const copy = this.convert(storageSpaces);
     return this.http.post(this.resourceUrl, copy).map((res: Response) => {
@@ -39,7 +26,7 @@ export class StorageSpacesAnabiService {
 
   update(storageSpaces: StorageSpace): Observable<StorageSpace> {
     const copy = this.convert(storageSpaces);
-    return this.http.put(this.resourceUrl, copy).map((res: Response) => {
+    return this.http.put(this.resourceUrl + '/' + storageSpaces.id, copy).map((res: Response) => {
       const jsonResponse = res.json();
       return this.convertItemFromServer(jsonResponse);
     });
@@ -52,14 +39,15 @@ export class StorageSpacesAnabiService {
     });
   }
 
-  query(req?: any): Observable<ResponseWrapper> {
-    const options = createRequestOption(req);
-    return this.http.get(this.resourceUrl, options)
-      .map((res: Response) => this.convertResponse(res));
-  }
-
   delete(id: number): Observable<Response> {
     return this.http.delete(`${this.resourceUrl}/${id}`);
+  }
+
+  public list(): Observable<StorageSpace[]> {
+    return this.http
+      .get(environment.api_url + '/storageSpaces')
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   private convertResponse(res: Response): ResponseWrapper {

@@ -15,18 +15,19 @@ import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-storage-spaces-anabi-edit',
-  templateUrl: './storage-spaces-anabi-add.component.html',
+  templateUrl: './storage-spaces-anabi-edit.component.html',
   styleUrls: ['./storage-spaces-anabi.css']
 })
 export class StorageSpacesAnabiEditComponent implements OnInit{
 
   isSaving: boolean;
   counties: County[];
-  pokemonControl = new FormControl();
+  tipControl = new FormControl();
   storageSpace: StorageSpace;
+  selectedCounty: County;
   private subscription: Subscription;
-  private eventSubscriber: Subscription;
-  private id : number;
+
+  private id: number;
   disponibilGroups = [
     {
       name: 'Disponibil',
@@ -79,6 +80,7 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
   load(id) {
     this.storageSpacesService.find(id).subscribe((storageSpace) => {
       this.storageSpace = storageSpace;
+      console.log(this.storageSpace);
     }, (res: Response) => this.onLoadError());
   }
 
@@ -89,13 +91,7 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
 
   save() {
     this.isSaving = true;
-    if (this.storageSpace.id !== 0) {
-      this.subscribeToSaveResponse(
-        this.storageSpacesService.update(this.storageSpace));
-    } else {
-      this.subscribeToSaveResponse(
-        this.storageSpacesService.create(this.storageSpace));
-    }
+      this.subscribeToSaveResponse(this.storageSpacesService.update(this.storageSpace));
   }
 
   private subscribeToSaveResponse(result: Observable<StorageSpace>) {
@@ -110,7 +106,5 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
     this.isSaving = false;
   }
 
-  private onLoadError() {
-    this.storageSpace = this.storageSpacesService.getFronCache(this.id)
-  }
+  private onLoadError() {}
 }

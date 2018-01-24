@@ -20,7 +20,7 @@ export class StorageSpacesAnabiAddComponent implements OnInit {
 
   isSaving: boolean;
   counties: County[];
-  pokemonControl = new FormControl();
+  tipControl = new FormControl();
   storageSpace: StorageSpace;
 
   disponibilGroups = [
@@ -73,13 +73,8 @@ export class StorageSpacesAnabiAddComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    if (this.storageSpace.id !== 0) {
-      this.subscribeToSaveResponse(
-        this.storageSpacesService.update(this.storageSpace));
-    } else {
       this.subscribeToSaveResponse(
         this.storageSpacesService.create(this.storageSpace));
-    }
   }
 
   private subscribeToSaveResponse(result: Observable<StorageSpace>) {

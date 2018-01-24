@@ -48,6 +48,11 @@
       <mat-cell *matCellDef="let element"> {{element.address.stair}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="county">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> County </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.address.county.name}} </mat-cell>
+    </ng-container>
+
 
     <ng-container matColumnDef="floor">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Floor </mat-header-cell>
@@ -69,13 +74,16 @@
           <span class="fa fa-plus"></span>
           <span>Edit</span>
         </button>
+
+        <button class="btn"
+                [routerLink]="['/storage-spaces-anabi-delete', element.id ]">
+          <span class="fa fa-danger"></span>
+          <span>Delete</span>
+        </button>
       </mat-cell>
     </ng-container>
-
-
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-
 </div>
