@@ -6,6 +6,10 @@ import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
 import {MaterialModule} from './material.module';
 
+// shared components
+import {ToolbarComponent} from './shared/components/toolbar/toolbar.component';
+
+// page components
 import {HomeComponent} from './components/home/home.component';
 import {AssetComponent} from './components/asset/asset.component';
 import {DecisionComponent} from './components/decision/decision.component';
@@ -36,6 +40,7 @@ const ROUTES: Routes = [
     MaterialModule
   ],
   declarations: [
+    ToolbarComponent,
     HomeComponent,
     SearchComponent,
     AssetComponent,
