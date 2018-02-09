@@ -45,24 +45,24 @@
 
     <ng-container matColumnDef="stair">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Stair </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.address.stair}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.address?.stair}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="county">
       <mat-header-cell *matHeaderCellDef mat-sort-header> County </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.address.county.name}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.address?.county?.name}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="floor">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Floor </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.address.floor}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.address?.floor}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="flatNo">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Flat No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.address.flatNo}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.address?.flatNo}} </mat-cell>
     </ng-container>
 
 
@@ -70,13 +70,13 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button class="btn"
-                [routerLink]="['/storage-spaces-anabi-edit', element.id ]">
+                [routerLink]="['/storage-spaces-edit', element.id ]">
           <span class="fa fa-plus"></span>
           <span>Edit</span>
         </button>
 
         <button class="btn"
-                [routerLink]="['/storage-spaces-anabi-delete', element.id ]">
+                [routerLink]="['/storage-spaces-delete', element.id ]">
           <span class="fa fa-danger"></span>
           <span>Delete</span>
         </button>

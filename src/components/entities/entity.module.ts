@@ -1,12 +1,12 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
-import {AnabiStorageSpacesAnabiModule} from './storage-spaces-anabi/storage-spaces-anabi.module';
+import {StorageSpacesModule} from './storage-spaces/storage-spaces.module';
 import {MatTableModule} from '@angular/material';
 
 @NgModule({
     imports: [
-           AnabiStorageSpacesAnabiModule, CommonModule, MatTableModule
+           StorageSpacesModule, CommonModule, MatTableModule
     ],
     declarations: [],
     entryComponents: [],

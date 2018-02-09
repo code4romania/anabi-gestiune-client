@@ -1,33 +1,26 @@
-import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
-import {ActivatedRoute, Route} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 import {Response} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
-import {StorageSpacesAnabiService} from './storage-spaces-anabi.service';
+import {StorageSpacesService} from './storage-spaces.service';
 import {FormControl} from '@angular/forms';
 import {County} from '../../../shared/models/county.model';
 import {CountiesHttp} from '../../../shared/http/counties.http';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
 import {Address} from '../../../shared/models/address.model';
-import {FormsModule} from '@angular/forms';
-import {Subscription} from 'rxjs/Subscription';
-import {catchError} from 'rxjs/operators';
 
 @Component({
-  selector: 'jhi-storage-spaces-anabi-edit',
-  templateUrl: './storage-spaces-anabi-edit.component.html',
-  styleUrls: ['./storage-spaces-anabi.css']
+  selector: 'app-storage-spaces-anabi-add',
+  templateUrl: './storage-spaces-add.component.html',
+  styleUrls: ['./storage-spaces.css']
 })
-export class StorageSpacesAnabiEditComponent implements OnInit{
+export class StorageSpacesAnabiAddComponent implements OnInit {
 
   isSaving: boolean;
   counties: County[];
   tipControl = new FormControl();
   storageSpace: StorageSpace;
-  selectedCounty: County;
-  private subscription: Subscription;
 
-  private id: number;
   disponibilGroups = [
     {
       name: 'Disponibil',
@@ -48,25 +41,7 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
     }
   ];
 
-  constructor(private storageSpacesService: StorageSpacesAnabiService, private countiesHttp: CountiesHttp, private route: ActivatedRoute) {
-    this.subscription = this.route.params.subscribe((params) => {
-      this.id = params['id'];
-        this.load(params['id']);
-    });
-    this.loadAll();
-  }
-
-  ngOnInit() {
-    this.isSaving = false;
-    this.loadAll();
-    this.storageSpace = new StorageSpace(0, new Address(), '');
-    this.storageSpace.address.street = '';
-    this.storageSpace.address.building = null;
-    this.storageSpace.address.stair = null;
-    this.storageSpace.address.flatNo = null;
-    this.storageSpace.address.city = null;
-    this.storageSpace.address.county = null;
-    this.storageSpace.tip = null;
+  constructor(private storageSpacesService: StorageSpacesService, private  countiesHttp: CountiesHttp) {
   }
 
   loadAll() {
@@ -77,21 +52,27 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
     );
   }
 
-  load(id) {
-    this.storageSpacesService.find(id).subscribe((storageSpace) => {
-      this.storageSpace = storageSpace;
-      console.log(this.storageSpace);
-    }, (res: Response) => this.onLoadError());
+  ngOnInit() {
+    this.isSaving = false;
+    this.loadAll();
+    this.storageSpace = new StorageSpace();
+    this.storageSpace.address.street = '';
+    this.storageSpace.address.building = null;
+    this.storageSpace.address.stair = null;
+    this.storageSpace.address.flatNo = null;
+    this.storageSpace.address.city = null;
+    this.storageSpace.address.county = null;
+    this.storageSpace.tip = null;
   }
 
-
   clear() {
-    this.storageSpace = StorageSpace.empty();
+    this.storageSpace = new StorageSpace();
   }
 
   save() {
     this.isSaving = true;
-      this.subscribeToSaveResponse(this.storageSpacesService.update(this.storageSpace));
+      this.subscribeToSaveResponse(
+        this.storageSpacesService.create(this.storageSpace));
   }
 
   private subscribeToSaveResponse(result: Observable<StorageSpace>) {
@@ -105,6 +86,4 @@ export class StorageSpacesAnabiEditComponent implements OnInit{
   private onSaveError() {
     this.isSaving = false;
   }
-
-  private onLoadError() {}
 }

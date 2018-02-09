@@ -16,7 +16,7 @@ import {AdminComponent} from './components/admin/admin.component';
 import {AddassetComponent} from './components/asset/addasset.component';
 import {AnabiEntityModule} from './components/entities/entity.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {storageSpacesRoute} from './components/entities/storage-spaces-anabi';
+import {storageSpacesRoute} from './components/entities/storage-spaces';
 import {CountiesHttp} from './shared/http/counties.http';
 
 const ROUTES: Routes = [

@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/c
 import {Subscription} from 'rxjs/Rx';
 
 
-import {StorageSpacesAnabiService} from './storage-spaces-anabi.service';
+import {StorageSpacesService} from './storage-spaces.service';
 import {ResponseWrapper} from '../model/response-wrapper.model';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
@@ -10,13 +10,12 @@ import {Address} from '../../../shared/models/address.model';
 import {County} from '../../../shared/models/county.model';
 
 @Component({
-  selector: 'jhi-storage-spaces-anabi',
-  templateUrl: './storage-spaces-anabi.component.html',
-  styleUrls: ['storage-spaces-anabi.css']
+  selector: 'app-storage-spaces',
+  templateUrl: './storage-spaces-list.component.html',
+  styleUrls: ['storage-spaces.css']
 })
-export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
+export class StorageSpacesListComponent implements AfterViewInit, OnDestroy {
   storageSpaces: StorageSpace[];
-
 
   displayedColumns = ['name', 'street', 'city',  'building', 'stair', 'county', 'floor', 'flatNo', 'controls'];
 
@@ -28,7 +27,7 @@ export class StorageSpacesAnabiComponent implements AfterViewInit, OnDestroy {
   }
 
 
-  constructor(private storageSpacesService: StorageSpacesAnabiService) {}
+  constructor(private storageSpacesService: StorageSpacesService) {}
 
   loadAll() {
     this.storageSpacesService.list().subscribe(
