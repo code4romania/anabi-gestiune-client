@@ -13,7 +13,7 @@ export class StorageSpacesAnabiDeleteComponent {
   message: any;
   constructor(private storageSpacesService: StorageSpacesService, private countiesHttp: CountiesHttp, private route: ActivatedRoute) {
      this.route.params.subscribe((params) => {
-      this.storageSpacesService.delete(params['id']).subscribe( (value) => this.message = value.json(), (error) => this.message = error);
+      this.storageSpacesService.delete(params['id']).subscribe( (value) => this.message = value, (error) => this.message = error);
     });
 
   }

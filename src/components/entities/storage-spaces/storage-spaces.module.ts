@@ -13,6 +13,7 @@ import {StorageSpacesAnabiDeleteComponent} from './storage-spaces-delete.compone
 import {CountiesHttp} from '../../../shared/http/counties.http';
 import {StorageSpacesAnabiAddComponent} from './storage-spaces-add.component';
 import {StorageSpacesService} from './storage-spaces.service';
+import {HttpClient} from '@angular/common/http';
 
 const ENTITY_STATES = [
   ...storageSpacesRoute,
@@ -39,7 +40,7 @@ const ENTITY_STATES = [
     StorageSpacesListComponent, StorageSpacesAnabiAddComponent, StorageSpacesAnabiEditComponent, StorageSpacesAnabiDeleteComponent
   ],
   providers: [
-    CountiesHttp, StorageSpacesService
+    CountiesHttp, StorageSpacesService, HttpClient
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

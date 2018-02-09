@@ -8,7 +8,7 @@ export class StorageSpacesService extends GenericService<StorageSpace> {
 
   itemUrlPart: String = '/storageSpaces';
 
-  getPart(): String {
+  getPart(): string {
     return environment.api_url  + this.itemUrlPart;
   }
 

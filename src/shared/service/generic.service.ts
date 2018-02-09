@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {environment} from 'environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export abstract class GenericService<T> {
 
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   create(itemToCreate: T): Observable<T> {
@@ -33,7 +34,7 @@ export abstract class GenericService<T> {
     });
   }
 
-  delete(id: number): Observable<Response> {
+  delete(id: number): Observable<Object> {
     return this.http.delete(`${this.getPart()}/${id}`);
   }
 
@@ -56,7 +57,7 @@ export abstract class GenericService<T> {
 
   abstract getUpdateUrl(item: T): string;
 
-  abstract getPart(): String;
+  abstract getPart(): string;
 }
 
 
