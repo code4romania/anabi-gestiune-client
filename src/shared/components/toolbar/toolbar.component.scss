@@ -10,15 +10,28 @@ mat-toolbar {
     margin-right : 64px;
   }
 
-  button {
+  button.mat-button {
     height        : 100%;
     border-radius : 0;
+
+    /deep/ .mat-button-focus-overlay {
+      background-color : transparent;
+    }
   }
 
-  button:hover,
-  button.active {
+  button.mat-button:hover,
+  button.mat-button.active {
     background-color : map-get($mat-catalina-blue, 500);
     color            : map-get($mat-white, 500);
+  }
+
+  $iconSize : 56px;
+  mat-icon {
+    height    : $iconSize;
+    width     : $iconSize;
+    font-size : $iconSize;
+    margin    : 8px;
+    cursor    : pointer;
   }
 
   // utility
