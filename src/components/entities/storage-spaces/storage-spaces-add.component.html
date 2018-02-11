@@ -3,7 +3,7 @@
 
     <div class="mat-row">
       <mat-form-field>
-        <input matInput placeholder="Name" name="name"
+        <input matInput placeholder="Nume" name="name"
                [(ngModel)]="storageSpace.name"/>
       </mat-form-field>
     </div>
@@ -31,28 +31,28 @@
         <mat-form-field class="example-full-width">
           <input matInput name="strada"
                  [(ngModel)]="storageSpace.address.street"
-                 placeholder="Street"/>
+                 placeholder="Strada"/>
         </mat-form-field>
         <mat-form-field class="smallInputContainer">
           <input type="string" matInput name="building"
                  [(ngModel)]="storageSpace.address.building"
-                 placeholder="Building"/>
+                 placeholder="Nr."/>
         </mat-form-field>
       </div>
       <div class="mat-row">
         <mat-form-field>
-          <input matInput placeholder="Stair" name="stair"
+          <input matInput placeholder="Scara" name="stair"
                  type="string"
                  [(ngModel)]="storageSpace.address.stair"
           />
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Floor" name="floor" type="string"
+          <input matInput placeholder="Etaj" name="floor" type="string"
                  [(ngModel)]="storageSpace.address.floor"
           />
         </mat-form-field>
         <mat-form-field class="smallInputContainer">
-          <input matInput type="number" placeholder="Flat No"
+          <input matInput type="number" placeholder="Nr. Ap."
                  name="flatNo" [(ngModel)]="storageSpace.address.flatNo"
           />
         </mat-form-field>
@@ -60,13 +60,13 @@
 
       <div class="mat-row">
         <mat-form-field>
-          <input matInput placeholder="City"
+          <input matInput placeholder="Oras"
                  name="oras"
                  [(ngModel)]="storageSpace.address.city"
           />
         </mat-form-field>
         <mat-form-field>
-          <mat-select placeholder="County"
+          <mat-select placeholder="Judet"
                       [value]="storageSpace.address.countyId">
             <mat-option *ngFor="let county of counties" [value]="county.id">
               {{county.name}}
@@ -76,8 +76,8 @@
       </div>
     </mat-card>
 
-    <button mat-button (click)="save()">Save</button>
-    <button mat-button (click)="clear()">Cancel</button>
+    <button mat-button (click)="save()">Salvare</button>
+    <button mat-button (click)="clear()">Anulare</button>
   </form>
 </div>
 

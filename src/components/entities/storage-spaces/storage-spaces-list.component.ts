@@ -14,8 +14,9 @@ import {County} from '../../../shared/models/county.model';
   templateUrl: './storage-spaces-list.component.html',
   styleUrls: ['storage-spaces.css']
 })
+
 export class StorageSpacesListComponent implements AfterViewInit, OnDestroy {
-  storageSpaces: StorageSpace[];
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns = ['name', 'street', 'city',  'building', 'stair', 'county', 'floor', 'flatNo', 'controls'];
 
@@ -32,32 +33,16 @@ export class StorageSpacesListComponent implements AfterViewInit, OnDestroy {
   loadAll() {
     this.storageSpacesService.list().subscribe(
       (res: StorageSpace []) => {
-        this.storageSpaces = res;
-        this.dataSource.data = this.storageSpaces;
+        this.dataSource.data = res;
       },
       (res: ResponseWrapper) => this.onError(res.json)
     );
   }
-  @ViewChild(MatSort) sort: MatSort;
-
-  /**
-   * Set the sort after the view init since this component will
-   * be able to query its view for the initialized sort.
-   */
-
-
   ngOnDestroy() {
-  }
-
-  trackId(index: number, item: StorageSpace) {
-    return item.id;
+   this.dataSource.data = null;
   }
 
   registerChangeInStorageSpaces() {
-  }
-
-  editStorage(element: StorageSpace) {
-    console.log(element.id + 'seected');
   }
 
   private onError(error) {

@@ -15,7 +15,6 @@ export class StorageSpacesAnabiDeleteComponent {
      this.route.params.subscribe((params) => {
       this.storageSpacesService.delete(params['id']).subscribe( (value) => this.message = value, (error) => this.message = error);
     });
-
   }
 
 }

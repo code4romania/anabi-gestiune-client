@@ -7,7 +7,6 @@ import {FormControl} from '@angular/forms';
 import {County} from '../../../shared/models/county.model';
 import {CountiesHttp} from '../../../shared/http/counties.http';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
-import {Address} from '../../../shared/models/address.model';
 
 @Component({
   selector: 'app-storage-spaces-anabi-add',

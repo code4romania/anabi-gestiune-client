@@ -17,12 +17,11 @@ export class StorageSpacesService extends GenericService<StorageSpace> {
   }
 
   convert(items: StorageSpace): StorageSpace {
-    const copy: StorageSpace = Object.assign(StorageSpace, items);
-    return copy;
+    return Object.assign(StorageSpace, items);
   }
 
   convertItemFromServer(json: any): StorageSpace {
-    const entity: StorageSpace = Object.assign(StorageSpace, json);
-    return entity;
+    return Object.assign(StorageSpace, json);
   }
+
 }
