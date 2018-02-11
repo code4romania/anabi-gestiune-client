@@ -41,7 +41,6 @@ const ENTITY_STATES = [
   ],
   providers: [
     CountiesHttp, StorageSpacesService, HttpClient
-
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
