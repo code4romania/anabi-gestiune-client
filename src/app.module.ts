@@ -29,7 +29,7 @@ const ROUTES: Routes = [
   {path: 'reports', component: ReportsComponent},
   {path: 'dictionaries', component: DictionariesComponent},
   {path: 'admin', component: AdminComponent},
-  {path: '**', redirectTo: '/search'}
+  {path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({
