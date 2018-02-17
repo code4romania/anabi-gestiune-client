@@ -1,0 +1,15 @@
+<mat-toolbar color="accent">
+  <img src="assets/anabi_logo.png" />
+  <button mat-button routerLink="/home" routerLinkActive="active">Dashboard</button>
+  <button mat-button routerLink="/decision" routerLinkActive="active">Bunuri</button>
+  <button mat-button routerLink="/reports" routerLinkActive="active">Rapoarte</button>
+  <button mat-button routerLink="/search" routerLinkActive="active">Cautare</button>
+  <span class="mat-toolbar-spacer"></span>
+
+  <span>John Doe</span>
+  <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item>Profil</button>
+    <button mat-menu-item>Deconectare</button>
+  </mat-menu>
+  <mat-icon color="primary" [matMenuTriggerFor]="profileMenu">account_circle</mat-icon>
+</mat-toolbar>

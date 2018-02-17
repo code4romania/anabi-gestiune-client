@@ -4,8 +4,12 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
-import {MaterialModule} from './app/material/material.module';
+import {MaterialModule} from './material.module';
 
+// shared components
+import {ToolbarComponent} from './shared/components/toolbar/toolbar.component';
+
+// page components
 import {HomeComponent} from './components/home/home.component';
 import {AssetComponent} from './components/asset/asset.component';
 import {DecisionComponent} from './components/decision/decision.component';
@@ -13,10 +17,11 @@ import {SearchComponent} from './components/search/search.component';
 import {ReportsComponent} from './components/reports/reports.component';
 import {DictionariesComponent} from './components/dictionaries/dictionaries.component';
 import {AdminComponent} from './components/admin/admin.component';
-import { AddassetComponent } from './components/asset/addasset.component';
+import {AddassetComponent} from './components/asset/addasset.component';
 
 const ROUTES: Routes = [
-  {path: '', redirectTo: '/search', pathMatch: 'full'},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
   {path: 'search', component: SearchComponent},
   {path: 'decision', component: DecisionComponent},
   {path: 'asset/:id', component: AssetComponent},
@@ -24,7 +29,7 @@ const ROUTES: Routes = [
   {path: 'reports', component: ReportsComponent},
   {path: 'dictionaries', component: DictionariesComponent},
   {path: 'admin', component: AdminComponent},
-  {path: '**', redirectTo: '/search'}
+  {path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({
@@ -32,10 +37,11 @@ const ROUTES: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule,
-    RouterModule.forRoot(ROUTES, {useHash: true})
+    RouterModule.forRoot(ROUTES, {useHash: true}),
+    MaterialModule
   ],
   declarations: [
+    ToolbarComponent,
     HomeComponent,
     SearchComponent,
     AssetComponent,
@@ -45,8 +51,7 @@ const ROUTES: Routes = [
     AdminComponent,
     AddassetComponent
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [HomeComponent]
 })
 

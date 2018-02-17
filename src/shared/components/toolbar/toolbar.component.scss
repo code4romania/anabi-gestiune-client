@@ -1,0 +1,44 @@
+@import '../../../theme';
+
+mat-toolbar {
+  height        : 100px;
+  border-bottom : 2px solid map-get($mat-catalina-blue, 500);
+
+  img {
+    height       : 100%;
+    width        : auto;
+    margin-right : 64px;
+  }
+
+  button.mat-button {
+    height        : 100%;
+    border-radius : 0;
+
+    /deep/ .mat-button-focus-overlay {
+      background-color : transparent;
+    }
+  }
+
+  button.mat-button:hover,
+  button.mat-button.active {
+    background-color : map-get($mat-catalina-blue, 500);
+    color            : map-get($mat-white, 500);
+  }
+
+  $iconSize : 56px;
+  mat-icon {
+    height    : $iconSize;
+    width     : $iconSize;
+    font-size : $iconSize;
+    margin    : 8px;
+    cursor    : pointer;
+  }
+
+  // utility
+  .mat-toolbar-spacer {
+    /* This fills the remaining space, by using flexbox.
+       Every toolbar row uses a flexbox row layout. */
+    flex : 1 1 auto;
+  }
+}
+
