@@ -17,10 +17,11 @@ import {SearchComponent} from './components/search/search.component';
 import {ReportsComponent} from './components/reports/reports.component';
 import {DictionariesComponent} from './components/dictionaries/dictionaries.component';
 import {AdminComponent} from './components/admin/admin.component';
-import { AddassetComponent } from './components/asset/addasset.component';
+import {AddassetComponent} from './components/asset/addasset.component';
 
 const ROUTES: Routes = [
-  {path: '', redirectTo: '/search', pathMatch: 'full'},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
   {path: 'search', component: SearchComponent},
   {path: 'decision', component: DecisionComponent},
   {path: 'asset/:id', component: AssetComponent},
@@ -50,8 +51,7 @@ const ROUTES: Routes = [
     AdminComponent,
     AddassetComponent
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [HomeComponent]
 })
 
