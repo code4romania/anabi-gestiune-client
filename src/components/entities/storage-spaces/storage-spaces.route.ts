@@ -1,9 +1,9 @@
 import {Routes} from '@angular/router';
 
 import {StorageSpacesListComponent} from './storage-spaces-list.component';
-import {StorageSpacesAnabiAddComponent} from './storage-spaces-add.component';
-import {StorageSpacesAnabiEditComponent} from './storage-spaces-edit.component';
-import {StorageSpacesAnabiDeleteComponent} from './storage-spaces-delete.component';
+import {StorageSpacesAddComponent} from './storage-spaces-add.component';
+import {StorageSpacesEditComponent} from './storage-spaces-edit.component';
+import {StorageSpacesDeleteComponent} from './storage-spaces-delete.component';
 
 export const storageSpacesRoute: Routes = [
     {
@@ -15,21 +15,21 @@ export const storageSpacesRoute: Routes = [
     },
   {
     path: 'storage-spaces-add',
-    component: StorageSpacesAnabiAddComponent,
+    component: StorageSpacesAddComponent,
     data: {
       pageTitle: 'Spatii - adaugare'
     }
   },
   {
     path: 'storage-spaces-edit/:id',
-    component: StorageSpacesAnabiEditComponent,
+    component: StorageSpacesEditComponent,
     data: {
       pageTitle: 'Spatii - ediatare'
     }
   },
   {
     path: 'storage-spaces-delete/:id',
-    component: StorageSpacesAnabiDeleteComponent,
+    component: StorageSpacesDeleteComponent,
     data: {
       pageTitle: 'Spatii - stergere'
     }

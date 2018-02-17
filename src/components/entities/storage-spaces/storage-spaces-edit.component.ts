@@ -8,15 +8,14 @@ import {FormControl} from '@angular/forms';
 import {County} from '../../../shared/models/county.model';
 import {CountiesHttp} from '../../../shared/http/counties.http';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
-import {Address} from '../../../shared/models/address.model';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-storage-spaces-anabi-edit',
+  selector: 'app-storage-spaces-edit',
   templateUrl: './storage-spaces-edit.component.html',
   styleUrls: ['./storage-spaces.css']
 })
-export class StorageSpacesAnabiEditComponent implements OnInit{
+export class StorageSpacesEditComponent implements OnInit{
 
   isSaving: boolean;
   counties: County[];

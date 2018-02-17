@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {StorageSpacesModule} from './storage-spaces/storage-spaces.module';
 import {MatTableModule} from '@angular/material';
+import {HttpClient} from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -10,6 +11,6 @@ import {MatTableModule} from '@angular/material';
     ],
     declarations: [],
     entryComponents: [],
-    providers: []
+    providers: [HttpClient]
 })
 export class AnabiEntityModule {}

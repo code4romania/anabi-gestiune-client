@@ -9,11 +9,11 @@ import {CountiesHttp} from '../../../shared/http/counties.http';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
 
 @Component({
-  selector: 'app-storage-spaces-anabi-add',
+  selector: 'app-storage-spaces-add',
   templateUrl: './storage-spaces-add.component.html',
   styleUrls: ['./storage-spaces.css']
 })
-export class StorageSpacesAnabiAddComponent implements OnInit {
+export class StorageSpacesAddComponent implements OnInit {
 
   isSaving: boolean;
   counties: County[];

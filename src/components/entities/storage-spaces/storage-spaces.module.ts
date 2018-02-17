@@ -8,10 +8,10 @@ import {
   MatTableModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {StorageSpacesAnabiEditComponent} from './storage-spaces-edit.component';
-import {StorageSpacesAnabiDeleteComponent} from './storage-spaces-delete.component';
+import {StorageSpacesEditComponent} from './storage-spaces-edit.component';
+import {StorageSpacesDeleteComponent} from './storage-spaces-delete.component';
 import {CountiesHttp} from '../../../shared/http/counties.http';
-import {StorageSpacesAnabiAddComponent} from './storage-spaces-add.component';
+import {StorageSpacesAddComponent} from './storage-spaces-add.component';
 import {StorageSpacesService} from './storage-spaces.service';
 import {HttpClient} from '@angular/common/http';
 
@@ -34,10 +34,10 @@ const ENTITY_STATES = [
     MatInputModule, MatButtonModule
   ],
   declarations: [
-    StorageSpacesListComponent, StorageSpacesAnabiAddComponent, StorageSpacesAnabiEditComponent, StorageSpacesAnabiDeleteComponent
+    StorageSpacesListComponent, StorageSpacesAddComponent, StorageSpacesEditComponent, StorageSpacesDeleteComponent
   ],
   entryComponents: [
-    StorageSpacesListComponent, StorageSpacesAnabiAddComponent, StorageSpacesAnabiEditComponent, StorageSpacesAnabiDeleteComponent
+    StorageSpacesListComponent, StorageSpacesAddComponent, StorageSpacesEditComponent, StorageSpacesDeleteComponent
   ],
   providers: [
     CountiesHttp, StorageSpacesService, HttpClient

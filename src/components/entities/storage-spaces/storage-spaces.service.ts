@@ -1,15 +1,14 @@
 import {Injectable} from '@angular/core';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
 import {GenericService} from '../../../shared/service/generic.service';
-import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class StorageSpacesService extends GenericService<StorageSpace> {
 
-  itemUrlPart: String = '/storageSpaces';
+  itemUrlPart: string = '/storageSpaces';
 
   getPart(): string {
-    return environment.api_url  + this.itemUrlPart;
+    return this.itemUrlPart;
   }
 
   getUpdateUrl(item: StorageSpace): string {

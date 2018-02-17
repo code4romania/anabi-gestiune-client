@@ -4,16 +4,18 @@ import {StorageSpacesService} from './storage-spaces.service';
 import {CountiesHttp} from '../../../shared/http/counties.http';
 
 @Component({
-  selector: 'app-storage-spaces-anabi-delete',
+  selector: 'app-storage-spaces-delete',
   templateUrl: './storage-spaces-delete.component.html',
   styleUrls: ['./storage-spaces.css']
 })
-export class StorageSpacesAnabiDeleteComponent {
+export class StorageSpacesDeleteComponent {
 
   message: any;
   constructor(private storageSpacesService: StorageSpacesService, private countiesHttp: CountiesHttp, private route: ActivatedRoute) {
      this.route.params.subscribe((params) => {
-      this.storageSpacesService.delete(params['id']).subscribe( (value) => this.message = value, (error) => this.message = error);
+      this.storageSpacesService.delete(params['id'])
+        .subscribe( (value) => this.message = value,
+          (error) => this.message = error.error);
     });
   }
 

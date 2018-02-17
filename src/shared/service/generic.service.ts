@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {RequestMethod, Response} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {environment} from 'environments/environment';
 import {HttpClient} from '@angular/common/http';
@@ -34,15 +34,16 @@ export abstract class GenericService<T> {
     });
   }
 
-  delete(id: number): Observable<Object> {
-    return this.http.delete(`${this.getPart()}/${id}`);
+  delete(entityId: number): Observable<Object> {
+    const options = {body: {id: entityId}};
+    return this.http.request('DELETE', environment.api_url + `${this.getPart()}`, options)
+      .catch( err => Observable.throw(err) );
   }
 
   public list(): Observable<T[]> {
     return this.http
       .get(environment.api_url + this.getPart())
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error.json() || 'Server error'));
   }
 
   /**
