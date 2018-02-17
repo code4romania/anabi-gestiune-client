@@ -1,11 +1,19 @@
 <section id="search-page">
   {{ page }}
   <div>
-    <input placeholder="Numar decizie" [(ngModel)]="filter.decisionNumber">
-    <input placeholder="Numar dosar" [(ngModel)]="filter.fileNumber">
-    <input placeholder="CNP/CUI Inculpat" [(ngModel)]="filter.personId">
-    <input placeholder="Nume Inculpat" [(ngModel)]="filter.personName">
-    <button (click)="search()">Search</button>
+  <mat-form-field>
+    <input matInput placeholder="Numar decizie" [(ngModel)]="filter.decisionNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Numar dosar" [(ngModel)]="filter.fileNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="CNP/CUI Inculpat" [(ngModel)]="filter.personId">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Nume Inculpat" [(ngModel)]="filter.personName">
+  </mat-form-field>
+    <button mat-button (click)="search()">Search</button>
   </div>
   <div>
       Numar Decizie - Data Decizie - Numar Dosar - Instanta eminenta

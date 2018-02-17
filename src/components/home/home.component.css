@@ -1,0 +1,10 @@
+.mat-tab-label, .mat-tab-link {
+  color: black;
+}
+.active {
+  background-color: rgba(209, 196, 233, 0.3);
+
+}
+nav {
+  margin-bottom: 5px;
+}
