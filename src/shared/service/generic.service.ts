@@ -12,11 +12,8 @@ export abstract class GenericService<T> {
   }
 
   create(itemToCreate: T): Observable<T> {
-    const copy = this.convert(itemToCreate);
-    return this.http.post(this.getPart(), copy).map((res: Response) => {
-      const jsonResponse = res.json();
-      return this.convertItemFromServer(jsonResponse);
-    });
+    return this.http.post(environment.api_url + `${this.getPart()}`, itemToCreate)
+      .catch((error: any) => Observable.throw(error || 'Server error'));
   }
 
   update(itemToUpdate: T): Observable<T> {

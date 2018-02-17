@@ -5,4 +5,13 @@ export class StorageSpace {
   address: Address = new Address();
   name: string = '';
   tip: String;
+  countyCode: String;
+  city: String;
+  flatNo: String;
+  street: string;
+  city: string;
+  building: string;
+  stair: string;
+  floor: string;
+  flatNo: string;
 }

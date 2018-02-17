@@ -7,6 +7,8 @@ import {FormControl} from '@angular/forms';
 import {County} from '../../../shared/models/county.model';
 import {CountiesHttp} from '../../../shared/http/counties.http';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
+import {storageSpacesRoute} from './storage-spaces.route';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-storage-spaces-add',
@@ -15,6 +17,8 @@ import {StorageSpace} from '../../../shared/models/storageSpace.model';
 })
 export class StorageSpacesAddComponent implements OnInit {
 
+  message: String = null;
+  error: boolean = false;
   isSaving: boolean;
   counties: County[];
   tipControl = new FormControl();
@@ -40,8 +44,8 @@ export class StorageSpacesAddComponent implements OnInit {
     }
   ];
 
-  constructor(private storageSpacesService: StorageSpacesService, private  countiesHttp: CountiesHttp) {
-  }
+  constructor(private storageSpacesService: StorageSpacesService, private  countiesHttp: CountiesHttp, private router: Router) {
+  }r
 
   loadAll() {
     this.countiesHttp.list().subscribe(
@@ -70,16 +74,16 @@ export class StorageSpacesAddComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-      this.subscribeToSaveResponse(
-        this.storageSpacesService.create(this.storageSpace));
-  }
-
-  private subscribeToSaveResponse(result: Observable<StorageSpace>) {
-    result.subscribe((res: StorageSpace) =>
-      this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    this.storageSpacesService.create(this.storageSpace)
+      .subscribe((res: StorageSpace) => this.onSaveSuccess(res),
+        (error) => {
+          this.error = true;
+          this.message = error.error
+        });
   }
 
   private onSaveSuccess(result: StorageSpace) {
+    this.router.navigate(['storage-spaces-list']);
   }
 
   private onSaveError() {

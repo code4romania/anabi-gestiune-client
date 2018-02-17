@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {StorageSpacesService} from './storage-spaces.service';
 import {CountiesHttp} from '../../../shared/http/counties.http';
+import {StorageSpace} from '../../../shared/models/storageSpace.model';
+import Any = jasmine.Any;
 
 @Component({
   selector: 'app-storage-spaces-delete',
@@ -11,12 +13,17 @@ import {CountiesHttp} from '../../../shared/http/counties.http';
 export class StorageSpacesDeleteComponent {
 
   message: any;
-  constructor(private storageSpacesService: StorageSpacesService, private countiesHttp: CountiesHttp, private route: ActivatedRoute) {
+  constructor(private storageSpacesService: StorageSpacesService, private countiesHttp: CountiesHttp, private route: ActivatedRoute,
+  private router: Router) {
      this.route.params.subscribe((params) => {
       this.storageSpacesService.delete(params['id'])
-        .subscribe( (value) => this.message = value,
+        .subscribe( (value) => this.onSaveSuccess(value),
           (error) => this.message = error.error);
     });
+  }
+
+  private onSaveSuccess(result: Any) {
+    this.router.navigate(['storage-spaces-list']);
   }
 
 }

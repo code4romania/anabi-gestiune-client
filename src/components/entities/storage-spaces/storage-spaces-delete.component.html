@@ -1,11 +1,12 @@
-<div>
+<div [hidden]="!message">
   <h2>
     <span>Spatii de stocare - Stergere</span>
   </h2>
   <div class="row">
-    {{ message.message }}
+    {{ message?.message }}
   </div>
-  <div>
-    {{ message.errors }}
-  </div>
+  <p *ngFor="let err of message?.errors" class="mat-background-warn">
+    {{ err }}
+  </p>
+
 </div>
