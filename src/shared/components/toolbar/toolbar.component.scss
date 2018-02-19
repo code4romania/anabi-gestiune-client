@@ -1,6 +1,6 @@
 @import '../../../theme';
 
-mat-toolbar {
+mat-toolbar.header {
   height        : 100px;
   border-bottom : 2px solid map-get($mat-catalina-blue, 500);
 
@@ -35,6 +35,9 @@ mat-toolbar {
   }
 
   // utility
+  .has-action {
+    cursor: pointer;
+  }
   .mat-toolbar-spacer {
     /* This fills the remaining space, by using flexbox.
        Every toolbar row uses a flexbox row layout. */
