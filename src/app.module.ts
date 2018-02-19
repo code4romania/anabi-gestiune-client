@@ -4,6 +4,9 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
+
+// design modules
+import {FlexLayoutModule} from '@angular/flex-layout';
 import {MaterialModule} from './material.module';
 
 // shared components
@@ -18,7 +21,7 @@ import {ReportsComponent} from './components/reports/reports.component';
 import {DictionariesComponent} from './components/dictionaries/dictionaries.component';
 import {AdminComponent} from './components/admin/admin.component';
 import {AddassetComponent} from './components/asset/addasset.component';
-import {AppComponent} from "./app.component";
+import {AppComponent} from './app.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -39,7 +42,8 @@ const ROUTES: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES, {useHash: true}),
-    MaterialModule
+    FlexLayoutModule,
+    MaterialModule,
   ],
   declarations: [
     ToolbarComponent,
