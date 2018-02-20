@@ -1,18 +1,23 @@
 @import '../../../theme';
 
-mat-toolbar.header {
-  height        : 100px;
-  border-bottom : 2px solid map-get($mat-catalina-blue, 500);
-
-  img {
-    height       : 100%;
-    width        : auto;
-    margin-right : 64px;
+div#toolbar {
+  img.logo {
+    height  : $anabi-header-logo-size;
+    width   : auto;
+    padding : 0 $anabi-padding-lg;
   }
 
-  button.mat-button {
-    height        : 100%;
-    border-radius : 0;
+  mat-icon {
+    height    : $anabi-header-user-icon-size;
+    width     : $anabi-header-user-icon-size;
+    font-size : $anabi-header-user-icon-size;
+    margin    : $anabi-margin-md;
+    cursor    : pointer;
+  }
+
+  button {
+    font-weight    : bold;
+    text-transform : uppercase;
 
     /deep/ .mat-button-focus-overlay {
       background-color : transparent;
@@ -21,27 +26,7 @@ mat-toolbar.header {
 
   button.mat-button:hover,
   button.mat-button.active {
-    background-color : map-get($mat-catalina-blue, 500);
-    color            : map-get($mat-white, 500);
-  }
-
-  $iconSize : 56px;
-  mat-icon {
-    height    : $iconSize;
-    width     : $iconSize;
-    font-size : $iconSize;
-    margin    : 8px;
-    cursor    : pointer;
-  }
-
-  // utility
-  .has-action {
-    cursor: pointer;
-  }
-  .mat-toolbar-spacer {
-    /* This fills the remaining space, by using flexbox.
-       Every toolbar row uses a flexbox row layout. */
-    flex : 1 1 auto;
+    background-color : map-get($mat-congress-blue, 500);
+    color            : map-get($mat-congress-blue, 200);
   }
 }
-

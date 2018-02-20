@@ -10,6 +10,10 @@ export class ToolbarComponent implements OnInit {
   constructor() {
   }
 
+  logout() {
+    alert('logged out');
+  }
+
   ngOnInit() {
   }
 }
