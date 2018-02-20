@@ -1,13 +1,9 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Subscription} from 'rxjs/Rx';
+import {AfterViewInit, Component, OnDestroy, ViewChild} from '@angular/core';
 
 
 import {StorageSpacesService} from './storage-spaces.service';
-import {ResponseWrapper} from '../model/response-wrapper.model';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
-import {Address} from '../../../shared/models/address.model';
-import {County} from '../../../shared/models/county.model';
 
 @Component({
   selector: 'app-storage-spaces',
@@ -36,7 +32,7 @@ export class StorageSpacesListComponent implements AfterViewInit, OnDestroy {
       (res: StorageSpace []) => {
         this.dataSource.data = res;
       },
-      (res: ResponseWrapper) => this.onError(res.json)
+      (res: Response) => this.onError(res.json)
     );
   }
   ngOnDestroy() {
