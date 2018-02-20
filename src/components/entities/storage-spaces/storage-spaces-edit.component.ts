@@ -15,7 +15,7 @@ import {Subscription} from 'rxjs/Subscription';
   templateUrl: './storage-spaces-edit.component.html',
   styleUrls: ['./storage-spaces.css']
 })
-export class StorageSpacesEditComponent implements OnInit{
+export class StorageSpacesEditComponent implements OnInit {
 
   isSaving: boolean;
   counties: County[];
@@ -56,12 +56,6 @@ export class StorageSpacesEditComponent implements OnInit{
     this.isSaving = false;
     this.loadAll();
     this.storageSpace = new StorageSpace();
-    this.storageSpace.address.street = '';
-    this.storageSpace.address.building = null;
-    this.storageSpace.address.stair = null;
-    this.storageSpace.address.flatNo = null;
-    this.storageSpace.address.city = null;
-    this.storageSpace.address.county = null;
     this.storageSpace.tip = null;
   }
 

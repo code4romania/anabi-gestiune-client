@@ -18,7 +18,8 @@ import {County} from '../../../shared/models/county.model';
 export class StorageSpacesListComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['name', 'street', 'city',  'building', 'stair', 'county', 'floor', 'flatNo', 'controls'];
+  displayedColumns = ['name', 'description', 'street', 'city',  'building', 'stair', 'county', 'floor', 'flatNo', 'totalVolume', 'availableVolume', 'length', 'width',
+    'asphaltedArea', 'undevelopedArea',  'monthlyMaintenanceCost', 'maintenanceMentions', 'contactData', 'controls'];
 
   dataSource = new MatTableDataSource();
   ngAfterViewInit() {

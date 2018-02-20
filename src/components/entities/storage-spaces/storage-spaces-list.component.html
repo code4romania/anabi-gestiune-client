@@ -25,6 +25,10 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Descriere</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
+    </ng-container>
 
     <!-- Symbol Column -->
 
@@ -56,7 +60,42 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nr. Ap.</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.address?.flatNo}}</mat-cell>
     </ng-container>
-
+    <ng-container matColumnDef="totalVolume">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Volum total</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.totalVolume}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="availableVolume">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Volum disponibil</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.availableVolume}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="length">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Lungime</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.length}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="width">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Latime</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.width}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="asphaltedArea">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Suprafata Asfaltata</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.asphaltedArea}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="undevelopedArea">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Suprafata Nedezvoltata</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.undevelopedArea}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="monthlyMaintenanceCost">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cost Lunar Intretinere</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.monthlyMaintenanceCost}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="maintenanceMentions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Mentiuni Intretinere</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.maintenanceMentions}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="contactData">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.contactData}}</mat-cell>
+    </ng-container>
 
     <ng-container matColumnDef="controls">
       <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>

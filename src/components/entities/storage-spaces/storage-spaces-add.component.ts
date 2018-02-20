@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Response} from '@angular/http';
 
 import {Observable} from 'rxjs/Rx';
@@ -9,13 +9,14 @@ import {CountiesHttp} from '../../../shared/http/counties.http';
 import {StorageSpace} from '../../../shared/models/storageSpace.model';
 import {storageSpacesRoute} from './storage-spaces.route';
 import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-storage-spaces-add',
   templateUrl: './storage-spaces-add.component.html',
   styleUrls: ['./storage-spaces.css']
 })
-export class StorageSpacesAddComponent implements OnInit {
+export class StorageSpacesAddComponent implements OnInit, OnDestroy {
 
   message: String = null;
   error: boolean = false;
@@ -27,28 +28,33 @@ export class StorageSpacesAddComponent implements OnInit {
   disponibilGroups = [
     {
       name: 'Disponibil',
-      disponibil: [{value: 'contractat', viewValue: 'Contractat'}]
+      disponibil: [{value: 1, viewValue: 'Contractat'}]
     },
     {
       name: 'Disponibil',
-      disponibil: [{value: 'necontractat', viewValue: 'Necontractat'}]
+      disponibil: [{value: 2, viewValue: 'Necontractat'}]
     },
     {
       name: 'Terti',
       disabled: false,
       disponibil: [
-        {value: 'inculpat', viewValue: 'Inculpat'},
-        {value: 'institutie', viewValue: 'Institutie'},
-        {value: 'agent privat', viewValue: 'Agent privat'}
+        {value: 3, viewValue: 'Inculpat'},
+        {value: 4, viewValue: 'Institutie'},
+        {value: 5, viewValue: 'Agent privat'}
       ]
     }
   ];
 
-  constructor(private storageSpacesService: StorageSpacesService, private  countiesHttp: CountiesHttp, private router: Router) {
-  }r
+  subscription: Subscription;
+
+  constructor(private storageSpacesService: StorageSpacesService, private  countiesHttp: CountiesHttp, private router: Router) {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   loadAll() {
-    this.countiesHttp.list().subscribe(
+   this.subscription = this.countiesHttp.list().subscribe(
       (res: County []) => {
         this.counties = res;
       }
@@ -59,17 +65,12 @@ export class StorageSpacesAddComponent implements OnInit {
     this.isSaving = false;
     this.loadAll();
     this.storageSpace = new StorageSpace();
-    this.storageSpace.address.street = '';
-    this.storageSpace.address.building = null;
-    this.storageSpace.address.stair = null;
-    this.storageSpace.address.flatNo = null;
-    this.storageSpace.address.city = null;
-    this.storageSpace.address.county = null;
     this.storageSpace.tip = null;
   }
 
   clear() {
     this.storageSpace = new StorageSpace();
+    this.router.navigate(['storage-spaces-list']);
   }
 
   save() {

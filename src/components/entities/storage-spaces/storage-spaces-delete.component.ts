@@ -2,8 +2,6 @@ import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {StorageSpacesService} from './storage-spaces.service';
 import {CountiesHttp} from '../../../shared/http/counties.http';
-import {StorageSpace} from '../../../shared/models/storageSpace.model';
-import Any = jasmine.Any;
 
 @Component({
   selector: 'app-storage-spaces-delete',
@@ -22,7 +20,7 @@ export class StorageSpacesDeleteComponent {
     });
   }
 
-  private onSaveSuccess(result: Any) {
+  private onSaveSuccess(result: any) {
     this.router.navigate(['storage-spaces-list']);
   }
 

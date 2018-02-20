@@ -8,11 +8,18 @@
       </mat-form-field>
     </div>
 
+    <div class="mat-row">
+      <mat-form-field>
+        <input matInput placeholder="Descriere" name="desc"
+               [(ngModel)]="storageSpace.description"/>
+      </mat-form-field>
+    </div>
+
     <div class="row">
       <mat-form-field>
         <mat-select placeholder="Disponibil"
                     [formControl]="tipControl"
-                    [(ngModel)]="storageSpace.tip">
+                    [(ngModel)]="storageSpace.categoryId">
           <mat-option>&#45;&#45; None &#45;&#45;</mat-option>
           <mat-optgroup *ngFor="let group of disponibilGroups"
                         [label]="group.name"
@@ -74,11 +81,81 @@
           </mat-select>
         </mat-form-field>
       </div>
+
+      <div class="mat-row">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Volum total"
+                 name="totalVolume"
+                 [(ngModel)]="storageSpace.totalVolume"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Volum disponibil"
+                 name="availableVolume"
+                 [(ngModel)]="storageSpace.availableVolume"
+          />
+        </mat-form-field>
+      </div>
+
+
+      <div class="mat-row">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Lungime"
+                 name="storageLength"
+                 [(ngModel)]="storageSpace.length"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Latime"
+                 name="storageWidth"
+                 [(ngModel)]="storageSpace.width"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="mat-row">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Suprafata asfaltata"
+                 name="asphaltedArea"
+                 [(ngModel)]="storageSpace.asphaltedArea"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Suprafata nedezvoltata"
+                 name="undevelopedArea"
+                 [(ngModel)]="storageSpace.undevelopedArea"
+          />
+        </mat-form-field>
+      </div>
+
+
+      <div class="mat-row">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Cost lunar intretinere"
+                 name="monthlyMaintenanceCost"
+                 [(ngModel)]="storageSpace.monthlyMaintenanceCost"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="string" placeholder="Mentiuni intretinere"
+                 name="maintenanceMentions"
+                 [(ngModel)]="storageSpace.maintenanceMentions"
+          />
+        </mat-form-field>
+      </div>
+      <div class="mat-row">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Contact"
+                 name="contactData"
+                 [(ngModel)]="storageSpace.contactData"
+          />
+        </mat-form-field>
+      </div>
     </mat-card>
 
     <button mat-button (click)="save()">Salvare</button>
     <button mat-button (click)="clear()">Anulare</button>
-    <div class="row" [hidden]="!error" >
+    <div class="row" [hidden]="!error">
       {{ message?.message }}
       <br/>
       <p *ngFor="let err of message?.errors" class="mat-background-warn">

@@ -1,17 +1,26 @@
 import {Address} from 'shared/models/address.model';
 
 export class StorageSpace {
-  id: number = 0;
-  address: Address = new Address();
-  name: string = '';
+  id: Number;
+  name: string;
   tip: String;
   countyCode: String;
-  city: String;
-  flatNo: String;
-  street: string;
   city: string;
+  street: string;
   building: string;
   stair: string;
   floor: string;
   flatNo: string;
+  categoryId: Number;
+  totalVolume: Number;
+  availableVolume: Number;
+  length: Number;
+  width: Number;
+  description: String;
+  asphaltedArea: Number;
+  undevelopedArea: Number;
+  contactData: String;
+  monthlyMaintenanceCost: Number;
+  maintenanceMentions: String;
+  address: Address;
 }
