@@ -1,50 +1,50 @@
-$mat-catalina-blue: (
-  50 : #e1e5f0,
-  100 : #b4bfd9,
-  200 : #8395bf,
-  300 : #516aa5,
-  400 : #2b4a92,
-  500 : #062a7f,
-  600 : #052577,
-  700 : #041f6c,
-  800 : #031962,
-  900 : #020f4f,
-  A100 : #828eff,
-  A200 : #4f60ff,
-  A400 : #1c32ff,
-  A700 : #031bff,
+$mat-congress-blue : (
+  50 : #E0E9F2,
+  100 : #B3C8DE,
+  200 : #80A4C8,
+  300 : #4D7FB1,
+  400 : #2663A1,
+  500 : #004890,
+  600 : #004188,
+  700 : #00387D,
+  800 : #003073,
+  900 : #002161,
+  A100 : #91ACFF,
+  A200 : #5E86FF,
+  A400 : #2B60FF,
+  A700 : #124CFF,
   contrast: (
     50 : #000000,
     100 : #000000,
     200 : #000000,
-    300 : #ffffff,
-    400 : #ffffff,
-    500 : #ffffff,
-    600 : #ffffff,
-    700 : #ffffff,
-    800 : #ffffff,
-    900 : #ffffff,
+    300 : #FFFFFF,
+    400 : #FFFFFF,
+    500 : #FFFFFF,
+    600 : #FFFFFF,
+    700 : #FFFFFF,
+    800 : #FFFFFF,
+    900 : #FFFFFF,
     A100 : #000000,
-    A200 : #ffffff,
-    A400 : #ffffff,
-    A700 : #ffffff,
+    A200 : #000000,
+    A400 : #FFFFFF,
+    A700 : #FFFFFF,
   )
 );
-$mat-white: (
-  50 : #ffffff,
-  100 : #ffffff,
-  200 : #ffffff,
-  300 : #ffffff,
-  400 : #ffffff,
-  500 : #ffffff,
-  600 : #ffffff,
-  700 : #ffffff,
-  800 : #ffffff,
-  900 : #ffffff,
-  A100 : #ffffff,
-  A200 : #ffffff,
-  A400 : #ffffff,
-  A700 : #ffffff,
+$mat-white : (
+  50 : #FFFFFF,
+  100 : #FFFFFF,
+  200 : #FFFFFF,
+  300 : #FFFFFF,
+  400 : #FFFFFF,
+  500 : #FFFFFF,
+  600 : #FFFFFF,
+  700 : #FFFFFF,
+  800 : #FFFFFF,
+  900 : #FFFFFF,
+  A100 : #FFFFFF,
+  A200 : #FFFFFF,
+  A400 : #FFFFFF,
+  A700 : #FFFFFF,
   contrast: (
     50 : #000000,
     100 : #000000,
@@ -63,6 +63,14 @@ $mat-white: (
   )
 );
 
+$spaces : (
+  'xs': 2px,
+  'sm': 4px,
+  'md': 8px,
+  'lg': 16px,
+  'xl': 32px
+);
+
 @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
@@ -72,7 +80,7 @@ $mat-white: (
 @include mat-core();
 
 // Define the default theme (same as the example above).
-$candy-app-primary : mat-palette($mat-catalina-blue);
+$candy-app-primary : mat-palette($mat-congress-blue);
 $candy-app-accent : mat-palette($mat-white, A200, A100, A400);
 $candy-app-theme : mat-light-theme($candy-app-primary, $candy-app-accent);
 
@@ -91,3 +99,19 @@ $candy-app-theme : mat-light-theme($candy-app-primary, $candy-app-accent);
 //.unicorn-dark-theme {
 //  @include angular-material-theme($dark-theme);
 //}
+
+// anabi theme variables
+$anabi-padding-xs: map-get($spaces, 'xs');
+$anabi-padding-sm: map-get($spaces, 'sm');
+$anabi-padding-md: map-get($spaces, 'md');
+$anabi-padding-lg: map-get($spaces, 'lg');
+$anabi-padding-xl: map-get($spaces, 'xl');
+
+$anabi-margin-xs: map-get($spaces, 'xs');
+$anabi-margin-sm: map-get($spaces, 'sm');
+$anabi-margin-md: map-get($spaces, 'md');
+$anabi-margin-lg: map-get($spaces, 'lg');
+$anabi-margin-xl: map-get($spaces, 'xl');
+
+$anabi-header-logo-size : 96px;
+$anabi-header-user-icon-size : 56px;
