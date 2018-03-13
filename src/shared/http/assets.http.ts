@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
@@ -11,12 +11,16 @@ import {Asset} from 'shared/models/asset.model';
 
 @Injectable()
 export class AssetsHttp {
-  constructor(private _http: Http) { }
+  constructor(private http: HttpClient) { }
 
   public details(id): Observable<Asset> {
-    return this._http
+    return this.http
       .get(environment.api_url + '/assets/' + id)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  public create(asset: Asset): Observable<Asset> {
+    return this.http.post<Asset>(`${environment.api_url}/assets/addminimalasset`, asset)
   }
 }

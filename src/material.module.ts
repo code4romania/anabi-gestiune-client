@@ -8,6 +8,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const modules = [
   BrowserAnimationsModule,
@@ -18,6 +19,7 @@ const modules = [
   MatButtonModule,
   MatInputModule,
   MatTabsModule,
+  MatDialogModule,
 ];
 
 @NgModule({
@@ -25,4 +27,5 @@ const modules = [
   exports: [modules]
 })
 
-export class MaterialModule {}
+export class MaterialModule {
+}

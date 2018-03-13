@@ -2,7 +2,7 @@
 import {NgModule} from '@angular/core';
 
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 
 // design modules
@@ -21,26 +21,29 @@ import {ReportsComponent} from './components/reports/reports.component';
 import {DictionariesComponent} from './components/dictionaries/dictionaries.component';
 import {AdminComponent} from './components/admin/admin.component';
 import {AddassetComponent} from './components/asset/addasset.component';
+import {AssetsListComponent} from './components/assets/assets-list.component';
+import {AssetsAddComponent} from './components/assets/assets-add.component';
 import {AppComponent} from './app.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'search', component: SearchComponent},
-  {path: 'decision', component: DecisionComponent},
-  {path: 'asset/:id', component: AssetComponent},
-  {path: 'addasset', component: AddassetComponent},
-  {path: 'reports', component: ReportsComponent},
+  {path: 'assets', component: AssetsListComponent},
   {path: 'dictionaries', component: DictionariesComponent},
-  {path: 'admin', component: AdminComponent},
+  {path: 'reports', component: ReportsComponent},
+  {path: 'search', component: SearchComponent},
   {path: '**', redirectTo: '/home'}
+  // {path: 'decision', component: DecisionComponent},
+  // {path: 'asset/:id', component: AssetComponent},
+  // {path: 'addasset', component: AddassetComponent},
+  // {path: 'admin', component: AdminComponent},
 ];
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(ROUTES, {useHash: true}),
     FlexLayoutModule,
     MaterialModule,
@@ -49,6 +52,8 @@ const ROUTES: Routes = [
     ToolbarComponent,
     AppComponent,
     HomeComponent,
+    AssetsListComponent,
+    AssetsAddComponent,
     SearchComponent,
     AssetComponent,
     DecisionComponent,
@@ -56,6 +61,9 @@ const ROUTES: Routes = [
     DictionariesComponent,
     AdminComponent,
     AddassetComponent
+  ],
+  entryComponents: [
+    AssetsAddComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
