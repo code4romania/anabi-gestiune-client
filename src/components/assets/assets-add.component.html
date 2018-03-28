@@ -38,24 +38,24 @@
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
-          <input matInput #quantity name="quantity" placeholder="Cantitate" [(ngModel)]="newAsset.quantity">
+          <input matInput type="number" #quantity name="quantity" placeholder="Cantitate" [(ngModel)]="newAsset.quantity">
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
           <mat-select #measureUnit name="measureUnit" placeholder="Unitate de masura" [(ngModel)]="newAsset.measureUnit">
-            <mat-option *ngFor="let measureUnit of measurements" [value]="measureUnit.value">{{ measureUnit.label }}</mat-option>
+            <mat-option *ngFor="let measureUnit of measurements" [value]="measureUnit.id">{{ measureUnit.code }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
-          <input matInput #estimatedAmount name="estimatedAmount" placeholder="Valoare" [(ngModel)]="newAsset.estimatedAmount">
+          <input matInput type="number" #estimatedAmount name="estimatedAmount" placeholder="Valoare" [(ngModel)]="newAsset.estimatedAmount">
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
           <mat-select #estimatedAmountCurrency name="estimatedAmountCurrency" placeholder="Moneda" [(ngModel)]="newAsset.estimatedAmountCurrency">
-            <mat-option *ngFor="let estimatedAmountCurrency of currencies" [value]="estimatedAmountCurrency.value">{{ estimatedAmountCurrency.label }}</mat-option>
+            <mat-option *ngFor="let estimatedAmountCurrency of currencies" [value]="estimatedAmountCurrency.id">{{ estimatedAmountCurrency.code }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
