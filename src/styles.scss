@@ -1,5 +1,10 @@
 @import './../node_modules/normalize.scss/normalize';
 
+// dialog types
+.dialog-add {
+  width : 600px;
+}
+
 // utility classes
 .has-action {
   cursor : pointer;

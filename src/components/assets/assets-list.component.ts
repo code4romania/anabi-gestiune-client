@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 
 import {AssetsAddComponent} from './assets-add.component';
 
-import {Asset} from '../../shared/models/asset.model';
+import {Asset} from '../../shared/models/Asset.model';
 
 @Component({
   templateUrl: './assets-list.component.html',
@@ -19,6 +19,7 @@ export class AssetsListComponent implements OnInit {
 
   addAsset(): void {
     const addAssetDialog = this.dialog.open(AssetsAddComponent, {
+      panelClass: 'dialog-add'
     });
 
     addAssetDialog.afterClosed().subscribe(result => {
