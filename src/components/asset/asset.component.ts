@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 
 import {AssetsHttp} from 'shared/http/assets.http'
 
-import {Asset} from 'shared/models/asset.model';
+import {Asset} from 'shared/models/Asset.model';
 
 @Component({
   templateUrl: './asset.component.html',

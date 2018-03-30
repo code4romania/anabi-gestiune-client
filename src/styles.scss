@@ -1,5 +1,20 @@
 @import './../node_modules/normalize.scss/normalize';
 
+// dialog types
+mat-dialog-container {
+  .mat-dialog-title {
+    font-weight : bold;
+  }
+  .mat-dialog-actions:last-child {
+    margin-bottom  : 0;
+    padding-bottom : 0;
+  }
+}
+
+.dialog-add {
+  width : 600px;
+}
+
 // utility classes
 .has-action {
   cursor : pointer;
