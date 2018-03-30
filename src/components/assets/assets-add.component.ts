@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl} from '@angular/forms';
 
 import {MatDialogRef} from '@angular/material';
 
@@ -18,8 +19,19 @@ import {AssetCurrency} from '../../shared/models/AssetCurrency.model';
 })
 
 export class AssetsAddComponent implements OnInit {
-  public page;
   public newAsset: Asset;
+
+  public newAssetForm = new FormGroup({
+    name: new FormControl(),
+    identifier: new FormControl(),
+    category: new FormControl(),
+    stage: new FormControl(),
+    quantity: new FormControl(),
+    measureUnit: new FormControl(),
+    estimatedAmount: new FormControl(),
+    estimatedAmountCurrency: new FormControl()
+  });
+
   public categories: Array<AssetCategory>;
   public subcategories: Array<AssetSubcategory>;
   public stages: Array<AssetStage>;
@@ -31,15 +43,44 @@ export class AssetsAddComponent implements OnInit {
 
   getSubcategories(categoryId) {
     this.newAsset.subcategoryId = null;
-    this.assetsHttp.subcategories(categoryId).subscribe((subcategories) => this.subcategories = subcategories);
+    this.assetsHttp.subcategories(categoryId)
+      .subscribe((subcategories) => this.subcategories = subcategories);
   }
 
   save() {
-    this.assetsHttp.create(this.newAsset).subscribe(asset => this.dialogRef.close(asset));
+    const errorFields = {
+      'NAME_NOT_EMPTY': 'name',
+      'NAME_MAX_LENGTH_100': 'name',
+      'IDENTIFIER_NOT_EMPTY': 'identifier',
+      'IDENTIFIER_MAX_LENGTH_100': 'identifier',
+      'CATEGORY_INVALID_ID': 'category',
+      'STAGE_INVALID_ID': 'stage',
+      'QUANTITY_MUST_BE_GREATER_THAN_ZERO': 'quantity',
+      'MEASUREUNIT_MAX_LENGTH_10': 'measureUnit',
+      'ESTIMATED_AMOUNT_GREATER_THAN_ZERO': 'estimatedAmount',
+      'ESTIMATED_AMT_CURRENCY_THREE_CHARS': 'estimatedAmountCurrency',
+    };
+
+    for (const control in this.newAssetForm.controls) {
+      if (this.newAssetForm.controls.hasOwnProperty(control)) {
+        this.newAssetForm.controls[control].markAsUntouched();
+        this.newAssetForm.controls[control].setErrors({});
+      }
+    }
+
+    this.assetsHttp.create(this.newAsset)
+      .subscribe(
+        asset => this.dialogRef.close(asset),
+        errors => {
+          for (const error of errors) {
+            this.newAssetForm.controls[errorFields[error]].markAsTouched();
+            this.newAssetForm.controls[errorFields[error]].setErrors({[error]: true});
+          }
+        }
+      )
   }
 
   ngOnInit() {
-    this.page = 'assets add page';
     this.newAsset = new Asset();
 
     this.assetsHttp.categories().subscribe((categories) => this.categories = categories);

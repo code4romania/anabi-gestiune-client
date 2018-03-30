@@ -23,19 +23,19 @@ export class AssetsHttp {
   public categories(): Observable<Array<AssetCategory>> {
     return this.http.get(environment.api_url + '/assets/parentcategories')
       .map((res: Response) => res)
-      .catch((error: any) => Observable.throw(error || 'Server error'));
+      .catch((error: any) => Observable.throw(error));
   }
 
   public subcategories(categoryId): Observable<Array<AssetSubcategory>> {
     return this.http.get(environment.api_url + '/assets/subcategories/' + categoryId)
       .map((res: Response) => res)
-      .catch((error: any) => Observable.throw(error || 'Server error'));
+      .catch((error: any) => Observable.throw(error));
   }
 
   public stages(): Observable<Array<AssetStage>> {
     return this.http.get(environment.api_url + '/assets/stages')
       .map((res: Response) => res)
-      .catch((error: any) => Observable.throw(error || 'Server error'));
+      .catch((error: any) => Observable.throw(error));
   }
 
   public measurements(): Observable<Array<AssetMeasurement>> {
@@ -66,10 +66,11 @@ export class AssetsHttp {
     return this.http
       .get(environment.api_url + '/assets/' + id)
       .map((res: Response) => res)
-      .catch((error: any) => Observable.throw(error || 'Server error'));
+      .catch((error: any) => Observable.throw(error));
   }
 
   public create(asset: Asset): Observable<Asset> {
-    return this.http.post<Asset>(`${environment.api_url}/assets/addminimalasset`, asset);
+    return this.http.post<Asset>(`${environment.api_url}/assets/addminimalasset`, asset)
+      .catch((error: any) => Observable.throw(error.error.errors));
   }
 }
