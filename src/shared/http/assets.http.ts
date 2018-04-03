@@ -53,7 +53,7 @@ export class AssetsHttp {
   public currencies(): Observable<Array<AssetCurrency>> {
     const currencies = [
       new AssetCurrency({id: 'ron', code: 'RON'}),
-      new AssetCurrency({id: 'euro', code: 'EUR'}),
+      new AssetCurrency({id: 'eur', code: 'EUR'}),
       new AssetCurrency({id: 'usd', code: 'USD'}),
     ];
 
