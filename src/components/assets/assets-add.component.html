@@ -21,11 +21,8 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput #identifier name="identifier" placeholder="Identificator" required
+        <input matInput #identifier name="identifier" placeholder="Identificator"
                [(ngModel)]="newAsset.identifier" formControlName="identifier">
-        <mat-error *ngIf="newAssetForm.controls.identifier.hasError('IDENTIFIER_NOT_EMPTY') || newAssetForm.controls.identifier.hasError('required')">
-          Identificatorul este obligatoriu.
-        </mat-error>
         <mat-error *ngIf="newAssetForm.controls.identifier.hasError('IDENTIFIER_MAX_LENGTH_100')">
           Identificatorul nu poate avea mai mult de 100 caractere.
         </mat-error>
@@ -71,9 +68,6 @@
         <mat-form-field fxFlex="49">
           <input matInput type="number" #quantity name="quantity" placeholder="Cantitate"
                  [(ngModel)]="newAsset.quantity" formControlName="quantity">
-          <mat-error *ngIf="newAssetForm.controls.quantity.hasError('QUANTITY_MUST_BE_GREATER_THAN_ZERO')">
-            Cantitatea trebuie sa fie mai mare decat 0.
-          </mat-error>
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
@@ -91,9 +85,6 @@
         <mat-form-field fxFlex="49">
           <input matInput type="number" #estimatedAmount name="estimatedAmount" placeholder="Valoare estimata"
                  [(ngModel)]="newAsset.estimatedAmount" formControlName="estimatedAmount">
-          <mat-error *ngIf="newAssetForm.controls.estimatedAmount.hasError('ESTIMATED_AMOUNT_GREATER_THAN_ZERO')">
-            Valoarea estimata trebuie sa fie mai mare decat 0.
-          </mat-error>
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
