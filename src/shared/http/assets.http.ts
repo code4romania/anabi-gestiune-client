@@ -42,7 +42,7 @@ export class AssetsHttp {
     const measurements = [
       new AssetMeasurement({id: 'buc', code: 'Bucati'}),
       new AssetMeasurement({id: 'kg', code: 'Kilograme'}),
-      new AssetMeasurement({id: 'l', code: 'Litrii'}),
+      new AssetMeasurement({id: 'l', code: 'Litri'}),
     ];
 
     return Observable.create(observer => {
