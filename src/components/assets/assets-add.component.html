@@ -4,10 +4,10 @@
   <mat-dialog-content>
     <form [formGroup]="newAssetForm" fxLayout="column">
       <mat-form-field>
-        <input matInput #name name="name" maxlength="100" placeholder="Nume"
+        <input matInput #name name="name" maxlength="100" placeholder="Nume" required
                [(ngModel)]="newAsset.name" formControlName="name">
         <mat-hint align="end">{{ name.value.length }} / 100</mat-hint>
-        <mat-error *ngIf="newAssetForm.controls.name.hasError('NAME_NOT_EMPTY')">
+        <mat-error *ngIf="newAssetForm.controls.name.hasError('NAME_NOT_EMPTY') || newAssetForm.controls.name.hasError('required')">
           Numele este obligatoriu.
         </mat-error>
         <mat-error *ngIf="newAssetForm.controls.name.hasError('NAME_MAX_LENGTH_100')">
@@ -21,9 +21,9 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput #identifier name="identifier" placeholder="Identificator"
+        <input matInput #identifier name="identifier" placeholder="Identificator" required
                [(ngModel)]="newAsset.identifier" formControlName="identifier">
-        <mat-error *ngIf="newAssetForm.controls.identifier.hasError('IDENTIFIER_NOT_EMPTY')">
+        <mat-error *ngIf="newAssetForm.controls.identifier.hasError('IDENTIFIER_NOT_EMPTY') || newAssetForm.controls.identifier.hasError('required')">
           Identificatorul este obligatoriu.
         </mat-error>
         <mat-error *ngIf="newAssetForm.controls.identifier.hasError('IDENTIFIER_MAX_LENGTH_100')">
@@ -33,11 +33,14 @@
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
-          <mat-select #category name="category" placeholder="Categorie"
+          <mat-select #category name="category" placeholder="Categorie" required
                       [(ngModel)]="newAsset.categoryId" formControlName="category"
                       (selectionChange)="getSubcategories(newAsset.categoryId)">
             <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.code }}</mat-option>
           </mat-select>
+          <mat-error *ngIf="newAssetForm.controls.category.hasError('required')">
+            Categoria este obligatorie.
+          </mat-error>
           <mat-error *ngIf="newAssetForm.controls.category.hasError('CATEGORY_INVALID_ID')">
             Categoria selectata nu este corecta.
           </mat-error>
@@ -52,10 +55,13 @@
       </div>
 
       <mat-form-field>
-        <mat-select #stage name="stage" placeholder="Stare actuala"
+        <mat-select #stage name="stage" placeholder="Stare actuala" required
                     [(ngModel)]="newAsset.stageId" formControlName="stage">
           <mat-option *ngFor="let stage of stages" [value]="stage.id">{{ stage.name }}</mat-option>
         </mat-select>
+        <mat-error *ngIf="newAssetForm.controls.stage.hasError('required')">
+          Starea este obligatorie.
+        </mat-error>
         <mat-error *ngIf="newAssetForm.controls.stage.hasError('STAGE_INVALID_ID')">
           Starea selectata nu este corecta.
         </mat-error>
