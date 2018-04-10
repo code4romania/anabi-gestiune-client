@@ -83,15 +83,15 @@
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
-          <input matInput type="number" #estimatedAmount name="estimatedAmount" placeholder="Valoare"
+          <input matInput type="number" #estimatedAmount name="estimatedAmount" placeholder="Valoare estimata"
                  [(ngModel)]="newAsset.estimatedAmount" formControlName="estimatedAmount">
           <mat-error *ngIf="newAssetForm.controls.estimatedAmount.hasError('ESTIMATED_AMOUNT_GREATER_THAN_ZERO')">
-            Valoarea trebuie sa fie mai mare decat 0.
+            Valoarea estimata trebuie sa fie mai mare decat 0.
           </mat-error>
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
-          <mat-select #estimatedAmountCurrency name="estimatedAmountCurrency" placeholder="Moneda"
+          <mat-select #estimatedAmountCurrency name="estimatedAmountCurrency" placeholder="Moneda valoare estimata"
                       [(ngModel)]="newAsset.estimatedAmountCurrency" formControlName="estimatedAmountCurrency">
             <mat-option *ngFor="let estimatedAmountCurrency of currencies" [value]="estimatedAmountCurrency.id">{{ estimatedAmountCurrency.code }}</mat-option>
           </mat-select>
