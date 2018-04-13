@@ -36,4 +36,8 @@ export class Asset {
     this.estimatedAmount = asset.estimatedAmount;
     this.estimatedAmountCurrency = asset.estimatedAmountCurrency;
   }
+
+  get value(): string {
+    return `${this.estimatedAmount} ${this.estimatedAmountCurrency}`;
+  }
 }

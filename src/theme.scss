@@ -63,6 +63,8 @@ $mat-white : (
   )
 );
 
+$mat-concrete : #F2F2F2;
+
 $spaces : (
   'xs': 2px,
   'sm': 4px,
@@ -101,17 +103,22 @@ $candy-app-theme : mat-light-theme($candy-app-primary, $candy-app-accent);
 //}
 
 // anabi theme variables
-$anabi-padding-xs: map-get($spaces, 'xs');
-$anabi-padding-sm: map-get($spaces, 'sm');
-$anabi-padding-md: map-get($spaces, 'md');
-$anabi-padding-lg: map-get($spaces, 'lg');
-$anabi-padding-xl: map-get($spaces, 'xl');
+$anabi-padding-xs : map-get($spaces, 'xs');
+$anabi-padding-sm : map-get($spaces, 'sm');
+$anabi-padding-md : map-get($spaces, 'md');
+$anabi-padding-lg : map-get($spaces, 'lg');
+$anabi-padding-xl : map-get($spaces, 'xl');
 
-$anabi-margin-xs: map-get($spaces, 'xs');
-$anabi-margin-sm: map-get($spaces, 'sm');
-$anabi-margin-md: map-get($spaces, 'md');
-$anabi-margin-lg: map-get($spaces, 'lg');
-$anabi-margin-xl: map-get($spaces, 'xl');
+$anabi-margin-xs : map-get($spaces, 'xs');
+$anabi-margin-sm : map-get($spaces, 'sm');
+$anabi-margin-md : map-get($spaces, 'md');
+$anabi-margin-lg : map-get($spaces, 'lg');
+$anabi-margin-xl : map-get($spaces, 'xl');
 
+$anabi-header-height : 160px;
 $anabi-header-logo-size : 96px;
 $anabi-header-user-icon-size : 56px;
+
+$anabi-table-margin : $anabi-margin-md;
+$anabi-table-padding : $anabi-padding-md;
+$anabi-table-accent : $mat-concrete;

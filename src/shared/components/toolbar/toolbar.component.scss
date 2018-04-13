@@ -1,6 +1,8 @@
 @import '../../../theme';
 
 div#toolbar {
+  height: $anabi-header-height;
+
   img.logo {
     height  : $anabi-header-logo-size;
     width   : auto;
