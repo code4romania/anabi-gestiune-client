@@ -62,6 +62,13 @@ export class AssetsHttp {
     });
   }
 
+  public list(): Observable<Array<Asset>> {
+    return this.http
+      .get(environment.api_url + '/assets')
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error));
+  }
+
   public details(id): Observable<Asset> {
     return this.http
       .get(environment.api_url + '/assets/' + id)

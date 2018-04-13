@@ -1,6 +1,46 @@
 @import './../node_modules/normalize.scss/normalize';
+@import './theme';
 
-// dialog types
+// layout
+html, body {
+  height : 100%;
+}
+
+.page-view {
+  height : calc(100% - #{$anabi-header-height});
+}
+
+// material table layout
+.table-wrapper {
+  box-sizing : border-box;
+  margin     : $anabi-table-margin;
+  height     : calc(100% - #{2 * $anabi-table-margin});
+  width      : calc(100% - #{2 * $anabi-table-margin});
+  min-height : calc(100% - #{2 * $anabi-table-margin});
+  min-width  : calc(100% - #{2 * $anabi-table-margin});
+
+  .table-header,
+  .table-footer {
+    padding : 0 $anabi-table-padding;
+  }
+  .table-header,
+  .table-footer,
+  .mat-paginator {
+    background-color : $anabi-table-accent;
+  }
+
+  .mat-table {
+    overflow-y : auto;
+
+    .mat-header-row {
+      position   : sticky;
+      top        : 0;
+      background : white;
+    }
+  }
+}
+
+// material dialog types
 mat-dialog-container {
   .mat-dialog-title {
     font-weight : bold;

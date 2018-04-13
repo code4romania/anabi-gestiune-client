@@ -1,5 +1,54 @@
-<section id="assets-list-page">
-  <div>{{ page }}</div>
+<section id="assets-list-page" class="page-view" fxLayout="column" fxLayoutAlign="center center">
+  <div class="mat-elevation-z8 table-wrapper" fxLayout="column">
+    <div class="table-header" fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Cauta">
+      </mat-form-field>
+    </div>
 
-  <button mat-raised-button color="primary" (click)="addAsset()">ADAUGA BUN</button>
+    <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex>
+      <ng-container matColumnDef="assetId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.assetId }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assetName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.assetName }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assetIdentifier">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Identificator</mat-header-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.assetIdentifier }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assetCategory">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Categorie</mat-header-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.assetCategory }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assetSubcategory">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Subcategorie</mat-header-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.assetSubcategory }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="currentStage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Stadiu</mat-header-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.currentStage }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef>Valoare</mat-header-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.value }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;"></mat-row>
+    </mat-table>
+
+    <div class="table-footer" fxLayout fxLayoutAlign="center center">
+      <button mat-raised-button color="primary" (click)="addAsset()">ADAUGA BUN</button>
+      <mat-paginator fxFlex #paginator [hidePageSize]="true" [pageSize]="20" [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+  </div>
 </section>
