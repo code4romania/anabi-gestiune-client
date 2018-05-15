@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-
-import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
@@ -11,31 +9,32 @@ import {environment} from 'environments/environment';
 import {Decision} from 'shared/models/decision.model';
 import {DecisionSummary} from 'shared/models/decisionSummary.model';
 import {DecisionFilter} from 'shared/models/search/decisionFilter.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 @Injectable()
 export class DecisionsHttp {
-  constructor(private _http: Http) { }
+  constructor(private http: HttpClient) { }
 
   public list(): Observable<Decision[]> {
-    return this._http
+    return this.http
       .get(environment.api_url + '/decisions')
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error));
   }
 
   public search(filter: DecisionFilter): Observable<DecisionSummary[]> {
-      let params = new URLSearchParams();
-      for (var key in filter) {
+      const params = new HttpParams();
+      for (const key in filter) {
           if (filter.hasOwnProperty(key)) {
-              params.append(key, filter[key]);
+              params.set(key, filter[key]);
           }
       }
 
-      return this._http
-        .get(environment.api_url + '/decisions/search', { search: params })
+      return this.http
+        .get(environment.api_url + '/decisions/search', { params: params })
         .map((res: Response) => res.json())
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        .catch((error: any) => Observable.throw(error));
   }
 
 }
