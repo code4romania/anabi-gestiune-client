@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import {environment} from 'environments/environment';
-
 import {Institution} from 'shared/models/institution.model';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class InstitutionsHttp {

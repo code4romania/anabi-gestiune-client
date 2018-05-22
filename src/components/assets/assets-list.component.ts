@@ -1,17 +1,20 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogRef, MatPaginator} from '@angular/material';
-import {MatTableDataSource, MatSort} from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatPaginator,
+  MatSort,
+  MatTableDataSource
+} from '@angular/material';
 
-import {AssetsAddComponent} from './assets-add.component';
-
-import {AssetsHttp} from '../../shared/http/assets.http';
-
-import {Asset} from '../../shared/models/Asset.model';
+import { AssetsHttp } from '../../shared/http/assets.http';
+import { Asset } from '../../shared/models/Asset.model';
+import { AssetsAddComponent } from './assets-add.component';
 
 @Component({
   templateUrl: './assets-list.component.html',
   styleUrls: ['./assets-list.component.scss'],
-  providers: [AssetsHttp]
+  providers: [AssetsHttp],
 })
 
 export class AssetsListComponent implements OnInit {
@@ -25,8 +28,8 @@ export class AssetsListComponent implements OnInit {
 
   addAsset(): void {
     const addAssetDialog = this.dialog.open(AssetsAddComponent, {
-      panelClass: 'dialog-add'
-    });
+      panelClass: 'dialog-add',
+    } as MatDialogConfig);
 
     addAssetDialog.afterClosed().subscribe(result => {
 
@@ -49,7 +52,7 @@ export class AssetsListComponent implements OnInit {
       'assetCategory',
       'assetSubcategory',
       'currentStage',
-      'value'
+      'value',
     ];
 
     this.assetsHttp.list()

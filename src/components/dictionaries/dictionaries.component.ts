@@ -1,19 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {CategoriesHttp} from 'shared/http/categories.http';
-import {StorageSpacesHttp} from 'shared/http/storageSpaces.http';
-import {CountiesHttp} from 'shared/http/counties.http';
-import {InstitutionsHttp} from 'shared/http/institutions.http';
-import {StagesHttp} from 'shared/http/stages.http';
-import {DecisionsHttp} from 'shared/http/decisions.http';
-import {RecoveryBeneficiariesHttp} from 'shared/http/recoveryBeneficiaries.http';
+import { CategoriesHttp } from 'shared/http/categories.http';
+import { CountiesHttp } from 'shared/http/counties.http';
+import { DecisionsHttp } from 'shared/http/decisions.http';
+import { InstitutionsHttp } from 'shared/http/institutions.http';
+import { RecoveryBeneficiariesHttp } from 'shared/http/recoveryBeneficiaries.http';
+import { StagesHttp } from 'shared/http/stages.http';
+import { StorageSpacesHttp } from 'shared/http/storageSpaces.http';
 
-import {Dictionary} from 'shared/models/dictionary.model';
+import { Dictionary } from 'shared/models/dictionary.model';
 
 @Component({
   templateUrl: './dictionaries.component.html',
   styleUrls: ['./dictionaries.component.css'],
-  providers: [CategoriesHttp, StorageSpacesHttp, CountiesHttp, InstitutionsHttp, StagesHttp, DecisionsHttp, RecoveryBeneficiariesHttp]
+  providers: [
+    CategoriesHttp,
+    StorageSpacesHttp,
+    CountiesHttp,
+    InstitutionsHttp,
+    StagesHttp,
+    DecisionsHttp,
+    RecoveryBeneficiariesHttp,
+  ],
 })
 
 export class DictionariesComponent implements OnInit {

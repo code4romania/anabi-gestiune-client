@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './decision.component.html',
-  styleUrls: ['./decision.component.css']
+  styleUrls: ['./decision.component.css'],
 })
 
 export class DecisionComponent implements OnInit {

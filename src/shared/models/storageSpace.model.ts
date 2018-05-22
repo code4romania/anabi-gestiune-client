@@ -1,4 +1,4 @@
-import {Address} from 'shared/models/address.model';
+import { Address } from 'shared/models/address.model';
 
 export class StorageSpace {
   id: number;

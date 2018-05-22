@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DecisionsHttp } from 'shared/http/decisions.http'
-
 import { DecisionSummary } from 'shared/models/decisionSummary.model';
 import { DecisionFilter } from 'shared/models/search/decisionFilter.model';
 
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
-  providers: [DecisionsHttp]
+  providers: [DecisionsHttp],
 })
 export class SearchComponent implements OnInit {
   public page;

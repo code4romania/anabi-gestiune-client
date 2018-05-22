@@ -1,29 +1,29 @@
-﻿import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+﻿import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {RouterModule, Routes} from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 // design modules
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {MaterialModule} from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MaterialModule } from './material.module';
 
 // shared components
-import {ToolbarComponent} from './shared/components/toolbar/toolbar.component';
+import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
 
 // page components
-import {HomeComponent} from './components/home/home.component';
-import {AssetComponent} from './components/asset/asset.component';
-import {DecisionComponent} from './components/decision/decision.component';
-import {SearchComponent} from './components/search/search.component';
-import {ReportsComponent} from './components/reports/reports.component';
-import {DictionariesComponent} from './components/dictionaries/dictionaries.component';
-import {AdminComponent} from './components/admin/admin.component';
-import {AddassetComponent} from './components/asset/addasset.component';
-import {AssetsListComponent} from './components/assets/assets-list.component';
-import {AssetsAddComponent} from './components/assets/assets-add.component';
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AddassetComponent } from './components/asset/addasset.component';
+import { AssetComponent } from './components/asset/asset.component';
+import { AssetsAddComponent } from './components/assets/assets-add.component';
+import { AssetsListComponent } from './components/assets/assets-list.component';
+import { DecisionComponent } from './components/decision/decision.component';
+import { DictionariesComponent } from './components/dictionaries/dictionaries.component';
+import { HomeComponent } from './components/home/home.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { SearchComponent } from './components/search/search.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -32,7 +32,7 @@ const ROUTES: Routes = [
   {path: 'dictionaries', component: DictionariesComponent},
   {path: 'reports', component: ReportsComponent},
   {path: 'search', component: SearchComponent},
-  {path: '**', redirectTo: '/home'}
+  {path: '**', redirectTo: '/home'},
   // {path: 'decision', component: DecisionComponent},
   // {path: 'asset/:id', component: AssetComponent},
   // {path: 'addasset', component: AddassetComponent},
@@ -61,13 +61,13 @@ const ROUTES: Routes = [
     ReportsComponent,
     DictionariesComponent,
     AdminComponent,
-    AddassetComponent
+    AddassetComponent,
   ],
   entryComponents: [
-    AssetsAddComponent
+    AssetsAddComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 
 export class AppModule {

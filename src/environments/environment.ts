@@ -6,5 +6,5 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://anabiapi-test.azurewebsites.net/api'
+  api_url: 'http://anabiapi-test.azurewebsites.net/api',
 };

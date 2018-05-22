@@ -1,8 +1,12 @@
 {
+  "extends": [
+    "tslint:recommended"
+  ],
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
   "rules": {
+    "arrow-parens": false,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
@@ -22,6 +26,7 @@
       true,
       "spaces"
     ],
+    "interface-name": false,
     "interface-over-type-literal": true,
     "label-position": true,
     "max-line-length": [
@@ -73,6 +78,13 @@
       "check-else",
       "check-whitespace"
     ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "lowercase-first"
+      }
+    ],
     "prefer-const": true,
     "quotemark": [
       true,
@@ -119,6 +131,15 @@
       "app",
       "kebab-case"
     ],
+    "trailing-comma": [true, {
+      "multiline": {
+        "objects": "always",
+        "arrays": "always",
+        "functions": "never",
+        "typeLiterals": "ignore"
+      },
+      "singleline": "never"
+    }],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
