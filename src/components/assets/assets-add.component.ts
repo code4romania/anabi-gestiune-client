@@ -20,12 +20,13 @@ import { NotificationService } from '../../core/services';
 })
 
 export class AssetsAddComponent implements OnInit {
-  public newAsset: Asset;
+  public newAsset: Asset = new Asset();
 
   public newAssetForm = new FormGroup({
     name: new FormControl(),
     identifier: new FormControl(),
     category: new FormControl(),
+    subcategory: new FormControl(),
     stage: new FormControl(),
     quantity: new FormControl(),
     measureUnit: new FormControl(),
@@ -62,6 +63,7 @@ export class AssetsAddComponent implements OnInit {
       IDENTIFIER_NOT_EMPTY: 'identifier',
       IDENTIFIER_MAX_LENGTH_100: 'identifier',
       CATEGORY_INVALID_ID: 'category',
+      SUBCATEGORY_INVALID_ID: 'subcategory',
       STAGE_INVALID_ID: 'stage',
       QUANTITY_MUST_BE_GREATER_THAN_ZERO: 'quantity',
       MEASUREUNIT_MAX_LENGTH_10: 'measureUnit',
@@ -78,12 +80,20 @@ export class AssetsAddComponent implements OnInit {
 
     this.assetsHttp.create(this.newAsset)
       .subscribe(
-        asset => this.dialogRef.close(asset),
-        errors => {
-          for (const error of errors) {
+        (asset) => this.dialogRef.close(asset),
+        (errors) => {
+          for (let error of errors) {
+            /**
+             * @todo Remove this. Temporary fix until the backend returns the proper error for subcategory validation
+             */
+            if (error.length === 0) {
+              error = 'SUBCATEGORY_INVALID_ID';
+            }
             this.newAssetForm.controls[errorFields[error]].markAsTouched();
             this.newAssetForm.controls[errorFields[error]].setErrors({[error]: true});
           }
+
+          this.notificationService.showError(ErrorStrings.ERROR_ADD_MINIMAL_ASSET);
         }
       )
   }

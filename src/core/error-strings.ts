@@ -6,4 +6,5 @@ export class ErrorStrings {
   static ERROR_FETCH_CURRENCIES = 'Could not fetch currencies';
   static ERROR_FETCH_ASSETS = 'Could not fetch assets';
   static ERROR_SEARCH_DECISIONS = 'Could not search decisions';
+  static ERROR_ADD_MINIMAL_ASSET = 'Could not add asset';
 }
