@@ -59,3 +59,8 @@ mat-dialog-container {
 .has-action {
   cursor : pointer;
 }
+
+.notification-snackbar {
+  color: white;
+  background: map-get($mat-red, 300);
+}

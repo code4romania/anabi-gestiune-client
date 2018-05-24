@@ -12,7 +12,7 @@ import {Dictionary} from 'shared/models/dictionary.model';
 
 @Component({
   templateUrl: './dictionaries.component.html',
-  styleUrls: ['./dictionaries.component.css'],
+  styleUrls: ['./dictionaries.component.scss'],
   providers: [CategoriesHttp, StorageSpacesHttp, CountiesHttp, InstitutionsHttp, StagesHttp, DecisionsHttp, RecoveryBeneficiariesHttp]
 })
 
