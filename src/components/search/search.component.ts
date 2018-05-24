@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DecisionsHttp } from 'shared/http/decisions.http'
 import { ErrorStrings } from '../../core/error-strings';
 import { NotificationService } from '../../core/services/notification.service';
 
+import { DecisionsHttp } from 'shared/http/decisions.http'
 import { DecisionSummary } from 'shared/models/decisionSummary.model';
 import { DecisionFilter } from 'shared/models/search/decisionFilter.model';
 
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  providers: [DecisionsHttp]
+  providers: [DecisionsHttp],
 })
 export class SearchComponent implements OnInit {
   public page;

@@ -1,44 +1,42 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Rx';
-import {Observer} from 'rxjs/Observer';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
-import {environment} from 'environments/environment';
-
-import {Asset} from 'shared/models/Asset.model';
-import {AssetCategory} from 'shared/models/AssetCategory.model';
-import {AssetSubcategory} from 'shared/models/AssetSubcategory.model';
-import {AssetStage} from 'shared/models/AssetStage.model';
-import {AssetMeasurement} from 'shared/models/AssetMeasurement.model';
-import {AssetCurrency} from 'shared/models/AssetCurrency.model';
+import { environment } from 'environments/environment';
+import { Asset } from 'shared/models/Asset.model';
+import { AssetCategory } from 'shared/models/AssetCategory.model';
+import { AssetCurrency } from 'shared/models/AssetCurrency.model';
+import { AssetMeasurement } from 'shared/models/AssetMeasurement.model';
+import { AssetStage } from 'shared/models/AssetStage.model';
+import { AssetSubcategory } from 'shared/models/AssetSubcategory.model';
 
 @Injectable()
 export class AssetsHttp {
   constructor(private http: HttpClient) {
   }
 
-  public categories(): Observable<Array<AssetCategory>> {
+  public categories(): Observable<AssetCategory[]> {
     return this.http.get(environment.api_url + '/assets/parentcategories')
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }
 
-  public subcategories(categoryId): Observable<Array<AssetSubcategory>> {
+  public subcategories(categoryId): Observable<AssetSubcategory[]> {
     return this.http.get(environment.api_url + '/assets/subcategories/' + categoryId)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }
 
-  public stages(): Observable<Array<AssetStage>> {
+  public stages(): Observable<AssetStage[]> {
     return this.http.get(environment.api_url + '/assets/stages')
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }
 
-  public measurements(): Observable<Array<AssetMeasurement>> {
+  public measurements(): Observable<AssetMeasurement[]> {
     const measurements = [
       new AssetMeasurement({id: 'buc', code: 'Bucati'}),
       new AssetMeasurement({id: 'kg', code: 'Kilograme'}),
@@ -50,7 +48,7 @@ export class AssetsHttp {
     });
   }
 
-  public currencies(): Observable<Array<AssetCurrency>> {
+  public currencies(): Observable<AssetCurrency[]> {
     const currencies = [
       new AssetCurrency({id: 'ron', code: 'RON'}),
       new AssetCurrency({id: 'eur', code: 'EUR'}),
@@ -62,7 +60,7 @@ export class AssetsHttp {
     });
   }
 
-  public list(): Observable<Array<Asset>> {
+  public list(): Observable<Asset[]> {
     return this.http
       .get(environment.api_url + '/assets')
       .map((res: Response) => res)

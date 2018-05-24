@@ -1,16 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import {environment} from 'environments/environment';
-
-import {Decision} from 'shared/models/decision.model';
-import {DecisionSummary} from 'shared/models/decisionSummary.model';
-import {DecisionFilter} from 'shared/models/search/decisionFilter.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
+import { environment } from 'environments/environment';
+
+import { Decision } from 'shared/models/decision.model';
+import { DecisionSummary } from 'shared/models/decisionSummary.model';
+import { DecisionFilter } from 'shared/models/search/decisionFilter.model';
 
 @Injectable()
 export class DecisionsHttp {
@@ -32,7 +31,7 @@ export class DecisionsHttp {
       }
 
       return this.http
-        .get(environment.api_url + '/decisions/search', { params: params })
+        .get(environment.api_url + '/decisions/search', { params })
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error));
   }
