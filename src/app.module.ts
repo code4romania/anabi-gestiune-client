@@ -12,6 +12,9 @@ import { MaterialModule } from './material.module';
 // shared components
 import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
 
+// core module
+import { CoreModule } from './core/core.module';
+
 // page components
 import { AppComponent } from './app.component';
 import { AdminComponent } from './components/admin/admin.component';
@@ -48,6 +51,7 @@ const ROUTES: Routes = [
     RouterModule.forRoot(ROUTES, {useHash: true}),
     FlexLayoutModule,
     MaterialModule,
+    CoreModule,
   ],
   declarations: [
     ToolbarComponent,

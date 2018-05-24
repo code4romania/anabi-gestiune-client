@@ -11,6 +11,9 @@ import { AssetsHttp } from '../../shared/http/assets.http';
 import { Asset } from '../../shared/models/Asset.model';
 import { AssetsAddComponent } from './assets-add.component';
 
+import { ErrorStrings } from '../../core/error-strings';
+import { NotificationService } from '../../core/services/notification.service';
+
 @Component({
   templateUrl: './assets-list.component.html',
   styleUrls: ['./assets-list.component.scss'],
@@ -23,7 +26,11 @@ export class AssetsListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public dialog: MatDialog, private assetsHttp: AssetsHttp) {
+  constructor(
+    public dialog: MatDialog,
+    private assetsHttp: AssetsHttp,
+    private notificationService: NotificationService
+  ) {
   }
 
   addAsset(): void {
@@ -56,10 +63,13 @@ export class AssetsListComponent implements OnInit {
     ];
 
     this.assetsHttp.list()
-      .subscribe((assets) => {
-        this.tableConfig.dataSource = new MatTableDataSource(assets);
-        this.tableConfig.dataSource.sort = this.sort;
-        this.tableConfig.dataSource.paginator = this.paginator;
-      });
+      .subscribe(
+        (assets) => {
+          this.tableConfig.dataSource = new MatTableDataSource(assets);
+          this.tableConfig.dataSource.sort = this.sort;
+          this.tableConfig.dataSource.paginator = this.paginator;
+        },
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_ASSETS)
+      );
   }
 }

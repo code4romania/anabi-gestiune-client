@@ -1,5 +1,6 @@
 @import './../node_modules/normalize.scss/normalize';
 @import './theme';
+@import '~material-design-icons/iconfont/material-icons.css';
 
 // layout
 html, body {
@@ -58,4 +59,9 @@ mat-dialog-container {
 // utility classes
 .has-action {
   cursor : pointer;
+}
+
+.notification-snackbar {
+  color: white;
+  background: map-get($mat-red, 300);
 }

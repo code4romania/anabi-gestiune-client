@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ErrorStrings } from '../../core/error-strings';
+import { NotificationService } from '../../core/services/notification.service';
+
 import { DecisionsHttp } from 'shared/http/decisions.http'
 import { DecisionSummary } from 'shared/models/decisionSummary.model';
 import { DecisionFilter } from 'shared/models/search/decisionFilter.model';
 
 @Component({
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  styleUrls: ['./search.component.scss'],
   providers: [DecisionsHttp],
 })
 export class SearchComponent implements OnInit {
   public page;
   results: DecisionSummary[];
-  decisionsHttp: DecisionsHttp;
   filter: DecisionFilter;
 
-  constructor(decisionsHttp: DecisionsHttp) {
+  constructor(
+    private decisionsHttp: DecisionsHttp,
+    private notificationService: NotificationService
+  ) {
     this.decisionsHttp = decisionsHttp;
     this.filter = new DecisionFilter();
   }
@@ -26,6 +31,10 @@ export class SearchComponent implements OnInit {
   }
 
   public search() {
-    this.decisionsHttp.search(this.filter).subscribe(val => this.results = val);
+    this.decisionsHttp.search(this.filter)
+      .subscribe(
+        (aResult) => this.results = aResult,
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_SEARCH_DECISIONS)
+      );
   }
 }

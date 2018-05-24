@@ -6,7 +6,7 @@ import { Asset } from 'shared/models/Asset.model';
 
 @Component({
   templateUrl: './asset.component.html',
-  styleUrls: ['./asset.component.css'],
+  styleUrls: ['./asset.component.scss'],
   providers: [AssetsHttp],
 })
 

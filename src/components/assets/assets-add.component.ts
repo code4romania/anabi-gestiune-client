@@ -10,6 +10,9 @@ import { AssetMeasurement } from '../../shared/models/AssetMeasurement.model';
 import { AssetStage } from '../../shared/models/AssetStage.model';
 import { AssetSubcategory } from '../../shared/models/AssetSubcategory.model';
 
+import { ErrorStrings } from '../../core/error-strings';
+import { NotificationService } from '../../core/services';
+
 @Component({
   templateUrl: './assets-add.component.html',
   styleUrls: ['./assets-add.component.scss'],
@@ -36,13 +39,20 @@ export class AssetsAddComponent implements OnInit {
   public measurements: AssetMeasurement[];
   public currencies: AssetCurrency[];
 
-  constructor(public dialogRef: MatDialogRef<AssetsAddComponent>, private assetsHttp: AssetsHttp) {
+  constructor(
+    public dialogRef: MatDialogRef<AssetsAddComponent>,
+    private assetsHttp: AssetsHttp,
+    private notificationService: NotificationService
+  ) {
   }
 
   getSubcategories(categoryId) {
     this.newAsset.subcategoryId = null;
     this.assetsHttp.subcategories(categoryId)
-      .subscribe((subcategories) => this.subcategories = subcategories);
+      .subscribe(
+        (subcategories) => this.subcategories = subcategories,
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_SUBCATEGORIES)
+      );
   }
 
   save() {
@@ -81,9 +91,25 @@ export class AssetsAddComponent implements OnInit {
   ngOnInit() {
     this.newAsset = new Asset();
 
-    this.assetsHttp.categories().subscribe((categories) => this.categories = categories);
-    this.assetsHttp.stages().subscribe((stages) => this.stages = stages);
-    this.assetsHttp.measurements().subscribe((measurements) => this.measurements = measurements);
-    this.assetsHttp.currencies().subscribe((currencies) => this.currencies = currencies);
+    this.assetsHttp.categories()
+      .subscribe(
+        (categories) => this.categories = categories,
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CATEGORIES)
+      );
+    this.assetsHttp.stages()
+      .subscribe(
+        (stages) => this.stages = stages,
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_STAGES)
+      );
+    this.assetsHttp.measurements()
+      .subscribe(
+        (measurements) => this.measurements = measurements,
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_MEASUREMENTS)
+      );
+    this.assetsHttp.currencies()
+      .subscribe(
+        (currencies) => this.currencies = currencies,
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CURRENCIES)
+      );
   }
 }
