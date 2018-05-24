@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'http://anabiapi-test.azurewebsites.net/api'
+  api_url: 'http://anabiapi-test.azurewebsites.net/api',
 };

@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import {environment} from 'environments/environment';
-
-import {Category} from 'shared/models/category.model';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
+import { environment } from 'environments/environment';
+import { Category } from 'shared/models/category.model';
 
 @Injectable()
 export class CategoriesHttp {
