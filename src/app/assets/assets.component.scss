@@ -1,0 +1,65 @@
+@import '../../theme';
+
+.page-view {
+  height : calc(100% - #{$anabi-header-height});
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// material table layout
+.table-wrapper {
+  box-sizing : border-box;
+  margin     : $anabi-table-margin;
+  height     : calc(100% - #{2 * $anabi-table-margin});
+  width      : calc(100% - #{2 * $anabi-table-margin});
+  min-height : calc(100% - #{2 * $anabi-table-margin});
+  min-width  : calc(100% - #{2 * $anabi-table-margin});
+
+  display: flex;
+  flex-direction: column;
+
+  .table-header,
+  .table-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 60px;
+
+    padding : 0 $anabi-table-padding;
+
+    mat-form-field {
+      flex-grow: 1;
+      height: 60px;
+    }
+  }
+  .table-header,
+  .table-footer,
+  .mat-paginator {
+    background-color : $anabi-table-accent;
+  }
+
+  .mat-table {
+    overflow-y : auto;
+    flex: 1 1 auto;
+
+    .mat-header-row {
+      position   : sticky;
+      top        : 0;
+      background : white;
+    }
+  }
+}
+
+// material dialog types
+mat-dialog-container {
+  .mat-dialog-title {
+    font-weight : bold;
+  }
+  .mat-dialog-actions:last-child {
+    margin-bottom  : 0;
+    padding-bottom : 0;
+  }
+}

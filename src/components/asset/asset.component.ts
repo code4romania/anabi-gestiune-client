@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Asset, AssetsApiService } from 'core';
+import { Asset, AssetsApiService } from 'app/core';
 
 @Component({
   templateUrl: './asset.component.html',
