@@ -6,17 +6,18 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
-import { Asset } from 'shared/models/Asset.model';
-import { AssetCategory } from 'shared/models/AssetCategory.model';
-import { AssetCurrency } from 'shared/models/AssetCurrency.model';
-import { AssetMeasurement } from 'shared/models/AssetMeasurement.model';
-import { AssetStage } from 'shared/models/AssetStage.model';
-import { AssetSubcategory } from 'shared/models/AssetSubcategory.model';
+import {
+  Asset,
+  AssetCategory,
+  AssetCurrency,
+  AssetMeasurement,
+  AssetStage,
+  AssetSubcategory
+} from '../models';
 
 @Injectable()
-export class AssetsHttp {
-  constructor(private http: HttpClient) {
-  }
+export class AssetsApiService {
+  constructor(private http: HttpClient) {}
 
   public categories(): Observable<AssetCategory[]> {
     return this.http.get(environment.api_url + '/assets/parentcategories')

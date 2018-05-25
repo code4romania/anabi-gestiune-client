@@ -6,16 +6,15 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
-
-import { StorageSpace } from 'shared/models/storageSpace.model';
+import { County } from '../models';
 
 @Injectable()
-export class StorageSpacesHttp {
+export class CountiesApiService {
   constructor(private http: HttpClient) { }
 
-  public list(): Observable<StorageSpace[]> {
+  public list(): Observable<County[]> {
     return this.http
-      .get(environment.api_url + '/storageSpaces')
+      .get(environment.api_url + '/counties')
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error));
   }

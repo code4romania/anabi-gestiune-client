@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
-import { AssetsHttp } from '../../shared/http/assets.http';
-import { Asset } from '../../shared/models/Asset.model';
-import { AssetCategory } from '../../shared/models/AssetCategory.model';
-import { AssetCurrency } from '../../shared/models/AssetCurrency.model';
-import { AssetMeasurement } from '../../shared/models/AssetMeasurement.model';
-import { AssetStage } from '../../shared/models/AssetStage.model';
-import { AssetSubcategory } from '../../shared/models/AssetSubcategory.model';
-
-import { ErrorStrings } from '../../core/error-strings';
-import { NotificationService } from '../../core/services';
+import {
+  Asset,
+  AssetsApiService,
+  AssetCategory,
+  AssetCurrency,
+  AssetMeasurement,
+  AssetStage,
+  AssetSubcategory,
+  ErrorStrings,
+  NotificationService,
+} from 'core';
 
 @Component({
   templateUrl: './assets-add.component.html',
   styleUrls: ['./assets-add.component.scss'],
-  providers: [AssetsHttp],
 })
 
 export class AssetsAddComponent implements OnInit {
@@ -42,14 +42,14 @@ export class AssetsAddComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AssetsAddComponent>,
-    private assetsHttp: AssetsHttp,
+    private assetsApiService: AssetsApiService,
     private notificationService: NotificationService
   ) {
   }
 
   getSubcategories(categoryId) {
     this.newAsset.subcategoryId = null;
-    this.assetsHttp.subcategories(categoryId)
+    this.assetsApiService.subcategories(categoryId)
       .subscribe(
         (subcategories) => this.subcategories = subcategories,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_SUBCATEGORIES)
@@ -78,7 +78,7 @@ export class AssetsAddComponent implements OnInit {
       }
     }
 
-    this.assetsHttp.create(this.newAsset)
+    this.assetsApiService.create(this.newAsset)
       .subscribe(
         (asset) => this.dialogRef.close(asset),
         (errors) => {
@@ -101,22 +101,22 @@ export class AssetsAddComponent implements OnInit {
   ngOnInit() {
     this.newAsset = new Asset();
 
-    this.assetsHttp.categories()
+    this.assetsApiService.categories()
       .subscribe(
         (categories) => this.categories = categories,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CATEGORIES)
       );
-    this.assetsHttp.stages()
+    this.assetsApiService.stages()
       .subscribe(
         (stages) => this.stages = stages,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_STAGES)
       );
-    this.assetsHttp.measurements()
+    this.assetsApiService.measurements()
       .subscribe(
         (measurements) => this.measurements = measurements,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_MEASUREMENTS)
       );
-    this.assetsHttp.currencies()
+    this.assetsApiService.currencies()
       .subscribe(
         (currencies) => this.currencies = currencies,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CURRENCIES)

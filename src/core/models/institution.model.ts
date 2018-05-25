@@ -1,6 +1,6 @@
-import { Address } from 'shared/models/address.model';
-import { Category } from 'shared/models/category.model';
-import { Journal } from 'shared/models/journal.model';
+import { Address } from './address.model';
+import { Category } from './category.model';
+import { Journal } from './journal.model';
 
 export class Institution {
   id: number;

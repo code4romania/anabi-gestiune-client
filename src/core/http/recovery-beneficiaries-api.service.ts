@@ -6,10 +6,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
-import { RecoveryBeneficiary } from 'shared/models/recoveryBeneficiary.model';
+import { RecoveryBeneficiary } from '../models';
 
 @Injectable()
-export class RecoveryBeneficiariesHttp {
+export class RecoveryBeneficiariesApiService {
   constructor(private http: HttpClient) { }
 
   public list(): Observable<RecoveryBeneficiary[]> {

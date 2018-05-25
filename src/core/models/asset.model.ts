@@ -1,4 +1,4 @@
-import { AssetCategory } from 'shared/models/AssetCategory.model';
+import { AssetCategory } from './asset-category.model';
 
 export class Asset {
   // details

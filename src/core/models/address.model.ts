@@ -1,4 +1,4 @@
-import { County } from 'shared/models/county.model';
+import { County } from './county.model';
 
 export class Address {
   id: number;

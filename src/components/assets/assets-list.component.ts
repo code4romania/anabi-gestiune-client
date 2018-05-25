@@ -7,17 +7,12 @@ import {
   MatTableDataSource
 } from '@angular/material';
 
-import { AssetsHttp } from '../../shared/http/assets.http';
-import { Asset } from '../../shared/models/Asset.model';
+import { Asset, AssetsApiService, ErrorStrings, NotificationService } from 'core';
 import { AssetsAddComponent } from './assets-add.component';
-
-import { ErrorStrings } from '../../core/error-strings';
-import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   templateUrl: './assets-list.component.html',
   styleUrls: ['./assets-list.component.scss'],
-  providers: [AssetsHttp],
 })
 
 export class AssetsListComponent implements OnInit {
@@ -28,7 +23,7 @@ export class AssetsListComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private assetsHttp: AssetsHttp,
+    private assetsApiService: AssetsApiService,
     private notificationService: NotificationService
   ) {
   }
@@ -62,7 +57,7 @@ export class AssetsListComponent implements OnInit {
       'value',
     ];
 
-    this.assetsHttp.list()
+    this.assetsApiService.list()
       .subscribe(
         (assets) => {
           this.tableConfig.dataSource = new MatTableDataSource(assets);

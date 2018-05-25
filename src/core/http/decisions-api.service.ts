@@ -7,12 +7,10 @@ import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
 
-import { Decision } from 'shared/models/decision.model';
-import { DecisionSummary } from 'shared/models/decisionSummary.model';
-import { DecisionFilter } from 'shared/models/search/decisionFilter.model';
+import { Decision, DecisionFilter, DecisionSummary } from '../models';
 
 @Injectable()
-export class DecisionsHttp {
+export class DecisionsApiService {
   constructor(private http: HttpClient) { }
 
   public list(): Observable<Decision[]> {
@@ -35,5 +33,4 @@ export class DecisionsHttp {
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error));
   }
-
 }

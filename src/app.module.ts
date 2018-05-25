@@ -9,11 +9,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material.module';
 
-// shared components
-import { ToolbarComponent } from './shared/components/toolbar/toolbar.component';
-
-// core module
+// modules
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 // page components
 import { AppComponent } from './app.component';
@@ -52,9 +50,9 @@ const ROUTES: Routes = [
     FlexLayoutModule,
     MaterialModule,
     CoreModule,
+    SharedModule,
   ],
   declarations: [
-    ToolbarComponent,
     AppComponent,
     HomeComponent,
     AssetsListComponent,

@@ -1,27 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CategoriesHttp } from 'shared/http/categories.http';
-import { CountiesHttp } from 'shared/http/counties.http';
-import { DecisionsHttp } from 'shared/http/decisions.http';
-import { InstitutionsHttp } from 'shared/http/institutions.http';
-import { RecoveryBeneficiariesHttp } from 'shared/http/recoveryBeneficiaries.http';
-import { StagesHttp } from 'shared/http/stages.http';
-import { StorageSpacesHttp } from 'shared/http/storageSpaces.http';
-
-import { Dictionary } from 'shared/models/dictionary.model';
+import {
+  CategoriesApiService,
+  CountiesApiService,
+  DecisionsApiService,
+  Dictionary,
+  InstitutionsApiService,
+  RecoveryBeneficiariesApiService,
+  StagesApiService,
+  StorageSpacesApiService
+} from 'core';
 
 @Component({
   templateUrl: './dictionaries.component.html',
   styleUrls: ['./dictionaries.component.scss'],
-  providers: [
-    CategoriesHttp,
-    StorageSpacesHttp,
-    CountiesHttp,
-    InstitutionsHttp,
-    StagesHttp,
-    DecisionsHttp,
-    RecoveryBeneficiariesHttp,
-  ],
 })
 
 export class DictionariesComponent implements OnInit {
@@ -43,22 +35,22 @@ export class DictionariesComponent implements OnInit {
 
   // region init
   constructor(
-    private _categoriesHttp: CategoriesHttp,
-    private _storageSpacesHttp: StorageSpacesHttp,
-    private _countiesHttp: CountiesHttp,
-    private _institutionsHttp: InstitutionsHttp,
-    private _stagesHttp: StagesHttp,
-    private _decisionsHttp: DecisionsHttp,
-    private _recoveryBeneficiariesHttp: RecoveryBeneficiariesHttp
+    private categoriesApiService: CategoriesApiService,
+    private countiesApiService: CountiesApiService,
+    private decisionsApiService: DecisionsApiService,
+    private institutionsApiService: InstitutionsApiService,
+    private stagesApiService: StagesApiService,
+    private storageSpacesApiService: StorageSpacesApiService,
+    private recoveryBeneficiariesApiService: RecoveryBeneficiariesApiService
   ) {
     this.dictionaries = [
-      new Dictionary(1, 'Categories', {dataService: _categoriesHttp}),
-      new Dictionary(2, 'Storage Spaces', {dataService: _storageSpacesHttp}),
-      new Dictionary(3, 'Counties', {dataService: _countiesHttp}),
-      new Dictionary(4, 'Institutions', {dataService: _institutionsHttp}),
-      new Dictionary(5, 'Stages', {dataService: _stagesHttp}),
-      new Dictionary(6, 'Decisions', {dataService: _decisionsHttp}),
-      new Dictionary(7, 'Recovery Beneficiaries', {dataService: _recoveryBeneficiariesHttp}),
+      new Dictionary(1, 'Categories', { dataService: this.categoriesApiService }),
+      new Dictionary(2, 'Storage Spaces', { dataService: this.storageSpacesApiService }),
+      new Dictionary(3, 'Counties', { dataService: this.countiesApiService }),
+      new Dictionary(4, 'Institutions', { dataService: this.institutionsApiService }),
+      new Dictionary(5, 'Stages', { dataService: this.stagesApiService }),
+      new Dictionary(6, 'Decisions', { dataService: this.decisionsApiService }),
+      new Dictionary(7, 'Recovery Beneficiaries', { dataService: this.recoveryBeneficiariesApiService }),
     ];
   }
 

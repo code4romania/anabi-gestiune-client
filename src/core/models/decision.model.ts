@@ -1,4 +1,4 @@
-import { Stage } from 'shared/models/stage.model'
+import { Stage } from './stage.model';
 
 export class Decision {
   id: number;
