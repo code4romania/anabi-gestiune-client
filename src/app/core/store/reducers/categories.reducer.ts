@@ -52,6 +52,12 @@ export function reducer(
         loaded: false,
       } as CategoryState;
     }
+
+    default: {
+      return {
+        ...state,
+      } as CategoryState;
+    }
   }
 }
 
