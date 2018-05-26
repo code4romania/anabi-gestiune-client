@@ -23,7 +23,8 @@ export class Asset {
   subcategory: any;
   stage: any;
 
-  constructor(asset: Asset = {} as Asset) {
+  constructor(asset: any) {
+    console.warn('received', asset);
     this.id = asset.id;
     this.name = asset.name;
     this.description = asset.description;
@@ -39,5 +40,16 @@ export class Asset {
 
   get value(): string {
     return `${this.estimatedAmount} ${this.estimatedAmountCurrency}`;
+  }
+
+  fromJson(aJson: any) {
+    this.id = aJson.assetId;
+    this.name = aJson.assetName;
+    this.identifier = aJson.assetIdentifier;
+    this.categoryId = aJson.assetCategory;
+    this.subcategoryId = aJson.assetSubcategory;
+    this.stageId = aJson.currentStage;
+    this.estimatedAmount = aJson.estimatedAmount;
+    this.estimatedAmountCurrency = aJson.estimatedAmountCurrency;
   }
 }

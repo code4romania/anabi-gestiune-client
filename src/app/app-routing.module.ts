@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: './search/search.module#SearchModule',
   },
   {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+  },
+  {
     path: '**',
     redirectTo: '/home',
   },

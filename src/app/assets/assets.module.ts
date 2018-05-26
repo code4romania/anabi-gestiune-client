@@ -7,6 +7,7 @@ import { AssetsRoutingModule } from './assets-routing.module';
 // components
 import { AssetsComponent } from './assets.component';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
+import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AddAssetComponent } from './components/add-asset/add-asset.component';
   declarations: [
     AssetsComponent,
     AddAssetComponent,
+    AssetDetailComponent,
   ],
   entryComponents: [
     AddAssetComponent,

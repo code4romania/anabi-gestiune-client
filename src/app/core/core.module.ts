@@ -1,33 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NotificationService } from './services/notification.service';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
-import {
-  AssetsApiService,
-  CategoriesApiService,
-  CountiesApiService,
-  DecisionsApiService,
-  InstitutionsApiService,
-  RecoveryBeneficiariesApiService,
-  StagesApiService,
-  StorageSpacesApiService
-} from './http';
+import * as fromHttpServices from './http';
+import * as fromServices from './services';
+
+import { effects, reducers } from './store';
 
 @NgModule({
   imports: [
     CommonModule,
+    StoreModule.forFeature('app', reducers),
+    EffectsModule.forFeature(effects),
   ],
   providers: [
-    NotificationService,
-    // http services
-    AssetsApiService,
-    CategoriesApiService,
-    CountiesApiService,
-    DecisionsApiService,
-    InstitutionsApiService,
-    RecoveryBeneficiariesApiService,
-    StagesApiService,
-    StorageSpacesApiService,
+    ...fromHttpServices.httpServices,
+    ...fromServices.services,
   ],
 })
 export class CoreModule {}

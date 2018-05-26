@@ -61,7 +61,7 @@ export class AssetsApiService {
     });
   }
 
-  public list(): Observable<Asset[]> {
+  public list(): Observable<any> {
     return this.http
       .get(environment.api_url + '/assets')
       .map((res: Response) => res)

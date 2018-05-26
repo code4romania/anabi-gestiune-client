@@ -7,7 +7,7 @@ import {
   MatTableDataSource
 } from '@angular/material';
 
-import { Asset, AssetsApiService, ErrorStrings, NotificationService } from 'app/core';
+import { Asset, AssetsService, ErrorStrings, NotificationService } from 'app/core';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
 
 @Component({
@@ -23,9 +23,34 @@ export class AssetsComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private assetsApiService: AssetsApiService,
+    private assetsService: AssetsService,
     private notificationService: NotificationService
   ) {
+  }
+
+  ngOnInit() {
+    this.tableConfig = {};
+
+    this.tableConfig.displayedColumns = [
+      'assetId',
+      'assetName',
+      'assetIdentifier',
+      'assetCategory',
+      'assetSubcategory',
+      'currentStage',
+      'value',
+    ];
+
+    this.assetsService.list()
+      .subscribe(
+        (assets: Asset[]) => {
+          console.warn('data', assets);
+          this.tableConfig.dataSource = new MatTableDataSource(assets);
+          this.tableConfig.dataSource.sort = this.sort;
+          this.tableConfig.dataSource.paginator = this.paginator;
+        },
+        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_ASSETS)
+      );
   }
 
   addAsset(): void {
@@ -44,27 +69,7 @@ export class AssetsComponent implements OnInit {
     this.tableConfig.dataSource.filter = filterValue;
   }
 
-  ngOnInit() {
-    this.tableConfig = {};
-
-    this.tableConfig.displayedColumns = [
-      'assetId',
-      'assetName',
-      'assetIdentifier',
-      'assetCategory',
-      'assetSubcategory',
-      'currentStage',
-      'value',
-    ];
-
-    this.assetsApiService.list()
-      .subscribe(
-        (assets) => {
-          this.tableConfig.dataSource = new MatTableDataSource(assets);
-          this.tableConfig.dataSource.sort = this.sort;
-          this.tableConfig.dataSource.paginator = this.paginator;
-        },
-        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_ASSETS)
-      );
+  onAssetClicked(aAsset: Asset) {
+    console.warn('asset clicked', aAsset);
   }
 }

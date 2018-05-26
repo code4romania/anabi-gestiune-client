@@ -17,3 +17,4 @@ export * from './journal.model';
 export * from './recovery-beneficiary.model';
 export * from './stage.model';
 export * from './storage-space.model';
+export * from './category-response.interface';

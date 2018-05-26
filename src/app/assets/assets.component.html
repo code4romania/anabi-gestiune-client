@@ -43,7 +43,7 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;" (click)="onAssetClicked(row)"></mat-row>
     </mat-table>
 
     <div class="table-footer">
