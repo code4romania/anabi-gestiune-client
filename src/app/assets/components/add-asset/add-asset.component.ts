@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import * as fromStore from '../../../core/store';
 
 import {
   Asset,
@@ -10,6 +14,7 @@ import {
   AssetMeasurement,
   AssetStage,
   AssetSubcategory,
+  Category,
   ErrorStrings,
   NotificationService,
 } from 'app/core';
@@ -34,7 +39,7 @@ export class AddAssetComponent implements OnInit {
     estimatedAmountCurrency: new FormControl(),
   });
 
-  public categories: AssetCategory[];
+  public categories$: Observable<Category[]>;
   public subcategories: AssetSubcategory[];
   public stages: AssetStage[];
   public measurements: AssetMeasurement[];
@@ -43,7 +48,8 @@ export class AddAssetComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddAssetComponent>,
     private assetsApiService: AssetsApiService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private store: Store<fromStore.CoreState>
   ) {
   }
 
@@ -101,11 +107,13 @@ export class AddAssetComponent implements OnInit {
   ngOnInit() {
     this.newAsset = new Asset({});
 
-    this.assetsApiService.categories()
+    this.categories$ = this.store.select(fromStore.getParentCategories);
+
+    /*this.assetsApiService.categories()
       .subscribe(
         (categories) => this.categories = categories,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CATEGORIES)
-      );
+      );*/
     this.assetsApiService.stages()
       .subscribe(
         (stages) => this.stages = stages,

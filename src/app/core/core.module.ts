@@ -11,7 +11,7 @@ import { effects, reducers } from './store';
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('app', reducers),
+    StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature(effects),
   ],
   providers: [

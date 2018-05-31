@@ -8,7 +8,7 @@ import * as fromStore from './core/store';
 })
 
 export class AppComponent implements OnInit {
-  constructor(private store: Store<fromStore.AppState>) {
+  constructor(private store: Store<fromStore.CoreState>) {
   }
 
   ngOnInit() {
