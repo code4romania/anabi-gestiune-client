@@ -2,7 +2,7 @@ import { CategoryResponse } from './category-response.interface';
 
 export class Category {
   id: number;
-  code: string;
+  name: string;
   description: string;
   parentId: number;
   parent: Category;
@@ -16,7 +16,7 @@ export class Category {
 
   fromJson(aCategoryResponse: CategoryResponse) {
     this.id = aCategoryResponse.id;
-    this.code = aCategoryResponse.code;
+    this.name = aCategoryResponse.code;
     this.description = aCategoryResponse.description;
     this.parentId = aCategoryResponse.parentId;
     this.forEntity = aCategoryResponse.forEntity || undefined;

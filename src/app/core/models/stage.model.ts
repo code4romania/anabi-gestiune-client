@@ -1,11 +1,19 @@
 export class Stage {
   id: number;
   name: string;
-  isFinala: boolean;
+  isFinal: boolean;
+  isRecovery: boolean;
 
-  constructor(id: number, name: string, isFinala: boolean) {
-    this.id = id;
-    this.name = name;
-    this.isFinala = isFinala;
+  constructor(aData?: any) {
+    if (aData) {
+      this.fromJson(aData);
+    }
+  }
+
+  fromJson(aJson: any) {
+    this.id = aJson.id;
+    this.name = aJson.name;
+    this.isFinal = aJson.isFinal;
+    this.isRecovery = aJson.isRecovery;
   }
 }

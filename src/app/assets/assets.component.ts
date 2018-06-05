@@ -44,7 +44,6 @@ export class AssetsComponent implements OnInit {
     this.assetsService.list()
       .subscribe(
         (assets: Asset[]) => {
-          console.warn('data', assets);
           this.tableConfig.dataSource = new MatTableDataSource(assets);
           this.tableConfig.dataSource.sort = this.sort;
           this.tableConfig.dataSource.paginator = this.paginator;

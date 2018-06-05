@@ -11,8 +11,8 @@ import {
   AssetCategory,
   AssetCurrency,
   AssetMeasurement,
-  AssetStage,
-  AssetSubcategory
+  AssetSubcategory,
+  Stage
 } from '../models';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class AssetsApiService {
       .catch((error: any) => Observable.throw(error));
   }
 
-  public stages(): Observable<AssetStage[]> {
+  public stages(): Observable<Stage[]> {
     return this.http.get(environment.api_url + '/assets/stages')
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));

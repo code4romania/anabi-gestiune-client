@@ -9,14 +9,12 @@ import * as fromStore from '../../../core/store';
 import {
   Asset,
   AssetsApiService,
-  AssetCategory,
   AssetCurrency,
   AssetMeasurement,
-  AssetStage,
-  AssetSubcategory,
   Category,
   ErrorStrings,
   NotificationService,
+  Stage
 } from 'app/core';
 
 @Component({
@@ -40,8 +38,8 @@ export class AddAssetComponent implements OnInit {
   });
 
   public categories$: Observable<Category[]>;
-  public subcategories: AssetSubcategory[];
-  public stages: AssetStage[];
+  public subcategories$: Observable<Category[]>;
+  public stages$: Observable<Stage[]>;
   public measurements: AssetMeasurement[];
   public currencies: AssetCurrency[];
 
@@ -55,11 +53,7 @@ export class AddAssetComponent implements OnInit {
 
   getSubcategories(categoryId) {
     this.newAsset.subcategoryId = null;
-    this.assetsApiService.subcategories(categoryId)
-      .subscribe(
-        (subcategories) => this.subcategories = subcategories,
-        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_SUBCATEGORIES)
-      );
+    this.subcategories$ = this.store.select(fromStore.getSubcategories(categoryId));
   }
 
   save() {
@@ -108,17 +102,8 @@ export class AddAssetComponent implements OnInit {
     this.newAsset = new Asset({});
 
     this.categories$ = this.store.select(fromStore.getParentCategories);
+    this.stages$ = this.store.select(fromStore.getAllStages);
 
-    /*this.assetsApiService.categories()
-      .subscribe(
-        (categories) => this.categories = categories,
-        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CATEGORIES)
-      );*/
-    this.assetsApiService.stages()
-      .subscribe(
-        (stages) => this.stages = stages,
-        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_STAGES)
-      );
     this.assetsApiService.measurements()
       .subscribe(
         (measurements) => this.measurements = measurements,

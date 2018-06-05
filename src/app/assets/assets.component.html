@@ -9,32 +9,32 @@
     <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex>
       <ng-container matColumnDef="assetId">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-        <mat-cell *matCellDef="let asset">{{ asset.assetId }}</mat-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.id }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="assetName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
-        <mat-cell *matCellDef="let asset">{{ asset.assetName }}</mat-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.name }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="assetIdentifier">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Identificator</mat-header-cell>
-        <mat-cell *matCellDef="let asset">{{ asset.assetIdentifier }}</mat-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.identifier }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="assetCategory">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Categorie</mat-header-cell>
-        <mat-cell *matCellDef="let asset">{{ asset.assetCategory }}</mat-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.getCategoryName() }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="assetSubcategory">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Subcategorie</mat-header-cell>
-        <mat-cell *matCellDef="let asset">{{ asset.assetSubcategory }}</mat-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.getSubcategoryName() }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="currentStage">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Stadiu</mat-header-cell>
-        <mat-cell *matCellDef="let asset">{{ asset.currentStage }}</mat-cell>
+        <mat-cell *matCellDef="let asset">{{ asset.getStageName() }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="value">

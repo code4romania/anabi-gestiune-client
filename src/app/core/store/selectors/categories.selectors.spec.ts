@@ -10,16 +10,30 @@ describe('Categories Selectors', () => {
   const theCategories = [
     new Category({
       id: 1,
-      code: '1',
-      description: 'First category',
+      code: 'First category',
+      description: 'First category description',
       parentId: null,
       forEntity: 'test',
     } as CategoryResponse),
     new Category({
       id: 2,
-      code: '2',
-      description: 'Second category',
+      code: 'Second category',
+      description: 'Second category description',
       parentId: null,
+      forEntity: 'test',
+    } as CategoryResponse),
+    new Category({
+      id: 3,
+      code: 'Third category',
+      description: 'Third category description',
+      parentId: 1,
+      forEntity: 'test',
+    } as CategoryResponse),
+    new Category({
+      id: 4,
+      code: 'Fourth category',
+      description: 'Fourth category description',
+      parentId: 1,
       forEntity: 'test',
     } as CategoryResponse),
   ];
@@ -35,6 +49,8 @@ describe('Categories Selectors', () => {
           entities: {
             1: theCategories[0],
             2: theCategories[1],
+            3: theCategories[2],
+            4: theCategories[3],
           },
           loaded: true,
           loading: false,
@@ -90,6 +106,29 @@ describe('Categories Selectors', () => {
     it('should get the parent categories', () => {
       const expectedResult = getEntitiesAsArray(state).filter((aCategory: Category) => aCategory.parentId === null);
       expect(fromSelectors.getParentCategories(state)).toEqual(expectedResult);
+    });
+  });
+
+  describe('getSubcategories', () => {
+    it('should get the children of a category', () => {
+      const theParentId = 1;
+      const expectedResult = getEntitiesAsArray(state).filter((aCategory: Category) => aCategory.parentId === theParentId);
+      expect(fromSelectors.getSubcategories(theParentId)(state)).toEqual(expectedResult);
+    });
+
+    it('should return an empty array if no children', () => {
+      const theParentId = 2;
+      expect(fromSelectors.getSubcategories(theParentId)(state)).toEqual([]);
+    });
+  });
+
+  describe('getCategoryByName', () => {
+    it('should find a category by name', () => {
+      expect(fromSelectors.getCategoryByName('Third category')(state)).toEqual(coreState.categories.entities[3]);
+    });
+
+    it('should return undefined if the category is not found', () => {
+      expect(fromSelectors.getCategoryByName('Non existing category')(state)).toEqual(undefined);
     });
   });
 });

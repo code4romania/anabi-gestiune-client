@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import * as fromServices from '../../services';
+import { CategoriesService } from '../../services/categories.service';
 import * as categoryActions from '../actions/categories.action';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class CategoriesEffects {
     );
 
   constructor(private actions$: Actions,
-              private categoriesService: fromServices.CategoriesService
+              private categoriesService: CategoriesService
   ) {
   }
 }

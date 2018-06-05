@@ -3,7 +3,7 @@ export * from './asset.model';
 export * from './asset-category.model';
 export * from './asset-currency.model';
 export * from './asset-measurement.model';
-export * from './asset-stage.model';
+export * from './asset-response.interface';
 export * from './asset-subcategory.model';
 export * from './category.model';
 export * from './county.model';

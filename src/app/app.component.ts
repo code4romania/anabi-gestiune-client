@@ -13,5 +13,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new fromStore.LoadCategories());
+    this.store.dispatch(new fromStore.LoadStages());
   }
 }

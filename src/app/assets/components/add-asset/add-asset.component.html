@@ -46,7 +46,7 @@
         <mat-form-field fxFlex="49">
           <mat-select #subcategory name="subcategory" placeholder="Subcategorie"
                       [(ngModel)]="newAsset.subcategoryId" formControlName="subcategory">
-            <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory.id">{{ subcategory.code }}</mat-option>
+            <mat-option *ngFor="let subcategory of subcategories$ | async" [value]="subcategory.id">{{ subcategory.code }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -54,7 +54,7 @@
       <mat-form-field>
         <mat-select #stage name="stage" placeholder="Stare actuala" required
                     [(ngModel)]="newAsset.stageId" formControlName="stage">
-          <mat-option *ngFor="let stage of stages" [value]="stage.id">{{ stage.name }}</mat-option>
+          <mat-option *ngFor="let stage of stages$ | async" [value]="stage.id">{{ stage.name }}</mat-option>
         </mat-select>
         <mat-error *ngIf="newAssetForm.controls.stage.hasError('required')">
           Starea este obligatorie.

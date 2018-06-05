@@ -24,3 +24,11 @@ export const getParentCategories = createSelector(
   getAllCategories,
   (aCategories) => aCategories.filter(aCategory => aCategory.parentId === null)
 );
+export const getSubcategories = (aParentCategoryId: number) => createSelector(
+  getAllCategories,
+  (aCategories) => aCategories.filter(aCategory => aCategory.parentId === aParentCategoryId)
+);
+export const getCategoryByName = (aCategoryName: string) => createSelector(
+  getAllCategories,
+  (aCategories) => aCategories.find(aCategory => aCategory.name === aCategoryName)
+);
