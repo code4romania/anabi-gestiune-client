@@ -56,15 +56,15 @@ export class Asset {
     this.stage = aStage;
   }
 
-  getCategoryName(): string {
+  get categoryName(): string {
     return this.category.name || undefined;
   }
 
-  getSubcategoryName(): string {
+  get subcategoryName(): string {
     return this.subcategory.name || undefined;
   }
 
-  getStageName(): string {
+  get stageName(): string {
     return this.stage.name || undefined;
   }
 

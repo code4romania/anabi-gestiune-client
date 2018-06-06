@@ -7,7 +7,10 @@ import {
   MatTableDataSource
 } from '@angular/material';
 
-import { Asset, AssetsService, ErrorStrings, NotificationService } from 'app/core';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../core/store';
+
+import { Asset } from 'app/core';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
 
 @Component({
@@ -23,8 +26,7 @@ export class AssetsComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private assetsService: AssetsService,
-    private notificationService: NotificationService
+    private store: Store<fromStore.CoreState>
   ) {
   }
 
@@ -32,24 +34,24 @@ export class AssetsComponent implements OnInit {
     this.tableConfig = {};
 
     this.tableConfig.displayedColumns = [
-      'assetId',
-      'assetName',
-      'assetIdentifier',
-      'assetCategory',
-      'assetSubcategory',
-      'currentStage',
+      'id',
+      'name',
+      'identifier',
+      'categoryName',
+      'subcategoryName',
+      'stageName',
       'value',
     ];
 
-    this.assetsService.list()
-      .subscribe(
-        (assets: Asset[]) => {
-          this.tableConfig.dataSource = new MatTableDataSource(assets);
+    this.store.dispatch(new fromStore.LoadAssets());
+    this.store.select(fromStore.getAllAssets)
+      .subscribe((aAssets) => {
+        if (aAssets && aAssets.length > 0) {
+          this.tableConfig.dataSource = new MatTableDataSource(aAssets);
           this.tableConfig.dataSource.sort = this.sort;
           this.tableConfig.dataSource.paginator = this.paginator;
-        },
-        (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_ASSETS)
-      );
+        }
+      });
   }
 
   addAsset(): void {
