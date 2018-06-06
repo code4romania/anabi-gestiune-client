@@ -23,7 +23,7 @@ import {
 })
 
 export class AddAssetComponent implements OnInit {
-  public newAsset: Asset = new Asset({});
+  public newAsset: Asset = new Asset();
 
   public newAssetForm = new FormGroup({
     name: new FormControl(),
@@ -99,7 +99,7 @@ export class AddAssetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.newAsset = new Asset({});
+    this.newAsset = new Asset();
 
     this.categories$ = this.store.select(fromStore.getParentCategories);
     this.stages$ = this.store.select(fromStore.getAllStages);

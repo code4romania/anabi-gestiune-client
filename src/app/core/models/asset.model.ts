@@ -1,4 +1,5 @@
-import { AssetResponse, Category, Stage } from './index';
+import * as moment from 'moment';
+import { AssetDetailResponse, AssetResponse, Category, Stage } from './index';
 
 export class Asset {
   // details
@@ -8,6 +9,7 @@ export class Asset {
   identifier: string;
 
   // stock
+  remarks: number;
   quantity: number;
   measureUnit: string;
   estimatedAmount: number;
@@ -23,21 +25,12 @@ export class Asset {
   subcategory: Category;
   stage: Stage;
 
-  constructor(asset?: any) {
-    if (asset) {
-      console.warn('received', asset);
-      this.id = asset.id;
-      this.name = asset.name;
-      this.description = asset.description;
-      this.identifier = asset.identifier;
-      this.categoryId = asset.categoryId;
-      this.subcategoryId = asset.subcategoryId;
-      this.stageId = asset.stageId;
-      this.quantity = asset.quantity;
-      this.measureUnit = asset.measureUnit;
-      this.estimatedAmount = asset.estimatedAmount;
-      this.estimatedAmountCurrency = asset.estimatedAmountCurrency;
-    }
+  dateAdded: moment.Moment;
+  addedBy: string;
+  dateChanged: moment.Moment;
+  changedBy: string;
+
+  constructor() {
   }
 
   get value(): string {
@@ -68,12 +61,28 @@ export class Asset {
     return this.stage.name || undefined;
   }
 
-  fromJson(aJson: AssetResponse) {
+  fromAssetResponseJson(aJson: AssetResponse) {
     this.id = aJson.assetId;
     this.name = aJson.assetName;
     this.identifier = aJson.assetIdentifier;
     this.estimatedAmount = aJson.estimatedAmount;
     this.estimatedAmountCurrency = aJson.estimatedAmountCurrency;
+  }
+
+  fromAssetDetailResponseJson(aJson: AssetDetailResponse) {
+    this.id = aJson.id;
+    this.name = aJson.name;
+    this.description = aJson.description;
+    this.identifier = aJson.identifier;
+    this.remarks = aJson.remarks;
+    this.quantity = aJson.quantity;
+    this.measureUnit = aJson.measureUnit;
+    this.estimatedAmount = aJson.estimatedAmount;
+    this.estimatedAmountCurrency = aJson.estimatedAmountCurrency;
+    this.dateAdded = moment(aJson.addedDate);
+    this.addedBy = aJson.userCodeAdd;
+    this.dateChanged = moment(aJson.lastChangedDate);
+    this.changedBy = aJson.userCodeLastChange;
   }
 
   toJson(): AssetResponse {

@@ -10,7 +10,9 @@ import {
   Asset,
   AssetCategory,
   AssetCurrency,
+  AssetDetailResponse,
   AssetMeasurement,
+  AssetResponse,
   AssetSubcategory,
   Stage
 } from '../models';
@@ -20,19 +22,19 @@ export class AssetsApiService {
   constructor(private http: HttpClient) {}
 
   public categories(): Observable<AssetCategory[]> {
-    return this.http.get(environment.api_url + '/assets/parentcategories')
+    return this.http.get(`${environment.api_url}/assets/parentcategories`)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }
 
   public subcategories(categoryId): Observable<AssetSubcategory[]> {
-    return this.http.get(environment.api_url + '/assets/subcategories/' + categoryId)
+    return this.http.get(`${environment.api_url}/assets/subcategories/${categoryId}`)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }
 
   public stages(): Observable<Stage[]> {
-    return this.http.get(environment.api_url + '/assets/stages')
+    return this.http.get(`${environment.api_url}/assets/stages`)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }
@@ -61,16 +63,16 @@ export class AssetsApiService {
     });
   }
 
-  public list(): Observable<any> {
+  public list(): Observable<AssetResponse[]> {
     return this.http
-      .get(environment.api_url + '/assets')
+      .get(`${environment.api_url}/assets`)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }
 
-  public details(id): Observable<Asset> {
+  public assetDetails(id: number): Observable<AssetDetailResponse> {
     return this.http
-      .get(environment.api_url + '/assets/' + id)
+      .get(`${environment.api_url}/assets/${id}`)
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }

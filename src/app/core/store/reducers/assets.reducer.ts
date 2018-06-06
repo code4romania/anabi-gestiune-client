@@ -53,6 +53,21 @@ export function reducer(
       } as AssetState;
     }
 
+    case fromAssets.LOAD_ASSET_DETAIL_SUCCESS: {
+      const theAsset = action.payload;
+      const entities = {
+        ...state.entities,
+        [theAsset.id]: theAsset,
+      };
+
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        entities,
+      };
+    }
+
     default: {
       return {
         ...state,

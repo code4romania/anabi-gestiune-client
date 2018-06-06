@@ -17,8 +17,23 @@ export class AssetsEffects {
         return this.assetsService
           .list()
           .pipe(
-            map(aCategories => new assetActions.LoadAssetsSuccess(aCategories)),
+            map(aAssets => new assetActions.LoadAssetsSuccess(aAssets)),
             catchError(error => of(new assetActions.LoadAssetsFail(error)))
+          )
+      })
+    );
+
+  @Effect()
+  loadAssetDetail$ = this.actions$
+    .ofType(assetActions.LOAD_ASSET_DETAIL)
+    .pipe(
+      map((action: assetActions.LoadAssetDetail) => action.payload),
+      switchMap((aPayload) => {
+        return this.assetsService
+          .loadAssetDetails(aPayload)
+          .pipe(
+            map(aAsset => new assetActions.LoadAssetDetailSuccess(aAsset)),
+            catchError(error => of(new assetActions.LoadAssetDetailFail(error)))
           )
       })
     );

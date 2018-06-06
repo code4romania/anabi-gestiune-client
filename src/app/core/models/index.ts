@@ -2,6 +2,7 @@ export * from './address.model';
 export * from './asset.model';
 export * from './asset-category.model';
 export * from './asset-currency.model';
+export * from './asset-detail-response.interface';
 export * from './asset-measurement.model';
 export * from './asset-response.interface';
 export * from './asset-subcategory.model';

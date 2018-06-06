@@ -71,6 +71,6 @@ export class AssetsComponent implements OnInit {
   }
 
   onAssetClicked(aAsset: Asset) {
-    console.warn('asset clicked', aAsset);
+    this.store.dispatch(new fromStore.LoadAssetDetail(aAsset.id));
   }
 }

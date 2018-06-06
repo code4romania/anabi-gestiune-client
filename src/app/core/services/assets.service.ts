@@ -7,7 +7,7 @@ import { CoreState } from '../store/reducers/index';
 import * as fromSelectors from '../store/selectors';
 
 import { AssetsApiService } from '../http';
-import { Asset, AssetResponse, Category, Stage } from '../models';
+import { Asset, AssetDetailResponse, AssetResponse, Category, Stage } from '../models';
 
 @Injectable()
 export class AssetsService {
@@ -32,6 +32,13 @@ export class AssetsService {
       );
   }
 
+  public loadAssetDetails(aAssetId: number) {
+    return this.assetsApiService.assetDetails(aAssetId)
+      .pipe(
+        mergeMap((aAssetResponse: AssetDetailResponse) => this.assetFromDetailResponse(aAssetResponse))
+      );
+  }
+
   private assetFromResponse(aResponse: AssetResponse): Observable<Asset> {
     return Observable.zip(
       this.store.select(fromSelectors.getCategoryByName(aResponse.assetCategory)),
@@ -39,7 +46,26 @@ export class AssetsService {
       this.store.select(fromSelectors.getStageByName(aResponse.currentStage)),
       (aCategory: Category, aSubcategory: Category, aStage: Stage) => {
         const theAsset = new Asset();
-        theAsset.fromJson(aResponse);
+        theAsset.fromAssetResponseJson(aResponse);
+        theAsset.setCategory(aCategory);
+        theAsset.setSubcategory(aSubcategory);
+        theAsset.setStage(aStage);
+
+        return theAsset;
+      }
+    ).pipe(
+      take(1)
+    );
+  }
+
+  private assetFromDetailResponse(aResponse: AssetDetailResponse): Observable<Asset> {
+    return Observable.zip(
+      this.store.select(fromSelectors.getCategoryById(aResponse.categoryId)),
+      this.store.select(fromSelectors.getCategoryById(aResponse.subcategoryId)),
+      this.store.select(fromSelectors.getStageById(aResponse.stageId)),
+      (aCategory: Category, aSubcategory: Category, aStage: Stage) => {
+        const theAsset = new Asset();
+        theAsset.fromAssetDetailResponseJson(aResponse);
         theAsset.setCategory(aCategory);
         theAsset.setSubcategory(aSubcategory);
         theAsset.setStage(aStage);

@@ -38,6 +38,7 @@
     "@ngrx/store-devtools": "5.2.0",
     "core-js": "2.5.1",
     "material-design-icons": "^3.0.1",
+    "moment": "2.22.2",
     "normalize.scss": "0.1.0",
     "rxjs": "5.5.2",
     "typescript": "2.4.2",
