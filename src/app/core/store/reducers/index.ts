@@ -20,3 +20,7 @@ export const reducers: ActionReducerMap<CoreState> = {
 };
 
 export const getCoreState = createFeatureSelector<CoreState>('core');
+
+export { AssetState } from './assets.reducer';
+export { CategoryState } from './categories.reducer';
+export { StageState } from './stages.reducer';

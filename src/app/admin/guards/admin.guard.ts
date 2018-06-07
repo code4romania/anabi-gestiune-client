@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
 @Injectable()
-export class AdminGuardService implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private router: Router) {
   }
 

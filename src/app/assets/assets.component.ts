@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
   MatDialog,
   MatDialogConfig,
@@ -6,6 +6,8 @@ import {
   MatSort,
   MatTableDataSource
 } from '@angular/material';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
 import * as fromStore from '../core/store';
@@ -18,38 +20,49 @@ import { AddAssetComponent } from './components/add-asset/add-asset.component';
   styleUrls: ['./assets.component.scss'],
 })
 
-export class AssetsComponent implements OnInit {
-  public assets: Asset[];
+export class AssetsComponent implements OnInit, AfterViewInit {
   public tableConfig: any;
+
+  private assetsLoaded$: Observable<boolean>;
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     public dialog: MatDialog,
-    private store: Store<fromStore.CoreState>
+    private store: Store<fromStore.CoreState>,
+    private router: Router
   ) {
   }
 
   ngOnInit() {
-    this.tableConfig = {};
+    this.assetsLoaded$ = this.store.select(fromStore.getAssetsLoaded);
 
-    this.tableConfig.displayedColumns = [
-      'id',
-      'name',
-      'identifier',
-      'categoryName',
-      'subcategoryName',
-      'stageName',
-      'value',
-    ];
+    this.tableConfig = {
+      displayedColumns: [
+        'id',
+        'name',
+        'identifier',
+        'categoryName',
+        'subcategoryName',
+        'stageName',
+        'value',
+      ],
+    };
 
-    this.store.dispatch(new fromStore.LoadAssets());
+    this.refresh();
+  }
+
+  ngAfterViewInit() {
+    this.tableConfig.dataSource.sort = this.sort;
+    this.tableConfig.dataSource.paginator = this.paginator;
+  }
+
+  refresh() {
     this.store.select(fromStore.getAllAssets)
       .subscribe((aAssets) => {
         if (aAssets && aAssets.length > 0) {
           this.tableConfig.dataSource = new MatTableDataSource(aAssets);
-          this.tableConfig.dataSource.sort = this.sort;
-          this.tableConfig.dataSource.paginator = this.paginator;
         }
       });
   }
@@ -71,6 +84,6 @@ export class AssetsComponent implements OnInit {
   }
 
   onAssetClicked(aAsset: Asset) {
-    this.store.dispatch(new fromStore.LoadAssetDetail(aAsset.id));
+    this.router.navigate(['/assets/detail', aAsset.id]);
   }
 }

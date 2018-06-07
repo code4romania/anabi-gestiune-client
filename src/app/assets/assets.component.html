@@ -1,5 +1,9 @@
 <section id="assets-page" class="page-view">
-  <div class="mat-elevation-z8 table-wrapper">
+  <div class="spinner-container" *ngIf="!(assetsLoaded$ | async)">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <div class="mat-elevation-z8 table-wrapper" *ngIf="assetsLoaded$ | async">
     <div class="table-header">
       <mat-form-field fxFlex>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Cauta">

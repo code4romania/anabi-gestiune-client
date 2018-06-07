@@ -60,13 +60,12 @@ export class AssetsService {
 
   private assetFromDetailResponse(aResponse: AssetDetailResponse): Observable<Asset> {
     return Observable.zip(
-      this.store.select(fromSelectors.getCategoryById(aResponse.categoryId)),
       this.store.select(fromSelectors.getCategoryById(aResponse.subcategoryId)),
       this.store.select(fromSelectors.getStageById(aResponse.stageId)),
-      (aCategory: Category, aSubcategory: Category, aStage: Stage) => {
+      (aSubcategory: Category, aStage: Stage) => {
         const theAsset = new Asset();
         theAsset.fromAssetDetailResponseJson(aResponse);
-        theAsset.setCategory(aCategory);
+        theAsset.setCategory(aSubcategory.parent);
         theAsset.setSubcategory(aSubcategory);
         theAsset.setStage(aStage);
 

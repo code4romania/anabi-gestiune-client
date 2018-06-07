@@ -5,7 +5,10 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 
 // services
-import { AdminGuardService } from './services/admin-guard.service';
+import * as fromServices from './services';
+
+// guards
+import * as fromGuards from './guards';
 
 // components
 import { AdminComponent } from './admin.component';
@@ -19,7 +22,8 @@ import { AdminComponent } from './admin.component';
     AdminComponent,
   ],
   providers: [
-    AdminGuardService,
+    ...fromServices.services,
+    ...fromGuards.guards,
   ],
 })
 export class AdminModule {}

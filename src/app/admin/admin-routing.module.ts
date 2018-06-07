@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+// guards
+import * as fromGuards from './guards';
+
 import { AdminComponent } from './admin.component';
-import { AdminGuardService } from './services/admin-guard.service';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [fromGuards.AdminGuard],
     component: AdminComponent,
-    canActivate: [AdminGuardService],
   },
 ];
 

@@ -4,6 +4,12 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { AssetsRoutingModule } from './assets-routing.module';
 
+// services
+import * as fromServices from './services';
+
+// guards
+import * as fromGuards from './guards';
+
 // components
 import { AssetsComponent } from './assets.component';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
@@ -21,6 +27,10 @@ import { AssetDetailComponent } from './components/asset-detail/asset-detail.com
   ],
   entryComponents: [
     AddAssetComponent,
+  ],
+  providers: [
+    ...fromServices.services,
+    ...fromGuards.guards,
   ],
 })
 export class AssetsModule {}

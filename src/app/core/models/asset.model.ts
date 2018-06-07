@@ -30,6 +30,8 @@ export class Asset {
   dateChanged: moment.Moment;
   changedBy: string;
 
+  private hasDetails = false;
+
   constructor() {
   }
 
@@ -61,6 +63,10 @@ export class Asset {
     return this.stage.name || undefined;
   }
 
+  isDetailed(): boolean {
+    return this.hasDetails;
+  }
+
   fromAssetResponseJson(aJson: AssetResponse) {
     this.id = aJson.assetId;
     this.name = aJson.assetName;
@@ -70,6 +76,8 @@ export class Asset {
   }
 
   fromAssetDetailResponseJson(aJson: AssetDetailResponse) {
+    this.hasDetails = true;
+
     this.id = aJson.id;
     this.name = aJson.name;
     this.description = aJson.description;

@@ -8,6 +8,7 @@ import {
   MatListModule,
   MatMenuModule,
   MatPaginatorModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSnackBarModule,
   MatSortModule,
@@ -30,6 +31,7 @@ const modules = [
   MatSortModule,
   MatPaginatorModule,
   MatSnackBarModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
