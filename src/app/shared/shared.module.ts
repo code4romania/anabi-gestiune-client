@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 
 // components
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import * as fromComponents from './components';
 
 const modules = [
   CommonModule,
@@ -23,13 +23,13 @@ const modules = [
 
 @NgModule({
   declarations: [
-    ToolbarComponent,
+    ...fromComponents.components,
   ],
   imports: [
     modules,
   ],
   exports: [
-    ToolbarComponent,
+    ...fromComponents.components,
     // modules
     modules,
   ],

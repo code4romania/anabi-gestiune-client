@@ -1,0 +1,33 @@
+.asset-details {
+  display: flex;
+  justify-content: center;
+
+  &-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 40%;
+
+    margin-top: 20px;
+    padding: 20px;
+
+    h2 {
+      font-size: 26px;
+      font-weight: normal;
+      margin-top: 0px;
+    }
+
+    app-detailed-text {
+      flex-grow: 1;
+      margin-bottom: 16px;
+    }
+
+    &-double {
+      display: flex;
+      flex-direction: row;
+
+      app-detailed-text {
+        flex-basis: 50%;
+      }
+    }
+  }
+}
