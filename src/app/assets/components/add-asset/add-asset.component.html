@@ -33,7 +33,7 @@
           <mat-select #category name="category" placeholder="Categorie" required
                       [(ngModel)]="newAsset.categoryId" formControlName="category"
                       (selectionChange)="getSubcategories(newAsset.categoryId)">
-            <mat-option *ngFor="let category of categories$ | async" [value]="category.id">{{ category.code }}</mat-option>
+            <mat-option *ngFor="let category of categories$ | async" [value]="category.id">{{ category.name }}</mat-option>
           </mat-select>
           <mat-error *ngIf="newAssetForm.controls.category.hasError('required')">
             Categoria este obligatorie.
@@ -46,7 +46,7 @@
         <mat-form-field fxFlex="49">
           <mat-select #subcategory name="subcategory" placeholder="Subcategorie"
                       [(ngModel)]="newAsset.subcategoryId" formControlName="subcategory">
-            <mat-option *ngFor="let subcategory of subcategories$ | async" [value]="subcategory.id">{{ subcategory.code }}</mat-option>
+            <mat-option *ngFor="let subcategory of subcategories$ | async" [value]="subcategory.id">{{ subcategory.name }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
