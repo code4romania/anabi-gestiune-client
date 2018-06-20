@@ -1,0 +1,26 @@
+<section class="asset-details page-view">
+  <div class="asset-details-card mat-elevation-z8" *ngIf="asset$ | async as theAsset">
+    <h2>{{theAsset.name}}</h2>
+
+    <app-detailed-text description="ID" [text]="theAsset.id"></app-detailed-text>
+    <app-detailed-text description="Descriere" [text]="theAsset.description"></app-detailed-text>
+    <app-detailed-text description="Identificator" [text]="theAsset.identifier"></app-detailed-text>
+
+    <div class="asset-details-card-double">
+      <app-detailed-text description="Categorie" [text]="theAsset.categoryName"></app-detailed-text>
+      <app-detailed-text description="Subcategorie" [text]="theAsset.subcategoryName"></app-detailed-text>
+    </div>
+
+    <app-detailed-text description="Stare actuala" [text]="theAsset.stageName"></app-detailed-text>
+
+    <div class="asset-details-card-double">
+      <app-detailed-text description="Cantitate" [text]="theAsset.quantity"></app-detailed-text>
+      <app-detailed-text description="Unitate de masura" [text]="theAsset.measureUnit"></app-detailed-text>
+    </div>
+
+    <div class="asset-details-card-double">
+      <app-detailed-text description="Valoare estimata" [text]="theAsset.estimatedAmount"></app-detailed-text>
+      <app-detailed-text description="Moneda" [text]="theAsset.estimatedAmountCurrency"></app-detailed-text>
+    </div>
+  </div>
+</section>

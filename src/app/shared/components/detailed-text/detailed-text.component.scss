@@ -1,0 +1,15 @@
+@import "../../../../theme.scss";
+
+:host {
+  p {
+    margin: 0px;
+    font-size: 14px;
+
+    &:first-child {
+      font-weight: lighter;
+      color: map-get($mat-grey, 500);
+
+      margin-bottom: 6px;
+    }
+  }
+}

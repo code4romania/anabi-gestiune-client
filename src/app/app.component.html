@@ -1,0 +1,7 @@
+<app-toolbar></app-toolbar>
+
+<div class="globalProgress" *ngIf="showIsLoading$ | async">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<router-outlet *ngIf="!(showIsLoading$ | async)"></router-outlet>
