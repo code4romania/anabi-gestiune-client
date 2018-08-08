@@ -6,5 +6,5 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://anabiapi-test.azurewebsites.net/api',
+  api_url: 'http://backend.anabi-dev.code4.ro/api',
 };

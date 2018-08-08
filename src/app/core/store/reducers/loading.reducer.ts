@@ -1,11 +1,11 @@
 import * as fromLoading from '../actions/loading.action';
 
 export interface LoadingState {
-  isLoading: boolean;
+  ttl: number;
 }
 
 export const initialState: LoadingState = {
-  isLoading: false,
+  ttl: 0,
 };
 
 export function reducer(
@@ -15,16 +15,18 @@ export function reducer(
 
   switch (action.type) {
     case fromLoading.SHOW_LOADING: {
+      const ttl = state.ttl + 1;
       return {
         ...state,
-        isLoading: true,
+        ttl,
       };
     }
 
     case fromLoading.HIDE_LOADING: {
+      const ttl = state.ttl > 0 ? state.ttl - 1 : 0;
       return {
         ...state,
-        isLoading: false,
+        ttl,
       };
     }
 
@@ -36,4 +38,4 @@ export function reducer(
   }
 }
 
-export const getIsLoading = (state: LoadingState) => state.isLoading;
+export const getIsLoading = (state: LoadingState) => state.ttl > 0;
