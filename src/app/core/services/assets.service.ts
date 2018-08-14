@@ -7,7 +7,7 @@ import { CoreState } from '../store/reducers/index';
 import * as fromSelectors from '../store/selectors';
 
 import { AssetsApiService } from '../http';
-import { Asset, AssetDetailResponse, AssetResponse, Category, Stage } from '../models';
+import { Asset, AssetDetailResponse, AssetResponse, Category, Stage, StageResponse } from '../models';
 
 @Injectable()
 export class AssetsService {
@@ -28,7 +28,7 @@ export class AssetsService {
   public stages(): Observable<Stage[]> {
     return this.assetsApiService.stages()
       .pipe(
-        map((aResponse: object[]) => aResponse.map(aStage => new Stage(aStage)))
+        map((aResponse: StageResponse[]) => aResponse.map(aStage => new Stage(aStage)))
       );
   }
 

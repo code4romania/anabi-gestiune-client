@@ -1,4 +1,4 @@
-import { Category, CategoryResponse } from '../../models';
+import { Category, CategoryEntity, CategoryResponse } from '../../models';
 import { CategoryState } from '../reducers/categories.reducer';
 import { CoreState, State } from '../reducers/index';
 import * as fromSelectors from './categories.selectors';
@@ -13,7 +13,7 @@ describe('Categories Selectors', () => {
       code: 'First category',
       description: 'First category description',
       parentId: null,
-      forEntity: 'test',
+      forEntity: CategoryEntity.Asset as string,
     } as CategoryResponse),
     new Category({
       id: 2,
@@ -27,7 +27,7 @@ describe('Categories Selectors', () => {
       code: 'Third category',
       description: 'Third category description',
       parentId: 1,
-      forEntity: 'test',
+      forEntity: CategoryEntity.Asset as string,
     } as CategoryResponse),
     new Category({
       id: 4,
@@ -129,6 +129,23 @@ describe('Categories Selectors', () => {
 
     it('should return undefined if the category is not found', () => {
       expect(fromSelectors.getCategoryByName('Non existing category')(state)).toEqual(undefined);
+    });
+  });
+
+  describe('getAssetParentCategories', () => {
+    it('should get the parent categories only for asset entities', () => {
+      const expectedResult = getEntitiesAsArray(state)
+        .filter((aCategory: Category) => aCategory.parentId === null && aCategory.isAssetEntity());
+      expect(fromSelectors.getAssetParentCategories(state)).toEqual(expectedResult);
+    });
+  });
+
+  describe('getAssetSubcategories', () => {
+    it('should get the children of a category only for asset entities', () => {
+      const theParentId = 1;
+      const expectedResult = getEntitiesAsArray(state)
+        .filter((aCategory: Category) => aCategory.parentId === theParentId && aCategory.isAssetEntity());
+      expect(fromSelectors.getAssetSubcategories(theParentId)(state)).toEqual(expectedResult);
     });
   });
 });

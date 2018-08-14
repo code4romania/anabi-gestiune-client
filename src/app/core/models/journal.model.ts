@@ -1,13 +1,31 @@
-export class Journal {
-  userCodeAdd: string;
-  userCodeLastChange: string;
-  addedDate: any;
-  lastChangeDate: any;
+import * as moment from 'moment';
+import { JournalResponse } from './index';
 
-  constructor(userCodeAdd: string, userCodeLastChange: string, addedDate: any, lastChangeDate: any) {
-    this.userCodeAdd = userCodeAdd;
-    this.userCodeLastChange = userCodeLastChange;
-    this.addedDate = addedDate;
-    this.lastChangeDate = lastChangeDate;
+export class Journal {
+  addedDate: moment.Moment;
+  userCodeAdd: string;
+  userCodeLastChange: moment.Moment;
+  lastChangeDate: moment.Moment;
+
+  constructor(aData?: JournalResponse) {
+    if (aData) {
+      this.fromJson(aData);
+    }
+  }
+
+  fromJson(aJson: JournalResponse) {
+    this.addedDate = moment(aJson.addedDate);
+    this.userCodeAdd = aJson.userCodeAdd;
+    this.userCodeLastChange = moment(aJson.userCodeLastChange);
+    this.lastChangeDate = moment(aJson.lastChangeDate);
+  }
+
+  toJson(): JournalResponse {
+    return {
+      addedDate: this.addedDate.format(),
+      userCodeAdd: this.userCodeAdd,
+      userCodeLastChange: this.userCodeLastChange.format(),
+      lastChangeDate: this.lastChangeDate.format(),
+    } as JournalResponse;
   }
 }

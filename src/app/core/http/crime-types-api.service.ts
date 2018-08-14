@@ -6,15 +6,16 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
-import { StageResponse } from '../models';
+import { CrimeTypeResponse } from '../models';
 
 @Injectable()
-export class StagesApiService {
-  constructor(private http: HttpClient) { }
+export class CrimeTypesApiService {
+  constructor(private http: HttpClient) {
+  }
 
-  public list(): Observable<StageResponse[]> {
+  public list(): Observable<CrimeTypeResponse[]> {
     return this.http
-      .get(environment.api_url + '/stages')
+      .get(environment.api_url + '/crimetypes')
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error));
   }

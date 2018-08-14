@@ -17,7 +17,7 @@ export class StagesEffects {
         return this.assetsService
           .stages()
           .pipe(
-            map(aCategories => new stageActions.LoadStagesSuccess(aCategories)),
+            map(aStages => new stageActions.LoadStagesSuccess(aStages)),
             catchError(error => of(new stageActions.LoadStagesFail(error)))
           )
       })

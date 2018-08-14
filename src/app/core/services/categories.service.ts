@@ -11,7 +11,7 @@ export class CategoriesService {
   constructor(private categoriesApiService: CategoriesApiService) {
   }
 
-  public list(): Observable<any> {
+  public list(): Observable<Category[]> {
     return this.categoriesApiService.list()
       .pipe(
         map((aResponse: object[]) => aResponse.map((aCategory: CategoryResponse) => new Category(aCategory))),

@@ -53,7 +53,7 @@ export class AddAssetComponent implements OnInit {
 
   getSubcategories(categoryId) {
     this.newAsset.subcategoryId = null;
-    this.subcategories$ = this.store.select(fromStore.getSubcategories(categoryId));
+    this.subcategories$ = this.store.select(fromStore.getAssetSubcategories(categoryId));
   }
 
   save() {
@@ -101,7 +101,7 @@ export class AddAssetComponent implements OnInit {
   ngOnInit() {
     this.newAsset = new Asset();
 
-    this.categories$ = this.store.select(fromStore.getParentCategories);
+    this.categories$ = this.store.select(fromStore.getAssetParentCategories);
     this.stages$ = this.store.select(fromStore.getAllStages);
 
     this.assetsApiService.measurements()

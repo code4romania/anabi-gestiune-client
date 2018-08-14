@@ -8,7 +8,6 @@ describe('Loading Reducer', () => {
   });
 
   it('should increase the loading TTL on SHOW_LOADING', () => {
-    console.log('initial state', initialState);
     const expectedState = {
       ...initialState,
       ttl: 1,
