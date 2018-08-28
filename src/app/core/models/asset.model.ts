@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { AssetDetailResponse, AssetResponse, Category, Stage } from './index';
+import { AssetDetailResponse, AssetRequest, AssetResponse, Category, Stage } from './index';
 
 export class Asset {
   // details
@@ -93,16 +93,17 @@ export class Asset {
     this.changedBy = aJson.userCodeLastChange;
   }
 
-  toJson(): AssetResponse {
+  toJson(): AssetRequest {
     return {
-      assetId: this.id,
-      assetName: this.name,
-      assetIdentifier: this.identifier,
-      assetCategory: this.category.description,
-      assetSubcategory: this.subcategory.description,
-      currentStage: this.stage.name,
+      name: this.name,
+      categoryId: this.category ? this.category.id : null,
+      subcategoryId: this.subcategory ? this.subcategory.id : null,
+      stageId: this.stage ? this.stage.id : null,
+      quantity: this.quantity,
+      measureUnit: this.measureUnit,
       estimatedAmount: this.estimatedAmount,
       estimatedAmountCurrency: this.estimatedAmountCurrency,
-    } as AssetResponse;
+      description: this.description,
+    } as AssetRequest;
   }
 }

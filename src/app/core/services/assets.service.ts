@@ -7,13 +7,29 @@ import { CoreState } from '../store/reducers/index';
 import * as fromSelectors from '../store/selectors';
 
 import { AssetsApiService } from '../http';
-import { Asset, AssetDetailResponse, AssetResponse, Category, Stage, StageResponse } from '../models';
+import {
+  Asset,
+  AssetCurrency,
+  AssetDetailResponse,
+  AssetMeasurement,
+  AssetResponse,
+  Category,
+  Stage,
+  StageResponse
+} from '../models';
 
 @Injectable()
 export class AssetsService {
   constructor(
     private assetsApiService: AssetsApiService,
     private store: Store<CoreState>) {
+  }
+
+  public create(aAsset: Asset): Observable<Asset> {
+    return this.assetsApiService.create(aAsset.toJson())
+      .pipe(
+        mergeMap((aAssetResponse: AssetResponse) => this.assetFromResponse(aAssetResponse))
+      );
   }
 
   public list(): Observable<Asset[]> {
@@ -30,6 +46,26 @@ export class AssetsService {
       .pipe(
         map((aResponse: StageResponse[]) => aResponse.map(aStage => new Stage(aStage)))
       );
+  }
+
+  public measurements(): Observable<AssetMeasurement[]> {
+    const measurements = [
+      new AssetMeasurement({ id: 'buc', code: 'Bucati' }),
+      new AssetMeasurement({ id: 'kg', code: 'Kilograme' }),
+      new AssetMeasurement({ id: 'l', code: 'Litri' }),
+    ];
+
+    return Observable.of(measurements);
+  }
+
+  public currencies(): Observable<AssetCurrency[]> {
+    const currencies = [
+      new AssetCurrency({ id: 'ron', code: 'RON' }),
+      new AssetCurrency({ id: 'eur', code: 'EUR' }),
+      new AssetCurrency({ id: 'usd', code: 'USD' }),
+    ];
+
+    return Observable.of(currencies);
   }
 
   public loadAssetDetails(aAssetId: number) {

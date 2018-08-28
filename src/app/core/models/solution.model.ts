@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 
+import { Asset } from './asset.model';
 import { Journal } from './journal.model';
 import { RecoveryDetails } from './recovery-details.model';
 import { SolutionDetails } from './solution-details.model';
@@ -16,6 +17,7 @@ export class Solution {
   institutionId: number;
   decisionDate: moment.Moment;
   decisionNumber: string;
+  private asset: Asset;
 
   confiscationDetails: ConfiscationDetailsResponse;
   sequesterDetails: SequesterDetailsResponse;
@@ -27,6 +29,14 @@ export class Solution {
     if (aData) {
       this.fromJson(aData);
     }
+  }
+
+  setAsset(aAsset: Asset) {
+    this.asset = aAsset;
+  }
+
+  getAsset(): Asset {
+    return this.asset;
   }
 
   fromJson(aJson: SolutionResponse) {

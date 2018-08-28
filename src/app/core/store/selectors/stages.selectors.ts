@@ -16,9 +16,9 @@ export const getAllStages = createSelector(getStagesEntities, (entities) => {
 
 export const getStagesLoaded = createSelector(getStageState, fromStages.getStagesLoaded);
 export const getStagesLoading = createSelector(getStageState, fromStages.getStagesLoading);
-export const getStageById = (aCategoryId: number) => createSelector(
+export const getStageById = (aStageId: number) => createSelector(
   getStagesEntities,
-  (entities) => entities[aCategoryId] || undefined
+  (entities) => entities[aStageId] || undefined
 );
 export const getStageByName = (aStageName: string) => createSelector(
   getAllStages,

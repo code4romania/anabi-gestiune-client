@@ -2,6 +2,8 @@ import { Asset, AssetResponse } from '../../models';
 import * as fromAssets from '../actions/assets.action';
 import { initialState, reducer, AssetState } from './assets.reducer';
 
+import { assets as assetsMock } from '../../models/mock-data';
+
 describe('Assets Reducer', () => {
   it('should return current state when no valid action', () => {
     const expectedState = reducer(initialState, { type: 'INVALID_ACTION'} as fromAssets.AssetsAction);
@@ -18,40 +20,13 @@ describe('Assets Reducer', () => {
   });
 
   it('should set entities and loaded to true on LOAD_ASSETS_SUCCESS', () => {
-    const firstAsset = new Asset();
-    firstAsset.fromAssetResponseJson({
-      assetId: 1,
-      assetName: 'First asset',
-      assetIdentifier: 'A1',
-      estimatedAmount: 100,
-      estimatedAmountCurrency: 'EUR',
-      assetCategory: 'Category',
-      assetSubcategory: 'Subcategory',
-      currentStage: 'Stage',
-    } as AssetResponse);
-
-    const secondAsset = new Asset();
-    secondAsset.fromAssetResponseJson({
-      assetId: 2,
-      assetName: 'Second asset',
-      assetIdentifier: 'A2',
-      estimatedAmount: 110,
-      estimatedAmountCurrency: 'EUR',
-      assetCategory: 'Category',
-      assetSubcategory: 'Subcategory',
-      currentStage: 'Stage',
-    } as AssetResponse);
-
-    const theAssets = [
-      firstAsset,
-      secondAsset,
-    ];
+    const theAssets = assetsMock;
 
     const expectedState = {
       ...initialState,
       entities: {
-        1: firstAsset,
-        2: secondAsset,
+        1: theAssets[0],
+        2: theAssets[1],
       },
       loaded: true,
       loading: false,

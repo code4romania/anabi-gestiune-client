@@ -4,13 +4,13 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { RecoveryBeneficiariesService } from '../../services/recovery-beneficiaries.service';
+import { RecoveryBeneficiariesService } from '../../services';
 import * as recoveryBeneficiaryActions from '../actions/recovery-beneficiaries.action';
 
 @Injectable()
 export class RecoveryBeneficiariesEffects {
   @Effect()
-  loadCategories$ = this.actions$
+  loadRecoveryBeneficiaries$ = this.actions$
     .ofType(recoveryBeneficiaryActions.LOAD_RECOVERY_BENEFICIARIES)
     .pipe(
       switchMap(() => {

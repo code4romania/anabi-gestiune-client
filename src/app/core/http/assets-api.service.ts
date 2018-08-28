@@ -12,6 +12,7 @@ import {
   AssetCurrency,
   AssetDetailResponse,
   AssetMeasurement,
+  AssetRequest,
   AssetResponse,
   AssetSubcategory,
   Stage
@@ -39,30 +40,6 @@ export class AssetsApiService {
       .catch((error: any) => Observable.throw(error));
   }
 
-  public measurements(): Observable<AssetMeasurement[]> {
-    const measurements = [
-      new AssetMeasurement({id: 'buc', code: 'Bucati'}),
-      new AssetMeasurement({id: 'kg', code: 'Kilograme'}),
-      new AssetMeasurement({id: 'l', code: 'Litri'}),
-    ];
-
-    return Observable.create(observer => {
-      observer.next(measurements);
-    });
-  }
-
-  public currencies(): Observable<AssetCurrency[]> {
-    const currencies = [
-      new AssetCurrency({id: 'ron', code: 'RON'}),
-      new AssetCurrency({id: 'eur', code: 'EUR'}),
-      new AssetCurrency({id: 'usd', code: 'USD'}),
-    ];
-
-    return Observable.create(observer => {
-      observer.next(currencies);
-    });
-  }
-
   public list(): Observable<AssetResponse[]> {
     return this.http
       .get(`${environment.api_url}/assets`)
@@ -77,8 +54,8 @@ export class AssetsApiService {
       .catch((error: any) => Observable.throw(error));
   }
 
-  public create(asset: Asset): Observable<Asset> {
-    return this.http.post<Asset>(`${environment.api_url}/assets/addminimalasset`, asset)
+  public create(asset: AssetRequest): Observable<AssetResponse> {
+    return this.http.post<AssetResponse>(`${environment.api_url}/assets/addminimalasset`, asset)
       .catch((error: any) => Observable.throw(error.error.errors));
   }
 }
