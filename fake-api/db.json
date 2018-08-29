@@ -1,0 +1,197 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "code": "Bunuri Mobile",
+      "description": "Bunuri care pot fi ridicate",
+      "parentId": null,
+      "parent": null,
+      "forEntity": "bun"
+    },
+    {
+      "id": 2,
+      "code": "Bunuri Imobile",
+      "description": "Bunuri care nu pot fi ridicate",
+      "parentId": null,
+      "parent": null,
+      "forEntity": "bun"
+    },
+    {
+      "id": 3,
+      "code": "Bani",
+      "description": "Bani",
+      "parentId": null,
+      "parent": null,
+      "forEntity": "bun"
+    },
+    {
+      "id": 4,
+      "code": "Instanta",
+      "description": "",
+      "parentId": null,
+      "parent": null,
+      "forEntity": "institutie"
+    },
+    {
+      "id": 5,
+      "code": "Parchet",
+      "description": null,
+      "parentId": null,
+      "parent": null,
+      "forEntity": "institutie"
+    },
+    {
+      "id": 6,
+      "code": "Automobil",
+      "description": "Descriere automobil",
+      "parentId": 1,
+      "parent": null,
+      "forEntity": "bun"
+    },
+    {
+      "id": 7,
+      "code": "Automobil 2",
+      "description": "Descriere automobil 2",
+      "parentId": 1,
+      "parent": null,
+      "forEntity": "bun"
+    }
+  ],
+  "stages": [
+    {
+      "id": 1,
+      "name": "Confiscare",
+      "isFinal": false,
+      "isRecovery": false
+    },
+    {
+      "id": 3,
+      "name": "Sechestru",
+      "isFinal": false,
+      "isRecovery": false
+    },
+    {
+      "id": 2,
+      "name": "Valorificare",
+      "isFinal": true,
+      "isRecovery": true
+    }
+  ],
+  "assets": [
+    {
+      "id": 1,
+      "assetId": 1,
+      "assetName": "First asset",
+      "assetIdentifier": "A1",
+      "estimatedAmount": 100,
+      "estimatedAmountCurrency": "EUR",
+      "assetCategory": "Bunuri Mobile",
+      "assetSubcategory": "Automobil",
+      "currentStage": "Confiscare"
+    },
+    {
+      "id": 2,
+      "assetId": 2,
+      "assetName": "Second asset",
+      "assetIdentifier": "BUN2",
+      "estimatedAmount": 3500,
+      "estimatedAmountCurrency": "EUR",
+      "assetCategory": "Bunuri Mobile",
+      "assetSubcategory": "Automobil",
+      "currentStage": "Confiscare"
+    }
+  ],
+  "assetsDetail": [
+    {
+      "id": 1,
+      "name": "First asset",
+      "description": "First asset description",
+      "subcategoryId": 6,
+      "identifier": "A1",
+      "remarks": "remarks",
+      "stageId": 1,
+      "quantity": 1,
+      "measureUnit": "buc",
+      "estimatedAmount": 100,
+      "estimatedAmountCurrency": "EUR",
+      "journal": {
+        "addedDate": "2018-08-29T11:14:53.833Z",
+        "userCodeAdd": "bogdan",
+        "lastChangeDate": "2018-08-29T11:14:53.833Z",
+        "userCodeLastChange": "bogdan"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Second asset",
+      "description": "descriere assset 2",
+      "subcategoryId": 6,
+      "identifier": "BUN2",
+      "remarks": "remarks",
+      "stageId": 1,
+      "quantity": 1,
+      "measureUnit": "buc",
+      "estimatedAmount": 3500,
+      "estimatedAmountCurrency": "EUR",
+      "journal": {
+        "addedDate": "2018-08-29T16:14:53.833Z",
+        "userCodeAdd": "bogdan",
+        "lastChangeDate": "2018-08-29T16:14:53.833Z",
+        "userCodeLastChange": "bogdan"
+      }
+    }
+  ],
+  "solutions": [
+    {
+      "id": 1,
+      "stageId": 1,
+      "decisionId": 1,
+      "institutionId": 1,
+      "decisionDate": "2018-01-01T00:00:00+02:00",
+      "decisionNumber": "1",
+      "confiscationDetails": {
+        "recoveryBeneficiaryId": 1
+      },
+      "sequesterDetails": {
+        "precautionaryMeasureId": 1
+      },
+      "recoveryDetails": {
+        "actualAmount": 1000,
+        "actualAmountCurrency": "eur",
+        "estimatedAmount": 1100,
+        "estimatedAmountCurrency": "eur",
+        "recoveryState": "recovered",
+        "evaluationCommittee": {
+          "evaluationCommitteeDesignationDate": "2018-01-01T00:00:00+02:00",
+          "evaluationCommitteePresident": "President",
+          "evaluationCommitteeMembers": "Members"
+        },
+        "recoveryCommittee": {
+          "recoveryCommitteeDesignationDate": "2018-01-01T00:00:00+02:00",
+          "recoveryCommitteePresident": "President",
+          "recoveryCommitteeMembers": "Members"
+        },
+        "lastActivity": "2018-01-02T00:00:00+02:00",
+        "personResponsible": "Person responsible"
+      },
+      "solutionDetails": {
+        "source": "source",
+        "sentOnEmail": true,
+        "fileNumber": "1",
+        "fileNumberParquet": "1",
+        "receivingDate": "2018-01-02T00:00:00+02:00",
+        "isDefinitive": true,
+        "definitiveDate": "2018-01-03T00:00:00+02:00",
+        "sentToAuthoritiesDate": "2018-01-04T00:00:00+02:00",
+        "crimeTypeId": 1,
+        "legalBasis": "legal basis"
+      },
+      "journal": {
+        "addedDate": "2018-01-01T00:00:00+02:00",
+        "userCodeAdd": "admin",
+        "userCodeLastChange": "2018-01-04T00:00:00+02:00",
+        "lastChangeDate": "2018-01-04T00:00:00+02:00"
+      }
+    }
+  ]
+}

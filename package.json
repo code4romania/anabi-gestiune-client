@@ -3,14 +3,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npm install -g @angular/cli",
-    "ng": "ng",
-    "start": "ng serve --host localhost --port 5000 --output-hashing=bundles",
     "build": "ng build --output-hashing=bundles",
-    "test": "ng test --watch=false",
-    "test:watch": "ng test",
+    "e2e": "ng e2e",
+    "fake-api": "ts-node fake-api/server.ts",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "ng": "ng",
+    "preinstall": "npm install -g @angular/cli",
+    "start": "ng serve --host localhost --port 5000 --output-hashing=bundles",
+    "start:fake": "ng serve --env fake --host localhost --port 5000 --output-hashing=bundles",
+    "test": "ng test --watch=false",
+    "test:watch": "ng test"
   },
   "husky": {
     "hooks": {
@@ -39,6 +41,7 @@
     "core-js": "2.5.1",
     "material-design-icons": "^3.0.1",
     "moment": "2.22.2",
+    "node-sass": "4.9.3",
     "normalize.scss": "0.1.0",
     "rxjs": "5.5.2",
     "typescript": "2.4.2",
@@ -56,6 +59,7 @@
     "intl": "1.2.5",
     "jasmine-core": "2.8.0",
     "jasmine-spec-reporter": "4.2.1",
+    "json-server": "0.14.0",
     "karma": "1.7.1",
     "karma-chrome-launcher": "2.2.0",
     "karma-cli": "1.0.1",
