@@ -13,7 +13,7 @@ export class RecoveryCommittee {
   }
 
   fromJson(aJson: RecoveryCommitteeResponse) {
-    this.recoveryCommitteeDesignationDate = moment(aJson.recoveryCommitteeDesignationDate);
+    this.recoveryCommitteeDesignationDate = moment(aJson.recoveryCommitteeDesignationDate, moment.ISO_8601);
     this.recoveryCommitteePresident = aJson.recoveryCommitteePresident;
     this.recoveryCommitteeMembers = aJson.recoveryCommitteeMembers;
   }

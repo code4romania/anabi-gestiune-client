@@ -44,7 +44,7 @@ export class Solution {
     this.stageId = aJson.stageId;
     this.decisionId = aJson.decisionId;
     this.institutionId = aJson.institutionId;
-    this.decisionDate = moment(aJson.decisionDate);
+    this.decisionDate = moment(aJson.decisionDate, moment.ISO_8601);
     this.decisionNumber = aJson.decisionNumber;
 
     this.confiscationDetails = {

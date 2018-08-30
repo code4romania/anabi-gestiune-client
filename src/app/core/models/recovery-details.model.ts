@@ -29,7 +29,7 @@ export class RecoveryDetails {
     this.recoveryState = aJson.recoveryState;
     this.evaluationCommittee = new EvaluationCommittee(aJson.evaluationCommittee);
     this.recoveryCommittee = new RecoveryCommittee(aJson.recoveryCommittee);
-    this.lastActivity = moment(aJson.lastActivity);
+    this.lastActivity = moment(aJson.lastActivity, moment.ISO_8601);
     this.personResponsible = aJson.personResponsible;
   }
 

@@ -24,10 +24,10 @@ export class SolutionDetails {
     this.sentOnEmail = aJson.sentOnEmail;
     this.fileNumber = aJson.fileNumber;
     this.fileNumberParquet = aJson.fileNumberParquet;
-    this.receivingDate = moment(aJson.receivingDate);
+    this.receivingDate = moment(aJson.receivingDate, moment.ISO_8601);
     this.isDefinitive = aJson.isDefinitive;
-    this.definitiveDate = moment(aJson.definitiveDate);
-    this.sentToAuthoritiesDate = moment(aJson.sentToAuthoritiesDate);
+    this.definitiveDate = moment(aJson.definitiveDate, moment.ISO_8601);
+    this.sentToAuthoritiesDate = moment(aJson.sentToAuthoritiesDate, moment.ISO_8601);
     this.crimeTypeId = aJson.crimeTypeId;
     this.legalBasis = aJson.legalBasis;
   }

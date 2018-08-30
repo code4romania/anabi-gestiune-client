@@ -147,7 +147,7 @@
       "stageId": 1,
       "decisionId": 1,
       "institutionId": 1,
-      "decisionDate": "2018-01-01T00:00:00+02:00",
+      "decisionDate": "2018-08-29T11:14:53.833Z",
       "decisionNumber": "1",
       "confiscationDetails": {
         "recoveryBeneficiaryId": 1
@@ -162,16 +162,16 @@
         "estimatedAmountCurrency": "eur",
         "recoveryState": "recovered",
         "evaluationCommittee": {
-          "evaluationCommitteeDesignationDate": "2018-01-01T00:00:00+02:00",
+          "evaluationCommitteeDesignationDate": "2018-08-29T11:14:53.833Z",
           "evaluationCommitteePresident": "President",
           "evaluationCommitteeMembers": "Members"
         },
         "recoveryCommittee": {
-          "recoveryCommitteeDesignationDate": "2018-01-01T00:00:00+02:00",
+          "recoveryCommitteeDesignationDate": "2018-08-29T11:14:53.833Z",
           "recoveryCommitteePresident": "President",
           "recoveryCommitteeMembers": "Members"
         },
-        "lastActivity": "2018-01-02T00:00:00+02:00",
+        "lastActivity": "2018-08-29T11:14:53.833Z",
         "personResponsible": "Person responsible"
       },
       "solutionDetails": {
@@ -179,18 +179,18 @@
         "sentOnEmail": true,
         "fileNumber": "1",
         "fileNumberParquet": "1",
-        "receivingDate": "2018-01-02T00:00:00+02:00",
+        "receivingDate": "2018-08-29T11:14:53.833Z",
         "isDefinitive": true,
-        "definitiveDate": "2018-01-03T00:00:00+02:00",
-        "sentToAuthoritiesDate": "2018-01-04T00:00:00+02:00",
+        "definitiveDate": "2018-08-29T11:14:53.833Z",
+        "sentToAuthoritiesDate": "2018-08-29T11:14:53.833Z",
         "crimeTypeId": 1,
         "legalBasis": "legal basis"
       },
       "journal": {
-        "addedDate": "2018-01-01T00:00:00+02:00",
+        "addedDate": "2018-08-29T11:14:53.833Z",
         "userCodeAdd": "admin",
-        "userCodeLastChange": "2018-01-04T00:00:00+02:00",
-        "lastChangeDate": "2018-01-04T00:00:00+02:00"
+        "userCodeLastChange": "2018-08-29T11:14:53.833Z",
+        "lastChangeDate": "2018-08-29T11:14:53.833Z"
       }
     }
   ]

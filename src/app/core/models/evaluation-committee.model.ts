@@ -13,7 +13,7 @@ export class EvaluationCommittee {
   }
 
   fromJson(aJson: EvaluationCommitteeResponse) {
-    this.evaluationCommitteeDesignationDate = moment(aJson.evaluationCommitteeDesignationDate);
+    this.evaluationCommitteeDesignationDate = moment(aJson.evaluationCommitteeDesignationDate, moment.ISO_8601);
     this.evaluationCommitteePresident = aJson.evaluationCommitteePresident;
     this.evaluationCommitteeMembers = aJson.evaluationCommitteeMembers;
   }
