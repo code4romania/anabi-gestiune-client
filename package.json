@@ -11,8 +11,8 @@
     "preinstall": "npm install -g @angular/cli",
     "start": "ng serve --host localhost --port 5000 --output-hashing=bundles",
     "start:fake": "ng serve --env fake --host localhost --port 5000 --output-hashing=bundles",
-    "test": "ng test --watch=false",
-    "test:watch": "ng test"
+    "test": "ng test --watch=false --code-coverage",
+    "test:watch": "ng test --code-coverage"
   },
   "husky": {
     "hooks": {
