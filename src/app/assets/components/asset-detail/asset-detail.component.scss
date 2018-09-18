@@ -1,6 +1,14 @@
+.asset-details-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 16px 0px;
+}
+
 .asset-details {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   &-card {
     display: flex;
@@ -27,6 +35,17 @@
 
       app-detailed-text {
         flex-basis: 50%;
+      }
+    }
+
+    .add-property {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        height: 36px;
       }
     }
   }

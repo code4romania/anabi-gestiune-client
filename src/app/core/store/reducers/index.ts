@@ -1,4 +1,5 @@
 import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+import * as fromAssetProperties from './asset-properties.reducer';
 import * as fromAssets from './assets.reducer';
 import * as fromCategories from './categories.reducer';
 import * as fromLoading from './loading.reducer';
@@ -12,6 +13,7 @@ export interface State {
 
 export interface CoreState {
   assets: fromAssets.AssetState;
+  assetProperties: fromAssetProperties.AssetPropertyState;
   categories: fromCategories.CategoryState;
   loading: fromLoading.LoadingState;
   recoveryBeneficiaries: fromRecoveryBeneficiaries.RecoveryBeneficiariesState;
@@ -21,6 +23,7 @@ export interface CoreState {
 
 export const reducers: ActionReducerMap<CoreState> = {
   assets: fromAssets.reducer,
+  assetProperties: fromAssetProperties.reducer,
   categories: fromCategories.reducer,
   loading: fromLoading.reducer,
   recoveryBeneficiaries: fromRecoveryBeneficiaries.reducer,
@@ -31,6 +34,7 @@ export const reducers: ActionReducerMap<CoreState> = {
 export const getCoreState = createFeatureSelector<CoreState>('core');
 
 export { AssetState } from './assets.reducer';
+export { AssetPropertyState } from './asset-properties.reducer';
 export { CategoryState } from './categories.reducer';
 export { LoadingState } from './loading.reducer';
 export { RecoveryBeneficiariesState } from './recovery-beneficiaries.reducer';

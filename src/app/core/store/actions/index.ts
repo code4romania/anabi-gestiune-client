@@ -1,3 +1,4 @@
+export * from './asset-properties.action';
 export * from './assets.action';
 export * from './categories.action';
 export * from './loading.action';

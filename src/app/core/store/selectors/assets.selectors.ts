@@ -20,3 +20,7 @@ export const getAssetById = (aAssetId: number) => createSelector(
   getAssetsEntities,
   (entities) => entities[aAssetId] || undefined
 );
+export const hasDetailByAssetId = (aAssetId: number) => createSelector(
+  getAssetById(aAssetId),
+  (aAsset) => aAsset ? aAsset.isDetailed() : false
+);

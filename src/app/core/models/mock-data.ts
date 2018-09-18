@@ -33,6 +33,27 @@ export const assets: Asset[] = [
   secondAsset,
 ];
 
+export const detailedAsset: Asset = new Asset();
+detailedAsset.fromAssetDetailResponseJson({
+  id: 3,
+  name: 'First asset',
+  description: 'First asset description',
+  subcategoryId: 6,
+  identifier: 'A1',
+  remarks: 'remarks',
+  stageId: 1,
+  quantity: 1,
+  measureUnit: 'buc',
+  estimatedAmount: 100,
+  estimatedAmountCurrency: 'EUR',
+  journal: {
+    addedDate: '2018-08-29T11:14:53.833Z',
+    userCodeAdd: 'bogdan',
+    lastChangeDate: '2018-08-29T11:14:53.833Z',
+    userCodeLastChange: 'bogdan',
+  },
+});
+
 const firstSolution = new Solution({
     id: 1,
     stageId: 1,

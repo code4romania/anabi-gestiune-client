@@ -3,10 +3,8 @@ import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 import * as fromStore from '../../core/store';
-
-import { Asset } from '../../core/models';
 
 @Injectable()
 export class AssetDetailGuard implements CanActivate {
@@ -24,15 +22,14 @@ export class AssetDetailGuard implements CanActivate {
   }
 
   hasDetailedAsset(aId: number): Observable<boolean> {
-    return this.store.select(fromStore.getAssetById(aId))
+    return this.store.select(fromStore.hasDetailByAssetId(aId))
       .pipe(
-        tap((aAsset: Asset) => {
-          if (!aAsset || (aAsset && !aAsset.isDetailed())) {
+        tap((hasDetail: boolean) => {
+          if (!hasDetail) {
             this.store.dispatch(new fromStore.LoadAssetDetail(aId));
           }
         }),
-        filter((aAsset: Asset) => aAsset && aAsset.isDetailed()),
-        map((aAsset: Asset) => aAsset.isDetailed()),
+        filter((hasDetail: boolean) => hasDetail),
         take(1)
       );
   }
