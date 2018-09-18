@@ -50,7 +50,11 @@
     </div>
 
     <ng-template #editProperty>
-      now editing the property
+      <app-edit-solution class="mat-elevation-z8"
+                         *ngIf="(assetProperty$ | async)"
+                         [solution]="(assetProperty$ | async)"
+                         (onUpdate)="onPropertyUpdate($event)"
+      ></app-edit-solution>
     </ng-template>
   </section>
 </div>

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { zip } from 'rxjs/observable/zip';
 import { map, mergeMap, take, toArray } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
@@ -55,7 +57,7 @@ export class AssetsService {
       new AssetMeasurement({ id: 'l', code: 'Litri' }),
     ];
 
-    return Observable.of(measurements);
+    return of(measurements);
   }
 
   public currencies(): Observable<AssetCurrency[]> {
@@ -65,7 +67,7 @@ export class AssetsService {
       new AssetCurrency({ id: 'usd', code: 'USD' }),
     ];
 
-    return Observable.of(currencies);
+    return of(currencies);
   }
 
   public loadAssetDetails(aAssetId: number) {
@@ -76,7 +78,7 @@ export class AssetsService {
   }
 
   private assetFromResponse(aResponse: AssetResponse): Observable<Asset> {
-    return Observable.zip(
+    return zip(
       this.store.select(fromSelectors.getCategoryByName(aResponse.assetCategory)),
       this.store.select(fromSelectors.getCategoryByName(aResponse.assetSubcategory)),
       this.store.select(fromSelectors.getStageByName(aResponse.currentStage)),
@@ -95,7 +97,7 @@ export class AssetsService {
   }
 
   private assetFromDetailResponse(aResponse: AssetDetailResponse): Observable<Asset> {
-    return Observable.zip(
+    return zip(
       this.store.select(fromSelectors.getCategoryById(aResponse.subcategoryId)),
       this.store.select(fromSelectors.getStageById(aResponse.stageId)),
       (aSubcategory: Category, aStage: Stage) => {

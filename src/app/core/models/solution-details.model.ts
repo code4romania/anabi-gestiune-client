@@ -2,16 +2,16 @@ import * as moment from 'moment';
 import { SolutionDetailsResponse } from './index';
 
 export class SolutionDetails {
-  source: string;
-  sentOnEmail: boolean;
-  fileNumber: string;
-  fileNumberParquet: string;
+  source: string = '';
+  sentOnEmail: boolean = false;
+  fileNumber: string = '';
+  fileNumberParquet: string = '';
   receivingDate: moment.Moment;
-  isDefinitive: boolean;
+  isDefinitive: boolean = false;
   definitiveDate: moment.Moment;
   sentToAuthoritiesDate: moment.Moment;
-  crimeTypeId: number;
-  legalBasis: string;
+  crimeTypeId: number = null;
+  legalBasis: string = '';
 
   constructor(aData?: SolutionDetailsResponse) {
     if (aData) {
@@ -38,10 +38,10 @@ export class SolutionDetails {
       sentOnEmail: this.sentOnEmail,
       fileNumber: this.fileNumber,
       fileNumberParquet: this.fileNumberParquet,
-      receivingDate: this.receivingDate.format(),
+      receivingDate: this.receivingDate ? this.receivingDate.format() : '',
       isDefinitive: this.isDefinitive,
-      definitiveDate: this.definitiveDate.format(),
-      sentToAuthoritiesDate: this.sentToAuthoritiesDate.format(),
+      definitiveDate: this.definitiveDate ? this.definitiveDate.format() : '',
+      sentToAuthoritiesDate: this.sentToAuthoritiesDate ? this.sentToAuthoritiesDate.format() : '',
       crimeTypeId: this.crimeTypeId,
       legalBasis: this.legalBasis,
     } as SolutionDetailsResponse;

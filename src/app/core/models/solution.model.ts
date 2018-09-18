@@ -21,9 +21,9 @@ export class Solution {
 
   confiscationDetails: ConfiscationDetailsResponse;
   sequesterDetails: SequesterDetailsResponse;
-  recoveryDetails: RecoveryDetails;
-  solutionDetails: SolutionDetails;
-  journal: Journal;
+  recoveryDetails: RecoveryDetails = new RecoveryDetails();
+  solutionDetails: SolutionDetails = new SolutionDetails();
+  journal: Journal = new Journal();
 
   constructor(aData?: SolutionResponse) {
     if (aData) {

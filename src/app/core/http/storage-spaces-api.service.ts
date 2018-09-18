@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
+import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 
@@ -14,9 +13,10 @@ export class StorageSpacesApiService {
   constructor(private http: HttpClient) { }
 
   public list(): Observable<StorageSpace[]> {
-    return this.http
-      .get(environment.api_url + '/storageSpaces')
-      .map((res: Response) => res)
-      .catch((error: any) => Observable.throw(error));
+    return this.http.get(environment.api_url + '/storageSpaces')
+      .pipe(
+        map((aResponse: Response) => aResponse),
+        catchError(aError => Observable.throw(aError))
+      );
   }
 }

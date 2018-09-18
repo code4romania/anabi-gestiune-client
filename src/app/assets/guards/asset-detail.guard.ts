@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { Store } from '@ngrx/store';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
@@ -16,8 +17,8 @@ export class AssetDetailGuard implements CanActivate {
 
     return this.hasDetailedAsset(theAssetId)
       .pipe(
-        switchMap(() => Observable.of(true)),
-        catchError(() => Observable.of(false))
+        switchMap(() => of(true)),
+        catchError(() => of(false))
       );
   }
 

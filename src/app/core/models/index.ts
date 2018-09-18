@@ -18,6 +18,7 @@ export * from './decision-summary.model';
 export * from './dictionary.model';
 export * from './evaluation-committee.model';
 export * from './evaluation-committee-response.interface';
+export * from './institution-response.interface';
 export * from './institution.model';
 export * from './journal.model';
 export * from './journal-response.interface';

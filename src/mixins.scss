@@ -1,0 +1,33 @@
+@mixin material-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 40%;
+
+  margin-top: 20px;
+  padding: 20px;
+}
+
+@mixin flex {
+  display: flex;
+}
+
+@mixin flex-column {
+  @include flex();
+  flex-direction: column;
+}
+
+@mixin flex-row {
+  @include flex();
+  flex-direction: row;
+}
+
+@mixin material-card-title($font-size: 26px) {
+  font-size: $font-size;
+  font-weight: normal;
+  margin-top: 0px;
+}
+
+@mixin clickable {
+  cursor: pointer;
+  outline: none;
+}

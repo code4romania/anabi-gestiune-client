@@ -1,0 +1,26 @@
+@import "mixins.scss";
+
+.edit-solution {
+  @include flex-column();
+  flex-grow: 1;
+
+  h2 {
+    @include material-card-title();
+  }
+}
+
+.column {
+  @include flex-column();
+}
+
+.row {
+  @include flex-row();
+
+  mat-form-field {
+    flex-grow: 1;
+  }
+
+  .spacer {
+    flex-basis: 10px;
+  }
+}

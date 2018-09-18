@@ -1,3 +1,5 @@
+@import "mixins.scss";
+
 .asset-details-container {
   display: flex;
   flex-direction: column;
@@ -11,17 +13,10 @@
   align-items: center;
 
   &-card {
-    display: flex;
-    flex-direction: column;
-    min-width: 40%;
-
-    margin-top: 20px;
-    padding: 20px;
+    @include material-card();
 
     h2 {
-      font-size: 26px;
-      font-weight: normal;
-      margin-top: 0px;
+      @include material-card-title();
     }
 
     app-detailed-text {
@@ -48,5 +43,9 @@
         height: 36px;
       }
     }
+  }
+
+  app-edit-solution {
+    @include material-card();
   }
 }

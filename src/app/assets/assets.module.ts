@@ -14,6 +14,7 @@ import * as fromGuards from './guards';
 import { AssetsComponent } from './assets.component';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
 import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
+import { EditSolutionComponent } from './components/edit-solution/edit-solution.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { AssetDetailComponent } from './components/asset-detail/asset-detail.com
     AssetsComponent,
     AddAssetComponent,
     AssetDetailComponent,
+    EditSolutionComponent,
   ],
   entryComponents: [
     AddAssetComponent,

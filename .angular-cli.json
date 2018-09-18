@@ -28,6 +28,11 @@
         "dev": "environments/environment.ts",
         "fake": "environments/environment.fake.ts",
         "prod": "environments/environment.prod.ts"
+      },
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "./"
+        ]
       }
     }
   ],

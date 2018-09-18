@@ -193,5 +193,29 @@
         "lastChangeDate": "2018-08-29T11:14:53.833Z"
       }
     }
+  ],
+  "institutions": [
+    {
+      "name": "Instanta Test",
+      "categoryId": 4,
+      "countyCode": "B",
+      "city": "Bucuresti",
+      "street": "Unirii",
+      "building": "1",
+      "stair": "A",
+      "floor": "3",
+      "flatNo": "20"
+    },
+    {
+      "name": "Instanta Test 2",
+      "categoryId": 4,
+      "countyCode": "B",
+      "city": "Bucuresti",
+      "street": "Unirii",
+      "building": "2",
+      "stair": "B",
+      "floor": "1",
+      "flatNo": "11"
+    }
   ]
 }

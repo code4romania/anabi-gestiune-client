@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { Store } from '@ngrx/store';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
@@ -14,8 +15,8 @@ export class AssetsGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.checkStore()
       .pipe(
-        switchMap(() => Observable.of(true)),
-        catchError(() => Observable.of(false))
+        switchMap(() => of(true)),
+        catchError(() => of(false))
       );
   }
 

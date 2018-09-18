@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Asset, Solution } from 'app/core';
+import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/core/store';
+
 import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 export enum AssetProperties {
   SOLUTIE = 'solutie',
@@ -42,8 +45,7 @@ export class AssetDetailComponent implements OnInit {
   }
 
   isEditing$(): Observable<boolean> {
-    return Observable
-      .combineLatest(
+    return combineLatest(
         this.asset$,
         this.assetProperty$,
         (aAsset, aAssetProperty) => aAsset !== undefined && aAssetProperty !== undefined
@@ -63,6 +65,10 @@ export class AssetDetailComponent implements OnInit {
     }
 
     this.resetSelectedProperty();
+  }
+
+  onPropertyUpdate(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.UpdateProperty(aProperty));
   }
 
   private resetSelectedProperty() {

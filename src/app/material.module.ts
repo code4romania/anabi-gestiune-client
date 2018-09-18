@@ -10,6 +10,7 @@ import {
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatSelectModule,
+  MatSlideToggleModule,
   MatSnackBarModule,
   MatSortModule,
   MatTableModule,
@@ -18,20 +19,21 @@ import {
 } from '@angular/material';
 
 const modules = [
-  MatToolbarModule,
-  MatMenuModule,
-  MatIconModule,
-  MatListModule,
   MatButtonModule,
-  MatInputModule,
-  MatSelectModule,
-  MatTabsModule,
   MatDialogModule,
-  MatTableModule,
-  MatSortModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
   MatPaginatorModule,
-  MatSnackBarModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
 ];
 
 @NgModule({

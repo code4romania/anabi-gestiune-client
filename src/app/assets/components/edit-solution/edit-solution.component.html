@@ -1,0 +1,28 @@
+<section class="edit-solution" *ngIf="solution as theSolution">
+  <h2>Solutie</h2>
+
+  <form [formGroup]="solutionForm" class="column">
+    <mat-form-field>
+      <input matInput #source name="source" maxlength="100" placeholder="Sursa" required
+             [(ngModel)]="theSolution.solutionDetails.source" formControlName="source" />
+    </mat-form-field>
+
+    <mat-slide-toggle class="primary"
+                      [checked]="theSolution.solutionDetails.sentOnEmail || false"
+                      formControlName="sentOnEmail">Trimis pe email</mat-slide-toggle>
+
+    <div class="row">
+      <mat-form-field>
+        <input matInput #fileNumber name="fileNumber" maxlength="100" placeholder="Nr. dosar" required
+               [(ngModel)]="theSolution.solutionDetails.fileNumber" formControlName="fileNumber" />
+      </mat-form-field>
+
+      <div class="spacer"></div>
+
+      <mat-form-field>
+        <input matInput #fileNumberParquet name="fileNumberParquet" maxlength="100" placeholder="Nr. dosar la parchet" required
+               [(ngModel)]="theSolution.solutionDetails.fileNumberParquet" formControlName="fileNumberParquet" />
+      </mat-form-field>
+    </div>
+  </form>
+</section>
