@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { Store } from '@ngrx/store';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
@@ -15,8 +16,8 @@ export class LoadGuard implements CanActivate {
     return this.checkCategories()
       .pipe(
         switchMap(() => this.checkStages()),
-        switchMap(() => Observable.of(true)),
-        catchError(() => Observable.of(false))
+        switchMap(() => of(true)),
+        catchError(() => of(false))
       );
   }
 

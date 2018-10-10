@@ -1,37 +1,14 @@
-import { Asset, AssetResponse } from '../../models';
 import { AssetState } from '../reducers/assets.reducer';
 import { CoreState, State } from '../reducers/index';
 import * as fromSelectors from './assets.selectors';
+
+import { assets as mockAssets, detailedAsset as mockDetailedAsset } from '../../models/mock-data';
 
 describe('Assets Selectors', () => {
   let state: State;
   let coreState: CoreState;
 
-  const firstAsset = new Asset();
-  firstAsset.fromAssetResponseJson({
-    assetId: 1,
-    assetName: 'First asset',
-    assetIdentifier: 'A1',
-    estimatedAmount: 100,
-    estimatedAmountCurrency: 'EUR',
-    assetCategory: 'Category',
-    assetSubcategory: 'Subcategory',
-    currentStage: 'Stage',
-  } as AssetResponse);
-
-  const secondAsset = new Asset();
-  secondAsset.fromAssetResponseJson({
-    assetId: 2,
-    assetName: 'Second asset',
-    assetIdentifier: 'A2',
-    estimatedAmount: 110,
-    estimatedAmountCurrency: 'EUR',
-    assetCategory: 'Category',
-    assetSubcategory: 'Subcategory',
-    currentStage: 'Stage',
-  } as AssetResponse);
-
-  const theAssets = [firstAsset, secondAsset];
+  const theAssets = mockAssets;
 
   const getEntitiesAsArray = (aState: State) => {
     return Object.keys(aState.core.assets.entities).map(id => aState.core.assets.entities[id]);
@@ -44,6 +21,7 @@ describe('Assets Selectors', () => {
           entities: {
             1: theAssets[0],
             2: theAssets[1],
+            3: mockDetailedAsset,
           },
           loaded: true,
           loading: false,
@@ -92,6 +70,20 @@ describe('Assets Selectors', () => {
 
     it('should return undefined if the id is not found', () => {
       expect(fromSelectors.getAssetById(99)(state)).toEqual(undefined);
+    });
+  });
+
+  describe('hasDetailByAssetId', () => {
+    it('should return true if the asset has detailed information', () => {
+      expect(fromSelectors.hasDetailByAssetId(3)(state)).toBeTruthy();
+    });
+
+    it('should return false if the asset does not have detailed information', () => {
+      expect(fromSelectors.hasDetailByAssetId(1)(state)).toBeFalsy();
+    });
+
+    it('should return false if the asset does not exist', () => {
+      expect(fromSelectors.hasDetailByAssetId(99)(state)).toBeFalsy();
     });
   });
 });

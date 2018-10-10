@@ -31,9 +31,9 @@
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
           <mat-select #category name="category" placeholder="Categorie" required
-                      [(ngModel)]="newAsset.categoryId" formControlName="category"
-                      (selectionChange)="getSubcategories(newAsset.categoryId)">
-            <mat-option *ngFor="let category of categories$ | async" [value]="category.id">{{ category.name }}</mat-option>
+                      [(ngModel)]="newAsset.category" formControlName="category"
+                      (selectionChange)="getSubcategories(newAsset.category.id)">
+            <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category.name }}</mat-option>
           </mat-select>
           <mat-error *ngIf="newAssetForm.controls.category.hasError('required')">
             Categoria este obligatorie.
@@ -45,16 +45,16 @@
 
         <mat-form-field fxFlex="49">
           <mat-select #subcategory name="subcategory" placeholder="Subcategorie"
-                      [(ngModel)]="newAsset.subcategoryId" formControlName="subcategory">
-            <mat-option *ngFor="let subcategory of subcategories$ | async" [value]="subcategory.id">{{ subcategory.name }}</mat-option>
+                      [(ngModel)]="newAsset.subcategory" formControlName="subcategory">
+            <mat-option *ngFor="let subcategory of subcategories$ | async" [value]="subcategory">{{ subcategory.name }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
       <mat-form-field>
         <mat-select #stage name="stage" placeholder="Stare actuala" required
-                    [(ngModel)]="newAsset.stageId" formControlName="stage">
-          <mat-option *ngFor="let stage of stages$ | async" [value]="stage.id">{{ stage.name }}</mat-option>
+                    [(ngModel)]="newAsset.stage" formControlName="stage">
+          <mat-option *ngFor="let stage of stages$ | async" [value]="stage">{{ stage.name }}</mat-option>
         </mat-select>
         <mat-error *ngIf="newAssetForm.controls.stage.hasError('required')">
           Starea este obligatorie.

@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { CategoriesService } from '../../services/categories.service';
+import { CategoriesService } from '../../services';
 import * as categoryActions from '../actions/categories.action';
 
 @Injectable()

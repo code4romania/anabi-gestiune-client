@@ -54,8 +54,10 @@ export class AssetsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.tableConfig.dataSource.sort = this.sort;
-    this.tableConfig.dataSource.paginator = this.paginator;
+    if (this.tableConfig.dataSource) {
+      this.tableConfig.dataSource.sort = this.sort;
+      this.tableConfig.dataSource.paginator = this.paginator;
+    }
   }
 
   refresh() {

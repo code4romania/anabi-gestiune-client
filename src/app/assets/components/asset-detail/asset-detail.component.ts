@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Asset } from 'app/core';
+import { Asset, Decision, Institution, Solution, Stage } from 'app/core';
+import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
 import { Store } from '@ngrx/store';
 import * as fromStore from 'app/core/store';
+
 import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+
+export enum AssetProperties {
+  SOLUTIE = 'solutie',
+  INCULPAT = 'inculpat',
+}
 
 @Component({
   templateUrl: 'asset-detail.component.html',
@@ -13,6 +21,16 @@ import { Observable } from 'rxjs/Observable';
 
 export class AssetDetailComponent implements OnInit {
   private asset$: Observable<Asset>;
+  private institutions$: Observable<Institution[]>;
+  private decisions$: Observable<Decision[]>;
+  private stages$: Observable<Stage[]>;
+  private assetProperty$: Observable<fromStore.AssetProperty>;
+
+  properties = [
+    { name: 'Solutie', value: AssetProperties.SOLUTIE },
+    { name: 'Inculpat', value: AssetProperties.INCULPAT },
+  ];
+  selectedProperty: string;
 
   constructor(
     private store: Store<fromStore.CoreState>,
@@ -25,6 +43,49 @@ export class AssetDetailComponent implements OnInit {
       const theId = aParams.assetId;
 
       this.asset$ = this.store.select(fromStore.getAssetById(theId));
+      this.assetProperty$ = this.store.select(fromStore.getAssetPropertiesByAssetId(theId));
+      this.institutions$ = this.store.select(fromStore.getAllInstitutions);
+      this.decisions$ = this.store.select(fromStore.getAllDecisions);
+      this.stages$ = this.store.select(fromStore.getAllStages);
     });
+  }
+
+  isEditing$(): Observable<boolean> {
+    return combineLatest(
+        this.asset$,
+        this.assetProperty$,
+        (aAsset, aAssetProperty) => aAsset !== undefined && aAssetProperty !== undefined
+      );
+  }
+
+  addProperty() {
+    switch (this.selectedProperty) {
+      case AssetProperties.SOLUTIE: {
+        this.asset$.subscribe((aAsset: Asset) => {
+          const theSolution = new Solution();
+          theSolution.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theSolution));
+        });
+        break;
+      }
+    }
+
+    this.resetSelectedProperty();
+  }
+
+  onPropertyUpdate(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.UpdateProperty(aProperty));
+  }
+
+  onPropertyCancel(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.DeleteProperty(aProperty.getAsset().id));
+  }
+
+  onPropertySave(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.CreateSolution(aProperty));
+  }
+
+  private resetSelectedProperty() {
+    this.selectedProperty = undefined;
   }
 }

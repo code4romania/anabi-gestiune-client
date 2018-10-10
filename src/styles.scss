@@ -7,11 +7,6 @@ html, body {
   height : 100%;
 }
 
-// utility classes
-.has-action {
-  cursor : pointer;
-}
-
 .notification-snackbar {
   color: white;
   background: map-get($mat-red, 300);

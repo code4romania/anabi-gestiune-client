@@ -8,7 +8,7 @@ import * as fromStore from '../../../core/store';
 
 import {
   Asset,
-  AssetsApiService,
+  AssetsService,
   AssetCurrency,
   AssetMeasurement,
   Category,
@@ -45,15 +45,15 @@ export class AddAssetComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddAssetComponent>,
-    private assetsApiService: AssetsApiService,
+    private assetsService: AssetsService,
     private notificationService: NotificationService,
     private store: Store<fromStore.CoreState>
   ) {
   }
 
   getSubcategories(categoryId) {
-    this.newAsset.subcategoryId = null;
-    this.subcategories$ = this.store.select(fromStore.getSubcategories(categoryId));
+    this.newAsset.subcategory = null;
+    this.subcategories$ = this.store.select(fromStore.getAssetSubcategories(categoryId));
   }
 
   save() {
@@ -78,7 +78,7 @@ export class AddAssetComponent implements OnInit {
       }
     }
 
-    this.assetsApiService.create(this.newAsset)
+    this.assetsService.create(this.newAsset)
       .subscribe(
         (asset) => this.dialogRef.close(asset),
         (errors) => {
@@ -101,15 +101,15 @@ export class AddAssetComponent implements OnInit {
   ngOnInit() {
     this.newAsset = new Asset();
 
-    this.categories$ = this.store.select(fromStore.getParentCategories);
+    this.categories$ = this.store.select(fromStore.getAssetParentCategories);
     this.stages$ = this.store.select(fromStore.getAllStages);
 
-    this.assetsApiService.measurements()
+    this.assetsService.measurements()
       .subscribe(
         (measurements) => this.measurements = measurements,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_MEASUREMENTS)
       );
-    this.assetsApiService.currencies()
+    this.assetsService.currencies()
       .subscribe(
         (currencies) => this.currencies = currencies,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CURRENCIES)

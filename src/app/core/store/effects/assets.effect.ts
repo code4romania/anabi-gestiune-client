@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
 
-import { AssetsService } from '../../services/assets.service';
+import { AssetsService } from '../../services';
 import * as assetActions from '../actions/assets.action';
 import * as loadingActions from '../actions/loading.action';
 

@@ -1,19 +1,22 @@
+@import "mixins.scss";
+
+.asset-details-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 16px 0px;
+}
+
 .asset-details {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   &-card {
-    display: flex;
-    flex-direction: column;
-    min-width: 40%;
-
-    margin-top: 20px;
-    padding: 20px;
+    @include material-card();
 
     h2 {
-      font-size: 26px;
-      font-weight: normal;
-      margin-top: 0px;
+      @include material-card-title();
     }
 
     app-detailed-text {
@@ -29,5 +32,20 @@
         flex-basis: 50%;
       }
     }
+
+    .add-property {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        height: 36px;
+      }
+    }
+  }
+
+  app-edit-solution {
+    @include material-card();
   }
 }

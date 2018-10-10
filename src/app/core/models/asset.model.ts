@@ -1,5 +1,9 @@
-import * as moment from 'moment';
-import { AssetDetailResponse, AssetResponse, Category, Stage } from './index';
+import { AssetDetailResponse } from './asset-detail-response.interface';
+import { AssetRequest } from './asset-request.interface';
+import { AssetResponse } from './asset-response.interface';
+import { Category } from './category.model';
+import { Journal } from './journal.model';
+import { Stage } from './stage.model';
 
 export class Asset {
   // details
@@ -7,28 +11,17 @@ export class Asset {
   name: string;
   description: string;
   identifier: string;
-
-  // stock
-  remarks: number;
+  remarks: string;
   quantity: number;
   measureUnit: string;
   estimatedAmount: number;
   estimatedAmountCurrency: string;
 
-  // relation keys
-  categoryId: number;
-  subcategoryId: number;
-  stageId: number;
-
   // relation objects
   category: Category;
   subcategory: Category;
   stage: Stage;
-
-  dateAdded: moment.Moment;
-  addedBy: string;
-  dateChanged: moment.Moment;
-  changedBy: string;
+  journal: Journal;
 
   private hasDetails = false;
 
@@ -87,22 +80,20 @@ export class Asset {
     this.measureUnit = aJson.measureUnit;
     this.estimatedAmount = aJson.estimatedAmount;
     this.estimatedAmountCurrency = aJson.estimatedAmountCurrency;
-    this.dateAdded = moment(aJson.addedDate);
-    this.addedBy = aJson.userCodeAdd;
-    this.dateChanged = moment(aJson.lastChangedDate);
-    this.changedBy = aJson.userCodeLastChange;
+    this.journal = new Journal(aJson.journal);
   }
 
-  toJson(): AssetResponse {
+  toJson(): AssetRequest {
     return {
-      assetId: this.id,
-      assetName: this.name,
-      assetIdentifier: this.identifier,
-      assetCategory: this.category.description,
-      assetSubcategory: this.subcategory.description,
-      currentStage: this.stage.name,
+      name: this.name,
+      categoryId: this.category ? this.category.id : null,
+      subcategoryId: this.subcategory ? this.subcategory.id : null,
+      stageId: this.stage ? this.stage.id : null,
+      quantity: this.quantity,
+      measureUnit: this.measureUnit,
       estimatedAmount: this.estimatedAmount,
       estimatedAmountCurrency: this.estimatedAmountCurrency,
-    } as AssetResponse;
+      description: this.description,
+    } as AssetRequest;
   }
 }

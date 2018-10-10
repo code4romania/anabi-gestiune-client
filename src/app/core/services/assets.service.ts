@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { zip } from 'rxjs/observable/zip';
 import { map, mergeMap, take, toArray } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
@@ -7,13 +9,29 @@ import { CoreState } from '../store/reducers/index';
 import * as fromSelectors from '../store/selectors';
 
 import { AssetsApiService } from '../http';
-import { Asset, AssetDetailResponse, AssetResponse, Category, Stage } from '../models';
+import {
+  Asset,
+  AssetCurrency,
+  AssetDetailResponse,
+  AssetMeasurement,
+  AssetResponse,
+  Category,
+  Stage,
+  StageResponse
+} from '../models';
 
 @Injectable()
 export class AssetsService {
   constructor(
     private assetsApiService: AssetsApiService,
     private store: Store<CoreState>) {
+  }
+
+  public create(aAsset: Asset): Observable<Asset> {
+    return this.assetsApiService.create(aAsset.toJson())
+      .pipe(
+        mergeMap((aAssetResponse: AssetResponse) => this.assetFromResponse(aAssetResponse))
+      );
   }
 
   public list(): Observable<Asset[]> {
@@ -28,8 +46,28 @@ export class AssetsService {
   public stages(): Observable<Stage[]> {
     return this.assetsApiService.stages()
       .pipe(
-        map((aResponse: object[]) => aResponse.map(aStage => new Stage(aStage)))
+        map((aResponse: StageResponse[]) => aResponse.map(aStage => new Stage(aStage)))
       );
+  }
+
+  public measurements(): Observable<AssetMeasurement[]> {
+    const measurements = [
+      new AssetMeasurement({ id: 'buc', code: 'Bucati' }),
+      new AssetMeasurement({ id: 'kg', code: 'Kilograme' }),
+      new AssetMeasurement({ id: 'l', code: 'Litri' }),
+    ];
+
+    return of(measurements);
+  }
+
+  public currencies(): Observable<AssetCurrency[]> {
+    const currencies = [
+      new AssetCurrency({ id: 'ron', code: 'RON' }),
+      new AssetCurrency({ id: 'eur', code: 'EUR' }),
+      new AssetCurrency({ id: 'usd', code: 'USD' }),
+    ];
+
+    return of(currencies);
   }
 
   public loadAssetDetails(aAssetId: number) {
@@ -40,7 +78,7 @@ export class AssetsService {
   }
 
   private assetFromResponse(aResponse: AssetResponse): Observable<Asset> {
-    return Observable.zip(
+    return zip(
       this.store.select(fromSelectors.getCategoryByName(aResponse.assetCategory)),
       this.store.select(fromSelectors.getCategoryByName(aResponse.assetSubcategory)),
       this.store.select(fromSelectors.getStageByName(aResponse.currentStage)),
@@ -59,7 +97,7 @@ export class AssetsService {
   }
 
   private assetFromDetailResponse(aResponse: AssetDetailResponse): Observable<Asset> {
-    return Observable.zip(
+    return zip(
       this.store.select(fromSelectors.getCategoryById(aResponse.subcategoryId)),
       this.store.select(fromSelectors.getStageById(aResponse.stageId)),
       (aSubcategory: Category, aStage: Stage) => {

@@ -1,11 +1,27 @@
+import { CountyResponse } from './county-response.interface';
+
 export class County {
   id: number;
   name: string;
-  abreviation: string;
+  abbreviation: string;
 
-  constructor(id: number, name: string, abreviation: string) {
-    this.id = id;
-    this.name = name;
-    this.abreviation = abreviation;
+  constructor(aData?: CountyResponse) {
+    if (aData) {
+      this.fromJson(aData);
+    }
+  }
+
+  fromJson(aJson: CountyResponse) {
+    this.id = aJson.id;
+    this.name = aJson.name;
+    this.abbreviation = aJson.abreviation;
+  }
+
+  toJson(): CountyResponse {
+    return {
+      id: this.id,
+      name: this.name,
+      abreviation: this.abbreviation,
+    };
   }
 }

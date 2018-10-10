@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -7,6 +8,20 @@ import * as fromStore from './core/store';
 @Component({
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger(
+      'loadingAnimation', [
+        transition(':enter', [
+          style({ opacity: 0 }),
+          animate('300ms', style({ opacity: 1 })),
+        ]),
+        transition(':leave', [
+          style({ opacity: 1 }),
+          animate('300ms', style({ opacity: 0 })),
+        ]),
+      ]
+    ),
+  ],
 })
 
 export class AppComponent implements OnInit {

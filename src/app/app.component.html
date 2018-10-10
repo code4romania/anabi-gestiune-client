@@ -1,6 +1,6 @@
 <app-toolbar></app-toolbar>
 
-<div class="globalProgress" *ngIf="showIsLoading$ | async">
+<div class="globalProgress" *ngIf="showIsLoading$ | async" [@loadingAnimation]>
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
 
