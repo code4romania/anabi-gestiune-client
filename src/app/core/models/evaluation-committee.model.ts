@@ -20,7 +20,7 @@ export class EvaluationCommittee {
 
   toJson(): EvaluationCommitteeResponse {
     return {
-      evaluationCommitteeDesignationDate: this.evaluationCommitteeDesignationDate.format(),
+      evaluationCommitteeDesignationDate: this.evaluationCommitteeDesignationDate ? this.evaluationCommitteeDesignationDate.format() : '',
       evaluationCommitteePresident: this.evaluationCommitteePresident,
       evaluationCommitteeMembers: this.evaluationCommitteeMembers,
     } as EvaluationCommitteeResponse;

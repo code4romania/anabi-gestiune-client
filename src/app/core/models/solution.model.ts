@@ -1,14 +1,18 @@
 import * as moment from 'moment';
 
 import { Asset } from './asset.model';
+import { Decision } from './decision.model';
+import { Institution } from './institution.model';
 import { Journal } from './journal.model';
 import { RecoveryDetails } from './recovery-details.model';
 import { SolutionDetails } from './solution-details.model';
+import { SolutionRequest } from './solution-request.interface';
 import {
   ConfiscationDetailsResponse,
   SequesterDetailsResponse,
   SolutionResponse
 } from './solution-response.interface';
+import { Stage } from './stage.model';
 
 export class Solution {
   id: number;
@@ -18,6 +22,9 @@ export class Solution {
   decisionDate: moment.Moment;
   decisionNumber: string;
   private asset: Asset;
+  private institution: Institution;
+  private decision: Decision;
+  private stage: Stage;
 
   confiscationDetails: ConfiscationDetailsResponse;
   sequesterDetails: SequesterDetailsResponse;
@@ -37,6 +44,33 @@ export class Solution {
 
   getAsset(): Asset {
     return this.asset;
+  }
+
+  setInstitution(aInstitution: Institution) {
+    this.institution = aInstitution;
+    this.institutionId = aInstitution.id;
+  }
+
+  getInstitution(): Institution {
+    return this.institution;
+  }
+
+  setDecision(aDecision: Decision) {
+    this.decision = aDecision;
+    this.decisionId = aDecision.id;
+  }
+
+  getDecision(): Decision {
+    return this.decision;
+  }
+
+  setStage(aStage: Stage) {
+    this.stage = aStage;
+    this.stageId = aStage.id;
+  }
+
+  getStage(): Stage {
+    return this.stage;
   }
 
   fromJson(aJson: SolutionResponse) {
@@ -60,13 +94,13 @@ export class Solution {
     this.journal = new Journal(aJson.journal);
   }
 
-  toJson(): SolutionResponse {
+  toJson(): SolutionRequest {
     return {
       id: this.id,
       stageId: this.stageId,
       decisionId: this.decisionId,
       institutionId: this.institutionId,
-      decisionDate: this.decisionDate.format(),
+      decisionDate: this.decisionDate ? this.decisionDate.format() : '',
       decisionNumber: this.decisionNumber,
       confiscationDetails: this.confiscationDetails,
       sequesterDetails: this.sequesterDetails,

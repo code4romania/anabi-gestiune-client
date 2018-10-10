@@ -1,3 +1,4 @@
+import { DecisionResponse } from './decision-response.interface';
 import { Stage } from './stage.model';
 
 export class Decision {
@@ -5,9 +6,14 @@ export class Decision {
   name: string;
   possibleStages: Stage[];
 
-  constructor(id: number, name: string, possibleStages: Stage[]) {
-    this.id = id;
-    this.name = name;
-    this.possibleStages = possibleStages;
+  constructor(aData?: DecisionResponse) {
+    if (aData) {
+      this.fromJson(aData);
+    }
+  }
+
+  fromJson(aJson: DecisionResponse) {
+    this.id = aJson.id;
+    this.name = aJson.name;
   }
 }

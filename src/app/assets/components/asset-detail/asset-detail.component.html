@@ -53,7 +53,12 @@
       <app-edit-solution class="mat-elevation-z8"
                          *ngIf="(assetProperty$ | async)"
                          [solution]="(assetProperty$ | async)"
+                         [institutions]="(institutions$ | async)"
+                         [decisions]="(decisions$ | async)"
+                         [stages]="(stages$ | async)"
                          (onUpdate)="onPropertyUpdate($event)"
+                         (onCancel)="onPropertyCancel($event)"
+                         (onSave)="onPropertySave($event)"
       ></app-edit-solution>
     </ng-template>
   </section>

@@ -15,9 +15,19 @@
 
 .row {
   @include flex-row();
+  align-items: center;
 
-  mat-form-field {
+  &.actions {
+    justify-content: flex-end;
+  }
+
+  .cell, mat-form-field, mat-slide-toggle {
     flex-grow: 1;
+  }
+
+  .cell {
+    display: flex;
+    flex-basis: 180px;
   }
 
   .spacer {

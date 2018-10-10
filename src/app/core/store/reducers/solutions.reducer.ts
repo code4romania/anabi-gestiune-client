@@ -62,7 +62,7 @@ export function reducer(
       return {
         ...state,
         entities,
-      };
+      } as SolutionState;
     }
 
     default: {

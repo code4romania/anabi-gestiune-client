@@ -5,15 +5,15 @@ import { RecoveryCommittee } from './recovery-committee.model';
 import { RecoveryDetailsResponse } from './recovery-details-response.interface';
 
 export class RecoveryDetails {
-  actualAmount: number;
-  actualAmountCurrency: string;
-  estimatedAmount: number;
-  estimatedAmountCurrency: string;
-  recoveryState: string;
+  actualAmount: number = null;
+  actualAmountCurrency: string = '';
+  estimatedAmount: number = null;
+  estimatedAmountCurrency: string = '';
+  recoveryState: string = '';
   evaluationCommittee: EvaluationCommittee;
   recoveryCommittee: RecoveryCommittee;
   lastActivity: moment.Moment;
-  personResponsible: string;
+  personResponsible: string = '';
 
   constructor(aData?: RecoveryDetailsResponse) {
     if (aData) {
@@ -29,7 +29,7 @@ export class RecoveryDetails {
     this.recoveryState = aJson.recoveryState;
     this.evaluationCommittee = new EvaluationCommittee(aJson.evaluationCommittee);
     this.recoveryCommittee = new RecoveryCommittee(aJson.recoveryCommittee);
-    this.lastActivity = moment(aJson.lastActivity, moment.ISO_8601);
+    this.lastActivity = aJson.lastActivity ? moment(aJson.lastActivity, moment.ISO_8601) : moment();
     this.personResponsible = aJson.personResponsible;
   }
 
@@ -40,9 +40,9 @@ export class RecoveryDetails {
       estimatedAmount: this.estimatedAmount,
       estimatedAmountCurrency: this.estimatedAmountCurrency,
       recoveryState: this.recoveryState,
-      evaluationCommittee: this.evaluationCommittee.toJson(),
-      recoveryCommittee: this.recoveryCommittee.toJson(),
-      lastActivity: this.lastActivity.format(),
+      evaluationCommittee: this.evaluationCommittee ? this.evaluationCommittee.toJson() : {},
+      recoveryCommittee: this.recoveryCommittee ? this.recoveryCommittee.toJson() : {},
+      lastActivity: this.lastActivity ? this.lastActivity.format() : '',
       personResponsible: this.personResponsible,
     } as RecoveryDetailsResponse;
   }

@@ -3,26 +3,176 @@
 
   <form [formGroup]="solutionForm" class="column">
     <mat-form-field>
-      <input matInput #source name="source" maxlength="100" placeholder="Sursa" required
-             [(ngModel)]="theSolution.solutionDetails.source" formControlName="source" />
+      <input matInput #source name="source"
+             maxlength="100"
+             placeholder="Sursa"
+             required
+             [(ngModel)]="theSolution.solutionDetails.source"
+             formControlName="source"
+      />
     </mat-form-field>
 
-    <mat-slide-toggle class="primary"
+    <mat-slide-toggle color="primary"
                       [checked]="theSolution.solutionDetails.sentOnEmail || false"
                       formControlName="sentOnEmail">Trimis pe email</mat-slide-toggle>
 
     <div class="row">
       <mat-form-field>
-        <input matInput #fileNumber name="fileNumber" maxlength="100" placeholder="Nr. dosar" required
-               [(ngModel)]="theSolution.solutionDetails.fileNumber" formControlName="fileNumber" />
+        <input matInput #fileNumber name="fileNumber"
+               maxlength="100"
+               placeholder="Nr. dosar"
+               required
+               [(ngModel)]="theSolution.solutionDetails.fileNumber"
+               formControlName="fileNumber"
+        />
       </mat-form-field>
 
       <div class="spacer"></div>
 
       <mat-form-field>
-        <input matInput #fileNumberParquet name="fileNumberParquet" maxlength="100" placeholder="Nr. dosar la parchet" required
-               [(ngModel)]="theSolution.solutionDetails.fileNumberParquet" formControlName="fileNumberParquet" />
+        <input matInput #fileNumberParquet name="fileNumberParquet"
+               maxlength="100"
+               placeholder="Nr. dosar la parchet"
+               required
+               [(ngModel)]="theSolution.solutionDetails.fileNumberParquet"
+               formControlName="fileNumberParquet"
+        />
       </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-select placeholder="Institutie" name="institution"
+                  [(ngModel)]="theSolution.institution"
+                  formControlName="institution"
+                  required
+      >
+        <mat-option *ngFor="let theInstitution of institutions" [value]="theInstitution">
+          {{ theInstitution.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             name="receivingDate"
+             formControlName="receivingDate"
+             [matDatepicker]="theDatePicker"
+             placeholder="Data primire document"
+             required
+
+      />
+      <mat-datepicker-toggle matSuffix [for]="theDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #theDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field>
+        <input matInput #decisionNumber name="decisionNumber"
+               maxlength="100"
+               placeholder="Nr. document"
+               [(ngModel)]="theSolution.decisionNumber"
+               formControlName="decisionNumber"
+               required
+        />
+      </mat-form-field>
+
+      <div class="spacer"></div>
+
+      <mat-form-field>
+        <input matInput
+               name="decisionDate"
+               formControlName="decisionDate"
+               [matDatepicker]="theDecisionDatePicker"
+               placeholder="Data document"
+               required
+
+        />
+        <mat-datepicker-toggle matSuffix [for]="theDecisionDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #theDecisionDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <div class="cell">
+        <mat-slide-toggle color="primary"
+                          [checked]="theSolution.solutionDetails.isDefinitive || false"
+                          formControlName="isDefinitive">Definitiva</mat-slide-toggle>
+      </div>
+
+      <div class="spacer"></div>
+
+      <mat-form-field>
+        <input matInput
+               name="definitiveDate"
+               formControlName="definitiveDate"
+               [matDatepicker]="theDefinitiveDatePicker"
+               placeholder="Data ramanerii definitive"
+               required
+
+        />
+        <mat-datepicker-toggle matSuffix [for]="theDefinitiveDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #theDefinitiveDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <input matInput
+             name="sentToAuthoritiesDate"
+             formControlName="sentToAuthoritiesDate"
+             [matDatepicker]="theSentToAuthoritiesDatePicker"
+             placeholder="Data comunicarii catre autoritati"
+             required
+
+      />
+      <mat-datepicker-toggle matSuffix [for]="theSentToAuthoritiesDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #theSentToAuthoritiesDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #legalBasis name="legalBasis"
+             placeholder="Temei legal"
+             [(ngModel)]="theSolution.solutionDetails.legalBasis"
+             formControlName="legalBasis"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Tip solutie" name="decision"
+                  [(ngModel)]="theSolution.decision"
+                  formControlName="decision"
+                  required
+      >
+        <mat-option *ngFor="let theDecision of decisions" [value]="theDecision">
+          {{ theDecision.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Tip masura" name="stage"
+                  [(ngModel)]="theSolution.stage"
+                  formControlName="stage"
+                  required
+      >
+        <mat-option *ngFor="let theStage of stages" [value]="theStage">
+          {{ theStage.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #personResponsible name="personResponsible"
+             maxlength="100"
+             placeholder="Persoana responsabila"
+             [(ngModel)]="theSolution.recoveryDetails.personResponsible"
+             formControlName="personResponsible"
+             required
+      />
+    </mat-form-field>
+
+    <div class="row actions">
+      <button mat-button (click)="cancel()">ANULEAZA</button>
+      <button mat-raised-button color="primary" (click)="save()" [disabled]="!solutionForm.valid">SALVEAZA</button>
     </div>
   </form>
 </section>

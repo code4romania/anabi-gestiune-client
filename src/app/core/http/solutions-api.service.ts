@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 
-import { SolutionResponse } from '../models';
+import { SolutionRequest, SolutionResponse } from '../models';
 
 @Injectable()
 export class SolutionsApiService {
@@ -15,6 +15,15 @@ export class SolutionsApiService {
   public getSolutions(aAssetId: number): Observable<SolutionResponse[]> {
     return this.http
       .get(`${environment.api_url}/assets/${aAssetId}/solutions`)
+      .pipe(
+        map((aResponse: Response) => aResponse),
+        catchError(aError => Observable.throw(aError))
+      );
+  }
+
+  public createSolution(aAssetId: number, aSolution: SolutionRequest) {
+    return this.http
+      .post(`${environment.api_url}/assets/${aAssetId}/solutions`, aSolution)
       .pipe(
         map((aResponse: Response) => aResponse),
         catchError(aError => Observable.throw(aError))

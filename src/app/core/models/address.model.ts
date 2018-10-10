@@ -1,10 +1,9 @@
+import { AddressResponse } from './address-response.interface';
 import { County } from './county.model';
 
 export class Address {
   id: number;
-  name: string;
   countyId: number;
-  countyName: string;
   county: County;
   street: string;
   city: string;
@@ -13,5 +12,21 @@ export class Address {
   floor: string;
   flatNo: string;
 
-  constructor() {}
+  constructor(aData?: AddressResponse) {
+    if (aData) {
+      this.fromJson(aData);
+    }
+  }
+
+  fromJson(aJson: AddressResponse) {
+    this.id = aJson.id;
+    this.countyId = aJson.countyId;
+    this.county = new County(aJson.county);
+    this.street = aJson.street;
+    this.city = aJson.city;
+    this.building = aJson.building;
+    this.stair = aJson.stair;
+    this.floor = aJson.floor;
+    this.flatNo = aJson.flatNo;
+  }
 }

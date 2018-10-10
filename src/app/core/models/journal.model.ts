@@ -22,10 +22,10 @@ export class Journal {
 
   toJson(): JournalResponse {
     return {
-      addedDate: this.addedDate.format(),
+      addedDate: this.addedDate ? this.addedDate.format() : '',
       userCodeAdd: this.userCodeAdd,
-      userCodeLastChange: this.userCodeLastChange.format(),
-      lastChangeDate: this.lastChangeDate.format(),
+      userCodeLastChange: this.userCodeLastChange ? this.userCodeLastChange.format() : '',
+      lastChangeDate: this.lastChangeDate ? this.lastChangeDate.format() : '',
     } as JournalResponse;
   }
 }

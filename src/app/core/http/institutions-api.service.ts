@@ -5,13 +5,13 @@ import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
-import { Institution } from '../models';
+import { InstitutionResponse } from '../models/institution-response.interface';
 
 @Injectable()
 export class InstitutionsApiService {
   constructor(private http: HttpClient) { }
 
-  public list(): Observable<Institution[]> {
+  public list(): Observable<InstitutionResponse[]> {
     return this.http
       .get(environment.api_url + '/institutions')
       .pipe(

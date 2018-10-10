@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Asset, Solution } from 'app/core';
+import { Asset, Decision, Institution, Solution, Stage } from 'app/core';
 import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
 import { Store } from '@ngrx/store';
@@ -21,6 +21,9 @@ export enum AssetProperties {
 
 export class AssetDetailComponent implements OnInit {
   private asset$: Observable<Asset>;
+  private institutions$: Observable<Institution[]>;
+  private decisions$: Observable<Decision[]>;
+  private stages$: Observable<Stage[]>;
   private assetProperty$: Observable<fromStore.AssetProperty>;
 
   properties = [
@@ -41,6 +44,9 @@ export class AssetDetailComponent implements OnInit {
 
       this.asset$ = this.store.select(fromStore.getAssetById(theId));
       this.assetProperty$ = this.store.select(fromStore.getAssetPropertiesByAssetId(theId));
+      this.institutions$ = this.store.select(fromStore.getAllInstitutions);
+      this.decisions$ = this.store.select(fromStore.getAllDecisions);
+      this.stages$ = this.store.select(fromStore.getAllStages);
     });
   }
 
@@ -69,6 +75,14 @@ export class AssetDetailComponent implements OnInit {
 
   onPropertyUpdate(aProperty: AssetProperty) {
     this.store.dispatch(new fromStore.UpdateProperty(aProperty));
+  }
+
+  onPropertyCancel(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.DeleteProperty(aProperty.getAsset().id));
+  }
+
+  onPropertySave(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.CreateSolution(aProperty));
   }
 
   private resetSelectedProperty() {

@@ -6,13 +6,13 @@ import { catchError, map } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 
-import { Decision, DecisionFilter, DecisionSummary } from '../models';
+import { Decision, DecisionFilter, DecisionResponse, DecisionSummary } from '../models';
 
 @Injectable()
 export class DecisionsApiService {
   constructor(private http: HttpClient) { }
 
-  public list(): Observable<Decision[]> {
+  public list(): Observable<DecisionResponse[]> {
     return this.http.get(environment.api_url + '/decisions')
       .pipe(
         map((aResponse: Response) => aResponse),

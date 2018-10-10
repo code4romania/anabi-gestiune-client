@@ -20,7 +20,7 @@ export class RecoveryCommittee {
 
   toJson(): RecoveryCommitteeResponse {
     return {
-      recoveryCommitteeDesignationDate: this.recoveryCommitteeDesignationDate.format(),
+      recoveryCommitteeDesignationDate: this.recoveryCommitteeDesignationDate ? this.recoveryCommitteeDesignationDate.format() : '',
       recoveryCommitteePresident: this.recoveryCommitteePresident,
       recoveryCommitteeMembers: this.recoveryCommitteeMembers,
     } as RecoveryCommitteeResponse;

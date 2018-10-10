@@ -23,4 +23,15 @@ export class SolutionsService {
         toArray()
       );
   }
+
+  public createSolution(aSolution: Solution): Observable<Solution> {
+    return this.solutionsApiService.createSolution(aSolution.getAsset().id, aSolution.toJson())
+      .pipe(
+        map((aSolutionResponse: SolutionResponse) => {
+          const theSolution = new Solution(aSolutionResponse);
+          theSolution.setAsset(aSolution.getAsset());
+          return theSolution;
+        })
+      );
+  }
 }

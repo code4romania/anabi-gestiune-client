@@ -192,30 +192,84 @@
         "userCodeLastChange": "2018-08-29T11:14:53.833Z",
         "lastChangeDate": "2018-08-29T11:14:53.833Z"
       }
+    },
+    {
+      "institutionId": 1,
+      "decisionDate": "",
+      "recoveryDetails": {
+        "evaluationCommittee": {},
+        "recoveryCommittee": {},
+        "lastActivity": ""
+      },
+      "solutionDetails": {
+        "source": "1",
+        "sentOnEmail": false,
+        "fileNumber": "2",
+        "fileNumberParquet": "3",
+        "receivingDate": "Invalid date",
+        "isDefinitive": false,
+        "definitiveDate": "Invalid date",
+        "sentToAuthoritiesDate": "Invalid date",
+        "legalBasis": ""
+      },
+      "journal": {
+        "addedDate": "",
+        "userCodeLastChange": "",
+        "lastChangeDate": ""
+      },
+      "id": 2
     }
   ],
   "institutions": [
     {
+      "id": 1,
       "name": "Instanta Test",
       "categoryId": 4,
-      "countyCode": "B",
-      "city": "Bucuresti",
-      "street": "Unirii",
-      "building": "1",
-      "stair": "A",
-      "floor": "3",
-      "flatNo": "20"
+      "address": {
+        "id": 1,
+        "countyId": 1,
+        "county": {
+          "id": 1,
+          "name": "Bucuresti",
+          "abreviation": "B"
+        },
+        "city": "Bucuresti",
+        "street": "Unirii",
+        "building": "1",
+        "stair": "A",
+        "floor": "3",
+        "flatNo": "20"
+      }
     },
     {
+      "id": 2,
       "name": "Instanta Test 2",
       "categoryId": 4,
-      "countyCode": "B",
-      "city": "Bucuresti",
-      "street": "Unirii",
-      "building": "2",
-      "stair": "B",
-      "floor": "1",
-      "flatNo": "11"
+      "address": {
+        "id": 2,
+        "countyId": 1,
+        "county": {
+          "id": 1,
+          "name": "Bucuresti",
+          "abreviation": "B"
+        },
+        "city": "Bucuresti",
+        "street": "Unirii",
+        "building": "2",
+        "stair": "B",
+        "floor": "1",
+        "flatNo": "11"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": 1,
+      "name": "Hotarare"
+    },
+    {
+      "id": 2,
+      "name": "Ordonanta"
     }
   ]
 }

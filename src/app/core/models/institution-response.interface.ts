@@ -1,11 +1,8 @@
+import { AddressResponse } from './address-response.interface';
+
 export interface InstitutionResponse {
+  id: number;
   name: string;
   categoryId: number;
-  countyCode: string;
-  city: string;
-  street: string;
-  building: string;
-  stair: string;
-  floor: string;
-  flatNo: string;
+  address: AddressResponse;
 }
