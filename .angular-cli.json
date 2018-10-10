@@ -27,6 +27,7 @@
       "environments": {
         "dev": "environments/environment.ts",
         "fake": "environments/environment.fake.ts",
+        "local": "environments/environment.local.ts",
         "prod": "environments/environment.prod.ts"
       },
       "stylePreprocessorOptions": {

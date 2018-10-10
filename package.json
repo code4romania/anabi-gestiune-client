@@ -11,6 +11,7 @@
     "preinstall": "npm install -g @angular/cli",
     "start": "ng serve --host localhost --port 5000 --output-hashing=bundles",
     "start:fake": "ng serve --env fake --host localhost --port 5000 --output-hashing=bundles",
+    "start:local": "ng serve --env local --host localhost --port 5000 --output-hashing=bundles",
     "test": "ng test --watch=false --code-coverage",
     "test:watch": "ng test --code-coverage"
   },
@@ -31,6 +32,7 @@
     "@angular/forms": "5.2.9",
     "@angular/http": "5.2.9",
     "@angular/material": "5.2.4",
+    "@angular/material-moment-adapter": "6.4.7",
     "@angular/platform-browser": "5.2.9",
     "@angular/platform-browser-dynamic": "5.2.9",
     "@angular/router": "5.2.9",
