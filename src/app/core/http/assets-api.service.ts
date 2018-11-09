@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import { catchError, map } from 'rxjs/operators';
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import {
@@ -22,49 +21,44 @@ export class AssetsApiService {
   constructor(private http: HttpClient) {}
 
   public categories(): Observable<AssetCategory[]> {
-    return this.http.get(`${environment.api_url}/assets/parentcategories`)
+    return this.http.get<AssetCategory[]>(`${environment.api_url}/assets/parentcategories`)
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 
   public subcategories(categoryId): Observable<AssetSubcategory[]> {
-    return this.http.get(`${environment.api_url}/assets/subcategories/${categoryId}`)
+    return this.http.get<AssetSubcategory[]>(`${environment.api_url}/assets/subcategories/${categoryId}`)
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 
   public stages(): Observable<Stage[]> {
-    return this.http.get(`${environment.api_url}/assets/stages`)
+    return this.http.get<Stage[]>(`${environment.api_url}/assets/stages`)
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 
   public list(): Observable<AssetResponse[]> {
-    return this.http.get(`${environment.api_url}/assets`)
+    return this.http.get<AssetResponse[]>(`${environment.api_url}/assets`)
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 
   public assetDetails(id: number): Observable<AssetDetailResponse> {
-    return this.http.get(`${environment.api_url}/assets/${id}`)
+    return this.http.get<AssetDetailResponse>(`${environment.api_url}/assets/${id}`)
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 
   public create(asset: AssetRequest): Observable<AssetResponse> {
     return this.http.post<AssetResponse>(`${environment.api_url}/assets/addminimalasset`, asset)
       .pipe(
-        catchError(aError => Observable.throw(aError.error.errors))
+        catchError(aError => observableThrowError(aError.error.errors))
       );
   }
 }

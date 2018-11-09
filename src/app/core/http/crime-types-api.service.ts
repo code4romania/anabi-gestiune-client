@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import { catchError, map } from 'rxjs/operators';
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import { CrimeTypeResponse } from '../models';
@@ -13,10 +12,9 @@ export class CrimeTypesApiService {
   }
 
   public list(): Observable<CrimeTypeResponse[]> {
-    return this.http.get(environment.api_url + '/crimetypes')
+    return this.http.get<CrimeTypeResponse[]>(environment.api_url + '/crimetypes')
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 }

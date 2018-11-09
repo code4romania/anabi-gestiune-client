@@ -3,11 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Asset, Decision, Institution, Solution, Stage } from 'app/core';
 import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as fromStore from 'app/core/store';
 
-import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { combineLatest, Observable } from 'rxjs';
 
 export enum AssetProperties {
   SOLUTIE = 'solutie',
@@ -42,11 +41,11 @@ export class AssetDetailComponent implements OnInit {
     this.route.params.subscribe((aParams: any) => {
       const theId = aParams.assetId;
 
-      this.asset$ = this.store.select(fromStore.getAssetById(theId));
-      this.assetProperty$ = this.store.select(fromStore.getAssetPropertiesByAssetId(theId));
-      this.institutions$ = this.store.select(fromStore.getAllInstitutions);
-      this.decisions$ = this.store.select(fromStore.getAllDecisions);
-      this.stages$ = this.store.select(fromStore.getAllStages);
+      this.asset$ = this.store.pipe(select(fromStore.getAssetById(theId)));
+      this.assetProperty$ = this.store.pipe(select(fromStore.getAssetPropertiesByAssetId(theId)));
+      this.institutions$ = this.store.pipe(select(fromStore.getAllInstitutions));
+      this.decisions$ = this.store.pipe(select(fromStore.getAllDecisions));
+      this.stages$ = this.store.pipe(select(fromStore.getAllStages));
     });
   }
 

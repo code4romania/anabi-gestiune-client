@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import { catchError, map } from 'rxjs/operators';
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import { StageResponse } from '../models';
@@ -12,10 +11,9 @@ export class StagesApiService {
   constructor(private http: HttpClient) { }
 
   public list(): Observable<StageResponse[]> {
-    return this.http.get(environment.api_url + '/stages')
+    return this.http.get<StageResponse[]>(environment.api_url + '/stages')
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 }

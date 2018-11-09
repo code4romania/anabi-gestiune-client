@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import * as fromStore from '../../../core/store';
 
@@ -53,7 +53,7 @@ export class AddAssetComponent implements OnInit {
 
   getSubcategories(categoryId) {
     this.newAsset.subcategory = null;
-    this.subcategories$ = this.store.select(fromStore.getAssetSubcategories(categoryId));
+    this.subcategories$ = this.store.pipe(select(fromStore.getAssetSubcategories(categoryId)));
   }
 
   save() {
@@ -101,8 +101,8 @@ export class AddAssetComponent implements OnInit {
   ngOnInit() {
     this.newAsset = new Asset();
 
-    this.categories$ = this.store.select(fromStore.getAssetParentCategories);
-    this.stages$ = this.store.select(fromStore.getAllStages);
+    this.categories$ = this.store.pipe(select(fromStore.getAssetParentCategories));
+    this.stages$ = this.store.pipe(select(fromStore.getAllStages));
 
     this.assetsService.measurements()
       .subscribe(

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import { catchError, map } from 'rxjs/operators';
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 
@@ -14,19 +13,17 @@ export class SolutionsApiService {
 
   public getSolutions(aAssetId: number): Observable<SolutionResponse[]> {
     return this.http
-      .get(`${environment.api_url}/assets/${aAssetId}/solutions`)
+      .get<SolutionResponse[]>(`${environment.api_url}/assets/${aAssetId}/solutions`)
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 
-  public createSolution(aAssetId: number, aSolution: SolutionRequest) {
+  public createSolution(aAssetId: number, aSolution: SolutionRequest): Observable<SolutionResponse> {
     return this.http
-      .post(`${environment.api_url}/assets/${aAssetId}/solutions`, aSolution)
+      .post<SolutionResponse>(`${environment.api_url}/assets/${aAssetId}/solutions`, aSolution)
       .pipe(
-        map((aResponse: Response) => aResponse),
-        catchError(aError => Observable.throw(aError))
+        catchError(aError => observableThrowError(aError))
       );
   }
 }
