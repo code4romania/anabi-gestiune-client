@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Asset, Decision, Institution, Solution, Stage } from 'app/core';
+import { Asset, Decision, Institution, Solution, Stage } from '@app/core';
 import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
+import * as fromStore from '@app/core/store';
 import { select, Store } from '@ngrx/store';
-import * as fromStore from 'app/core/store';
 
 import { combineLatest, Observable } from 'rxjs';
 

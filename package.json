@@ -5,7 +5,7 @@
   "scripts": {
     "build": "ng build --output-hashing=bundles",
     "e2e": "ng e2e",
-    "fake-api": "ts-node fake-api/server.ts",
+    "fake-api": "ts-node -O '{\"module\": \"commonjs\"}' fake-api/server.ts",
     "lint": "ng lint",
     "ng": "ng",
     "preinstall": "npm install -g @angular/cli",

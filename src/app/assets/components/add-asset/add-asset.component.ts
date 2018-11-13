@@ -15,7 +15,7 @@ import {
   ErrorStrings,
   NotificationService,
   Stage
-} from 'app/core';
+} from '@app/core';
 
 @Component({
   templateUrl: './add-asset.component.html',

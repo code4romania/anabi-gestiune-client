@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { throwError as observableThrowError,  Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { environment } from 'environments/environment';
+import { environment } from '@env/environment';
 
 import { Decision, DecisionFilter, DecisionResponse, DecisionSummary } from '../models';
 

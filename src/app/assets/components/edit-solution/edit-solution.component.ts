@@ -8,7 +8,7 @@ import {
   SolutionDetails,
   SolutionDetailsResponse,
   Stage
-} from 'app/core';
+} from '@app/core';
 
 import { cloneDeep } from 'lodash';
 import * as moment from 'moment';

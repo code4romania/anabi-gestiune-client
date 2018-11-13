@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import * as fromStore from '../core/store';
 
-import { Asset } from 'app/core';
+import { Asset } from '@app/core';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
 
 @Component({
