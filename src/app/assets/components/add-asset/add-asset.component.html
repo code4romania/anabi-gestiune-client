@@ -48,6 +48,9 @@
                       [(ngModel)]="newAsset.subcategory" formControlName="subcategory">
             <mat-option *ngFor="let subcategory of subcategories$ | async" [value]="subcategory">{{ subcategory.name }}</mat-option>
           </mat-select>
+          <mat-error *ngIf="newAssetForm.controls.subcategory.hasError('required')">
+            Subcategoria este obligatorie.
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -75,6 +78,9 @@
                       [(ngModel)]="newAsset.measureUnit" formControlName="measureUnit">
             <mat-option *ngFor="let measureUnit of measurements" [value]="measureUnit.id">{{ measureUnit.code }}</mat-option>
           </mat-select>
+          <mat-error *ngIf="newAssetForm.controls.measureUnit.hasError('required')">
+            Unitatea de masura este obligatorie.
+          </mat-error>
           <mat-error *ngIf="newAssetForm.controls.measureUnit.hasError('MEASUREUNIT_MAX_LENGTH_10')">
             Unitatea de masura poate avea maxim 10 caractere.
           </mat-error>
@@ -92,6 +98,9 @@
                       [(ngModel)]="newAsset.estimatedAmountCurrency" formControlName="estimatedAmountCurrency">
             <mat-option *ngFor="let estimatedAmountCurrency of currencies" [value]="estimatedAmountCurrency.id">{{ estimatedAmountCurrency.code }}</mat-option>
           </mat-select>
+          <mat-error *ngIf="newAssetForm.controls.estimatedAmountCurrency.hasError('required')">
+            Moneda este obligatorie.
+          </mat-error>
           <mat-error *ngIf="newAssetForm.controls.estimatedAmountCurrency.hasError('ESTIMATED_AMT_CURRENCY_THREE_CHARS')">
             Moneda poate avea maxim 3 caractere.
           </mat-error>
@@ -108,6 +117,6 @@
 
   <mat-dialog-actions fxLayout fxLayoutAlign="end center">
     <button mat-button mat-dialog-close>ANULEAZA</button>
-    <button mat-raised-button color="primary" (click)="save()">SALVEAZA</button>
+    <button mat-raised-button [disabled]="!newAssetForm.valid" color="primary" (click)="save()">SALVEAZA</button>
   </mat-dialog-actions>
 </section>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -26,11 +26,11 @@ export class AddAssetComponent implements OnInit {
   public newAsset: Asset = new Asset();
 
   public newAssetForm = new FormGroup({
-    name: new FormControl(),
+    name: new FormControl('', [ Validators.required ]),
     identifier: new FormControl(),
-    category: new FormControl(),
-    subcategory: new FormControl(),
-    stage: new FormControl(),
+    category: new FormControl('', [ Validators.required ]),
+    subcategory: new FormControl('', [ Validators.required ]),
+    stage: new FormControl('', [ Validators.required ]),
     quantity: new FormControl(),
     measureUnit: new FormControl(),
     estimatedAmount: new FormControl(),
@@ -95,7 +95,7 @@ export class AddAssetComponent implements OnInit {
 
           this.notificationService.showError(ErrorStrings.ERROR_ADD_MINIMAL_ASSET);
         }
-      )
+      );
   }
 
   ngOnInit() {
@@ -114,5 +114,25 @@ export class AddAssetComponent implements OnInit {
         (currencies) => this.currencies = currencies,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CURRENCIES)
       );
+
+    this.newAssetForm.valueChanges.subscribe((aValue) => {
+      if (aValue.category && !aValue.subcategory) {
+        this.newAssetForm.controls['subcategory'].setValidators(Validators.required);
+        this.newAssetForm.controls['subcategory'].setErrors({ required: true });
+        this.newAssetForm.controls['subcategory'].markAsTouched();
+      }
+
+      if (aValue.quantity && aValue.quantity > 0 && !aValue.measureUnit) {
+        this.newAssetForm.controls['measureUnit'].setValidators(Validators.required);
+        this.newAssetForm.controls['measureUnit'].setErrors({ required: true });
+        this.newAssetForm.controls['measureUnit'].markAsTouched();
+      }
+
+      if (aValue.estimatedAmount && aValue.estimatedAmount > 0 && !aValue.estimatedAmountCurrency) {
+        this.newAssetForm.controls['estimatedAmountCurrency'].setValidators(Validators.required);
+        this.newAssetForm.controls['estimatedAmountCurrency'].setErrors({ required: true });
+        this.newAssetForm.controls['estimatedAmountCurrency'].markAsTouched();
+      }
+    });
   }
 }
