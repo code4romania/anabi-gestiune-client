@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { throwError as observableThrowError,  Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
-import { Observable } from 'rxjs/Observable';
-import { catchError, map } from 'rxjs/operators';
-
-import { environment } from 'environments/environment';
+import { environment } from '@env/environment';
 import { InstitutionResponse } from '../models/institution-response.interface';
 
 @Injectable()
@@ -13,10 +12,9 @@ export class InstitutionsApiService {
 
   public list(): Observable<InstitutionResponse[]> {
     return this.http
-      .get(environment.api_url + '/institutions')
+      .get<InstitutionResponse[]>(environment.api_url + '/institutions')
       .pipe(
-        map((response: Response) => response),
-        catchError(error => Observable.throw(error))
+        catchError(error => observableThrowError(error))
       );
   }
 }

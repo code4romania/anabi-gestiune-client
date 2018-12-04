@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { zip } from 'rxjs/observable/zip';
+import { of, zip, Observable } from 'rxjs';
 import { map, mergeMap, take, toArray } from 'rxjs/operators';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { CoreState } from '../store/reducers/index';
 import * as fromSelectors from '../store/selectors';
 
@@ -79,9 +77,9 @@ export class AssetsService {
 
   private assetFromResponse(aResponse: AssetResponse): Observable<Asset> {
     return zip(
-      this.store.select(fromSelectors.getCategoryByName(aResponse.assetCategory)),
-      this.store.select(fromSelectors.getCategoryByName(aResponse.assetSubcategory)),
-      this.store.select(fromSelectors.getStageByName(aResponse.currentStage)),
+      this.store.pipe(select(fromSelectors.getCategoryByName(aResponse.assetCategory))),
+      this.store.pipe(select(fromSelectors.getCategoryByName(aResponse.assetSubcategory))),
+      this.store.pipe(select(fromSelectors.getStageByName(aResponse.currentStage))),
       (aCategory: Category, aSubcategory: Category, aStage: Stage) => {
         const theAsset = new Asset();
         theAsset.fromAssetResponseJson(aResponse);
@@ -98,8 +96,8 @@ export class AssetsService {
 
   private assetFromDetailResponse(aResponse: AssetDetailResponse): Observable<Asset> {
     return zip(
-      this.store.select(fromSelectors.getCategoryById(aResponse.subcategoryId)),
-      this.store.select(fromSelectors.getStageById(aResponse.stageId)),
+      this.store.pipe(select(fromSelectors.getCategoryById(aResponse.subcategoryId))),
+      this.store.pipe(select(fromSelectors.getStageById(aResponse.stageId))),
       (aSubcategory: Category, aStage: Stage) => {
         const theAsset = new Asset();
         theAsset.fromAssetDetailResponseJson(aResponse);

@@ -6,7 +6,7 @@ import {
   DecisionSummary,
   ErrorStrings,
   NotificationService
-} from 'app/core';
+} from '@app/core';
 
 @Component({
   templateUrl: './search.component.html',

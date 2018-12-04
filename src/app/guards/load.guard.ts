@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { of, Observable } from 'rxjs';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 import * as fromStore from '../core/store';
 
@@ -22,7 +21,7 @@ export class LoadGuard implements CanActivate {
   }
 
   checkCategories(): Observable<boolean> {
-    return this.store.select(fromStore.getCategoriesLoaded)
+    return this.store.pipe(select(fromStore.getCategoriesLoaded))
       .pipe(
         tap(aLoaded => {
           if (!aLoaded) {
@@ -35,7 +34,7 @@ export class LoadGuard implements CanActivate {
   }
 
   checkStages(): Observable<boolean> {
-    return this.store.select(fromStore.getStagesLoaded)
+    return this.store.pipe(select(fromStore.getStagesLoaded))
       .pipe(
         tap(aLoaded => {
           if (!aLoaded) {

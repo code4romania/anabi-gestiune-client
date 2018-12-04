@@ -9,7 +9,7 @@ import {
   RecoveryBeneficiariesApiService,
   StagesApiService,
   StorageSpacesApiService
-} from 'app/core';
+} from '@app/core';
 
 @Component({
   templateUrl: './dictionaries.component.html',
