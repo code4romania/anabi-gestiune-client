@@ -28,7 +28,7 @@ export class AssetsService {
   public create(aAsset: Asset): Observable<Asset> {
     return this.assetsApiService.create(aAsset.toJson())
       .pipe(
-        mergeMap((aAssetResponse: AssetResponse) => this.assetFromResponse(aAssetResponse))
+        mergeMap((aAssetResponse: AssetDetailResponse) => this.assetFromDetailResponse(aAssetResponse))
       );
   }
 

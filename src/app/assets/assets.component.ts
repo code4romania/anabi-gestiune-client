@@ -74,8 +74,10 @@ export class AssetsComponent implements OnInit, AfterViewInit {
       panelClass: 'dialog-add',
     } as MatDialogConfig);
 
-    addAssetDialog.afterClosed().subscribe(result => {
-
+    addAssetDialog.afterClosed().subscribe((aNewAsset: Asset) => {
+      if (aNewAsset) {
+        this.store.dispatch(new fromStore.CreateAssetSuccess(aNewAsset));
+      }
     });
   }
 
