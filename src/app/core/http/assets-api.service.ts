@@ -55,8 +55,8 @@ export class AssetsApiService {
       );
   }
 
-  public create(asset: AssetRequest): Observable<AssetResponse> {
-    return this.http.post<AssetResponse>(`${environment.api_url}/assets/addminimalasset`, asset)
+  public create(asset: AssetRequest): Observable<AssetDetailResponse> {
+    return this.http.post<AssetDetailResponse>(`${environment.api_url}/assets/addminimalasset`, asset)
       .pipe(
         catchError(aError => observableThrowError(aError.error.errors))
       );
