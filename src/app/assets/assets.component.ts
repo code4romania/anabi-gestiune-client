@@ -65,6 +65,7 @@ export class AssetsComponent implements OnInit, AfterViewInit {
       .subscribe((aAssets) => {
         if (aAssets && aAssets.length > 0) {
           this.tableConfig.dataSource = new MatTableDataSource(aAssets);
+          this.ngAfterViewInit();
         }
       });
   }
@@ -77,6 +78,7 @@ export class AssetsComponent implements OnInit, AfterViewInit {
     addAssetDialog.afterClosed().subscribe((aNewAsset: Asset) => {
       if (aNewAsset) {
         this.store.dispatch(new fromStore.CreateAssetSuccess(aNewAsset));
+        this.refresh();
       }
     });
   }

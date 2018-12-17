@@ -10,7 +10,7 @@
       </mat-form-field>
     </div>
 
-    <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex>
+    <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="desc">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
         <mat-cell *matCellDef="let asset">{{ asset.id }}</mat-cell>
