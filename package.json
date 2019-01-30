@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "ng build --output-hashing=bundles",
+    "analyze": "npm run build && webpack-bundle-analyzer dist/stats.json",
+    "build": "ng build --output-hashing=bundles --stats-json",
     "e2e": "ng e2e",
     "fake-api": "ts-node -O '{\"module\": \"commonjs\"}' fake-api/server.ts",
     "lint": "ng lint",
@@ -78,6 +79,8 @@
     "protractor": "5.4.1",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
-    "typescript": "3.1.6"
+    "typescript": "3.1.6",
+    "webpack-bundle-analyzer": "3.0.3",
+    "webpack-cli": "3.2.1"
   }
 }

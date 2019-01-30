@@ -18,7 +18,7 @@
             "polyfills": "src/polyfills.ts",
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src"
+                "src/sass"
               ]
             },
             "assets": [
@@ -26,8 +26,8 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/theme.scss",
-              "src/styles.scss"
+              "src/sass/theme.scss",
+              "src/sass/styles.scss"
             ],
             "scripts": []
           },
@@ -99,9 +99,14 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/theme.scss",
-              "src/styles.scss"
+              "src/sass/theme.scss",
+              "src/sass/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/sass"
+              ]
+            },
             "assets": [
               "src/assets",
               "src/favicon.ico"
