@@ -83,6 +83,20 @@ export class Asset {
     this.journal = new Journal(aJson.journal);
   }
 
+  fromForm(aJson: any) {
+    this.name = aJson.name;
+    this.category = aJson.category;
+    this.subcategory = aJson.subcategory;
+    this.stage = aJson.stage;
+    this.description = aJson.description || undefined;
+    this.identifier = aJson.identifier || undefined;
+    this.remarks = aJson.remarks || undefined;
+    this.quantity = aJson.quantity || undefined;
+    this.measureUnit = aJson.measureUnit || undefined;
+    this.estimatedAmount = aJson.estimatedAmount || undefined;
+    this.estimatedAmountCurrency = aJson.estimatedAmountCurrency || undefined;
+  }
+
   toJson(): AssetRequest {
     return {
       name: this.name,

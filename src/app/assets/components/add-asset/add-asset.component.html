@@ -4,9 +4,18 @@
   <mat-dialog-content>
     <form [formGroup]="newAssetForm" fxLayout="column">
       <mat-form-field>
-        <input matInput #name name="name" maxlength="100" placeholder="Nume" required
-               [(ngModel)]="newAsset.name" formControlName="name">
+        <input
+          matInput
+          #name
+          name="name"
+          maxlength="100"
+          placeholder="Nume"
+          required
+          formControlName="name"
+        />
+
         <mat-hint align="end">{{ name.value.length }} / 100</mat-hint>
+
         <mat-error *ngIf="newAssetForm.controls.name.hasError('NAME_NOT_EMPTY') || newAssetForm.controls.name.hasError('required')">
           Numele este obligatoriu.
         </mat-error>
@@ -16,13 +25,12 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput #description name="description" placeholder="Descriere"
-               [(ngModel)]="newAsset.description" [ngModelOptions]="{standalone: true}">
+        <input matInput name="description" placeholder="Descriere" formControlName="description" />
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput #identifier name="identifier" placeholder="Identificator"
-               [(ngModel)]="newAsset.identifier" formControlName="identifier">
+        <input matInput name="identifier" placeholder="Identificator" formControlName="identifier" />
+
         <mat-error *ngIf="newAssetForm.controls.identifier.hasError('IDENTIFIER_MAX_LENGTH_100')">
           Identificatorul nu poate avea mai mult de 100 caractere.
         </mat-error>
@@ -30,11 +38,10 @@
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
-          <mat-select #category name="category" placeholder="Categorie" required
-                      [(ngModel)]="newAsset.category" formControlName="category"
-                      (selectionChange)="getSubcategories(newAsset.category.id)">
+          <mat-select name="category" placeholder="Categorie" required formControlName="category">
             <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category.name }}</mat-option>
           </mat-select>
+
           <mat-error *ngIf="newAssetForm.controls.category.hasError('required')">
             Categoria este obligatorie.
           </mat-error>
@@ -44,10 +51,10 @@
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
-          <mat-select #subcategory name="subcategory" placeholder="Subcategorie"
-                      [(ngModel)]="newAsset.subcategory" formControlName="subcategory">
+          <mat-select name="subcategory" placeholder="Subcategorie" formControlName="subcategory">
             <mat-option *ngFor="let subcategory of subcategories$ | async" [value]="subcategory">{{ subcategory.name }}</mat-option>
           </mat-select>
+
           <mat-error *ngIf="newAssetForm.controls.subcategory.hasError('required')">
             Subcategoria este obligatorie.
           </mat-error>
@@ -55,10 +62,10 @@
       </div>
 
       <mat-form-field>
-        <mat-select #stage name="stage" placeholder="Stare actuala" required
-                    [(ngModel)]="newAsset.stage" formControlName="stage">
+        <mat-select name="stage" placeholder="Stare actuala" required formControlName="stage">
           <mat-option *ngFor="let stage of stages$ | async" [value]="stage">{{ stage.name }}</mat-option>
         </mat-select>
+
         <mat-error *ngIf="newAssetForm.controls.stage.hasError('required')">
           Starea este obligatorie.
         </mat-error>
@@ -69,15 +76,14 @@
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
-          <input matInput type="number" #quantity name="quantity" placeholder="Cantitate"
-                 [(ngModel)]="newAsset.quantity" formControlName="quantity">
+          <input matInput type="number" name="quantity" placeholder="Cantitate" formControlName="quantity" />
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
-          <mat-select #measureUnit name="measureUnit" placeholder="Unitate de masura"
-                      [(ngModel)]="newAsset.measureUnit" formControlName="measureUnit">
+          <mat-select name="measureUnit" placeholder="Unitate de masura" formControlName="measureUnit">
             <mat-option *ngFor="let measureUnit of measurements" [value]="measureUnit.id">{{ measureUnit.code }}</mat-option>
           </mat-select>
+
           <mat-error *ngIf="newAssetForm.controls.measureUnit.hasError('required')">
             Unitatea de masura este obligatorie.
           </mat-error>
@@ -89,15 +95,25 @@
 
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="49">
-          <input matInput type="number" #estimatedAmount name="estimatedAmount" placeholder="Valoare estimata"
-                 [(ngModel)]="newAsset.estimatedAmount" formControlName="estimatedAmount">
+          <input matInput
+                 type="number"
+                 name="estimatedAmount"
+                 placeholder="Valoare estimata"
+                 formControlName="estimatedAmount"
+          />
         </mat-form-field>
 
         <mat-form-field fxFlex="49">
-          <mat-select #estimatedAmountCurrency name="estimatedAmountCurrency" placeholder="Moneda valoare estimata"
-                      [(ngModel)]="newAsset.estimatedAmountCurrency" formControlName="estimatedAmountCurrency">
-            <mat-option *ngFor="let estimatedAmountCurrency of currencies" [value]="estimatedAmountCurrency.id">{{ estimatedAmountCurrency.code }}</mat-option>
+          <mat-select
+            name="estimatedAmountCurrency"
+            placeholder="Moneda valoare estimata"
+            formControlName="estimatedAmountCurrency"
+          >
+            <mat-option *ngFor="let estimatedAmountCurrency of currencies" [value]="estimatedAmountCurrency.id">
+              {{ estimatedAmountCurrency.code }}
+            </mat-option>
           </mat-select>
+
           <mat-error *ngIf="newAssetForm.controls.estimatedAmountCurrency.hasError('required')">
             Moneda este obligatorie.
           </mat-error>
@@ -108,9 +124,14 @@
       </div>
 
       <mat-form-field>
-        <textarea matInput #remarks name="remarks" placeholder="Observatii"
-                  matTextareaAutosize matAutosizeMinRows="2"
-                  [(ngModel)]="newAsset.remarks" [ngModelOptions]="{standalone: true}"></textarea>
+        <textarea
+          matInput
+          name="remarks"
+          placeholder="Observatii"
+          matTextareaAutosize
+          matAutosizeMinRows="2"
+          formControlName="remarks"
+        ></textarea>
       </mat-form-field>
     </form>
   </mat-dialog-content>

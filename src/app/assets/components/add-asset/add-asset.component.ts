@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 
+import { select, Store } from '@ngrx/store';
 import * as fromStore from '../../../core/store';
 
 import {
@@ -17,16 +16,20 @@ import {
   Stage
 } from '@app/core';
 
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 @Component({
   templateUrl: './add-asset.component.html',
   styleUrls: ['./add-asset.component.scss'],
 })
 
 export class AddAssetComponent implements OnInit {
-  public newAsset: Asset = new Asset();
+  public newAsset: Asset;
 
   public newAssetForm = new FormGroup({
     name: new FormControl('', [ Validators.required ]),
+    description: new FormControl(),
     identifier: new FormControl(),
     category: new FormControl('', [ Validators.required ]),
     subcategory: new FormControl('', [ Validators.required ]),
@@ -35,11 +38,12 @@ export class AddAssetComponent implements OnInit {
     measureUnit: new FormControl(),
     estimatedAmount: new FormControl(),
     estimatedAmountCurrency: new FormControl(),
+    remarks: new FormControl(),
   });
 
-  public categories$: Observable<Category[]>;
+  public categories$: Observable<Category[]> = this.store.pipe(select(fromStore.getAssetParentCategories));
   public subcategories$: Observable<Category[]>;
-  public stages$: Observable<Stage[]>;
+  public stages$: Observable<Stage[]> = this.store.pipe(select(fromStore.getAllStages));
   public measurements: AssetMeasurement[];
   public currencies: AssetCurrency[];
 
@@ -99,17 +103,14 @@ export class AddAssetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.newAsset = new Asset();
-
-    this.categories$ = this.store.pipe(select(fromStore.getAssetParentCategories));
-    this.stages$ = this.store.pipe(select(fromStore.getAllStages));
-
     this.assetsService.measurements()
+      .pipe(take(1))
       .subscribe(
         (measurements) => this.measurements = measurements,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_MEASUREMENTS)
       );
     this.assetsService.currencies()
+      .pipe(take(1))
       .subscribe(
         (currencies) => this.currencies = currencies,
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_FETCH_CURRENCIES)
@@ -133,6 +134,13 @@ export class AddAssetComponent implements OnInit {
         this.newAssetForm.controls['estimatedAmountCurrency'].setErrors({ required: true });
         this.newAssetForm.controls['estimatedAmountCurrency'].markAsTouched();
       }
+
+      if (aValue.category) {
+        this.getSubcategories(aValue.category.id);
+      }
+
+      this.newAsset = new Asset();
+      this.newAsset.fromForm(aValue);
     });
   }
 }
