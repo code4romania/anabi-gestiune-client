@@ -7,12 +7,12 @@ import {
   MatTableDataSource
 } from '@angular/material';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as fromStore from '../core/store';
 
-import { Asset } from 'app/core';
+import { Asset } from '@app/core';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
 
 @Component({
@@ -36,7 +36,7 @@ export class AssetsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.assetsLoaded$ = this.store.select(fromStore.getAssetsLoaded);
+    this.assetsLoaded$ = this.store.pipe(select(fromStore.getAssetsLoaded));
 
     this.tableConfig = {
       displayedColumns: [
@@ -61,10 +61,11 @@ export class AssetsComponent implements OnInit, AfterViewInit {
   }
 
   refresh() {
-    this.store.select(fromStore.getAllAssets)
+    this.store.pipe(select(fromStore.getAllAssets))
       .subscribe((aAssets) => {
         if (aAssets && aAssets.length > 0) {
           this.tableConfig.dataSource = new MatTableDataSource(aAssets);
+          this.ngAfterViewInit();
         }
       });
   }
@@ -74,8 +75,11 @@ export class AssetsComponent implements OnInit, AfterViewInit {
       panelClass: 'dialog-add',
     } as MatDialogConfig);
 
-    addAssetDialog.afterClosed().subscribe(result => {
-
+    addAssetDialog.afterClosed().subscribe((aNewAsset: Asset) => {
+      if (aNewAsset) {
+        this.store.dispatch(new fromStore.CreateAssetSuccess(aNewAsset));
+        this.refresh();
+      }
     });
   }
 

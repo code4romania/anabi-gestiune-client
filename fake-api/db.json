@@ -218,6 +218,108 @@
         "lastChangeDate": ""
       },
       "id": 2
+    },
+    {
+      "stageId": 1,
+      "decisionId": 1,
+      "institutionId": 1,
+      "decisionDate": "2018-10-11T00:00:00+03:00",
+      "decisionNumber": "1",
+      "recoveryDetails": {
+        "evaluationCommittee": {
+          "evaluationCommitteeDesignationDate": ""
+        },
+        "recoveryCommittee": {
+          "recoveryCommitteeDesignationDate": ""
+        },
+        "lastActivity": "2018-10-10T20:29:44+03:00",
+        "personResponsible": "test"
+      },
+      "solutionDetails": {
+        "source": "1",
+        "sentOnEmail": false,
+        "fileNumber": "2",
+        "fileNumberParquet": "3",
+        "receivingDate": "2018-10-10T00:00:00+03:00",
+        "isDefinitive": false,
+        "definitiveDate": "2018-10-12T00:00:00+03:00",
+        "sentToAuthoritiesDate": "2018-10-13T00:00:00+03:00",
+        "legalBasis": ""
+      },
+      "journal": {
+        "addedDate": "",
+        "userCodeLastChange": "",
+        "lastChangeDate": ""
+      },
+      "id": 3
+    },
+    {
+      "stageId": 2,
+      "decisionId": 1,
+      "institutionId": 1,
+      "decisionDate": "2018-10-11T00:00:00+03:00",
+      "decisionNumber": "1",
+      "recoveryDetails": {
+        "evaluationCommittee": {
+          "evaluationCommitteeDesignationDate": ""
+        },
+        "recoveryCommittee": {
+          "recoveryCommitteeDesignationDate": ""
+        },
+        "lastActivity": "2018-10-10T20:34:54+03:00",
+        "personResponsible": "ttttt"
+      },
+      "solutionDetails": {
+        "source": "1",
+        "sentOnEmail": false,
+        "fileNumber": "2",
+        "fileNumberParquet": "3",
+        "receivingDate": "2018-10-10T00:00:00+03:00",
+        "isDefinitive": false,
+        "definitiveDate": "2018-10-12T00:00:00+03:00",
+        "sentToAuthoritiesDate": "2018-10-13T00:00:00+03:00",
+        "legalBasis": ""
+      },
+      "journal": {
+        "addedDate": "",
+        "userCodeLastChange": "",
+        "lastChangeDate": ""
+      },
+      "id": 4
+    },
+    {
+      "stageId": 1,
+      "decisionId": 1,
+      "institutionId": 1,
+      "decisionDate": "2018-10-11T00:00:00+03:00",
+      "decisionNumber": "1",
+      "recoveryDetails": {
+        "evaluationCommittee": {
+          "evaluationCommitteeDesignationDate": ""
+        },
+        "recoveryCommittee": {
+          "recoveryCommitteeDesignationDate": ""
+        },
+        "lastActivity": "2018-10-10T20:38:23+03:00",
+        "personResponsible": "aaaaaa"
+      },
+      "solutionDetails": {
+        "source": "1",
+        "sentOnEmail": false,
+        "fileNumber": "2",
+        "fileNumberParquet": "3",
+        "receivingDate": "2018-10-10T00:00:00+03:00",
+        "isDefinitive": false,
+        "definitiveDate": "2018-10-10T00:00:00+03:00",
+        "sentToAuthoritiesDate": "2018-10-10T00:00:00+03:00",
+        "legalBasis": ""
+      },
+      "journal": {
+        "addedDate": "",
+        "userCodeLastChange": "",
+        "lastChangeDate": ""
+      },
+      "id": 5
     }
   ],
   "institutions": [

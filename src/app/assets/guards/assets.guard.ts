@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { zip } from 'rxjs/observable/zip';
+import { of, zip, Observable } from 'rxjs';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 import * as fromStore from '../../core/store';
 
@@ -22,7 +20,7 @@ export class AssetsGuard implements CanActivate {
   }
 
   checkStore(): Observable<boolean> {
-    return this.store.select(fromStore.getAssetsLoaded)
+    return this.store.pipe(select(fromStore.getAssetsLoaded))
       .pipe(
         tap(loaded => {
           if (!loaded) {
@@ -36,9 +34,9 @@ export class AssetsGuard implements CanActivate {
 
   check(): Observable<boolean> {
     return zip(
-      this.store.select(fromStore.getAssetsLoaded),
-      this.store.select(fromStore.getInstitutionsLoaded),
-      this.store.select(fromStore.getDecisionsLoaded),
+      this.store.pipe(select(fromStore.getAssetsLoaded)),
+      this.store.pipe(select(fromStore.getInstitutionsLoaded)),
+      this.store.pipe(select(fromStore.getDecisionsLoaded)),
       (aAssetsLoaded: boolean, aInstitutionsLoaded: boolean, aDecisionsLoaded: boolean) => {
         let allLoaded = true;
         if (!aAssetsLoaded) {

@@ -1,8 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as fromStore from './core/store';
 
 @Component({
@@ -31,6 +31,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showIsLoading$ = this.store.select(fromStore.getIsLoading);
+    this.showIsLoading$ = this.store.pipe(select(fromStore.getIsLoading));
   }
 }
