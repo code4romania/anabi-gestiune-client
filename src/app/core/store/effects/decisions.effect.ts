@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
@@ -11,8 +11,8 @@ export class DecisionsEffects {
 
   @Effect()
   loadDecisions$ = this.actions$
-    .ofType(decisionActions.LOAD_DECISIONS)
     .pipe(
+      ofType(decisionActions.LOAD_DECISIONS),
       switchMap(() => {
         return this.decisionsService
           .list()

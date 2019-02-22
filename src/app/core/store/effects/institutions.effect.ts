@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
 
@@ -12,8 +12,8 @@ export class InstitutionsEffects {
 
   @Effect()
   loadInstitutions$ = this.actions$
-    .ofType(institutionActions.LOAD_INSTITUTIONS)
     .pipe(
+      ofType(institutionActions.LOAD_INSTITUTIONS),
       switchMap(() => {
         return this.institutionsService
           .list()
@@ -26,18 +26,18 @@ export class InstitutionsEffects {
 
   @Effect()
   showLoading$ = this.actions$
-    .ofType(institutionActions.LOAD_INSTITUTIONS)
     .pipe(
+      ofType(institutionActions.LOAD_INSTITUTIONS),
       mapTo(new loadingActions.ShowLoading())
     );
 
   @Effect()
   hideLoading$ = this.actions$
-    .ofType(
-      institutionActions.LOAD_INSTITUTIONS_FAIL,
-      institutionActions.LOAD_INSTITUTIONS_SUCCESS
-    )
     .pipe(
+      ofType(
+        institutionActions.LOAD_INSTITUTIONS_FAIL,
+        institutionActions.LOAD_INSTITUTIONS_SUCCESS
+      ),
       mapTo(new loadingActions.HideLoading())
     );
 

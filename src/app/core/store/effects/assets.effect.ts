@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
 
@@ -12,8 +12,8 @@ export class AssetsEffects {
 
   @Effect()
   loadAssets$ = this.actions$
-    .ofType(assetActions.LOAD_ASSETS)
     .pipe(
+      ofType(assetActions.LOAD_ASSETS),
       switchMap(() => {
         return this.assetsService
           .list()
@@ -26,8 +26,8 @@ export class AssetsEffects {
 
   @Effect()
   loadAssetDetail$ = this.actions$
-    .ofType(assetActions.LOAD_ASSET_DETAIL)
     .pipe(
+      ofType(assetActions.LOAD_ASSET_DETAIL),
       map((action: assetActions.LoadAssetDetail) => action.payload),
       switchMap((aPayload) => {
         return this.assetsService
@@ -41,20 +41,20 @@ export class AssetsEffects {
 
   @Effect()
   showLoading$ = this.actions$
-    .ofType(assetActions.LOAD_ASSETS, assetActions.LOAD_ASSET_DETAIL)
     .pipe(
+      ofType(assetActions.LOAD_ASSETS, assetActions.LOAD_ASSET_DETAIL),
       mapTo(new loadingActions.ShowLoading())
     );
 
   @Effect()
   hideLoading$ = this.actions$
-    .ofType(
-      assetActions.LOAD_ASSETS_FAIL,
-      assetActions.LOAD_ASSETS_SUCCESS,
-      assetActions.LOAD_ASSET_DETAIL_FAIL,
-      assetActions.LOAD_ASSET_DETAIL_SUCCESS
-    )
     .pipe(
+      ofType(
+        assetActions.LOAD_ASSETS_FAIL,
+        assetActions.LOAD_ASSETS_SUCCESS,
+        assetActions.LOAD_ASSET_DETAIL_FAIL,
+        assetActions.LOAD_ASSET_DETAIL_SUCCESS
+      ),
       mapTo(new loadingActions.HideLoading())
     );
 

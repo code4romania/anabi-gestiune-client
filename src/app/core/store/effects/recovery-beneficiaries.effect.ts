@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect } from '@ngrx/effects';
+import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
@@ -11,8 +11,8 @@ import * as recoveryBeneficiaryActions from '../actions/recovery-beneficiaries.a
 export class RecoveryBeneficiariesEffects {
   @Effect()
   loadRecoveryBeneficiaries$ = this.actions$
-    .ofType(recoveryBeneficiaryActions.LOAD_RECOVERY_BENEFICIARIES)
     .pipe(
+      ofType(recoveryBeneficiaryActions.LOAD_RECOVERY_BENEFICIARIES),
       switchMap(() => {
         return this.recoveryBeneficiariesService
           .list()

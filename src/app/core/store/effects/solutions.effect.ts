@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
 
@@ -13,8 +13,8 @@ export class SolutionsEffects {
 
   @Effect()
   loadSolutions$ = this.actions$
-    .ofType(solutionActions.LOAD_SOLUTIONS)
     .pipe(
+      ofType(solutionActions.LOAD_SOLUTIONS),
       map((action: solutionActions.LoadSolutions) => action.payload),
       switchMap((aPayload) => {
         return this.solutionsService
@@ -28,8 +28,8 @@ export class SolutionsEffects {
 
   @Effect()
   createSolution$ = this.actions$
-    .ofType(solutionActions.CREATE_SOLUTION)
     .pipe(
+      ofType(solutionActions.CREATE_SOLUTION),
       map((action: solutionActions.CreateSolution) => action.payload),
       switchMap((aPayload) => {
         return this.solutionsService
@@ -43,8 +43,8 @@ export class SolutionsEffects {
 
   @Effect()
   createSolutionSuccess$ = this.actions$
-    .ofType(solutionActions.CREATE_SOLUTION_SUCCESS)
     .pipe(
+      ofType(solutionActions.CREATE_SOLUTION_SUCCESS),
       map((action: solutionActions.CreateSolutionSuccess) => action.payload),
       mapTo((aSolution: Solution) => new assetPropertiesActions.DeleteProperty(aSolution.getAsset().id))
     );
