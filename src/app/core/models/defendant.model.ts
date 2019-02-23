@@ -1,3 +1,5 @@
+import { DefendantForm } from './defendant-form.model';
+
 export class Defendant {
     idNumber: string;
     idSerie: string;
@@ -8,4 +10,8 @@ export class Defendant {
     firstName: string;
     identifierId: number;
     nationality: string;
+
+    constructor(form: DefendantForm) {
+        // TODO: map DefendantForm to Defendant
+    }
 }

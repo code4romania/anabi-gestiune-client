@@ -10,11 +10,13 @@
           {{ option }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="defendantForm.get('defendantType').hasError('required')">Acest camp este obligatoriu.</mat-error>
     </mat-form-field>
 
-    <div *ngIf="defendantType == 'Persoana Fizica'">
+    <div formGroupName="pf" class="fields-container" *ngIf="defendantType == 'Persoana Fizica'">
       <mat-form-field>
         <input matInput formControlName="pfLastName" placeholder="Nume"/>
+        <mat-error *ngIf="defendantForm.get('pf').get('pfLastName').hasError('required')">Acest camp este obligatoriu.</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -28,11 +30,29 @@
       <mat-form-field>
         <input matInput formControlName="pfIdentifier" [placeholder]="nat.value == 'Romania' ? 'CNP' : 'Identificator'" />
       </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="pfBirthDate" placeholder="Data nasterii" />
+      </mat-form-field>
     </div>
 
-    <div *ngIf="defendantType == 'Persoana Juridica'">
-      pj
+    <div formGroupName="pj" class="fields-container" *ngIf="defendantType == 'Persoana Juridica'">
+      <mat-form-field>
+        <input matInput formControlName="pjName" placeholder="Nume" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #cnty matInput formControlName="pjCountry" placeholder="Tara de care apartine" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="pjIdentifier" [placeholder]="cnty.value == 'Romania' ? 'CUI' : 'Identificator'" />
+      </mat-form-field>
     </div>
 
+    <div class="buttons-container">
+      <button mat-button>ANULEAZA</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!defendantForm.valid">SALVEAZA</button>
+    </div>
   </form>
 </section>
