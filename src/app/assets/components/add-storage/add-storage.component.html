@@ -1,0 +1,18 @@
+<section class="asset-details">
+  <div class="asset-details-card mat-elevation-z2">
+    <h2>Spatiu</h2>
+    <form [formGroup]="storageForm" class="column">
+      <mat-form-field>
+        <mat-select placeholder="Spatiu" name="spatiu" [(ngModel)]="selectedStorage" formControlName="spatiu" required>
+          <mat-option *ngFor="let aStorage of allStorages" [value]="aStorage">
+            {{ aStorage.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="row actions">
+        <button mat-button (click)="cancel()">ANULEAZA</button>
+        <button mat-raised-button color="primary" (click)="save()" [disabled]="!storageForm.valid">SALVEAZA</button>
+      </div>
+    </form>
+  </div>
+</section>

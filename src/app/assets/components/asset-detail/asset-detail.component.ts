@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Asset, Decision, Institution, Solution, Stage } from '@app/core';
+import { Asset, Decision, Institution, Solution, Stage, StorageSpace } from '@app/core';
 import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
 import * as fromStore from '@app/core/store';
@@ -11,13 +11,13 @@ import { combineLatest, Observable } from 'rxjs';
 export enum AssetProperties {
   SOLUTIE = 'solutie',
   INCULPAT = 'inculpat',
+  SPATIU = 'spatiu',
 }
 
 @Component({
   templateUrl: 'asset-detail.component.html',
   styleUrls: ['asset-detail.component.scss'],
 })
-
 export class AssetDetailComponent implements OnInit {
   private asset$: Observable<Asset>;
   private institutions$: Observable<Institution[]>;
@@ -28,14 +28,11 @@ export class AssetDetailComponent implements OnInit {
   properties = [
     { name: 'Solutie', value: AssetProperties.SOLUTIE },
     { name: 'Inculpat', value: AssetProperties.INCULPAT },
+    { name: 'Spatiu', value: AssetProperties.SPATIU },
   ];
   selectedProperty: string;
 
-  constructor(
-    private store: Store<fromStore.CoreState>,
-    private route: ActivatedRoute
-  ) {
-  }
+  constructor(private store: Store<fromStore.CoreState>, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe((aParams: any) => {
@@ -51,10 +48,10 @@ export class AssetDetailComponent implements OnInit {
 
   isEditing$(): Observable<boolean> {
     return combineLatest(
-        this.asset$,
-        this.assetProperty$,
-        (aAsset, aAssetProperty) => aAsset !== undefined && aAssetProperty !== undefined
-      );
+      this.asset$,
+      this.assetProperty$,
+      (aAsset, aAssetProperty) => aAsset !== undefined && aAssetProperty !== undefined
+    );
   }
 
   addProperty() {
@@ -64,6 +61,15 @@ export class AssetDetailComponent implements OnInit {
           const theSolution = new Solution();
           theSolution.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theSolution));
+        });
+        break;
+      }
+
+      case AssetProperties.SPATIU: {
+        this.asset$.subscribe((aAsset: Asset) => {
+          const theSpace = new StorageSpace();
+          theSpace.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theSpace));
         });
         break;
       }
@@ -77,11 +83,11 @@ export class AssetDetailComponent implements OnInit {
   }
 
   onPropertyCancel(aProperty: AssetProperty) {
-    this.store.dispatch(new fromStore.DeleteProperty(aProperty.getAsset().id));
+    this.store.dispatch(new fromStore.DeleteProperty(aProperty.id));
   }
 
   onPropertySave(aProperty: AssetProperty) {
-    this.store.dispatch(new fromStore.CreateSolution(aProperty));
+    this.store.dispatch(new fromStore.CreateProperty(aProperty));
   }
 
   private resetSelectedProperty() {

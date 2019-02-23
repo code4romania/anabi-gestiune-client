@@ -1,7 +1,7 @@
 <div class="asset-details-container">
   <section class="asset-details">
-    <div class="asset-details-card mat-elevation-z8" *ngIf="asset$ | async as theAsset">
-      <h2>{{theAsset.name}}</h2>
+    <div class="asset-details-card mat-elevation-z8" *ngIf="(asset$ | async) as theAsset">
+      <h2>{{ theAsset.name }}</h2>
 
       <app-detailed-text description="ID" [text]="theAsset.id"></app-detailed-text>
       <app-detailed-text description="Descriere" [text]="theAsset.description"></app-detailed-text>
@@ -44,22 +44,23 @@
     </div>
 
     <div>
-      asset: {{(asset$ | async) !== undefined}}
-      assetProperty: {{(assetProperty$ | async) !== undefined}}
-      isEditing: {{(isEditing$() | async) | json}}
+      asset: {{ (asset$ | async) !== undefined }} assetProperty: {{ (assetProperty$ | async) !== undefined }} isEditing: {{ isEditing$() | async | json }}
     </div>
 
     <ng-template #editProperty>
-      <app-edit-solution class="mat-elevation-z8"
-                         *ngIf="(assetProperty$ | async)"
-                         [solution]="(assetProperty$ | async)"
-                         [institutions]="(institutions$ | async)"
-                         [decisions]="(decisions$ | async)"
-                         [stages]="(stages$ | async)"
-                         (onUpdate)="onPropertyUpdate($event)"
-                         (onCancel)="onPropertyCancel($event)"
-                         (onSave)="onPropertySave($event)"
-      ></app-edit-solution>
+      <!-- <app-edit-solution
+        class="mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)"
+        [solution]="assetProperty$ | async"
+        [institutions]="institutions$ | async"
+        [decisions]="decisions$ | async"
+        [stages]="stages$ | async"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-solution> -->
+      <app-add-storage class="mat-elevation-z8" (onUpdate)="onPropertyUpdate($event)" (onCancel)="onPropertyCancel($event)" (onSave)="onPropertySave($event)">
+      </app-add-storage>
     </ng-template>
   </section>
 </div>
