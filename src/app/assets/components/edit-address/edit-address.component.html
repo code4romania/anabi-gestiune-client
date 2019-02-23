@@ -1,0 +1,30 @@
+<section class="edit-address" *ngIf="address as theAddress">
+  <h2>Adresa</h2>
+
+  <form [formGroup]="addressForm" class="column">
+    <mat-form-field>
+      <input matInput #countyId name="countyId"
+             maxlength="100"
+             placeholder="Numar judet"
+             formControlName="countyId"
+             required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput #city name="city"
+             maxlength="100"
+             placeholder="Localitate"
+             formControlName="city"
+             required
+      />
+    </mat-form-field>
+
+
+    <div class="row actions">
+      <button mat-button (click)="cancel()">ANULEAZA</button>
+      <button mat-raised-button color="primary" (click)="save()" [disabled]="!addressForm.valid">SALVEAZA</button>
+
+    </div>
+  </form>
+</section>

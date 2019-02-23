@@ -1,0 +1,14 @@
+@import "mixins.scss";
+
+.edit-address {
+    @include flex-column();
+    flex-grow: 1;
+
+    h2 {
+        @include material-card-title();
+    }
+}
+
+.column {
+    @include flex-column();
+}

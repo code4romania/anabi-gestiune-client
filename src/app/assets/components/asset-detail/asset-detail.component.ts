@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Asset, Decision, Institution, Solution, Stage } from '@app/core';
+import { Address, Asset, Decision, Institution, Solution, Stage } from '@app/core';
 import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
 import * as fromStore from '@app/core/store';
@@ -11,6 +11,7 @@ import { combineLatest, Observable } from 'rxjs';
 export enum AssetProperties {
   SOLUTIE = 'solutie',
   INCULPAT = 'inculpat',
+  ADRESA = 'adresa',
 }
 
 @Component({
@@ -28,6 +29,7 @@ export class AssetDetailComponent implements OnInit {
   properties = [
     { name: 'Solutie', value: AssetProperties.SOLUTIE },
     { name: 'Inculpat', value: AssetProperties.INCULPAT },
+    { name: 'Adresa', value: AssetProperties.ADRESA },
   ];
   selectedProperty: string;
 
@@ -67,6 +69,14 @@ export class AssetDetailComponent implements OnInit {
         });
         break;
       }
+      case AssetProperties.ADRESA: {
+        this.asset$.subscribe((aAsset: Asset) => {
+          const theAddress = new Address();
+          theAddress.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theAddress));
+        })
+        break;
+      }
     }
 
     this.resetSelectedProperty();
@@ -81,7 +91,19 @@ export class AssetDetailComponent implements OnInit {
   }
 
   onPropertySave(aProperty: AssetProperty) {
-    this.store.dispatch(new fromStore.CreateSolution(aProperty));
+    if (this.isSolution(aProperty)) {
+      this.store.dispatch(new fromStore.CreateSolution(aProperty as Solution));
+    } else if (this.isAddress(aProperty)) {
+      // TODO: this.store.dispatch(new fromStore.CreateAddress(aProperty as Address));
+    }
+  }
+
+  isSolution(aProperty: AssetProperty) {
+    return aProperty instanceof Solution;
+  }
+
+  isAddress(aProperty: AssetProperty) {
+    return aProperty instanceof Address;
   }
 
   private resetSelectedProperty() {
