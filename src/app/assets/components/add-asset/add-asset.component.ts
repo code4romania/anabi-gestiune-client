@@ -117,6 +117,8 @@ export class AddAssetComponent implements OnInit {
       );
 
     this.newAssetForm.valueChanges.subscribe((aValue) => {
+      this.newAsset = new Asset();
+
       if (aValue.category && !aValue.subcategory) {
         this.newAssetForm.controls['subcategory'].setValidators(Validators.required);
         this.newAssetForm.controls['subcategory'].setErrors({ required: true });
@@ -139,7 +141,6 @@ export class AddAssetComponent implements OnInit {
         this.getSubcategories(aValue.category.id);
       }
 
-      this.newAsset = new Asset();
       this.newAsset.fromForm(aValue);
     });
   }
