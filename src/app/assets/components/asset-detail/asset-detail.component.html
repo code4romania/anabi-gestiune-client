@@ -27,6 +27,21 @@
   </section>
 
   <section class="asset-details">
+    <div class="asset-details-card mat-elevation-z8">
+      <app-edit-asset
+        [asset]="asset$ | async"
+        [categories]="categories$ | async"
+        [subcategories]="subcategories$ | async"
+        [stages]="stages$ | async"
+        [currencies]="currencies"
+        [measurements]="measurements"
+        (onCategoryChange)="getSubcategories($event)"
+        (onSave)="onEditAsset($event)"
+      ></app-edit-asset>
+    </div>
+  </section>
+
+  <section class="asset-details">
     <div class="asset-details-card mat-elevation-z2" *ngIf="!(isEditing$() | async); else editProperty">
       <h2>Adauga proprietati</h2>
 

@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Asset, Decision, Institution, Solution, Stage } from '@app/core';
+import {
+  Asset,
+  AssetsService,
+  AssetCurrency,
+  AssetMeasurement,
+  Category,
+  Decision,
+  Institution,
+  Solution,
+  Stage
+} from '@app/core';
+import { take } from 'rxjs/operators';
 import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
 import * as fromStore from '@app/core/store';
@@ -25,6 +36,11 @@ export class AssetDetailComponent implements OnInit {
   private stages$: Observable<Stage[]>;
   private assetProperty$: Observable<fromStore.AssetProperty>;
 
+  private categories$: Observable<Category[]> = this.store.pipe(select(fromStore.getAssetParentCategories));
+  private subcategories$: Observable<Category[]>;
+  private measurements: AssetMeasurement[];
+  private currencies: AssetCurrency[];
+
   properties = [
     { name: 'Solutie', value: AssetProperties.SOLUTIE },
     { name: 'Inculpat', value: AssetProperties.INCULPAT },
@@ -33,7 +49,8 @@ export class AssetDetailComponent implements OnInit {
 
   constructor(
     private store: Store<fromStore.CoreState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private assetsService: AssetsService
   ) {
   }
 
@@ -47,6 +64,24 @@ export class AssetDetailComponent implements OnInit {
       this.decisions$ = this.store.pipe(select(fromStore.getAllDecisions));
       this.stages$ = this.store.pipe(select(fromStore.getAllStages));
     });
+
+    this.asset$.pipe(take(1))
+      .subscribe((aAsset: Asset) => this.getSubcategories(aAsset.category.id));
+
+    this.assetsService.measurements()
+      .pipe(take(1))
+      .subscribe(
+        (measurements) => this.measurements = measurements
+      );
+    this.assetsService.currencies()
+      .pipe(take(1))
+      .subscribe(
+        (currencies) => this.currencies = currencies
+      );
+  }
+
+  getSubcategories(categoryId) {
+    this.subcategories$ = this.store.pipe(select(fromStore.getAssetSubcategories(categoryId)));
   }
 
   isEditing$(): Observable<boolean> {
@@ -82,6 +117,10 @@ export class AssetDetailComponent implements OnInit {
 
   onPropertySave(aProperty: AssetProperty) {
     this.store.dispatch(new fromStore.CreateSolution(aProperty));
+  }
+
+  onEditAsset(aAsset: Asset) {
+    console.log(aAsset);
   }
 
   private resetSelectedProperty() {
