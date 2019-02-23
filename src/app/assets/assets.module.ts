@@ -13,6 +13,7 @@ import * as fromGuards from './guards';
 // components
 import { AssetsComponent } from './assets.component';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
+import { AddDefendantComponent } from './components/add-defendant/add-defendant.component';
 import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 import { EditSolutionComponent } from './components/edit-solution/edit-solution.component';
 
@@ -26,6 +27,7 @@ import { EditSolutionComponent } from './components/edit-solution/edit-solution.
     AddAssetComponent,
     AssetDetailComponent,
     EditSolutionComponent,
+    AddDefendantComponent,
   ],
   entryComponents: [
     AddAssetComponent,
@@ -35,4 +37,4 @@ import { EditSolutionComponent } from './components/edit-solution/edit-solution.
     ...fromGuards.guards,
   ],
 })
-export class AssetsModule {}
+export class AssetsModule { }
