@@ -2,20 +2,61 @@
   <h2>Adresa</h2>
 
   <form [formGroup]="addressForm" class="column">
-    <mat-form-field>
-      <input matInput #countyId name="countyId"
-             maxlength="100"
-             placeholder="Numar judet"
-             formControlName="countyId"
-             required
-      />
-    </mat-form-field>
 
+    <div class="row">
+      <mat-form-field>
+        <input matInput 
+                name="countyId"
+                maxlength="100"
+                placeholder="Numar judet"
+                formControlName="countyId"
+                required
+        />
+      </mat-form-field>
+      
+      <div class="spacer"></div>
+
+      <mat-form-field>
+        <input matInput 
+                name="city"
+                maxlength="100"
+                placeholder="Localitate"
+                formControlName="city"
+                required
+        />
+      </mat-form-field>      
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <input matInput
+                name="street"
+                maxlength="100"
+                placeholder="Strada"
+                formControlName="street"
+                required
+        />
+      </mat-form-field>
+  
+      <div class="spacer"></div>
+
+      <mat-form-field>
+        <input matInput
+                name="building"
+                maxlength="100"
+                placeholder="Numar bloc"
+                formControlName="building"
+                required
+        />
+      </mat-form-field>    
+    </div>
+    
     <mat-form-field>
-      <input matInput #city name="city"
-             maxlength="100"
-             placeholder="Localitate"
-             formControlName="city"
+      <input matInput
+             name="description"
+             maxlength="1000"
+             placeholder="Detalii"
+             formControlName="description"
              required
       />
     </mat-form-field>

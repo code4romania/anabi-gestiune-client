@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Address } from '@app/core';
 
+import { cloneDeep } from 'lodash';
+
 export interface AddressFormValue {
   countyId: number;
   city: string;
@@ -39,6 +41,7 @@ export class EditAddressComponent implements OnInit {
       building: this.address.building,
       description: this.address.description,
     });
+    this.theAddress = cloneDeep(this.address);
     this.onChanges();
   }
 
