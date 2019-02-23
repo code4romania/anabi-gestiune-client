@@ -1,3 +1,38 @@
-<p>
-  add-defendant works!
-</p>
+<section>
+  <h2>Inculpat</h2>
+
+  <form [formGroup]="defendantForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-select placeholder="Tip inculpat" 
+                  formControlName="defendantType"
+      >
+        <mat-option *ngFor="let option of defendantTypeOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="defendantType == 'Persoana Fizica'">
+      <mat-form-field>
+        <input matInput formControlName="pfLastName" placeholder="Nume"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="pfFirstName" placeholder="Prenume"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #nat matInput formControlName="pfNationality" placeholder="Nationalitate" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="pfIdentifier" [placeholder]="nat.value == 'Romania' ? 'CNP' : 'Identificator'" />
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="defendantType == 'Persoana Juridica'">
+      pj
+    </div>
+
+  </form>
+</section>
