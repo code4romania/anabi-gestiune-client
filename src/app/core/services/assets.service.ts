@@ -32,6 +32,13 @@ export class AssetsService {
       );
   }
 
+  public update(aAsset: Asset): Observable<Asset> {
+    return this.assetsApiService.update(aAsset.id, aAsset.toJson())
+      .pipe(
+        mergeMap((aAssetResponse: AssetDetailResponse) => this.assetFromDetailResponse(aAssetResponse))
+      );
+  }
+
   public list(): Observable<Asset[]> {
     return this.assetsApiService.list()
       .pipe(

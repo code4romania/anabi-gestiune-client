@@ -132,8 +132,8 @@
       </mat-form-field>
     </form>
 
-  </section>
-  <section>
-    <button mat-button>ANULEAZA</button>
-    <button mat-raised-button [disabled]="!editAssetForm.valid" color="primary" (click)="save()">SALVEAZA</button>
+    <section class="buttons">
+      <button mat-button (click)="cancel()">ANULEAZA</button>
+      <button mat-raised-button [disabled]="!editAssetForm.valid" color="primary" (click)="save()">SALVEAZA</button>
+    </section>
   </section>

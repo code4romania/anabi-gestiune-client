@@ -24,6 +24,11 @@ export enum AssetProperties {
   INCULPAT = 'inculpat',
 }
 
+export enum AssetDetailState {
+  View = 'view',
+  Edit = 'edit',
+}
+
 @Component({
   templateUrl: 'asset-detail.component.html',
   styleUrls: ['asset-detail.component.scss'],
@@ -40,6 +45,8 @@ export class AssetDetailComponent implements OnInit {
   private subcategories$: Observable<Category[]>;
   private measurements: AssetMeasurement[];
   private currencies: AssetCurrency[];
+
+  private state: AssetDetailState = AssetDetailState.View;
 
   properties = [
     { name: 'Solutie', value: AssetProperties.SOLUTIE },
@@ -84,7 +91,7 @@ export class AssetDetailComponent implements OnInit {
     this.subcategories$ = this.store.pipe(select(fromStore.getAssetSubcategories(categoryId)));
   }
 
-  isEditing$(): Observable<boolean> {
+  isEditingAssetProperty$(): Observable<boolean> {
     return combineLatest(
         this.asset$,
         this.assetProperty$,
@@ -107,6 +114,10 @@ export class AssetDetailComponent implements OnInit {
     this.resetSelectedProperty();
   }
 
+  editAsset() {
+    this.setStateEdit();
+  }
+
   onPropertyUpdate(aProperty: AssetProperty) {
     this.store.dispatch(new fromStore.UpdateProperty(aProperty));
   }
@@ -120,10 +131,31 @@ export class AssetDetailComponent implements OnInit {
   }
 
   onEditAsset(aAsset: Asset) {
-    console.log(aAsset);
+    this.store.dispatch(new fromStore.UpdateAsset(aAsset));
+    this.setStateView();
+  }
+
+  onCancelAssetEdit() {
+    this.setStateView();
   }
 
   private resetSelectedProperty() {
     this.selectedProperty = undefined;
+  }
+
+  private setStateEdit() {
+    this.state = AssetDetailState.Edit;
+  }
+
+  private setStateView() {
+    this.state = AssetDetailState.View;
+  }
+
+  isStateView(): boolean {
+    return this.state === AssetDetailState.View;
+  }
+
+  isStateEdit(): boolean {
+    return this.state === AssetDetailState.Edit;
   }
 }

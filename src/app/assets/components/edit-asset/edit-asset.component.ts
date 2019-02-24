@@ -24,6 +24,7 @@ export class EditAssetComponent implements OnInit {
   @Input() measurements: AssetMeasurement[];
   @Output() onCategoryChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() onSave: EventEmitter<Asset> = new EventEmitter<Asset>();
+  @Output() onCancel: EventEmitter<void> = new EventEmitter();
 
   public editAssetForm = new FormGroup({
     name: new FormControl('', [ Validators.required ]),
@@ -85,7 +86,12 @@ export class EditAssetComponent implements OnInit {
 
   save() {
     const editedAsset = new Asset();
+    editedAsset.id = this.asset.id;
     editedAsset.fromForm(this.editAssetForm.value);
     this.onSave.emit(editedAsset);
+  }
+
+  cancel() {
+    this.onCancel.emit();
   }
 }

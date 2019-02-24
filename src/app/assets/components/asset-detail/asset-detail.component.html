@@ -1,5 +1,5 @@
 <div class="asset-details-container">
-  <section class="asset-details">
+  <section class="asset-details" *ngIf="isStateView()">
     <div class="asset-details-card mat-elevation-z8" *ngIf="asset$ | async as theAsset">
       <h2>{{theAsset.name}}</h2>
 
@@ -23,10 +23,16 @@
         <app-detailed-text description="Valoare estimata" [text]="theAsset.estimatedAmount"></app-detailed-text>
         <app-detailed-text description="Moneda" [text]="theAsset.estimatedAmountCurrency"></app-detailed-text>
       </div>
+
+      <app-detailed-text description="Observatii" [text]="theAsset.remarks"></app-detailed-text>
+
+      <section class="buttons">
+        <button mat-raised-button color="primary" (click)="editAsset()">Modifica</button>
+      </section>
     </div>
   </section>
 
-  <section class="asset-details">
+  <section class="asset-details" *ngIf="isStateEdit()">
     <div class="asset-details-card mat-elevation-z8">
       <app-edit-asset
         [asset]="asset$ | async"
@@ -37,12 +43,13 @@
         [measurements]="measurements"
         (onCategoryChange)="getSubcategories($event)"
         (onSave)="onEditAsset($event)"
+        (onCancel)="onCancelAssetEdit()"
       ></app-edit-asset>
     </div>
   </section>
 
-  <section class="asset-details">
-    <div class="asset-details-card mat-elevation-z2" *ngIf="!(isEditing$() | async); else editProperty">
+  <section class="asset-details" *ngIf="isStateView()">
+    <div class="asset-details-card mat-elevation-z2" *ngIf="!(isEditingAssetProperty$() | async); else editProperty">
       <h2>Adauga proprietati</h2>
 
       <div class="add-property">
@@ -61,7 +68,7 @@
     <div>
       asset: {{(asset$ | async) !== undefined}}
       assetProperty: {{(assetProperty$ | async) !== undefined}}
-      isEditing: {{(isEditing$() | async) | json}}
+      isEditingAssetProperty: {{(isEditingAssetProperty$() | async) | json}}
     </div>
 
     <ng-template #editProperty>
