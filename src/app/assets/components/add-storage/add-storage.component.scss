@@ -1,0 +1,22 @@
+@import 'mixins.scss';
+
+.storage-space {
+  @include flex-column();
+
+  h2 {
+    @include material-card-title();
+  }
+
+  .column {
+    @include flex-column();
+  }
+
+  .row {
+    @include flex-row();
+    align-items: center;
+
+    &.actions {
+      justify-content: flex-end;
+    }
+  }
+}

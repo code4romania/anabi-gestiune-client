@@ -9,12 +9,13 @@ import {
   Decision,
   Institution,
   Solution,
-  Stage
+  Stage,
+  StorageSpace
 } from '@app/core';
 import { take } from 'rxjs/operators';
-import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
 
 import * as fromStore from '@app/core/store';
+import { AssetProperty } from '@app/core/store/actions/asset-properties.action';
 import { select, Store } from '@ngrx/store';
 
 import { combineLatest, Observable } from 'rxjs';
@@ -22,6 +23,7 @@ import { combineLatest, Observable } from 'rxjs';
 export enum AssetProperties {
   SOLUTIE = 'solutie',
   INCULPAT = 'inculpat',
+  SPATIU = 'spatiu',
 }
 
 export enum AssetDetailState {
@@ -33,7 +35,6 @@ export enum AssetDetailState {
   templateUrl: 'asset-detail.component.html',
   styleUrls: ['asset-detail.component.scss'],
 })
-
 export class AssetDetailComponent implements OnInit {
   private asset$: Observable<Asset>;
   private institutions$: Observable<Institution[]>;
@@ -51,6 +52,7 @@ export class AssetDetailComponent implements OnInit {
   properties = [
     { name: 'Solutie', value: AssetProperties.SOLUTIE },
     { name: 'Inculpat', value: AssetProperties.INCULPAT },
+    { name: 'Spatiu', value: AssetProperties.SPATIU },
   ];
   selectedProperty: string;
 
@@ -93,10 +95,10 @@ export class AssetDetailComponent implements OnInit {
 
   isEditingAssetProperty$(): Observable<boolean> {
     return combineLatest(
-        this.asset$,
-        this.assetProperty$,
-        (aAsset, aAssetProperty) => aAsset !== undefined && aAssetProperty !== undefined
-      );
+      this.asset$,
+      this.assetProperty$,
+      (aAsset, aAssetProperty) => aAsset !== undefined && aAssetProperty !== undefined
+    );
   }
 
   addProperty() {
@@ -106,6 +108,15 @@ export class AssetDetailComponent implements OnInit {
           const theSolution = new Solution();
           theSolution.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theSolution));
+        });
+        break;
+      }
+
+      case AssetProperties.SPATIU: {
+        this.asset$.subscribe((aAsset: Asset) => {
+          const theSpace = new StorageSpace();
+          theSpace.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theSpace));
         });
         break;
       }
@@ -127,7 +138,7 @@ export class AssetDetailComponent implements OnInit {
   }
 
   onPropertySave(aProperty: AssetProperty) {
-    this.store.dispatch(new fromStore.CreateSolution(aProperty));
+    this.store.dispatch(new fromStore.CreateProperty(aProperty));
   }
 
   onEditAsset(aAsset: Asset) {
