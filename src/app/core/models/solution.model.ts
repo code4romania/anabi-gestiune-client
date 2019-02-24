@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 
+import { AssetProperty, AssetPropertyType } from './asset-property.model';
 import { Asset } from './asset.model';
 import { Decision } from './decision.model';
 import { Institution } from './institution.model';
@@ -14,14 +15,14 @@ import {
 } from './solution-response.interface';
 import { Stage } from './stage.model';
 
-export class Solution {
+export class Solution extends AssetProperty {
   id: number;
   stageId: number;
   decisionId: number;
   institutionId: number;
   decisionDate: moment.Moment;
   decisionNumber: string;
-  private asset: Asset;
+
   private institution: Institution;
   private decision: Decision;
   private stage: Stage;
@@ -33,17 +34,11 @@ export class Solution {
   journal: Journal = new Journal();
 
   constructor(aData?: SolutionResponse) {
+    super(AssetPropertyType.Solution);
+
     if (aData) {
       this.fromJson(aData);
     }
-  }
-
-  setAsset(aAsset: Asset) {
-    this.asset = aAsset;
-  }
-
-  getAsset(): Asset {
-    return this.asset;
   }
 
   setInstitution(aInstitution: Institution) {

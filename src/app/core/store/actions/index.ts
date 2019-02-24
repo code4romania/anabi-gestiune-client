@@ -7,3 +7,4 @@ export * from './loading.action';
 export * from './recovery-beneficiaries.action';
 export * from './solutions.action';
 export * from './stages.action';
+export * from './storage-spaces.action';

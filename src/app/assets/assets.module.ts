@@ -14,6 +14,7 @@ import * as fromGuards from './guards';
 // components
 import { AssetsComponent } from './assets.component';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
+import { AddStorageSpaceComponent } from './components/add-storage/add-storage.component';
 import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 import { EditSolutionComponent } from './components/edit-solution/edit-solution.component';
 
@@ -23,9 +24,10 @@ import { EditSolutionComponent } from './components/edit-solution/edit-solution.
     AssetsRoutingModule,
   ],
   declarations: [
-    AssetsComponent,
+    AddStorageSpaceComponent,
     AddAssetComponent,
     AssetDetailComponent,
+    AssetsComponent,
     EditAssetComponent,
     EditSolutionComponent,
   ],
