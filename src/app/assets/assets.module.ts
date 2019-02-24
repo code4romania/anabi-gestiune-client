@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { EditAssetComponent } from '@app/assets/components/edit-asset/edit-asset.component';
 
 // modules
 import { SharedModule } from '../shared/shared.module';
@@ -25,6 +26,7 @@ import { EditSolutionComponent } from './components/edit-solution/edit-solution.
     AssetsComponent,
     AddAssetComponent,
     AssetDetailComponent,
+    EditAssetComponent,
     EditSolutionComponent,
   ],
   entryComponents: [

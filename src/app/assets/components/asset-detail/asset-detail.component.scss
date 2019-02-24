@@ -43,6 +43,11 @@
         height: 36px;
       }
     }
+
+    .buttons {
+      @include flex();
+      justify-content: flex-end;
+    }
   }
 
   app-edit-solution {

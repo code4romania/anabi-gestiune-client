@@ -1,0 +1,8 @@
+@import 'mixins';
+
+.edit-asset {
+  .buttons {
+    @include flex();
+    justify-content: flex-end;
+  }
+}
