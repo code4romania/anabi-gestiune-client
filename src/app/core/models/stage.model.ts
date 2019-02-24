@@ -12,6 +12,10 @@ export class Stage {
     }
   }
 
+  getTitle(): string {
+    return this.name ? this.name.toLowerCase() : undefined;
+  }
+
   fromJson(aJson: StageResponse) {
     this.id = aJson.id;
     this.name = aJson.name;

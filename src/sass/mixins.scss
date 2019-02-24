@@ -11,6 +11,11 @@
   display: flex;
 }
 
+@mixin flex-grow($grow: 1) {
+  @include flex();
+  flex-grow: $grow;
+}
+
 @mixin flex-column {
   @include flex();
   flex-direction: column;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Asset, Decision, Institution, Solution, Stage } from '@app/core';
-import { AssetProperty } from '../../../core/store/actions/asset-properties.action';
+import { Asset, Decision, Institution, PrecautionaryMeasure, Solution, Stage } from '@app/core';
+import { AssetProperty } from '@app/core/store/actions/asset-properties.action';
 
 import * as fromStore from '@app/core/store';
 import { select, Store } from '@ngrx/store';
@@ -23,6 +23,7 @@ export class AssetDetailComponent implements OnInit {
   private institutions$: Observable<Institution[]>;
   private decisions$: Observable<Decision[]>;
   private stages$: Observable<Stage[]>;
+  private precautionaryMeasures$: Observable<PrecautionaryMeasure[]>;
   private assetProperty$: Observable<fromStore.AssetProperty>;
 
   properties = [
@@ -46,6 +47,7 @@ export class AssetDetailComponent implements OnInit {
       this.institutions$ = this.store.pipe(select(fromStore.getAllInstitutions));
       this.decisions$ = this.store.pipe(select(fromStore.getAllDecisions));
       this.stages$ = this.store.pipe(select(fromStore.getAllStages));
+      this.precautionaryMeasures$ = this.store.pipe(select(fromStore.getAllPrecautionaryMeasures));
     });
   }
 
@@ -63,6 +65,7 @@ export class AssetDetailComponent implements OnInit {
         this.asset$.subscribe((aAsset: Asset) => {
           const theSolution = new Solution();
           theSolution.setAsset(aAsset);
+          theSolution.setStage(aAsset.stage);
           this.store.dispatch(new fromStore.UpdateProperty(theSolution));
         });
         break;

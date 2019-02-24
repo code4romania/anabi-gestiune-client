@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   Decision,
   Institution,
+  PrecautionaryMeasure,
   RecoveryDetails,
   Solution,
   SolutionDetails,
@@ -30,6 +31,7 @@ export interface SolutionFormValue {
   decision: Decision;
   stage: Stage;
   personResponsible: string;
+  precautionaryMeasureId: number;
 }
 
 @Component({
@@ -43,6 +45,7 @@ export class EditSolutionComponent implements OnInit {
   @Input() institutions: Institution[];
   @Input() decisions: Decision[];
   @Input() stages: Stage[];
+  @Input() precautionaryMeasures: PrecautionaryMeasure[];
   @Output() onUpdate: EventEmitter<Solution> = new EventEmitter<Solution>();
   @Output() onCancel: EventEmitter<Solution> = new EventEmitter<Solution>();
   @Output() onSave: EventEmitter<Solution> = new EventEmitter<Solution>();
@@ -64,10 +67,11 @@ export class EditSolutionComponent implements OnInit {
     decision: new FormControl(),
     stage: new FormControl(),
     personResponsible: new FormControl(),
+    changeStage: new FormControl(false, [ Validators.required ]),
   });
 
   ngOnInit() {
-    this.solutionForm.setValue({
+    this.solutionForm.patchValue({
       source: this.solution.solutionDetails.source,
       sentOnEmail: this.solution.solutionDetails.sentOnEmail,
       fileNumber: this.solution.solutionDetails.fileNumber,
@@ -93,6 +97,10 @@ export class EditSolutionComponent implements OnInit {
       this.updateSolution(aFormValue);
 
       this.onUpdate.emit(this.theSolution);
+    });
+
+    this.solutionForm.get('stage').valueChanges.subscribe((aStage: Stage) => {
+      this.changeFormByStage(aStage);
     });
   }
 
@@ -125,9 +133,30 @@ export class EditSolutionComponent implements OnInit {
       legalBasis: aFormValue.legalBasis,
     } as SolutionDetailsResponse);
 
+    if (aFormValue.precautionaryMeasureId) {
+      this.theSolution.sequesterDetails = {
+        precautionaryMeasureId: aFormValue.precautionaryMeasureId,
+      };
+    }
+
     this.theSolution.recoveryDetails = new RecoveryDetails({
       personResponsible: aFormValue.personResponsible,
     } as RecoveryDetailsResponse);
+  }
+
+  getCurrentStage(): string {
+    return this.solution.getAsset().stage.name || undefined;
+  }
+
+  changeFormByStage(aStage: Stage) {
+    switch (aStage.getTitle()) {
+      case 'sechestru': {
+        if (!this.solutionForm.contains('precautionaryMeasureId')) {
+          this.solutionForm.addControl('precautionaryMeasureId', new FormControl('', [Validators.required]));
+        }
+        break;
+      }
+    }
   }
 
   cancel() {

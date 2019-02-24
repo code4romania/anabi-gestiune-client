@@ -73,6 +73,10 @@ export class Solution {
     return this.stage;
   }
 
+  setSolutionDetails(aSolutionDetails: SolutionDetails) {
+    this.solutionDetails = aSolutionDetails;
+  }
+
   fromJson(aJson: SolutionResponse) {
     this.id = aJson.id;
     this.stageId = aJson.stageId;

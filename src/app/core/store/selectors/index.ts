@@ -4,5 +4,7 @@ export * from './categories.selectors';
 export * from './decisions.selectors';
 export * from './institutions.selectors';
 export * from './loading.selectors';
+export * from './precautionary-measures.selectors';
+export * from './recovery-beneficiaries.selectors';
 export * from './solutions.selectors';
 export * from './stages.selectors';

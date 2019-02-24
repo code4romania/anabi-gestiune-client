@@ -25,6 +25,8 @@ export * from './institution.model';
 export * from './institution-response.interface';
 export * from './journal.model';
 export * from './journal-response.interface';
+export * from './precautionary-measure.model';
+export * from './precautionary-measure-response.interface';
 export * from './recovery-beneficiary.model';
 export * from './recovery-beneficiary-response.interface';
 export * from './recovery-committee.model';

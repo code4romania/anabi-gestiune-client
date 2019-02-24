@@ -5,6 +5,7 @@ import * as fromCategories from './categories.reducer';
 import * as fromDecisions from './decisions.reducer';
 import * as fromInstitutions from './institutions.reducer';
 import * as fromLoading from './loading.reducer';
+import * as fromPrecautionaryMeasures from './precautionary-measures.reducer';
 import * as fromRecoveryBeneficiaries from './recovery-beneficiaries.reducer';
 import * as fromSolutions from './solutions.reducer';
 import * as fromStages from './stages.reducer';
@@ -20,6 +21,7 @@ export interface CoreState {
   decisions: fromDecisions.DecisionState;
   institutions: fromInstitutions.InstitutionState;
   loading: fromLoading.LoadingState;
+  precautionaryMeasures: fromPrecautionaryMeasures.PrecautionaryMeasureState;
   recoveryBeneficiaries: fromRecoveryBeneficiaries.RecoveryBeneficiariesState;
   stages: fromStages.StageState;
   solutions: fromSolutions.SolutionState;
@@ -32,6 +34,7 @@ export const reducers: ActionReducerMap<CoreState> = {
   decisions: fromDecisions.reducer,
   institutions: fromInstitutions.reducer,
   loading: fromLoading.reducer,
+  precautionaryMeasures: fromPrecautionaryMeasures.reducer,
   recoveryBeneficiaries: fromRecoveryBeneficiaries.reducer,
   solutions: fromSolutions.reducer,
   stages: fromStages.reducer,
@@ -45,6 +48,7 @@ export { CategoryState } from './categories.reducer';
 export { DecisionState } from './decisions.reducer';
 export { InstitutionState } from './institutions.reducer';
 export { LoadingState } from './loading.reducer';
+export { PrecautionaryMeasureState } from './precautionary-measures.reducer';
 export { RecoveryBeneficiariesState } from './recovery-beneficiaries.reducer';
 export { SolutionState } from './solutions.reducer';
 export { StageState } from './stages.reducer';
