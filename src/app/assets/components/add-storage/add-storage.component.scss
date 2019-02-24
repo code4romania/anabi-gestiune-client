@@ -1,51 +1,22 @@
 @import 'mixins.scss';
 
-.asset-details-container {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding: 16px 0px;
-}
+.storage-space {
+  @include flex-column();
 
-.asset-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &-card {
-    @include material-card();
-
-    h2 {
-      @include material-card-title();
-    }
-
-    app-detailed-text {
-      flex-grow: 1;
-      margin-bottom: 16px;
-    }
-
-    &-double {
-      display: flex;
-      flex-direction: row;
-
-      app-detailed-text {
-        flex-basis: 50%;
-      }
-    }
-
-    .add-property {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      button {
-        height: 36px;
-      }
-    }
+  h2 {
+    @include material-card-title();
   }
 
-  app-edit-solution {
-    @include material-card();
+  .column {
+    @include flex-column();
+  }
+
+  .row {
+    @include flex-row();
+    align-items: center;
+
+    &.actions {
+      justify-content: flex-end;
+    }
   }
 }

@@ -1,13 +1,14 @@
 import { Address } from './address.model';
-import { Asset } from './asset.model';
+import { AssetProperty, AssetPropertyType } from './asset-property.model';
 
-export class StorageSpace {
+export class StorageSpace extends AssetProperty {
   id: number;
   address: Address;
   name: string;
-  private asset: Asset;
 
   constructor(aData?: any) {
+    super(AssetPropertyType.StorageSpace);
+
     if (aData) {
       this.fromJson(aData);
     }
@@ -19,11 +20,11 @@ export class StorageSpace {
     this.name = aJson.name;
   }
 
-  setAsset(aAsset: Asset) {
-    this.asset = aAsset;
-  }
-
-  getAsset(): Asset {
-    return this.asset;
+  toJson(): any {
+    return {
+      id: this.id,
+      address: this.address,
+      name: this.name,
+    };
   }
 }

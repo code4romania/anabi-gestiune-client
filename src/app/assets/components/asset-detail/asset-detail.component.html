@@ -74,7 +74,7 @@
     <ng-template #editProperty>
       <app-edit-solution
         class="mat-elevation-z8"
-        *ngIf="(assetProperty$ | async)"
+        *ngIf="(assetProperty$ | async)?.isSolution()"
         [solution]="assetProperty$ | async"
         [institutions]="institutions$ | async"
         [decisions]="decisions$ | async"
@@ -83,8 +83,11 @@
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"
       ></app-edit-solution>
+
       <app-add-storage
         class="mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)?.isStorageSpace()"
+        [storageSpace]="assetProperty$ | async"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"

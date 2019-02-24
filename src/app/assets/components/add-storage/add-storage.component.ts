@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { StorageSpace } from '@app/core/models/storage-space.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Asset, StorageSpace } from '@app/core/models';
+import { take } from 'rxjs/operators';
+
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-add-storage',
@@ -8,40 +11,49 @@ import { StorageSpace } from '@app/core/models/storage-space.model';
   styleUrls: ['add-storage.component.scss'],
 })
 export class AddStorageSpaceComponent implements OnInit {
+  @Input() storageSpace: StorageSpace;
   @Output() onUpdate: EventEmitter<StorageSpace> = new EventEmitter<StorageSpace>();
   @Output() onCancel: EventEmitter<StorageSpace> = new EventEmitter<StorageSpace>();
   @Output() onSave: EventEmitter<StorageSpace> = new EventEmitter<StorageSpace>();
 
+  theStorageSpace: StorageSpace;
   private allStorages: StorageSpace[] = [
-    {
+    new StorageSpace({
       id: 1,
       name: 'Spatiu 1',
       address: null,
-    } as StorageSpace,
-    {
+    }),
+    new StorageSpace({
       id: 2,
       name: 'Spatiu 2',
       address: null,
-    } as StorageSpace,
+    }),
   ];
 
-  private selectedStorage: StorageSpace;
   public storageForm: FormGroup = new FormGroup({
-    spatiu: new FormControl(),
+    storageSpace: new FormControl('', [ Validators.required ]),
   });
 
   ngOnInit() {
-    this.selectedStorage = this.allStorages[0];
-    this.storageForm.setValue({
-      spatiu: this.allStorages,
+    this.theStorageSpace = cloneDeep(this.storageSpace);
+
+    this.onChanges();
+  }
+
+  onChanges() {
+    this.storageForm.valueChanges.subscribe(aFormValue => {
+      this.theStorageSpace = cloneDeep(this.storageSpace);
+      this.theStorageSpace.fromJson(aFormValue.storageSpace);
+
+      this.onUpdate.emit(this.theStorageSpace);
     });
   }
 
   cancel() {
-    this.onCancel.emit(this.selectedStorage);
+    this.onCancel.emit(this.theStorageSpace);
   }
 
   save() {
-    this.onSave.emit(this.selectedStorage);
+    this.onSave.emit(this.theStorageSpace);
   }
 }

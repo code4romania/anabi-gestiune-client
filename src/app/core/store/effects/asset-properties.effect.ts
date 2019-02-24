@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import { Solution } from '@app/core/models';
+import { AssetPropertyType, Solution, StorageSpace } from '@app/core/models';
 import * as assetPropertyActions from '../actions/asset-properties.action';
 import * as solutionActions from '../actions/solutions.action';
-
+import * as storageSpaceActions from '../actions/storage-spaces.action';
 
 @Injectable()
 export class AssetPropertiesEffects {
@@ -17,12 +17,19 @@ export class AssetPropertiesEffects {
       ofType(assetPropertyActions.CREATE_PROPERTY),
       map((action: assetPropertyActions.CreateProperty) => action.payload),
       map((aPayload: assetPropertyActions.AssetProperty) => {
-        switch (aPayload.constructor) {
-          case Solution:
-            return of(new solutionActions.CreateSolution(aPayload as Solution));
+        if (!aPayload) {
+          return;
+        }
+
+        switch (aPayload.getAssetPropertyType()) {
+          case AssetPropertyType.Solution:
+            return new solutionActions.CreateSolution(aPayload as Solution);
+
+          case AssetPropertyType.StorageSpace:
+            return new storageSpaceActions.CreateStorageSpace(aPayload as StorageSpace);
 
           default:
-            return of();
+            return;
         }
       })
     );
