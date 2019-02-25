@@ -13,7 +13,7 @@
       <mat-error *ngIf="defendantForm.get('defendantType').hasError('required')">Acest camp este obligatoriu.</mat-error>
     </mat-form-field>
 
-    <div formGroupName="pf" class="fields-container" *ngIf="defendantType == 'Persoana Fizica'">
+    <div formGroupName="pf" class="fields-container" *ngIf="defendantType == PERSOANA_FIZICA">
       <mat-form-field>
         <input matInput formControlName="pfLastName" placeholder="Nume"/>
         <mat-error *ngIf="defendantForm.get('pf').get('pfLastName').hasError('required')">Acest camp este obligatoriu.</mat-error>
@@ -21,14 +21,17 @@
 
       <mat-form-field>
         <input matInput formControlName="pfFirstName" placeholder="Prenume"/>
+        <mat-error *ngIf="defendantForm.get('pf').get('pfFirstName').hasError('required')">Acest camp este obligatoriu.</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <input #nat matInput formControlName="pfNationality" placeholder="Nationalitate" />
+        <mat-error *ngIf="defendantForm.get('pf').get('pfNationality').hasError('required')">Acest camp este obligatoriu.</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput formControlName="pfIdentifier" [placeholder]="nat.value == 'Romania' ? 'CNP' : 'Identificator'" />
+        <input matInput formControlName="pfIdentifier" [placeholder]="nat.value == ROMANIA ? 'CNP' : 'Identificator'" />
+        <mat-error *ngIf="defendantForm.get('pf').get('pfIdentifier').hasError('required')">Acest camp este obligatoriu.</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -36,23 +39,26 @@
       </mat-form-field>
     </div>
 
-    <div formGroupName="pj" class="fields-container" *ngIf="defendantType == 'Persoana Juridica'">
+    <div formGroupName="pj" class="fields-container" *ngIf="defendantType == PERSOANA_JURIDICA">
       <mat-form-field>
         <input matInput formControlName="pjName" placeholder="Nume" />
+        <mat-error *ngIf="defendantForm.get('pj').get('pjName').hasError('required')">Acest camp este obligatoriu.</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <input #cnty matInput formControlName="pjCountry" placeholder="Tara de care apartine" />
+        <mat-error *ngIf="defendantForm.get('pj').get('pjCountry').hasError('required')">Acest camp este obligatoriu.</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput formControlName="pjIdentifier" [placeholder]="cnty.value == 'Romania' ? 'CUI' : 'Identificator'" />
+        <input matInput formControlName="pjIdentifier" [placeholder]="cnty.value == ROMANIA ? 'CUI' : 'Identificator'" />
+        <mat-error *ngIf="defendantForm.get('pj').get('pjIdentifier').hasError('required')">Acest camp este obligatoriu.</mat-error>
       </mat-form-field>
     </div>
 
     <div class="buttons-container">
       <button mat-button>ANULEAZA</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!defendantForm.valid">SALVEAZA</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid">SALVEAZA</button>
     </div>
   </form>
 </section>

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DefendantForm } from '@app/core/models/defendant-form.model';
+import { DefendantForm, DefendantConfig } from '@app/core/models/defendant-form.model';
 import { Defendant } from '@app/core/models/defendant.model';
 
 @Component({
@@ -10,11 +10,16 @@ import { Defendant } from '@app/core/models/defendant.model';
 })
 export class AddDefendantComponent implements OnInit {
 
+  @Input() defendant: Defendant = new Defendant();
   @Output() defendantAdd: EventEmitter<Defendant> = new EventEmitter<Defendant>();
 
+  PERSOANA_FIZICA: string = DefendantConfig.PERSOANA_FIZICA;
+  PERSOANA_JURIDICA: string = DefendantConfig.PERSOANA_JURIDICA;
+  ROMANIA: string = DefendantConfig.ROMANIA;
+
   defendantTypeOptions: string[] = [
-    'Persoana Fizica',
-    'Persoana Juridica',
+    this.PERSOANA_FIZICA,
+    this.PERSOANA_JURIDICA,
   ];
 
   selectedDefendantTypeOption: string;
@@ -24,28 +29,53 @@ export class AddDefendantComponent implements OnInit {
 
   ngOnInit() {
     this.defendantForm = new FormGroup({
-      defendantType: new FormControl('', [Validators.required]),
+      defendantType: new FormControl(
+        this.defendant.isPerson ? this.PERSOANA_FIZICA : this.PERSOANA_JURIDICA,
+        [Validators.required]
+      ),
       pf: new FormGroup({
-        pfLastName: new FormControl('', [Validators.required]),
-        pfFirstName: new FormControl(''),
-        pfNationality: new FormControl(''),
-        pfIdentifier: new FormControl(''),
-        pfBirthDate: new FormControl(''),
+        pfLastName: new FormControl(
+          this.defendant.name,
+          [Validators.required]
+        ),
+        pfFirstName: new FormControl(
+          this.defendant.firstName,
+          [Validators.required]
+        ),
+        pfNationality: new FormControl(
+          this.defendant.nationality,
+          [Validators.required]
+        ),
+        pfIdentifier: new FormControl(
+          this.defendant.identification,
+          [Validators.required]
+        ),
+        pfBirthDate: new FormControl(
+          this.defendant.birthdate
+        ),
       }),
       pj: new FormGroup({
-        pjName: new FormControl(''),
-        pjCountry: new FormControl(''),
-        pjIdentifier: new FormControl(''),
+        pjName: new FormControl(
+          this.defendant.name,
+          [Validators.required]
+        ),
+        pjCountry: new FormControl(
+          this.defendant.nationality,
+          [Validators.required]
+        ),
+        pjIdentifier: new FormControl(
+          this.defendant.identification,
+          [Validators.required]
+        ),
       }),
     });
   }
 
   get isFormValid(): boolean {
-    return this.defendantForm.get('defendantType').valid &&
-          (
-            this.defendantForm.get('pf').valid ||
-            this.defendantForm.get('pj').valid
-          )
+    return this.defendantType == this.PERSOANA_FIZICA &&
+      this.defendantForm.get('pf').valid ||
+      this.defendantType == this.PERSOANA_JURIDICA &&
+      this.defendantForm.get('pj').valid
   }
 
   get defendantType(): string {

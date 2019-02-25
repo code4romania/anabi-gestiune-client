@@ -1,4 +1,4 @@
-import { DefendantForm } from './defendant-form.model';
+import { DefendantConfig, DefendantForm } from './defendant-form.model';
 
 export class Defendant {
     idNumber: string;
@@ -11,7 +11,9 @@ export class Defendant {
     identifierId: number;
     nationality: string;
 
-    constructor(form: DefendantForm) {
+    constructor(form?: DefendantForm) {
         // TODO: map DefendantForm to Defendant
+        
     }
+
 }
