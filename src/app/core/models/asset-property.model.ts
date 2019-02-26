@@ -1,6 +1,7 @@
 import { Asset } from '@app/core';
 
 export enum AssetPropertyType {
+  Address = 'Address',
   Solution = 'Solution',
   StorageSpace = 'StorageSpace',
 }
@@ -19,6 +20,10 @@ export abstract class AssetProperty {
 
   getAsset(): Asset {
     return this.asset;
+  }
+
+  isAddress(): boolean {
+    return this.getType() === AssetPropertyType.Address;
   }
 
   isSolution(): boolean {

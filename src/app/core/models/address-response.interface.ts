@@ -10,4 +10,5 @@ export interface AddressResponse {
   stair: string;
   floor: string;
   flatNo: string;
+  description: string;
 }

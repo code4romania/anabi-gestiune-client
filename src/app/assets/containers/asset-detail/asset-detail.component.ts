@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  Address,
   Asset,
   AssetsService,
   AssetCurrency,
@@ -24,6 +25,7 @@ export enum AssetProperties {
   SOLUTIE = 'solutie',
   INCULPAT = 'inculpat',
   SPATIU = 'spatiu',
+  ADRESA = 'adresa',
 }
 
 export enum AssetDetailState {
@@ -53,6 +55,7 @@ export class AssetDetailComponent implements OnInit {
     { name: 'Solutie', value: AssetProperties.SOLUTIE },
     { name: 'Inculpat', value: AssetProperties.INCULPAT },
     { name: 'Spatiu', value: AssetProperties.SPATIU },
+    { name: 'Adresa', value: AssetProperties.ADRESA },
   ];
   selectedProperty: string;
 
@@ -117,6 +120,15 @@ export class AssetDetailComponent implements OnInit {
           const theSpace = new StorageSpace();
           theSpace.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theSpace));
+        });
+        break;
+      }
+
+      case AssetProperties.ADRESA: {
+        this.asset$.subscribe((aAsset: Asset) => {
+          const theAddress = new Address();
+          theAddress.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theAddress));
         });
         break;
       }

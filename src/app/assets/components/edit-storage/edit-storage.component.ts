@@ -1,16 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Asset, StorageSpace } from '@app/core/models';
-import { take } from 'rxjs/operators';
+import { StorageSpace } from '@app/core/models';
 
 import { cloneDeep } from 'lodash';
 
 @Component({
-  selector: 'app-add-storage',
-  templateUrl: 'add-storage.component.html',
-  styleUrls: ['add-storage.component.scss'],
+  selector: 'app-edit-storage',
+  templateUrl: 'edit-storage.component.html',
+  styleUrls: ['edit-storage.component.scss'],
 })
-export class AddStorageSpaceComponent implements OnInit {
+export class EditStorageSpaceComponent implements OnInit {
   @Input() storageSpace: StorageSpace;
   @Output() onUpdate: EventEmitter<StorageSpace> = new EventEmitter<StorageSpace>();
   @Output() onCancel: EventEmitter<StorageSpace> = new EventEmitter<StorageSpace>();

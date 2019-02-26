@@ -9,11 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import * as fromStore from '@app/core/store';
 import { select, Store } from '@ngrx/store';
-import * as fromStore from '../core/store';
 
 import { Asset } from '@app/core';
-import { AddAssetComponent } from './components/add-asset/add-asset.component';
+import { AddAssetComponent } from '../add-asset/add-asset.component';
 
 @Component({
   templateUrl: './assets.component.html',

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
-import { Solution, StorageSpace } from '../../models';
+import { Address, Solution, StorageSpace } from '../../models';
 
-export type AssetProperty = Solution | StorageSpace;
+export type AssetProperty = Address | Solution | StorageSpace;
 
 // update properties
 export const UPDATE_PROPERTY = '[Asset Properties] Update Property';

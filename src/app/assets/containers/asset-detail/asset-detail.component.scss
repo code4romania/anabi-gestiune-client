@@ -50,7 +50,7 @@
     }
   }
 
-  app-edit-solution, app-add-storage {
+  app-edit-solution, app-edit-storage, app-edit-address {
     @include material-card();
   }
 }
