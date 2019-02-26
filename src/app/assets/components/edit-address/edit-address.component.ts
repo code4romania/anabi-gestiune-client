@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Address } from '@app/core';
+import { Address, AddressResponse } from '@app/core';
 
 import { cloneDeep } from 'lodash';
 
@@ -41,13 +41,11 @@ export class EditAddressComponent implements OnInit {
       building: this.address.building,
       description: this.address.description,
     });
-    this.theAddress = cloneDeep(this.address);
     this.onChanges();
   }
 
   onChanges() {
     this.addressForm.valueChanges.subscribe(aFormValue => {
-      console.warn('form value', aFormValue);
       this.updateAddress(aFormValue);
 
       this.onUpdate.emit(this.theAddress);
@@ -55,11 +53,9 @@ export class EditAddressComponent implements OnInit {
   }
 
   updateAddress(aFormValue: AddressFormValue) {
-    this.theAddress.countyId = aFormValue.countyId;
-    this.theAddress.city = aFormValue.city;
-    this.theAddress.street = aFormValue.street;
-    this.theAddress.building = aFormValue.building;
-    this.theAddress.description = aFormValue.description;
+    this.theAddress = cloneDeep(this.address);
+
+    this.theAddress.fromJson(aFormValue as AddressResponse);
   }
 
   cancel() {

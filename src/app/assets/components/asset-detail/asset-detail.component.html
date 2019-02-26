@@ -72,7 +72,6 @@
     </div>
 
     <ng-template #editProperty>
-<<<<<<< HEAD
       <app-edit-solution
         class="mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isSolution()"
@@ -96,7 +95,7 @@
 
       <app-edit-address
         class="mat-elevation-z8"
-        *ngIf="(isAddress(assetProperty$ | async))"
+        *ngIf="(assetProperty$ | async)?.isAddress()"
         [address]="(assetProperty$ | async)"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"

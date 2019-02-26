@@ -1,8 +1,8 @@
 import { AddressResponse } from './address-response.interface';
-import { Asset } from './asset.model';
+import { AssetProperty, AssetPropertyType } from './asset-property.model';
 import { County } from './county.model';
 
-export class Address {
+export class Address extends  AssetProperty {
   id: number;
   countyId: number = null;
   county: County;
@@ -13,24 +13,17 @@ export class Address {
   floor: string;
   flatNo: string;
   description: string = '';
-  private asset: Asset;
 
   constructor(aData?: AddressResponse) {
+    super(AssetPropertyType.Address);
+
     if (aData) {
       this.fromJson(aData);
     }
   }
 
-  setAsset(aAsset: Asset) {
-    this.asset = aAsset;
-  }
-
-  getAsset(): Asset {
-    return this.asset;
-  }
-
   fromJson(aJson: AddressResponse) {
-    this.id = aJson.id;
+    this.id = aJson.id || undefined;
     this.countyId = aJson.countyId;
     this.county = new County(aJson.county);
     this.street = aJson.street;
