@@ -84,14 +84,14 @@
         (onSave)="onPropertySave($event)"
       ></app-edit-solution>
 
-      <app-add-storage
+      <app-edit-storage
         class="mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isStorageSpace()"
         [storageSpace]="assetProperty$ | async"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"
-      ></app-add-storage>
+      ></app-edit-storage>
 
       <app-edit-address
         class="mat-elevation-z8"

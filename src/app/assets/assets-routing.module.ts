@@ -4,19 +4,19 @@ import { RouterModule, Routes } from '@angular/router';
 // guards
 import * as fromGuards from './guards';
 
-import { AssetsComponent } from './assets.component';
-import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
+// pages
+import * as fromContainers from './containers';
 
 const routes: Routes = [
   {
     path: '',
     canActivate: [fromGuards.AssetsGuard],
-    component: AssetsComponent,
+    component: fromContainers.AssetsComponent,
   },
   {
     path: 'detail/:assetId',
     canActivate: [fromGuards.AssetsGuard, fromGuards.AssetDetailGuard],
-    component: AssetDetailComponent,
+    component: fromContainers.AssetDetailComponent,
   },
 ];
 
