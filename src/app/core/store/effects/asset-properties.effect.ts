@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
-import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AssetPropertyType, Solution, StorageSpace } from '@app/core/models';
+import { Address, AssetPropertyType, Solution, StorageSpace } from '@app/core/models';
+import * as addressActions from '../actions/addresses.action';
 import * as assetPropertyActions from '../actions/asset-properties.action';
 import * as solutionActions from '../actions/solutions.action';
 import * as storageSpaceActions from '../actions/storage-spaces.action';
@@ -27,6 +27,9 @@ export class AssetPropertiesEffects {
 
           case AssetPropertyType.StorageSpace:
             return new storageSpaceActions.CreateStorageSpace(aPayload as StorageSpace);
+
+          case AssetPropertyType.Address:
+            return new addressActions.CreateAddress(aPayload as Address);
 
           default:
             return;

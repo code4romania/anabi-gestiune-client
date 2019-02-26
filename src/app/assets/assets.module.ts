@@ -16,6 +16,7 @@ import { AssetsComponent } from './assets.component';
 import { AddAssetComponent } from './components/add-asset/add-asset.component';
 import { AddStorageSpaceComponent } from './components/add-storage/add-storage.component';
 import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
+import { EditAddressComponent } from './components/edit-address/edit-address.component';
 import { EditSolutionComponent } from './components/edit-solution/edit-solution.component';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { EditSolutionComponent } from './components/edit-solution/edit-solution.
     AssetsComponent,
     EditAssetComponent,
     EditSolutionComponent,
+    EditAddressComponent,
   ],
   entryComponents: [
     AddAssetComponent,

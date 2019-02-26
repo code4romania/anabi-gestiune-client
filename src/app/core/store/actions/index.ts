@@ -1,3 +1,4 @@
+export * from './addresses.action';
 export * from './asset-properties.action';
 export * from './assets.action';
 export * from './categories.action';

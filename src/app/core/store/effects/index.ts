@@ -1,3 +1,4 @@
+import { AddressesEffect } from './addresses.effect';
 import { AssetPropertiesEffects } from './asset-properties.effect';
 import { AssetsEffects } from './assets.effect';
 import { CategoriesEffects } from './categories.effect';
@@ -9,6 +10,7 @@ import { StagesEffects } from './stages.effect';
 import { StorageSpacesEffect } from './storage-spaces.effect';
 
 export const effects: any[] = [
+  AddressesEffect,
   AssetPropertiesEffects,
   AssetsEffects,
   CategoriesEffects,
@@ -20,6 +22,7 @@ export const effects: any[] = [
   StorageSpacesEffect,
 ];
 
+export * from './addresses.effect';
 export * from './asset-properties.effect';
 export * from './assets.effect';
 export * from './categories.effect';

@@ -92,6 +92,15 @@
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"
       ></app-add-storage>
+
+      <app-edit-address
+        class="mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)?.isAddress()"
+        [address]="(assetProperty$ | async)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-address>
     </ng-template>
   </section>
 </div>
