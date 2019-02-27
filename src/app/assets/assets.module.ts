@@ -11,10 +11,10 @@ import * as fromServices from './services';
 import * as fromGuards from './guards';
 
 // components
-import { AssetsComponent } from './assets.component';
-import { AddAssetComponent } from './components/add-asset/add-asset.component';
-import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
-import { EditSolutionComponent } from './components/edit-solution/edit-solution.component';
+import * as fromComponents from './components';
+
+// containers
+import * as fromContainers from './containers';
 
 @NgModule({
   imports: [
@@ -22,13 +22,11 @@ import { EditSolutionComponent } from './components/edit-solution/edit-solution.
     AssetsRoutingModule,
   ],
   declarations: [
-    AssetsComponent,
-    AddAssetComponent,
-    AssetDetailComponent,
-    EditSolutionComponent,
+    ...fromContainers.components,
+    ...fromComponents.components,
   ],
   entryComponents: [
-    AddAssetComponent,
+    ...fromContainers.entryComponents,
   ],
   providers: [
     ...fromServices.services,

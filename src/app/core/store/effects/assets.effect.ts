@@ -40,6 +40,19 @@ export class AssetsEffects {
     );
 
   @Effect()
+  updateAsset$ = this.actions$
+    .pipe(
+      ofType(assetActions.ASSET_UPDATE),
+      map((action: assetActions.UpdateAsset) => action.payload),
+      switchMap(aPayload => {
+        return this.assetsService.update(aPayload).pipe(
+          map(aAsset => new assetActions.UpdateAssetSuccess(aAsset)),
+          catchError(error => of(new assetActions.UpdateAssetFail(error)))
+        );
+      })
+    );
+
+  @Effect()
   showLoading$ = this.actions$
     .pipe(
       ofType(assetActions.LOAD_ASSETS, assetActions.LOAD_ASSET_DETAIL),

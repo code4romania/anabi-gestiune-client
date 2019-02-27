@@ -43,9 +43,14 @@
         height: 36px;
       }
     }
+
+    .buttons {
+      @include flex();
+      justify-content: flex-end;
+    }
   }
 
-  app-edit-solution {
+  app-edit-solution, app-edit-storage, app-edit-address {
     @include material-card();
   }
 }

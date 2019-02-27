@@ -9,6 +9,7 @@ import * as fromPrecautionaryMeasures from './precautionary-measures.reducer';
 import * as fromRecoveryBeneficiaries from './recovery-beneficiaries.reducer';
 import * as fromSolutions from './solutions.reducer';
 import * as fromStages from './stages.reducer';
+import * as fromStorageSpaces from './storage-spaces.reducer';
 
 export interface State {
   core: CoreState;
@@ -23,8 +24,9 @@ export interface CoreState {
   loading: fromLoading.LoadingState;
   precautionaryMeasures: fromPrecautionaryMeasures.PrecautionaryMeasureState;
   recoveryBeneficiaries: fromRecoveryBeneficiaries.RecoveryBeneficiariesState;
-  stages: fromStages.StageState;
   solutions: fromSolutions.SolutionState;
+  stages: fromStages.StageState;
+  storageSpaces: fromStorageSpaces.StorageSpaceState;
 }
 
 export const reducers: ActionReducerMap<CoreState> = {
@@ -38,6 +40,7 @@ export const reducers: ActionReducerMap<CoreState> = {
   recoveryBeneficiaries: fromRecoveryBeneficiaries.reducer,
   solutions: fromSolutions.reducer,
   stages: fromStages.reducer,
+  storageSpaces: fromStorageSpaces.reducer,
 };
 
 export const getCoreState = createFeatureSelector<CoreState>('core');
@@ -52,3 +55,4 @@ export { PrecautionaryMeasureState } from './precautionary-measures.reducer';
 export { RecoveryBeneficiariesState } from './recovery-beneficiaries.reducer';
 export { SolutionState } from './solutions.reducer';
 export { StageState } from './stages.reducer';
+export { StorageSpaceState } from './storage-spaces.reducer';

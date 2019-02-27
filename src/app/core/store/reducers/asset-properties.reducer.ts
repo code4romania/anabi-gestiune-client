@@ -9,13 +9,22 @@ export const initialState: AssetPropertyState = {
   entities: {},
 };
 
-export function reducer(
-  state = initialState,
-  action: fromAssetProperties.AssetPropertiesAction
-): AssetPropertyState {
-
+export function reducer(state = initialState, action: fromAssetProperties.AssetPropertiesAction): AssetPropertyState {
   switch (action.type) {
     case fromAssetProperties.UPDATE_PROPERTY: {
+      const theProperty: AssetProperty = action.payload as AssetProperty;
+      const entities = {
+        ...state.entities,
+        [theProperty.getAsset().id]: theProperty,
+      };
+
+      return {
+        ...state,
+        entities,
+      } as AssetPropertyState;
+    }
+
+    case fromAssetProperties.CREATE_PROPERTY: {
       const theProperty: AssetProperty = action.payload as AssetProperty;
       const entities = {
         ...state.entities,

@@ -1,0 +1,139 @@
+  <section class="edit-asset">
+    <form [formGroup]="editAssetForm" fxLayout="column">
+      <mat-form-field>
+        <input
+          matInput
+          #name
+          name="name"
+          maxlength="100"
+          placeholder="Nume"
+          required
+          formControlName="name"
+        />
+
+        <mat-hint align="end">{{ name.value.length }} / 100</mat-hint>
+
+        <mat-error *ngIf="editAssetForm.controls.name.hasError('NAME_NOT_EMPTY') || editAssetForm.controls.name.hasError('required')">
+          Numele este obligatoriu.
+        </mat-error>
+        <mat-error *ngIf="editAssetForm.controls.name.hasError('NAME_MAX_LENGTH_100')">
+          Numele nu poate avea mai mult de 100 caractere.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput name="description" placeholder="Descriere" formControlName="description" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput name="identifier" placeholder="Identificator" formControlName="identifier" />
+
+        <mat-error *ngIf="editAssetForm.controls.identifier.hasError('IDENTIFIER_MAX_LENGTH_100')">
+          Identificatorul nu poate avea mai mult de 100 caractere.
+        </mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="49">
+          <mat-select name="category" placeholder="Categorie" required formControlName="category">
+            <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="editAssetForm.controls.category.hasError('required')">
+            Categoria este obligatorie.
+          </mat-error>
+          <mat-error *ngIf="editAssetForm.controls.category.hasError('CATEGORY_INVALID_ID')">
+            Categoria selectata nu este corecta.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49">
+          <mat-select name="subcategory" placeholder="Subcategorie" formControlName="subcategory">
+            <mat-option *ngFor="let subcategory of subcategories" [value]="subcategory">{{ subcategory.name }}</mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="editAssetForm.controls.subcategory.hasError('required')">
+            Subcategoria este obligatorie.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <mat-select name="stage" placeholder="Stare actuala" required formControlName="stage">
+          <mat-option *ngFor="let stage of stages" [value]="stage">{{ stage.name }}</mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="editAssetForm.controls.stage.hasError('required')">
+          Starea este obligatorie.
+        </mat-error>
+        <mat-error *ngIf="editAssetForm.controls.stage.hasError('STAGE_INVALID_ID')">
+          Starea selectata nu este corecta.
+        </mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="49">
+          <input matInput type="number" name="quantity" placeholder="Cantitate" formControlName="quantity" />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49">
+          <mat-select name="measureUnit" placeholder="Unitate de masura" formControlName="measureUnit">
+            <mat-option *ngFor="let measureUnit of measurements" [value]="measureUnit.id">{{ measureUnit.code }}</mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="editAssetForm.controls.measureUnit.hasError('required')">
+            Unitatea de masura este obligatorie.
+          </mat-error>
+          <mat-error *ngIf="editAssetForm.controls.measureUnit.hasError('MEASUREUNIT_MAX_LENGTH_10')">
+            Unitatea de masura poate avea maxim 10 caractere.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="49">
+          <input matInput
+                 type="number"
+                 name="estimatedAmount"
+                 placeholder="Valoare estimata"
+                 formControlName="estimatedAmount"
+          />
+        </mat-form-field>
+
+        <mat-form-field fxFlex="49">
+          <mat-select
+            name="estimatedAmountCurrency"
+            placeholder="Moneda valoare estimata"
+            formControlName="estimatedAmountCurrency"
+          >
+            <mat-option *ngFor="let estimatedAmountCurrency of currencies" [value]="estimatedAmountCurrency.id">
+              {{ estimatedAmountCurrency.code }}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="editAssetForm.controls.estimatedAmountCurrency.hasError('required')">
+            Moneda este obligatorie.
+          </mat-error>
+          <mat-error *ngIf="editAssetForm.controls.estimatedAmountCurrency.hasError('ESTIMATED_AMT_CURRENCY_THREE_CHARS')">
+            Moneda poate avea maxim 3 caractere.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <textarea
+          matInput
+          name="remarks"
+          placeholder="Observatii"
+          matTextareaAutosize
+          matAutosizeMinRows="2"
+          formControlName="remarks"
+        ></textarea>
+      </mat-form-field>
+    </form>
+
+    <section class="buttons">
+      <button mat-button (click)="cancel()">ANULEAZA</button>
+      <button mat-raised-button [disabled]="!editAssetForm.valid" color="primary" (click)="save()">SALVEAZA</button>
+    </section>
+  </section>

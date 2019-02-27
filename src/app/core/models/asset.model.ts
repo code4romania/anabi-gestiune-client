@@ -108,6 +108,8 @@ export class Asset {
       estimatedAmount: this.estimatedAmount,
       estimatedAmountCurrency: this.estimatedAmountCurrency,
       description: this.description,
+      identifier: this.identifier,
+      remarks: this.remarks,
     } as AssetRequest;
   }
 }

@@ -61,4 +61,11 @@ export class AssetsApiService {
         catchError(aError => observableThrowError(aError.error.errors))
       );
   }
+
+  public update(id: number, asset: AssetRequest): Observable<AssetDetailResponse> {
+    return this.http.put<AssetDetailResponse>(`${environment.api_url}/assets/${id}/minimalasset`, asset)
+      .pipe(
+        catchError(aError => observableThrowError(aError.error.errors))
+      );
+  }
 }

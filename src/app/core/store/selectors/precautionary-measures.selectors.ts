@@ -27,9 +27,12 @@ export const getPrecautionaryMeasuresEntitiesObjects = createSelector(
   }
 );
 
-export const getAllPrecautionaryMeasures = createSelector(getPrecautionaryMeasuresEntitiesObjects, (entities) => {
-  return Object.keys(entities).map(id => entities[parseInt(id, 10)]);
-});
+export const getAllPrecautionaryMeasures = createSelector(
+  getPrecautionaryMeasuresEntitiesObjects,
+  (entities: PrecautionaryMeasure[]) => {
+    return Object.keys(entities).map(id => entities[parseInt(id, 10)]);
+  }
+);
 
 export const getPrecautionaryMeasuresLoaded = createSelector(
   getPrecautionaryMeasureState,

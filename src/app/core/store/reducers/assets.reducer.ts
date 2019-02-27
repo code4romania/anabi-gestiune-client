@@ -53,6 +53,7 @@ export function reducer(
       } as AssetState;
     }
 
+    case fromAssets.ASSET_UPDATE_SUCCESS:
     case fromAssets.CREATE_ASSET_SUCCESS:
     case fromAssets.LOAD_ASSET_DETAIL_SUCCESS: {
       const theAsset = action.payload;

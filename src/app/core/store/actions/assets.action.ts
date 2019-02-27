@@ -49,6 +49,26 @@ export class CreateAssetSuccess implements Action {
   constructor(public payload: Asset) {}
 }
 
+// update asset
+export const ASSET_UPDATE = '[Assets] Update Asset';
+export const ASSET_UPDATE_FAIL = '[Assets] Update Asset Fail';
+export const ASSET_UPDATE_SUCCESS = '[Assets] Update Asset Success';
+
+export class UpdateAsset implements Action {
+  readonly type: string = ASSET_UPDATE;
+  constructor(public payload: Asset) {}
+}
+
+export class UpdateAssetFail implements Action {
+  readonly type: string = ASSET_UPDATE_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class UpdateAssetSuccess implements Action {
+  readonly type: string = ASSET_UPDATE_SUCCESS;
+  constructor(public payload: Asset) {}
+}
+
 // action types
 export type AssetsAction =
   CreateAssetSuccess
@@ -57,4 +77,7 @@ export type AssetsAction =
   | LoadAssetsSuccess
   | LoadAssetDetail
   | LoadAssetDetailFail
-  | LoadAssetDetailSuccess;
+  | LoadAssetDetailSuccess
+  | UpdateAsset
+  | UpdateAssetFail
+  | UpdateAssetSuccess;
