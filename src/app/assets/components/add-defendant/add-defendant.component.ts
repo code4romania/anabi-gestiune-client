@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DefendantForm, DefendantConfig } from '@app/core/models/defendant-form.model';
+import { DefendantForm, PERSOANA_FIZICA, PERSOANA_JURIDICA, ROMANIA } from '@app/core/models/defendant-form.model';
 import { Defendant } from '@app/core/models/defendant.model';
 
 @Component({
@@ -13,13 +13,13 @@ export class AddDefendantComponent implements OnInit {
   @Input() defendant: Defendant = new Defendant();
   @Output() defendantAdd: EventEmitter<Defendant> = new EventEmitter<Defendant>();
 
-  PERSOANA_FIZICA: string = DefendantConfig.PERSOANA_FIZICA;
-  PERSOANA_JURIDICA: string = DefendantConfig.PERSOANA_JURIDICA;
-  ROMANIA: string = DefendantConfig.ROMANIA;
+  PERSOANA_FIZICA: string = PERSOANA_FIZICA;
+  PERSOANA_JURIDICA: string = PERSOANA_JURIDICA;
+  ROMANIA: string = ROMANIA;
 
   defendantTypeOptions: string[] = [
-    this.PERSOANA_FIZICA,
-    this.PERSOANA_JURIDICA,
+    PERSOANA_FIZICA,
+    PERSOANA_JURIDICA,
   ];
 
   selectedDefendantTypeOption: string;
@@ -30,7 +30,7 @@ export class AddDefendantComponent implements OnInit {
   ngOnInit() {
     this.defendantForm = new FormGroup({
       defendantType: new FormControl(
-        this.defendant.isPerson ? this.PERSOANA_FIZICA : this.PERSOANA_JURIDICA,
+        this.defendant.isPerson ? PERSOANA_FIZICA : PERSOANA_JURIDICA,
         [Validators.required]
       ),
       pf: new FormGroup({
@@ -72,9 +72,9 @@ export class AddDefendantComponent implements OnInit {
   }
 
   get isFormValid(): boolean {
-    return this.defendantType == this.PERSOANA_FIZICA &&
+    return this.defendantType === PERSOANA_FIZICA &&
       this.defendantForm.get('pf').valid ||
-      this.defendantType == this.PERSOANA_JURIDICA &&
+      this.defendantType === PERSOANA_JURIDICA &&
       this.defendantForm.get('pj').valid
   }
 

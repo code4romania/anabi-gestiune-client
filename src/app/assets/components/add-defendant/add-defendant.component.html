@@ -35,7 +35,14 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput formControlName="pfBirthDate" placeholder="Data nasterii" />
+        <input matInput
+               name="decisionDate"
+               formControlName="pfBirthDate"
+               [matDatepicker]="theDecisionDatePicker"
+               placeholder="Data nasterii"
+        />
+        <mat-datepicker-toggle matSuffix [for]="theDecisionDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #theDecisionDatePicker></mat-datepicker>
       </mat-form-field>
     </div>
 

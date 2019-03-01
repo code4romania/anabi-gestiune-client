@@ -1,10 +1,10 @@
 export class DefendantForm {
-    isPerson: string;
+    defendantType: string;
     pf: {
         pfLastName: string;
         pfFirstName: string;
         pfNationality: string;
-        pfIdentifier: number;
+        pfIdentifier: string;
         pfBirthDate: string;
     };
     pj: {
@@ -14,9 +14,6 @@ export class DefendantForm {
     };
 }
 
-export class DefendantConfig {
-    // The only place we need to modify if we don't want diacritics
-    static PERSOANA_FIZICA: string = 'Persoană Fizică';
-    static PERSOANA_JURIDICA: string = 'Persoană Juridică';
-    static ROMANIA: string = 'Romania';
-}
+export const PERSOANA_FIZICA = 'Persoană Fizică';
+export const PERSOANA_JURIDICA = 'Persoană Juridică';
+export const ROMANIA = 'Romania';
