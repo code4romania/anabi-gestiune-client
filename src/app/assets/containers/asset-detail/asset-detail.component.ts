@@ -6,8 +6,10 @@ import {
   AssetsService,
   AssetCurrency,
   AssetMeasurement,
+  AssetProperty,
   Category,
   Decision,
+  Defendant,
   Institution,
   Solution,
   Stage,
@@ -16,7 +18,6 @@ import {
 import { take } from 'rxjs/operators';
 
 import * as fromStore from '@app/core/store';
-import { AssetProperty } from '@app/core/store/actions/asset-properties.action';
 import { select, Store } from '@ngrx/store';
 
 import { combineLatest, Observable } from 'rxjs';
@@ -42,7 +43,7 @@ export class AssetDetailComponent implements OnInit {
   private institutions$: Observable<Institution[]>;
   private decisions$: Observable<Decision[]>;
   private stages$: Observable<Stage[]>;
-  private assetProperty$: Observable<fromStore.AssetProperty>;
+  private assetProperty$: Observable<AssetProperty>;
 
   private categories$: Observable<Category[]> = this.store.pipe(select(fromStore.getAssetParentCategories));
   private subcategories$: Observable<Category[]>;
@@ -105,36 +106,39 @@ export class AssetDetailComponent implements OnInit {
   }
 
   addProperty() {
-    switch (this.selectedProperty) {
-      case AssetProperties.SOLUTIE: {
-        this.asset$.subscribe((aAsset: Asset) => {
+    this.asset$.pipe(take(1)).subscribe((aAsset: Asset) => {
+      switch (this.selectedProperty) {
+        case AssetProperties.SOLUTIE: {
           const theSolution = new Solution();
           theSolution.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theSolution));
-        });
-        break;
-      }
+          break;
+        }
 
-      case AssetProperties.SPATIU: {
-        this.asset$.subscribe((aAsset: Asset) => {
+        case AssetProperties.SPATIU: {
           const theSpace = new StorageSpace();
           theSpace.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theSpace));
-        });
-        break;
-      }
+          break;
+        }
 
-      case AssetProperties.ADRESA: {
-        this.asset$.subscribe((aAsset: Asset) => {
+        case AssetProperties.ADRESA: {
           const theAddress = new Address();
           theAddress.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theAddress));
-        });
-        break;
-      }
-    }
+          break;
+        }
 
-    this.resetSelectedProperty();
+        case AssetProperties.INCULPAT: {
+          const theDefendant = new Defendant();
+          theDefendant.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theDefendant));
+          break;
+        }
+      }
+
+      this.resetSelectedProperty();
+    });
   }
 
   editAsset() {

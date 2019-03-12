@@ -14,6 +14,9 @@ export class DefendantForm {
     };
 }
 
-export const PERSOANA_FIZICA = 'Persoană Fizică';
-export const PERSOANA_JURIDICA = 'Persoană Juridică';
+export enum DefendantType {
+  Person = 'Persoană Fizică',
+  Company = 'Persoană Juridică',
+}
+
 export const ROMANIA = 'Romania';

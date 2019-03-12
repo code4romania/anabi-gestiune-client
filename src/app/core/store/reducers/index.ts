@@ -3,6 +3,7 @@ import * as fromAssetProperties from './asset-properties.reducer';
 import * as fromAssets from './assets.reducer';
 import * as fromCategories from './categories.reducer';
 import * as fromDecisions from './decisions.reducer';
+import * as fromDefendants from './defendants.reducer';
 import * as fromInstitutions from './institutions.reducer';
 import * as fromLoading from './loading.reducer';
 import * as fromRecoveryBeneficiaries from './recovery-beneficiaries.reducer';
@@ -19,6 +20,7 @@ export interface CoreState {
   assetProperties: fromAssetProperties.AssetPropertyState;
   categories: fromCategories.CategoryState;
   decisions: fromDecisions.DecisionState;
+  defendants: fromDefendants.DefendantsState;
   institutions: fromInstitutions.InstitutionState;
   loading: fromLoading.LoadingState;
   recoveryBeneficiaries: fromRecoveryBeneficiaries.RecoveryBeneficiariesState;
@@ -32,6 +34,7 @@ export const reducers: ActionReducerMap<CoreState> = {
   assetProperties: fromAssetProperties.reducer,
   categories: fromCategories.reducer,
   decisions: fromDecisions.reducer,
+  defendants: fromDefendants.reducer,
   institutions: fromInstitutions.reducer,
   loading: fromLoading.reducer,
   recoveryBeneficiaries: fromRecoveryBeneficiaries.reducer,
@@ -46,6 +49,7 @@ export { AssetState } from './assets.reducer';
 export { AssetPropertyState } from './asset-properties.reducer';
 export { CategoryState } from './categories.reducer';
 export { DecisionState } from './decisions.reducer';
+export { DefendantsState } from './defendants.reducer';
 export { InstitutionState } from './institutions.reducer';
 export { LoadingState } from './loading.reducer';
 export { RecoveryBeneficiariesState } from './recovery-beneficiaries.reducer';

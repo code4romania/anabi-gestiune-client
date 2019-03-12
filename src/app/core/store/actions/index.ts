@@ -3,6 +3,7 @@ export * from './asset-properties.action';
 export * from './assets.action';
 export * from './categories.action';
 export * from './decisions.action';
+export * from './defendants.action';
 export * from './institutions.action';
 export * from './loading.action';
 export * from './recovery-beneficiaries.action';
