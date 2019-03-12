@@ -102,6 +102,15 @@
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"
       ></app-edit-address>
+
+      <app-edit-defendant
+        class="mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)?.isDefendant()"
+        [defendant]="(assetProperty$ | async)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-defendant>
     </ng-template>
   </section>
 </div>

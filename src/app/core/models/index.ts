@@ -19,6 +19,8 @@ export * from './decision-details.model';
 export * from './decision-filter.model';
 export * from './decision-response.interface';
 export * from './decision-summary.model';
+export * from './defendant.model';
+export * from './defendant-form.model';
 export * from './dictionary.model';
 export * from './evaluation-committee.model';
 export * from './evaluation-committee-response.interface';
