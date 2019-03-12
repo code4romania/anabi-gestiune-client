@@ -26,8 +26,8 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/sass/theme.scss",
-              "src/sass/styles.scss"
+              "src/sass/styles.scss",
+              "src/sass/theme.scss"
             ],
             "scripts": []
           },
@@ -99,8 +99,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/sass/theme.scss",
-              "src/sass/styles.scss"
+              "src/sass/styles.scss",
+              "src/sass/theme.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
