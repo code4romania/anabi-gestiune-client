@@ -1,5 +1,5 @@
+import { AssetProperty } from '../../models';
 import * as fromAssetProperties from '../actions/asset-properties.action';
-import { AssetProperty } from '../actions/asset-properties.action';
 
 export interface AssetPropertyState {
   entities: { [id: number]: AssetProperty };

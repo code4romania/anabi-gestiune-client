@@ -3,6 +3,7 @@ import { AssetPropertiesEffects } from './asset-properties.effect';
 import { AssetsEffects } from './assets.effect';
 import { CategoriesEffects } from './categories.effect';
 import { DecisionsEffects } from './decisions.effect';
+import { DefendantsEffects } from './defendants.effect';
 import { InstitutionsEffects } from './institutions.effect';
 import { RecoveryBeneficiariesEffects } from './recovery-beneficiaries.effect';
 import { SolutionsEffects } from './solutions.effect';
@@ -15,6 +16,7 @@ export const effects: any[] = [
   AssetsEffects,
   CategoriesEffects,
   DecisionsEffects,
+  DefendantsEffects,
   InstitutionsEffects,
   RecoveryBeneficiariesEffects,
   SolutionsEffects,
