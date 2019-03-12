@@ -38,7 +38,14 @@ export class AssetsGuard implements CanActivate {
       this.store.pipe(select(fromStore.getInstitutionsLoaded)),
       this.store.pipe(select(fromStore.getDecisionsLoaded)),
       this.store.pipe(select(fromStore.getPrecautionaryMeasuresLoaded)),
-      (aAssetsLoaded: boolean, aInstitutionsLoaded: boolean, aDecisionsLoaded: boolean, aMeasuresLoaded: boolean) => {
+      this.store.pipe(select(fromStore.getRecoveryBeneficiariesLoaded)),
+      (
+        aAssetsLoaded: boolean,
+        aInstitutionsLoaded: boolean,
+        aDecisionsLoaded: boolean,
+        aMeasuresLoaded: boolean,
+        aBeneficiariesLoaded: boolean
+      ) => {
         let allLoaded = true;
         if (!aAssetsLoaded) {
           this.store.dispatch(new fromStore.LoadAssets());
@@ -57,6 +64,11 @@ export class AssetsGuard implements CanActivate {
 
         if (!aMeasuresLoaded) {
           this.store.dispatch(new fromStore.LoadPrecautionaryMeasures());
+          allLoaded = false;
+        }
+
+        if (!aBeneficiariesLoaded) {
+          this.store.dispatch(new fromStore.LoadRecoveryBeneficiaries());
           allLoaded = false;
         }
 

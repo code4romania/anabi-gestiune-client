@@ -4,6 +4,7 @@ import {
   Decision,
   Institution,
   PrecautionaryMeasure,
+  RecoveryBeneficiary,
   RecoveryDetails,
   Solution,
   SolutionDetails,
@@ -46,6 +47,7 @@ export class EditSolutionComponent implements OnInit {
   @Input() decisions: Decision[];
   @Input() stages: Stage[];
   @Input() precautionaryMeasures: PrecautionaryMeasure[];
+  @Input() recoveryBeneficiaries: RecoveryBeneficiary[];
   @Output() onUpdate: EventEmitter<Solution> = new EventEmitter<Solution>();
   @Output() onCancel: EventEmitter<Solution> = new EventEmitter<Solution>();
   @Output() onSave: EventEmitter<Solution> = new EventEmitter<Solution>();
@@ -153,6 +155,13 @@ export class EditSolutionComponent implements OnInit {
       case 'sechestru': {
         if (!this.solutionForm.contains('precautionaryMeasureId')) {
           this.solutionForm.addControl('precautionaryMeasureId', new FormControl('', [Validators.required]));
+        }
+        break;
+      }
+
+      case 'confiscare': {
+        if (!this.solutionForm.contains('recoveryBeneficiaryId')) {
+          this.solutionForm.addControl('recoveryBeneficiaryId', new FormControl('', [Validators.required]));
         }
         break;
       }

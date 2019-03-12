@@ -12,6 +12,7 @@ import {
   Defendant,
   Institution,
   PrecautionaryMeasure,
+  RecoveryBeneficiary,
   Solution,
   Stage,
   StorageSpace
@@ -45,6 +46,7 @@ export class AssetDetailComponent implements OnInit {
   private decisions$: Observable<Decision[]>;
   private stages$: Observable<Stage[]>;
   private precautionaryMeasures$: Observable<PrecautionaryMeasure[]>;
+  private recoveryBeneficiaries$: Observable<RecoveryBeneficiary[]>;
   private assetProperty$: Observable<AssetProperty>;
 
   private categories$: Observable<Category[]> = this.store.pipe(select(fromStore.getAssetParentCategories));
@@ -79,6 +81,7 @@ export class AssetDetailComponent implements OnInit {
       this.decisions$ = this.store.pipe(select(fromStore.getAllDecisions));
       this.stages$ = this.store.pipe(select(fromStore.getAllStages));
       this.precautionaryMeasures$ = this.store.pipe(select(fromStore.getAllPrecautionaryMeasures));
+      this.recoveryBeneficiaries$ = this.store.pipe(select(fromStore.getAllRecoveryBeneficiaries));
     });
 
     this.asset$.pipe(take(1))

@@ -159,6 +159,19 @@
       </mat-form-field>
     </div>
 
+    <div class="column" *ngIf="solutionForm.controls.recoveryBeneficiaryId">
+      <mat-form-field>
+        <mat-select placeholder="Autoritatea catre care se fac despagubirile" name="recoveryBeneficiaryId"
+                    formControlName="recoveryBeneficiaryId"
+                    required
+        >
+          <mat-option *ngFor="let theBeneficiary of recoveryBeneficiaries" [value]="theBeneficiary.id">
+            {{ theBeneficiary.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div class="separator"></div>
 
     <mat-form-field>

@@ -80,6 +80,7 @@
         [decisions]="decisions$ | async"
         [stages]="stages$ | async"
         [precautionaryMeasures]="(precautionaryMeasures$ | async)"
+        [recoveryBeneficiaries]="(recoveryBeneficiaries$ | async)"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"
