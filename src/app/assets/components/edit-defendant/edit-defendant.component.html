@@ -1,0 +1,71 @@
+<section class="defendant">
+  <h2>Inculpat</h2>
+
+  <form [formGroup]="defendantForm" (ngSubmit)="save()">
+    <mat-form-field>
+      <mat-select placeholder="Tip inculpat" 
+                  formControlName="defendantType"
+      >
+        <mat-option *ngFor="let option of defendantTypeOptions" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="defendantForm.get('defendantType').hasError('required')">Acest camp este obligatoriu.</mat-error>
+    </mat-form-field>
+
+    <div formGroupName="pf" class="fields-container" *ngIf="isPerson(defendantType)">
+      <mat-form-field>
+        <input matInput formControlName="pfLastName" placeholder="Nume"/>
+        <mat-error *ngIf="defendantForm.get('pf').get('pfLastName').hasError('required')">Acest camp este obligatoriu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="pfFirstName" placeholder="Prenume"/>
+        <mat-error *ngIf="defendantForm.get('pf').get('pfFirstName').hasError('required')">Acest camp este obligatoriu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #nat matInput formControlName="pfNationality" placeholder="Nationalitate" />
+        <mat-error *ngIf="defendantForm.get('pf').get('pfNationality').hasError('required')">Acest camp este obligatoriu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="pfIdentifier" [placeholder]="isRomania(nat.value) ? 'CNP' : 'Identificator'" />
+        <mat-error *ngIf="defendantForm.get('pf').get('pfIdentifier').hasError('required')">Acest camp este obligatoriu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               name="decisionDate"
+               formControlName="pfBirthDate"
+               [matDatepicker]="theDecisionDatePicker"
+               placeholder="Data nasterii"
+        />
+        <mat-datepicker-toggle matSuffix [for]="theDecisionDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #theDecisionDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div formGroupName="pj" class="fields-container" *ngIf="isCompany(defendantType)">
+      <mat-form-field>
+        <input matInput formControlName="pjName" placeholder="Nume" />
+        <mat-error *ngIf="defendantForm.get('pj').get('pjName').hasError('required')">Acest camp este obligatoriu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input #cnty matInput formControlName="pjCountry" placeholder="Tara de care apartine" />
+        <mat-error *ngIf="defendantForm.get('pj').get('pjCountry').hasError('required')">Acest camp este obligatoriu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput formControlName="pjIdentifier" [placeholder]="isRomania(cnty.value) ? 'CUI' : 'Identificator'" />
+        <mat-error *ngIf="defendantForm.get('pj').get('pjIdentifier').hasError('required')">Acest camp este obligatoriu.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row actions">
+      <button mat-button (click)="cancel()">ANULEAZA</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid">SALVEAZA</button>
+    </div>
+  </form>
+</section>
