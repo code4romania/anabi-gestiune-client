@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  CrimeType,
   Decision,
   Institution,
   PrecautionaryMeasure,
@@ -9,7 +10,8 @@ import {
   Solution,
   SolutionDetails,
   SolutionDetailsResponse,
-  Stage
+  Stage,
+  StageType
 } from '@app/core';
 
 import { cloneDeep } from 'lodash';
@@ -33,6 +35,8 @@ export interface SolutionFormValue {
   stage: Stage;
   personResponsible: string;
   precautionaryMeasureId: number;
+  recoveryBeneficiaryId: number;
+  crimeTypeId: number;
 }
 
 @Component({
@@ -43,8 +47,9 @@ export interface SolutionFormValue {
 
 export class EditSolutionComponent implements OnInit {
   @Input() solution: Solution;
-  @Input() institutions: Institution[];
+  @Input() crimeTypes: CrimeType[];
   @Input() decisions: Decision[];
+  @Input() institutions: Institution[];
   @Input() stages: Stage[];
   @Input() precautionaryMeasures: PrecautionaryMeasure[];
   @Input() recoveryBeneficiaries: RecoveryBeneficiary[];
@@ -66,6 +71,7 @@ export class EditSolutionComponent implements OnInit {
     definitiveDate: new FormControl(),
     sentToAuthoritiesDate: new FormControl(),
     legalBasis: new FormControl(),
+    crimeTypeId: new FormControl(),
     decision: new FormControl(),
     stage: new FormControl(),
     personResponsible: new FormControl(),
@@ -86,6 +92,7 @@ export class EditSolutionComponent implements OnInit {
       definitiveDate: this.solution.solutionDetails.definitiveDate || null,
       sentToAuthoritiesDate: this.solution.solutionDetails.sentToAuthoritiesDate || null,
       legalBasis: this.solution.solutionDetails.legalBasis,
+      crimeTypeId: this.solution.solutionDetails.crimeTypeId,
       decision: this.solution.getDecision() || null,
       stage: this.solution.getStage() || null,
       personResponsible: this.solution.recoveryDetails.personResponsible,
@@ -133,11 +140,18 @@ export class EditSolutionComponent implements OnInit {
       definitiveDate: aFormValue.definitiveDate ? aFormValue.definitiveDate.format() : '',
       sentToAuthoritiesDate: aFormValue.sentToAuthoritiesDate ? aFormValue.sentToAuthoritiesDate.format() : '',
       legalBasis: aFormValue.legalBasis,
+      crimeTypeId: aFormValue.crimeTypeId,
     } as SolutionDetailsResponse);
 
     if (aFormValue.precautionaryMeasureId) {
       this.theSolution.sequesterDetails = {
         precautionaryMeasureId: aFormValue.precautionaryMeasureId,
+      };
+    }
+
+    if (aFormValue.recoveryBeneficiaryId) {
+      this.theSolution.confiscationDetails = {
+        recoveryBeneficiaryId: aFormValue.recoveryBeneficiaryId,
       };
     }
 
@@ -152,17 +166,38 @@ export class EditSolutionComponent implements OnInit {
 
   changeFormByStage(aStage: Stage) {
     switch (aStage.getTitle()) {
-      case 'sechestru': {
+      case StageType.Sechestru: {
+        if (this.solutionForm.contains('recoveryBeneficiaryId')) {
+          this.solutionForm.removeControl('recoveryBeneficiaryId');
+        }
+
         if (!this.solutionForm.contains('precautionaryMeasureId')) {
           this.solutionForm.addControl('precautionaryMeasureId', new FormControl('', [Validators.required]));
         }
         break;
       }
 
-      case 'confiscare': {
+      case StageType.Confiscare: {
+        if (this.solutionForm.contains('precautionaryMeasureId')) {
+          this.solutionForm.removeControl('precautionaryMeasureId');
+        }
+
         if (!this.solutionForm.contains('recoveryBeneficiaryId')) {
           this.solutionForm.addControl('recoveryBeneficiaryId', new FormControl('', [Validators.required]));
         }
+        break;
+      }
+
+      case StageType.ValorificareAnticipata:
+      case StageType.ValorificareStandard: {
+        if (this.solutionForm.contains('precautionaryMeasureId')) {
+          this.solutionForm.removeControl('precautionaryMeasureId');
+        }
+
+        if (this.solutionForm.contains('recoveryBeneficiaryId')) {
+          this.solutionForm.removeControl('recoveryBeneficiaryId');
+        }
+
         break;
       }
     }

@@ -48,6 +48,15 @@
     </div>
   </section>
 
+  <section class="asset-details">
+    <div class="asset-details-card mat-elevation-z8" *ngFor="let theDefendant of (defendants$ | async)">
+      <app-view-defendant
+        [defendant]="theDefendant"
+        [identifiers]="identifiers$ | async"
+      ></app-view-defendant>
+    </div>
+  </section>
+
   <section class="asset-details" *ngIf="isStateView()">
     <div class="asset-details-card mat-elevation-z2" *ngIf="!(isEditingAssetProperty$() | async); else editProperty">
       <h2>Adauga proprietati</h2>
@@ -75,12 +84,13 @@
       <app-edit-solution
         class="mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isSolution()"
-        [solution]="assetProperty$ | async"
-        [institutions]="institutions$ | async"
+        [crimeTypes]="crimeTypes$ | async"
         [decisions]="decisions$ | async"
+        [institutions]="institutions$ | async"
         [stages]="stages$ | async"
         [precautionaryMeasures]="(precautionaryMeasures$ | async)"
         [recoveryBeneficiaries]="(recoveryBeneficiaries$ | async)"
+        [solution]="assetProperty$ | async"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"
@@ -108,6 +118,7 @@
         class="mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isDefendant()"
         [defendant]="(assetProperty$ | async)"
+        [identifiers]="(identifiers$ | async)"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"
         (onSave)="onPropertySave($event)"

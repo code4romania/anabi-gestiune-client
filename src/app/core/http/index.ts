@@ -3,6 +3,8 @@ import { CategoriesApiService } from './categories-api.service';
 import { CountiesApiService } from './counties-api.service';
 import { CrimeTypesApiService } from './crime-types-api.service';
 import { DecisionsApiService } from './decisions-api.service';
+import { DefendantsApiService } from './defendants-api.service';
+import { IdentifiersApiService } from './identifiers-api.service';
 import { InstitutionsApiService } from './institutions-api.service';
 import { PrecautionaryMeasuresApiService } from './precautionary-measures-api.service';
 import { RecoveryBeneficiariesApiService } from './recovery-beneficiaries-api.service';
@@ -16,6 +18,8 @@ export const httpServices: any[] = [
   CountiesApiService,
   CrimeTypesApiService,
   DecisionsApiService,
+  DefendantsApiService,
+  IdentifiersApiService,
   InstitutionsApiService,
   PrecautionaryMeasuresApiService,
   RecoveryBeneficiariesApiService,
@@ -29,6 +33,8 @@ export * from './categories-api.service';
 export * from './counties-api.service';
 export * from './crime-types-api.service';
 export * from './decisions-api.service';
+export * from './defendants-api.service';
+export * from './identifiers-api.service';
 export * from './institutions-api.service';
 export * from './precautionary-measures-api.service';
 export * from './recovery-beneficiaries-api.service';

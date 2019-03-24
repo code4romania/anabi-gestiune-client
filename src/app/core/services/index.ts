@@ -1,6 +1,9 @@
 import { AssetsService } from './assets.service';
 import { CategoriesService } from './categories.service';
+import { CrimeTypesService } from './crime-types.service';
 import { DecisionsService } from './decisions.service';
+import { DefendantsService } from './defendants.service';
+import { IdentifiersService } from './identifiers.service';
 import { InstitutionsService } from './institutions.service';
 import { NotificationService } from './notification.service';
 import { PrecautionaryMeasuresService } from './precautionary-measures.service';
@@ -10,7 +13,10 @@ import { SolutionsService } from './solutions.service';
 export const services: any[] = [
   AssetsService,
   CategoriesService,
+  CrimeTypesService,
   DecisionsService,
+  DefendantsService,
+  IdentifiersService,
   InstitutionsService,
   NotificationService,
   PrecautionaryMeasuresService,
@@ -20,7 +26,10 @@ export const services: any[] = [
 
 export * from './assets.service';
 export * from './categories.service';
+export * from './crime-types.service';
 export * from './decisions.service';
+export * from './defendants.service';
+export * from './identifiers.service';
 export * from './institutions.service';
 export * from './notification.service';
 export * from './precautionary-measures.service';

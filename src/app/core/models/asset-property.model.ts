@@ -9,6 +9,7 @@ export enum AssetPropertyType {
 
 export abstract class AssetProperty {
   protected asset: Asset;
+  protected assetId: number;
   private _type: AssetPropertyType;
 
   protected constructor(aType: AssetPropertyType) {
@@ -17,10 +18,15 @@ export abstract class AssetProperty {
 
   setAsset(aAsset: Asset) {
     this.asset = aAsset;
+    this.assetId = aAsset.id;
   }
 
   getAsset(): Asset {
     return this.asset;
+  }
+
+  getAssetId(): number {
+    return this.assetId;
   }
 
   isAddress(): boolean {

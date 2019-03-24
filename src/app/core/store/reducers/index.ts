@@ -2,8 +2,10 @@ import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 import * as fromAssetProperties from './asset-properties.reducer';
 import * as fromAssets from './assets.reducer';
 import * as fromCategories from './categories.reducer';
+import * as fromCrimeTypes from './crime-types.reducer';
 import * as fromDecisions from './decisions.reducer';
 import * as fromDefendants from './defendants.reducer';
+import * as fromIdentifiers from './identifiers.reducer';
 import * as fromInstitutions from './institutions.reducer';
 import * as fromLoading from './loading.reducer';
 import * as fromPrecautionaryMeasures from './precautionary-measures.reducer';
@@ -20,8 +22,10 @@ export interface CoreState {
   assets: fromAssets.AssetState;
   assetProperties: fromAssetProperties.AssetPropertyState;
   categories: fromCategories.CategoryState;
+  crimeTypes: fromCrimeTypes.CrimeTypesState;
   decisions: fromDecisions.DecisionState;
   defendants: fromDefendants.DefendantsState;
+  identifiers: fromIdentifiers.IdentifierState;
   institutions: fromInstitutions.InstitutionState;
   loading: fromLoading.LoadingState;
   precautionaryMeasures: fromPrecautionaryMeasures.PrecautionaryMeasureState;
@@ -35,8 +39,10 @@ export const reducers: ActionReducerMap<CoreState> = {
   assets: fromAssets.reducer,
   assetProperties: fromAssetProperties.reducer,
   categories: fromCategories.reducer,
+  crimeTypes: fromCrimeTypes.reducer,
   decisions: fromDecisions.reducer,
   defendants: fromDefendants.reducer,
+  identifiers: fromIdentifiers.reducer,
   institutions: fromInstitutions.reducer,
   loading: fromLoading.reducer,
   precautionaryMeasures: fromPrecautionaryMeasures.reducer,
@@ -51,8 +57,10 @@ export const getCoreState = createFeatureSelector<CoreState>('core');
 export { AssetState } from './assets.reducer';
 export { AssetPropertyState } from './asset-properties.reducer';
 export { CategoryState } from './categories.reducer';
+export { CrimeTypesState } from './crime-types.reducer';
 export { DecisionState } from './decisions.reducer';
 export { DefendantsState } from './defendants.reducer';
+export { IdentifierState } from './identifiers.reducer';
 export { InstitutionState } from './institutions.reducer';
 export { LoadingState } from './loading.reducer';
 export { PrecautionaryMeasureState } from './precautionary-measures.reducer';

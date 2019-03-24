@@ -1,5 +1,12 @@
 import { StageResponse } from './stage-response.interface';
 
+export enum StageType {
+  Confiscare = 'confiscare',
+  Sechestru = 'sechestru',
+  ValorificareAnticipata = 'valorificare anticipata',
+  ValorificareStandard = 'valorificare standard',
+}
+
 export class Stage {
   id: number;
   name: string;

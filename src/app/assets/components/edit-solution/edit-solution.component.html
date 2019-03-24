@@ -97,6 +97,19 @@
       />
     </mat-form-field>
 
+    <div class="column">
+      <mat-form-field>
+        <mat-select placeholder="Tip infractiune" name="crimeTypeId"
+                    formControlName="crimeTypeId"
+                    required
+        >
+          <mat-option *ngFor="let theCrime of crimeTypes" [value]="theCrime.id">
+            {{ theCrime.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <mat-slide-toggle color="primary"
                       [checked]="theSolution.solutionDetails.isDefinitive || false"
                       labelPosition="before"
