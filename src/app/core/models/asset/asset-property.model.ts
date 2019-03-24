@@ -1,4 +1,4 @@
-import { Asset } from '@app/core';
+import { Asset } from './asset.model';
 
 export enum AssetPropertyType {
   Address = 'Address',

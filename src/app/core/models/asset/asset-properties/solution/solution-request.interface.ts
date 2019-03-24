@@ -1,11 +1,8 @@
-import {
-  JournalResponse,
-  RecoveryDetailsResponse,
-  SolutionDetailsResponse,
-} from './index';
+import { RecoveryDetailsResponse, SolutionDetailsResponse } from '../../';
+import { JournalResponse } from '../../../';
+import { ConfiscationDetailsResponse, SequesterDetailsResponse } from './solution-response.interface';
 
-export interface SolutionResponse {
-  id: number;
+export interface SolutionRequest {
   stageId: number;
   decisionId: number;
   institutionId: number;
@@ -16,12 +13,4 @@ export interface SolutionResponse {
   recoveryDetails: RecoveryDetailsResponse;
   solutionDetails: SolutionDetailsResponse;
   journal: JournalResponse;
-}
-
-export interface ConfiscationDetailsResponse {
-  recoveryBeneficiaryId: number;
-}
-
-export interface SequesterDetailsResponse {
-  precautionaryMeasureId: number;
 }

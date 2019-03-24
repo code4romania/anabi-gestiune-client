@@ -1,5 +1,5 @@
+import { AssetProperty, AssetPropertyType } from '../asset-property.model';
 import { Address } from './address.model';
-import { AssetProperty, AssetPropertyType } from './asset-property.model';
 
 export class StorageSpace extends AssetProperty {
   id: number;

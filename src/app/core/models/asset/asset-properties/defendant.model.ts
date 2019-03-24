@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { AssetProperty, AssetPropertyType } from './asset-property.model';
+import { AssetProperty, AssetPropertyType } from '../asset-property.model';
 import { DefendantForm, DefendantType } from './defendant-form.model';
 
 export class Defendant extends AssetProperty {

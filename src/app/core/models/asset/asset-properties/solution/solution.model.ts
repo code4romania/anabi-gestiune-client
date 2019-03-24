@@ -1,11 +1,13 @@
 import * as moment from 'moment';
 
-import { AssetProperty, AssetPropertyType } from './asset-property.model';
-import { Asset } from './asset.model';
-import { Decision } from './decision.model';
-import { Institution } from './institution.model';
-import { Journal } from './journal.model';
+import { Decision } from '../../../decision.model';
+import { Institution } from '../../../institution.model';
+import { Journal } from '../../../journal.model';
+import { Stage } from '../../../stage.model';
 import { RecoveryDetails } from './recovery-details.model';
+
+import { AssetProperty, AssetPropertyType } from '../../asset-property.model';
+
 import { SolutionDetails } from './solution-details.model';
 import { SolutionRequest } from './solution-request.interface';
 import {
@@ -13,7 +15,6 @@ import {
   SequesterDetailsResponse,
   SolutionResponse
 } from './solution-response.interface';
-import { Stage } from './stage.model';
 
 export class Solution extends AssetProperty {
   id: number;

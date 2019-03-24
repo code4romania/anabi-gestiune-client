@@ -1,4 +1,4 @@
-import { JournalResponse } from './journal-response.interface';
+import { JournalResponse } from '../../journal-response.interface';
 
 export interface DefendantResponse {
   idNumber: string;

@@ -1,10 +1,7 @@
 import * as moment from 'moment';
 
-import { AssetResponse } from './asset-response.interface';
-import { Asset } from './asset.model';
+import { Asset, AssetResponse, Solution } from './';
 import { PrecautionaryMeasureResponse } from './precautionary-measure-response.interface';
-import { PrecautionaryMeasure } from './precautionary-measure.model';
-import { Solution } from './solution.model';
 
 const firstAsset = new Asset();
 firstAsset.fromAssetResponseJson({

@@ -1,9 +1,9 @@
+import { Category } from '../category.model';
+import { Journal } from '../journal.model';
+import { Stage } from '../stage.model';
 import { AssetDetailResponse } from './asset-detail-response.interface';
 import { AssetRequest } from './asset-request.interface';
 import { AssetResponse } from './asset-response.interface';
-import { Category } from './category.model';
-import { Journal } from './journal.model';
-import { Stage } from './stage.model';
 
 export class Asset {
   // details
