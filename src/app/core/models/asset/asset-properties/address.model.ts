@@ -1,8 +1,8 @@
+import { AssetProperty, AssetPropertyType } from '../asset-property.model';
 import { AddressResponse } from './address-response.interface';
-import { AssetProperty, AssetPropertyType } from './asset-property.model';
 import { County } from './county.model';
 
-export class Address extends  AssetProperty {
+export class Address extends AssetProperty {
   id: number;
   countyId: number = null;
   county: County;

@@ -7,6 +7,7 @@ import {
   PrecautionaryMeasure,
   RecoveryBeneficiary,
   RecoveryDetails,
+  RecoveryDetailsResponse,
   Solution,
   SolutionDetails,
   SolutionDetailsResponse,
@@ -16,7 +17,6 @@ import {
 
 import { cloneDeep } from 'lodash';
 import * as moment from 'moment';
-import { RecoveryDetailsResponse } from '../../../core/models/recovery-details-response.interface';
 
 export interface SolutionFormValue {
   source: string;

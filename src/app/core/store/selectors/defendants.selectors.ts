@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { Defendant } from '@app/core/models/defendant.model';
+import { Defendant } from '@app/core/models/asset/asset-properties/defendant.model';
 import * as fromFeature from '../reducers';
 import * as fromDefendants from '../reducers/defendants.reducer';
 

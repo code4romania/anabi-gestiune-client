@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Defendant } from '../../models';
+import { Asset, Defendant } from '../../models';
 
 // create defendant
 export const DEFENDANT_CREATE = '[Defendants] Create Defendant';
@@ -38,7 +38,12 @@ export class LoadDefendantsFail implements Action {
 
 export class LoadDefendantsSuccess implements Action {
   readonly type: string = DEFENDANTS_LOAD_SUCCESS;
-  constructor(public payload: Defendant[]) {}
+  constructor(public payload: DefendantsSuccessPayload) {}
+}
+
+export interface DefendantsSuccessPayload {
+  defendants: Defendant[];
+  asset: Asset;
 }
 
 // action types

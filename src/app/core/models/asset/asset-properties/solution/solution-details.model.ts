@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { SolutionDetailsResponse } from './index';
+import { SolutionDetailsResponse } from './solution-details-response.interface';
 
 export class SolutionDetails {
   source: string = '';

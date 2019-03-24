@@ -1,4 +1,4 @@
-import { Address } from './address.model';
+import { Address } from './asset';
 import { Category } from './category.model';
 import { InstitutionResponse } from './institution-response.interface';
 

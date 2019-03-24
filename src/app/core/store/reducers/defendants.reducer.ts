@@ -1,4 +1,3 @@
-import { first } from 'lodash';
 import { Defendant } from '../../models';
 import * as fromDefendants from '../actions/defendants.action';
 
@@ -61,8 +60,9 @@ export function reducer(
     }
 
     case fromDefendants.DEFENDANTS_LOAD_SUCCESS: {
-      const theDefendants: Defendant[] = action.payload;
-      const theAssetId = first(theDefendants).getAssetId();
+      const thePayload: fromDefendants.DefendantsSuccessPayload = action.payload;
+      const theDefendants: Defendant[] = thePayload.defendants;
+      const theAssetId = thePayload.asset.id;
 
       const entities = theDefendants.reduce((aEntities: { [id: number]: Defendant }, aDefendant: Defendant) => {
         return {
