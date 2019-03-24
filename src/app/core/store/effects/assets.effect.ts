@@ -13,7 +13,7 @@ export class AssetsEffects {
   @Effect()
   loadAssets$ = this.actions$
     .pipe(
-      ofType(assetActions.LOAD_ASSETS),
+      ofType(assetActions.AssetActionTypes.LoadAssets),
       switchMap(() => {
         return this.assetsService
           .list()
@@ -27,7 +27,7 @@ export class AssetsEffects {
   @Effect()
   loadAssetDetail$ = this.actions$
     .pipe(
-      ofType(assetActions.LOAD_ASSET_DETAIL),
+      ofType(assetActions.AssetActionTypes.LoadAssetDetail),
       map((action: assetActions.LoadAssetDetail) => action.payload),
       switchMap((aPayload) => {
         return this.assetsService
@@ -42,7 +42,7 @@ export class AssetsEffects {
   @Effect()
   updateAsset$ = this.actions$
     .pipe(
-      ofType(assetActions.ASSET_UPDATE),
+      ofType(assetActions.AssetActionTypes.UpdateAsset),
       map((action: assetActions.UpdateAsset) => action.payload),
       switchMap(aPayload => {
         return this.assetsService.update(aPayload).pipe(
@@ -55,7 +55,7 @@ export class AssetsEffects {
   @Effect()
   showLoading$ = this.actions$
     .pipe(
-      ofType(assetActions.LOAD_ASSETS, assetActions.LOAD_ASSET_DETAIL),
+      ofType(assetActions.AssetActionTypes.LoadAssets, assetActions.AssetActionTypes.LoadAssetDetail),
       mapTo(new loadingActions.ShowLoading())
     );
 
@@ -63,16 +63,17 @@ export class AssetsEffects {
   hideLoading$ = this.actions$
     .pipe(
       ofType(
-        assetActions.LOAD_ASSETS_FAIL,
-        assetActions.LOAD_ASSETS_SUCCESS,
-        assetActions.LOAD_ASSET_DETAIL_FAIL,
-        assetActions.LOAD_ASSET_DETAIL_SUCCESS
+        assetActions.AssetActionTypes.LoadAssetsFail,
+        assetActions.AssetActionTypes.LoadAssetsSuccess,
+        assetActions.AssetActionTypes.LoadAssetDetailFail,
+        assetActions.AssetActionTypes.LoadAssetDetailSuccess
       ),
       mapTo(new loadingActions.HideLoading())
     );
 
-  constructor(private actions$: Actions,
-              private assetsService: AssetsService
+  constructor(
+    private actions$: Actions,
+    private assetsService: AssetsService
   ) {
   }
 }

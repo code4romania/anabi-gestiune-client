@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
-import { map, mapTo } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Address } from '../../models';
 import * as addressesActions from '../actions/addresses.action';
@@ -12,7 +12,7 @@ export class AddressesEffect {
   @Effect()
   createAddress$ = this.actions$
     .pipe(
-      ofType(addressesActions.ADDRESS_CREATE),
+      ofType(addressesActions.AddressActionTypes.CreateAddress),
       map((action: addressesActions.CreateAddress) => action.payload),
       map(aPayload => new addressesActions.CreateAddressSuccess(aPayload))
     );
@@ -20,7 +20,7 @@ export class AddressesEffect {
   @Effect()
   createAddressSuccess$ = this.actions$
     .pipe(
-      ofType(addressesActions.ADDRESS_CREATE_SUCCESS),
+      ofType(addressesActions.AddressActionTypes.CreateAddressSuccess),
       map((action: addressesActions.CreateAddressSuccess) => action.payload),
       map((aAddress: Address) => new assetPropertiesActions.DeleteProperty(aAddress.getAsset().id))
     );

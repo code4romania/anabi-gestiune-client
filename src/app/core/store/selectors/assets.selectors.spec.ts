@@ -1,3 +1,4 @@
+import { Asset } from '@app/core';
 import { AssetState } from '../reducers/assets.reducer';
 import { CoreState, State } from '../reducers/index';
 import * as fromSelectors from './assets.selectors';
@@ -11,7 +12,16 @@ describe('Assets Selectors', () => {
   const theAssets = mockAssets;
 
   const getEntitiesAsArray = (aState: State) => {
-    return Object.keys(aState.core.assets.entities).map(id => aState.core.assets.entities[id]);
+    return Object.keys(aState.core.assets.entities).map(id => new Asset(aState.core.assets.entities[id]));
+  };
+
+  const getEntitiesAsObjects = (aState: State) => {
+    const theEntities: { [id: number]: Asset } = {};
+    Object.keys(aState.core.assets.entities).map(id => {
+      theEntities[id] = new Asset(aState.core.assets.entities[id]);
+    });
+
+    return theEntities;
   };
 
   beforeEach(() => {
@@ -19,9 +29,9 @@ describe('Assets Selectors', () => {
       core: {
         assets: {
           entities: {
-            1: theAssets[0],
-            2: theAssets[1],
-            3: mockDetailedAsset,
+            1: theAssets[0].toJson(),
+            2: theAssets[1].toJson(),
+            3: mockDetailedAsset.toJson(),
           },
           loaded: true,
           loading: false,
@@ -40,7 +50,7 @@ describe('Assets Selectors', () => {
 
   describe('getAssetsEntities', () => {
     it('should get the entities', () => {
-      expect(fromSelectors.getAssetsEntities(state)).toEqual(coreState.assets.entities);
+      expect(fromSelectors.getAssetsEntities(state)).toEqual(getEntitiesAsObjects(state));
     });
   });
 
@@ -65,7 +75,7 @@ describe('Assets Selectors', () => {
 
   describe('getAssetById', () => {
     it('should get an asset by id', () => {
-      expect(fromSelectors.getAssetById(1)(state)).toEqual(coreState.assets.entities[1]);
+      expect(fromSelectors.getAssetById(1)(state)).toEqual(getEntitiesAsObjects(state)[1]);
     });
 
     it('should return undefined if the id is not found', () => {

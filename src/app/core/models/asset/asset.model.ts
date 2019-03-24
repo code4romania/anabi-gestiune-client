@@ -1,9 +1,25 @@
-import { Category } from '../category.model';
-import { Journal } from '../journal.model';
-import { Stage } from '../stage.model';
+import { Category, ICategory } from '../category.model';
+import { IJournal, Journal } from '../journal.model';
+import { IStage, Stage } from '../stage.model';
 import { AssetDetailResponse } from './asset-detail-response.interface';
-import { AssetRequest } from './asset-request.interface';
 import { AssetResponse } from './asset-response.interface';
+
+export interface IAsset {
+  id: number;
+  name: string;
+  description: string;
+  identifier: string;
+  remarks: string;
+  quantity: number;
+  measureUnit: string;
+  estimatedAmount: number;
+  estimatedAmountCurrency: string;
+  category: ICategory;
+  subcategory: ICategory;
+  stage: IStage;
+  journal: IJournal;
+  hasDetails: boolean;
+}
 
 export class Asset {
   // details
@@ -25,7 +41,10 @@ export class Asset {
 
   private hasDetails = false;
 
-  constructor() {
+  constructor(aData?: IAsset) {
+    if (aData) {
+      this.fromJson(aData);
+    }
   }
 
   get value(): string {
@@ -85,9 +104,9 @@ export class Asset {
 
   fromForm(aJson: any) {
     this.name = aJson.name;
-    this.category = aJson.category;
-    this.subcategory = aJson.subcategory;
-    this.stage = aJson.stage;
+    this.category = aJson.category ? new Category(aJson.category) : undefined;
+    this.subcategory = aJson.subcategory ? new Category(aJson.subcategory) : undefined;
+    this.stage = aJson.stage ? new Stage(aJson.stage) : undefined;
     this.description = aJson.description || undefined;
     this.identifier = aJson.identifier || undefined;
     this.remarks = aJson.remarks || undefined;
@@ -97,12 +116,30 @@ export class Asset {
     this.estimatedAmountCurrency = aJson.estimatedAmountCurrency || undefined;
   }
 
-  toJson(): AssetRequest {
+  fromJson(aJson: IAsset) {
+    this.id = aJson.id;
+    this.name = aJson.name;
+    this.category = aJson.category ? new Category(aJson.category) : undefined;
+    this.subcategory = aJson.subcategory ? new Category(aJson.subcategory) : undefined;
+    this.stage = aJson.stage ? new Stage(aJson.stage) : undefined;
+    this.description = aJson.description || undefined;
+    this.identifier = aJson.identifier || undefined;
+    this.remarks = aJson.remarks || undefined;
+    this.quantity = aJson.quantity || undefined;
+    this.measureUnit = aJson.measureUnit || undefined;
+    this.estimatedAmount = aJson.estimatedAmount || undefined;
+    this.estimatedAmountCurrency = aJson.estimatedAmountCurrency || undefined;
+    this.journal = aJson.journal ? new Journal(aJson.journal) : undefined;
+    this.hasDetails = aJson.hasDetails;
+  }
+
+  toJson(): IAsset {
     return {
+      id: this.id,
       name: this.name,
-      categoryId: this.category ? this.category.id : null,
-      subcategoryId: this.subcategory ? this.subcategory.id : null,
-      stageId: this.stage ? this.stage.id : null,
+      category: this.category ? this.category.toJson() : undefined,
+      subcategory: this.subcategory ? this.subcategory.toJson() : undefined,
+      stage: this.stage ? this.stage.toJson() : undefined,
       quantity: this.quantity,
       measureUnit: this.measureUnit,
       estimatedAmount: this.estimatedAmount,
@@ -110,6 +147,8 @@ export class Asset {
       description: this.description,
       identifier: this.identifier,
       remarks: this.remarks,
-    } as AssetRequest;
+      journal: this.journal ? this.journal.toJson() : undefined,
+      hasDetails: this.hasDetails,
+    } as IAsset;
   }
 }

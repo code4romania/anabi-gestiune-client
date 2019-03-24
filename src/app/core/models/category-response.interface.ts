@@ -3,6 +3,6 @@ export interface CategoryResponse {
   code: string;
   description: string;
   parentId: number;
-  parent: number;
+  parent?: any;
   forEntity?: string;
 }

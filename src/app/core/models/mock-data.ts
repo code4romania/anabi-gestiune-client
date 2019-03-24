@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { Asset, AssetResponse, Solution } from './';
+import { Asset, AssetResponse, Category, CategoryEntity, CategoryResponse, Solution } from './';
 import { PrecautionaryMeasureResponse } from './precautionary-measure-response.interface';
 
 const firstAsset = new Asset();
@@ -235,3 +235,40 @@ export const precautionaryMeasures: PrecautionaryMeasureResponse[] = [
     name: 'Despagubiri acordate statului',
   } as PrecautionaryMeasureResponse,
 ];
+
+export const categoriesResponse: CategoryResponse[] = [
+  {
+    id: 1,
+    code: 'First category',
+    description: 'First category description',
+    parentId: null,
+    forEntity: CategoryEntity.Asset as string,
+  } as CategoryResponse,
+  {
+    id: 2,
+    code: 'Second category',
+    description: 'Second category description',
+    parentId: null,
+    forEntity: 'test',
+  } as CategoryResponse,
+  {
+    id: 3,
+    code: 'Third category',
+    description: 'Third category description',
+    parentId: 1,
+    forEntity: CategoryEntity.Asset as string,
+  } as CategoryResponse,
+  {
+    id: 4,
+    code: 'Fourth category',
+    description: 'Fourth category description',
+    parentId: 1,
+    forEntity: 'test',
+  } as CategoryResponse,
+];
+
+export const categories: Category[] = categoriesResponse.map(aCategoryResponse => {
+  const theCategory = new Category();
+  theCategory.fromResponse(aCategoryResponse);
+  return theCategory;
+});

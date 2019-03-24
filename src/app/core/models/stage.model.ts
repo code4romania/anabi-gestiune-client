@@ -7,13 +7,20 @@ export enum StageType {
   ValorificareStandard = 'valorificare standard',
 }
 
+export interface IStage {
+  id: number;
+  name: string;
+  isFinal: boolean;
+  isRecovery: boolean;
+}
+
 export class Stage {
   id: number;
   name: string;
   isFinal: boolean;
   isRecovery: boolean;
 
-  constructor(aData?: StageResponse) {
+  constructor(aData?: IStage) {
     if (aData) {
       this.fromJson(aData);
     }
@@ -23,19 +30,19 @@ export class Stage {
     return this.name ? this.name.toLowerCase() : undefined;
   }
 
-  fromJson(aJson: StageResponse) {
+  fromJson(aJson: IStage) {
     this.id = aJson.id;
     this.name = aJson.name;
     this.isFinal = aJson.isFinal;
     this.isRecovery = aJson.isRecovery;
   }
 
-  toJson(): StageResponse {
+  toJson(): IStage {
     return {
       id: this.id,
       name: this.name,
       isFinal: this.isFinal,
       isRecovery: this.isRecovery,
-    } as StageResponse;
+    } as IStage;
   }
 }

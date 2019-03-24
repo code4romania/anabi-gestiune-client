@@ -1,23 +1,25 @@
 import { Action } from '@ngrx/store';
 import { Category } from '../../models';
 
-// load categories
-export const LOAD_CATEGORIES = '[Categories] Load Categories';
-export const LOAD_CATEGORIES_FAIL = '[Categories] Load Categories Fail';
-export const LOAD_CATEGORIES_SUCCESS = '[Categories] Load Categories Success';
+export enum CategoryActionTypes {
+  LoadCategories = '[Categories] Load Categories',
+  LoadCategoriesFail = '[Categories] Load Categories Fail',
+  LoadCategoriesSuccess = '[Categories] Load Categories Success',
+}
 
+// load categories
 export class LoadCategories implements Action {
-  readonly type: string = LOAD_CATEGORIES;
+  readonly type: string = CategoryActionTypes.LoadCategories;
   constructor(public payload?: any) {}
 }
 
 export class LoadCategoriesFail implements Action {
-  readonly type: string = LOAD_CATEGORIES_FAIL;
+  readonly type: string = CategoryActionTypes.LoadCategoriesFail;
   constructor(public payload: any) {}
 }
 
 export class LoadCategoriesSuccess implements Action {
-  readonly type: string = LOAD_CATEGORIES_SUCCESS;
+  readonly type: string = CategoryActionTypes.LoadCategoriesSuccess;
   constructor(public payload: Category[]) {}
 }
 
