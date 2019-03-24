@@ -3,26 +3,22 @@
 
   <form [formGroup]="solutionForm" class="column">
     <mat-form-field>
-      <input matInput #source name="source"
+      <input matInput
+             name="source"
              maxlength="100"
              placeholder="Sursa"
              required
-             [(ngModel)]="theSolution.solutionDetails.source"
              formControlName="source"
       />
     </mat-form-field>
 
-    <mat-slide-toggle color="primary"
-                      [checked]="theSolution.solutionDetails.sentOnEmail || false"
-                      formControlName="sentOnEmail">Trimis pe email</mat-slide-toggle>
-
     <div class="row">
       <mat-form-field>
-        <input matInput #fileNumber name="fileNumber"
+        <input matInput
+               name="fileNumber"
                maxlength="100"
-               placeholder="Nr. dosar"
+               placeholder="Numar dosar"
                required
-               [(ngModel)]="theSolution.solutionDetails.fileNumber"
                formControlName="fileNumber"
         />
       </mat-form-field>
@@ -30,26 +26,48 @@
       <div class="spacer"></div>
 
       <mat-form-field>
-        <input matInput #fileNumberParquet name="fileNumberParquet"
-               maxlength="100"
-               placeholder="Nr. dosar la parchet"
-               required
-               [(ngModel)]="theSolution.solutionDetails.fileNumberParquet"
-               formControlName="fileNumberParquet"
-        />
+        <mat-select placeholder="Instanta" name="institution"
+                    formControlName="institution"
+                    required
+        >
+          <mat-option *ngFor="let theInstitution of institutions" [value]="theInstitution">
+            {{ theInstitution.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
     <mat-form-field>
-      <mat-select placeholder="Institutie" name="institution"
-                  [(ngModel)]="theSolution.institution"
-                  formControlName="institution"
-                  required
-      >
-        <mat-option *ngFor="let theInstitution of institutions" [value]="theInstitution">
-          {{ theInstitution.name }}
-        </mat-option>
-      </mat-select>
+      <input matInput
+             name="fileNumberParquet"
+             maxlength="100"
+             placeholder="Numar dosar la parchet"
+             required
+             formControlName="fileNumberParquet"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             name="decisionNumber"
+             maxlength="100"
+             placeholder="Numar document"
+             formControlName="decisionNumber"
+             required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput
+             name="decisionDate"
+             formControlName="decisionDate"
+             [matDatepicker]="theDecisionDatePicker"
+             placeholder="Data emiterii"
+             required
+
+      />
+      <mat-datepicker-toggle matSuffix [for]="theDecisionDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #theDecisionDatePicker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>
@@ -57,7 +75,7 @@
              name="receivingDate"
              formControlName="receivingDate"
              [matDatepicker]="theDatePicker"
-             placeholder="Data primire document"
+             placeholder="Data primirii la ANABI"
              required
 
       />
@@ -65,55 +83,109 @@
       <mat-datepicker #theDatePicker></mat-datepicker>
     </mat-form-field>
 
-    <div class="row">
+    <mat-slide-toggle color="primary"
+                      [checked]="theSolution.solutionDetails.sentOnEmail || false"
+                      labelPosition="before"
+                      formControlName="sentOnEmail"
+    >Primita pe mail: {{ theSolution.solutionDetails.sentOnEmail ? 'Da' : 'Nu' }}</mat-slide-toggle>
+
+    <mat-form-field>
+      <input matInput
+             name="legalBasis"
+             placeholder="Temei legal"
+             formControlName="legalBasis"
+      />
+    </mat-form-field>
+
+    <div class="column">
       <mat-form-field>
-        <input matInput #decisionNumber name="decisionNumber"
-               maxlength="100"
-               placeholder="Nr. document"
-               [(ngModel)]="theSolution.decisionNumber"
-               formControlName="decisionNumber"
-               required
-        />
-      </mat-form-field>
-
-      <div class="spacer"></div>
-
-      <mat-form-field>
-        <input matInput
-               name="decisionDate"
-               formControlName="decisionDate"
-               [matDatepicker]="theDecisionDatePicker"
-               placeholder="Data document"
-               required
-
-        />
-        <mat-datepicker-toggle matSuffix [for]="theDecisionDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #theDecisionDatePicker></mat-datepicker>
+        <mat-select placeholder="Tip infractiune" name="crimeTypeId"
+                    formControlName="crimeTypeId"
+                    required
+        >
+          <mat-option *ngFor="let theCrime of crimeTypes" [value]="theCrime.id">
+            {{ theCrime.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
+    <mat-slide-toggle color="primary"
+                      [checked]="theSolution.solutionDetails.isDefinitive || false"
+                      labelPosition="before"
+                      formControlName="isDefinitive"
+    >Definitiva: {{ theSolution.solutionDetails.isDefinitive ? 'Da' : 'Nu' }}</mat-slide-toggle>
+
+    <mat-form-field>
+      <input matInput
+             name="definitiveDate"
+             formControlName="definitiveDate"
+             [matDatepicker]="theDefinitiveDatePicker"
+             placeholder="Data ramanerii definitive"
+             required
+
+      />
+      <mat-datepicker-toggle matSuffix [for]="theDefinitiveDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #theDefinitiveDatePicker></mat-datepicker>
+    </mat-form-field>
+
     <div class="row">
-      <div class="cell">
-        <mat-slide-toggle color="primary"
-                          [checked]="theSolution.solutionDetails.isDefinitive || false"
-                          formControlName="isDefinitive">Definitiva</mat-slide-toggle>
+      end
+    </div>
+
+    <div class="column">
+      <h3>Stare actuala bun: [ {{ getCurrentStage() }} ]</h3>
+
+      <div class="row">
+        <div class="cell column">
+          <mat-radio-group formControlName="changeStage" class="column">
+            <mat-radio-button [value]="false">Pastrez starea actuala</mat-radio-button>
+            <mat-radio-button [value]="true">Schimb starea bunului</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="cell" *ngIf="solutionForm.get('changeStage').value">
+          <mat-form-field>
+            <mat-select
+              placeholder="Stare noua bun"
+              formControlName="stage"
+            >
+              <mat-option *ngFor="let theStage of stages" [value]="theStage">
+                {{ theStage.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
+    </div>
 
-      <div class="spacer"></div>
-
+    <div class="column" *ngIf="solutionForm.controls.precautionaryMeasureId">
       <mat-form-field>
-        <input matInput
-               name="definitiveDate"
-               formControlName="definitiveDate"
-               [matDatepicker]="theDefinitiveDatePicker"
-               placeholder="Data ramanerii definitive"
-               required
-
-        />
-        <mat-datepicker-toggle matSuffix [for]="theDefinitiveDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #theDefinitiveDatePicker></mat-datepicker>
+        <mat-select placeholder="Scop masura asiguratorie" name="precautionaryMeasureId"
+                    formControlName="precautionaryMeasureId"
+                    required
+        >
+          <mat-option *ngFor="let theMeasure of precautionaryMeasures" [value]="theMeasure.id">
+            {{ theMeasure.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
+
+    <div class="column" *ngIf="solutionForm.controls.recoveryBeneficiaryId">
+      <mat-form-field>
+        <mat-select placeholder="Autoritatea catre care se fac despagubirile" name="recoveryBeneficiaryId"
+                    formControlName="recoveryBeneficiaryId"
+                    required
+        >
+          <mat-option *ngFor="let theBeneficiary of recoveryBeneficiaries" [value]="theBeneficiary.id">
+            {{ theBeneficiary.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="separator"></div>
 
     <mat-form-field>
       <input matInput
@@ -128,17 +200,9 @@
       <mat-datepicker #theSentToAuthoritiesDatePicker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput #legalBasis name="legalBasis"
-             placeholder="Temei legal"
-             [(ngModel)]="theSolution.solutionDetails.legalBasis"
-             formControlName="legalBasis"
-      />
-    </mat-form-field>
 
     <mat-form-field>
       <mat-select placeholder="Tip solutie" name="decision"
-                  [(ngModel)]="theSolution.decision"
                   formControlName="decision"
                   required
       >
@@ -150,7 +214,6 @@
 
     <mat-form-field>
       <mat-select placeholder="Tip masura" name="stage"
-                  [(ngModel)]="theSolution.stage"
                   formControlName="stage"
                   required
       >
@@ -161,10 +224,10 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput #personResponsible name="personResponsible"
+      <input matInput
+             name="personResponsible"
              maxlength="100"
              placeholder="Persoana responsabila"
-             [(ngModel)]="theSolution.recoveryDetails.personResponsible"
              formControlName="personResponsible"
              required
       />

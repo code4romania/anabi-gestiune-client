@@ -37,7 +37,19 @@ export class AssetsGuard implements CanActivate {
       this.store.pipe(select(fromStore.getAssetsLoaded)),
       this.store.pipe(select(fromStore.getInstitutionsLoaded)),
       this.store.pipe(select(fromStore.getDecisionsLoaded)),
-      (aAssetsLoaded: boolean, aInstitutionsLoaded: boolean, aDecisionsLoaded: boolean) => {
+      this.store.pipe(select(fromStore.getPrecautionaryMeasuresLoaded)),
+      this.store.pipe(select(fromStore.getRecoveryBeneficiariesLoaded)),
+      this.store.pipe(select(fromStore.getCrimeTypesLoaded)),
+      this.store.pipe(select(fromStore.getIdentifiersLoaded)),
+      (
+        aAssetsLoaded: boolean,
+        aInstitutionsLoaded: boolean,
+        aDecisionsLoaded: boolean,
+        aMeasuresLoaded: boolean,
+        aBeneficiariesLoaded: boolean,
+        aCrimeTypesLoaded: boolean,
+        aIdentifiersLoaded: boolean
+      ) => {
         let allLoaded = true;
         if (!aAssetsLoaded) {
           this.store.dispatch(new fromStore.LoadAssets());
@@ -51,6 +63,26 @@ export class AssetsGuard implements CanActivate {
 
         if (!aDecisionsLoaded) {
           this.store.dispatch(new fromStore.LoadDecisions());
+          allLoaded = false;
+        }
+
+        if (!aMeasuresLoaded) {
+          this.store.dispatch(new fromStore.LoadPrecautionaryMeasures());
+          allLoaded = false;
+        }
+
+        if (!aBeneficiariesLoaded) {
+          this.store.dispatch(new fromStore.LoadRecoveryBeneficiaries());
+          allLoaded = false;
+        }
+
+        if (!aCrimeTypesLoaded) {
+          this.store.dispatch(new fromStore.LoadCrimeTypes());
+          allLoaded = false;
+        }
+
+        if (!aIdentifiersLoaded) {
+          this.store.dispatch(new fromStore.LoadIdentifiers());
           allLoaded = false;
         }
 

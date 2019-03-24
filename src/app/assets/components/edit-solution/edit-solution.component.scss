@@ -7,6 +7,15 @@
   h2 {
     @include material-card-title();
   }
+
+  form {
+  }
+}
+
+.mat-slide-toggle {
+  ::ng-deep .mat-slide-toggle-label {
+    justify-content: space-between;
+  }
 }
 
 .column {
@@ -33,4 +42,16 @@
   .spacer {
     flex-basis: 10px;
   }
+}
+
+.column {
+  @include flex-column();
+}
+
+.separator {
+  @include flex-grow(1);
+  height: 2px;
+  background-color: black;
+  margin: 16px 0;
+
 }

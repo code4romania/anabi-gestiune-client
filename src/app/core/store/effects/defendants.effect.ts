@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
-import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import { Defendant } from '../../models';
+import { DefendantsService } from '../../services';
 import * as assetPropertiesActions from '../actions/asset-properties.action';
 import * as defendantsActions from '../actions/defendants.action';
+import * as assetSelectors from '../selectors/assets.selectors';
+
+import { select, Store } from '@ngrx/store';
+import { AssetState } from '../reducers';
 
 @Injectable()
 export class DefendantsEffects {
@@ -14,7 +20,12 @@ export class DefendantsEffects {
     .pipe(
       ofType(defendantsActions.DEFENDANT_CREATE),
       map((action: defendantsActions.CreateDefendant) => action.payload),
-      map(aPayload => new defendantsActions.CreateDefendantSuccess(aPayload))
+      switchMap(aPayload => {
+        return this.defendantsService.createDefendant$(aPayload).pipe(
+          map(aDefendant => new defendantsActions.CreateDefendantSuccess(aDefendant)),
+          catchError(error => of(new defendantsActions.CreateDefendantFail(error)))
+        );
+      })
     );
 
   @Effect()
@@ -25,6 +36,25 @@ export class DefendantsEffects {
       map((aDefendant: Defendant) => new assetPropertiesActions.DeleteProperty(aDefendant.getAsset().id))
     );
 
-  constructor(private actions$: Actions) {
+  @Effect()
+  loadDefendants$ = this.actions$
+    .pipe(
+      ofType(defendantsActions.DEFENDANTS_LOAD),
+      map((action: defendantsActions.LoadDefendants) => action.payload),
+      mergeMap(aAssetId => this.store.pipe(select(assetSelectors.getAssetById(aAssetId)))),
+      filter(aAsset => aAsset !== undefined),
+      switchMap((aAsset) => {
+        return this.defendantsService.getDefendants$(aAsset).pipe(
+          map(aDefendants => new defendantsActions.LoadDefendantsSuccess(aDefendants)),
+          catchError(() => of(new defendantsActions.LoadDefendantsFail(aAsset.id)))
+        );
+      })
+    );
+
+  constructor(
+    private actions$: Actions,
+    private defendantsService: DefendantsService,
+    private store: Store<AssetState>
+  ) {
   }
 }
