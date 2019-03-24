@@ -68,6 +68,10 @@ export class Solution extends AssetProperty {
     return this.stage;
   }
 
+  setSolutionDetails(aSolutionDetails: SolutionDetails) {
+    this.solutionDetails = aSolutionDetails;
+  }
+
   fromJson(aJson: SolutionResponse) {
     this.id = aJson.id;
     this.stageId = aJson.stageId;

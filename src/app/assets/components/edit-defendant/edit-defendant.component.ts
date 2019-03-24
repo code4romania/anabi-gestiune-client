@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Defendant, DefendantForm, DefendantType, ROMANIA, Solution } from '@app/core/models';
+import { Defendant, DefendantType, Identifier, ROMANIA } from '@app/core/models';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -11,6 +11,7 @@ import { cloneDeep } from 'lodash';
 export class EditDefendantComponent implements OnInit {
 
   @Input() defendant: Defendant;
+  @Input() identifiers: Identifier[];
   @Output() onUpdate: EventEmitter<Defendant> = new EventEmitter<Defendant>();
   @Output() onCancel: EventEmitter<Defendant> = new EventEmitter<Defendant>();
   @Output() onSave: EventEmitter<Defendant> = new EventEmitter<Defendant>();
@@ -21,7 +22,6 @@ export class EditDefendantComponent implements OnInit {
     DefendantType.Company,
   ];
 
-  selectedDefendantTypeOption: string;
   defendantForm: FormGroup;
 
   ngOnInit() {
@@ -45,6 +45,7 @@ export class EditDefendantComponent implements OnInit {
           this.theDefendant.nationality,
           [Validators.required]
         ),
+        pfIdentifierType: new FormControl(this.theDefendant.identifierId, [ Validators.required ]),
         pfIdentifier: new FormControl(
           this.theDefendant.identification,
           [Validators.required]
@@ -62,6 +63,7 @@ export class EditDefendantComponent implements OnInit {
           this.theDefendant.nationality,
           [Validators.required]
         ),
+        pjIdentifierType: new FormControl(this.theDefendant.identifierId, [ Validators.required ]),
         pjIdentifier: new FormControl(
           this.theDefendant.identification,
           [Validators.required]
@@ -102,6 +104,14 @@ export class EditDefendantComponent implements OnInit {
 
   isRomania(aCountry: string) {
     return aCountry === ROMANIA;
+  }
+
+  get personIdentifiers(): Identifier[] {
+    return this.identifiers.filter((aIdentifier: Identifier) => !aIdentifier.isForCompany);
+  }
+
+  get companyIdentifiers(): Identifier[] {
+    return this.identifiers.filter((aIdentifier: Identifier) => aIdentifier.isForCompany);
   }
 
   cancel() {

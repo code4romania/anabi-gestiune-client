@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { AssetProperty, AssetPropertyType } from './asset-property.model';
 import { DefendantForm, DefendantType } from './defendant-form.model';
 
@@ -8,7 +9,7 @@ export class Defendant extends AssetProperty {
   identification: string;
   isPerson: boolean;
   name: string;
-  birthdate: string;
+  birthdate: moment.Moment;
   firstName: string;
   identifierId: number;
   nationality: string;
@@ -28,10 +29,11 @@ export class Defendant extends AssetProperty {
     this.identification = aJson.identification;
     this.isPerson = aJson.isPerson;
     this.name = aJson.name;
-    this.birthdate = aJson.birthdate;
+    this.birthdate = moment(aJson.birthdate, moment.ISO_8601);
     this.firstName = aJson.firstName;
     this.identifierId = aJson.identifierId;
     this.nationality = aJson.nationality;
+    this.assetId = aJson.assetId;
   }
 
   fromForm(aForm: DefendantForm) {
@@ -42,12 +44,14 @@ export class Defendant extends AssetProperty {
         this.firstName = aForm.pf.pfFirstName;
         this.nationality = aForm.pf.pfNationality;
         this.identification = aForm.pf.pfIdentifier;
-        this.birthdate = aForm.pf.pfBirthDate;
+        this.identifierId = aForm.pf.pfIdentifierType;
+        this.birthdate = moment(aForm.pf.pfBirthDate, moment.ISO_8601);
       } else {
         this.isPerson = false;
         this.name = aForm.pj.pjName;
         this.nationality = aForm.pj.pjCountry;
         this.identification = aForm.pj.pjIdentifier;
+        this.identifierId = aForm.pj.pjIdentifierType;
       }
     } else {
       this.isPerson = true;
@@ -62,10 +66,15 @@ export class Defendant extends AssetProperty {
       identification: this.identification,
       isPerson: this.isPerson,
       name: this.name,
-      birthdate: this.birthdate,
+      birthdate: this.birthdate ? this.birthdate.format() : undefined,
       firstName: this.firstName,
       identifierId: this.identifierId,
       nationality: this.nationality,
+      assetId: this.assetId,
     };
+  }
+
+  getFormattedBirthDate(): string {
+    return this.birthdate ? this.birthdate.format('DD.MM.YYYY') : '';
   }
 }

@@ -1,13 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
+  CrimeType,
   Decision,
   Institution,
+  PrecautionaryMeasure,
+  RecoveryBeneficiary,
   RecoveryDetails,
   Solution,
   SolutionDetails,
   SolutionDetailsResponse,
-  Stage
+  Stage,
+  StageType
 } from '@app/core';
 
 import { cloneDeep } from 'lodash';
@@ -30,6 +34,9 @@ export interface SolutionFormValue {
   decision: Decision;
   stage: Stage;
   personResponsible: string;
+  precautionaryMeasureId: number;
+  recoveryBeneficiaryId: number;
+  crimeTypeId: number;
 }
 
 @Component({
@@ -40,9 +47,12 @@ export interface SolutionFormValue {
 
 export class EditSolutionComponent implements OnInit {
   @Input() solution: Solution;
-  @Input() institutions: Institution[];
+  @Input() crimeTypes: CrimeType[];
   @Input() decisions: Decision[];
+  @Input() institutions: Institution[];
   @Input() stages: Stage[];
+  @Input() precautionaryMeasures: PrecautionaryMeasure[];
+  @Input() recoveryBeneficiaries: RecoveryBeneficiary[];
   @Output() onUpdate: EventEmitter<Solution> = new EventEmitter<Solution>();
   @Output() onCancel: EventEmitter<Solution> = new EventEmitter<Solution>();
   @Output() onSave: EventEmitter<Solution> = new EventEmitter<Solution>();
@@ -61,13 +71,15 @@ export class EditSolutionComponent implements OnInit {
     definitiveDate: new FormControl(),
     sentToAuthoritiesDate: new FormControl(),
     legalBasis: new FormControl(),
+    crimeTypeId: new FormControl(),
     decision: new FormControl(),
     stage: new FormControl(),
     personResponsible: new FormControl(),
+    changeStage: new FormControl(false, [ Validators.required ]),
   });
 
   ngOnInit() {
-    this.solutionForm.setValue({
+    this.solutionForm.patchValue({
       source: this.solution.solutionDetails.source,
       sentOnEmail: this.solution.solutionDetails.sentOnEmail,
       fileNumber: this.solution.solutionDetails.fileNumber,
@@ -80,6 +92,7 @@ export class EditSolutionComponent implements OnInit {
       definitiveDate: this.solution.solutionDetails.definitiveDate || null,
       sentToAuthoritiesDate: this.solution.solutionDetails.sentToAuthoritiesDate || null,
       legalBasis: this.solution.solutionDetails.legalBasis,
+      crimeTypeId: this.solution.solutionDetails.crimeTypeId,
       decision: this.solution.getDecision() || null,
       stage: this.solution.getStage() || null,
       personResponsible: this.solution.recoveryDetails.personResponsible,
@@ -93,6 +106,10 @@ export class EditSolutionComponent implements OnInit {
       this.updateSolution(aFormValue);
 
       this.onUpdate.emit(this.theSolution);
+    });
+
+    this.solutionForm.get('stage').valueChanges.subscribe((aStage: Stage) => {
+      this.changeFormByStage(aStage);
     });
   }
 
@@ -123,11 +140,67 @@ export class EditSolutionComponent implements OnInit {
       definitiveDate: aFormValue.definitiveDate ? aFormValue.definitiveDate.format() : '',
       sentToAuthoritiesDate: aFormValue.sentToAuthoritiesDate ? aFormValue.sentToAuthoritiesDate.format() : '',
       legalBasis: aFormValue.legalBasis,
+      crimeTypeId: aFormValue.crimeTypeId,
     } as SolutionDetailsResponse);
+
+    if (aFormValue.precautionaryMeasureId) {
+      this.theSolution.sequesterDetails = {
+        precautionaryMeasureId: aFormValue.precautionaryMeasureId,
+      };
+    }
+
+    if (aFormValue.recoveryBeneficiaryId) {
+      this.theSolution.confiscationDetails = {
+        recoveryBeneficiaryId: aFormValue.recoveryBeneficiaryId,
+      };
+    }
 
     this.theSolution.recoveryDetails = new RecoveryDetails({
       personResponsible: aFormValue.personResponsible,
     } as RecoveryDetailsResponse);
+  }
+
+  getCurrentStage(): string {
+    return this.solution.getAsset().stage.name || undefined;
+  }
+
+  changeFormByStage(aStage: Stage) {
+    switch (aStage.getTitle()) {
+      case StageType.Sechestru: {
+        if (this.solutionForm.contains('recoveryBeneficiaryId')) {
+          this.solutionForm.removeControl('recoveryBeneficiaryId');
+        }
+
+        if (!this.solutionForm.contains('precautionaryMeasureId')) {
+          this.solutionForm.addControl('precautionaryMeasureId', new FormControl('', [Validators.required]));
+        }
+        break;
+      }
+
+      case StageType.Confiscare: {
+        if (this.solutionForm.contains('precautionaryMeasureId')) {
+          this.solutionForm.removeControl('precautionaryMeasureId');
+        }
+
+        if (!this.solutionForm.contains('recoveryBeneficiaryId')) {
+          this.solutionForm.addControl('recoveryBeneficiaryId', new FormControl('', [Validators.required]));
+        }
+        break;
+      }
+
+      case StageType.ValorificareAnticipata:
+      case StageType.ValorificareStandard: {
+        if (this.solutionForm.contains('precautionaryMeasureId')) {
+          this.solutionForm.removeControl('precautionaryMeasureId');
+        }
+
+        if (this.solutionForm.contains('recoveryBeneficiaryId')) {
+          this.solutionForm.removeControl('recoveryBeneficiaryId');
+        }
+
+        break;
+      }
+    }
   }
 
   cancel() {

@@ -2,6 +2,8 @@ import * as moment from 'moment';
 
 import { AssetResponse } from './asset-response.interface';
 import { Asset } from './asset.model';
+import { PrecautionaryMeasureResponse } from './precautionary-measure-response.interface';
+import { PrecautionaryMeasure } from './precautionary-measure.model';
 import { Solution } from './solution.model';
 
 const firstAsset = new Asset();
@@ -217,4 +219,22 @@ export const solutions: Solution[] = [
   firstSolution,
   secondSolution,
   thirdSolution,
+];
+
+export const precautionaryMeasures: PrecautionaryMeasureResponse[] = [
+  {
+    id: 1,
+    measureType: 1,
+    name: 'Confiscare speciala',
+  } as PrecautionaryMeasureResponse,
+  {
+    id: 2,
+    measureType: 2,
+    name: 'Amenda penala',
+  } as PrecautionaryMeasureResponse,
+  {
+    id: 3,
+    measureType: 3,
+    name: 'Despagubiri acordate statului',
+  } as PrecautionaryMeasureResponse,
 ];

@@ -4,12 +4,14 @@ export class DefendantForm {
         pfLastName: string;
         pfFirstName: string;
         pfNationality: string;
+        pfIdentifierType: number;
         pfIdentifier: string;
         pfBirthDate: string;
     };
     pj: {
         pjName: string;
         pjCountry: string;
+        pjIdentifierType: number;
         pjIdentifier: string;
     };
 }
