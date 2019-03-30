@@ -1,0 +1,26 @@
+<section id="institutions-page" class="page-view">
+  <div class="mat-elevation-z8 table-wrapper" *ngIf="(institutionsLoaded$ | async)">
+    <mat-table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="asc">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let institution">{{ institution.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
+        <mat-cell *matCellDef="let institution">{{ institution.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contactData">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Date de contact</mat-header-cell>
+        <mat-cell *matCellDef="let institution">{{ institution.contactData }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;"></mat-row>
+    </mat-table>
+    <div class="table-footer">
+      <mat-paginator #paginator [hidePageSize]="true" [pageSize]="20" [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+  </div>
+</section>
