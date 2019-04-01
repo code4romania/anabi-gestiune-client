@@ -19,6 +19,40 @@ export function reducer(
 ): StorageSpaceState {
 
   switch (action.type) {
+    case fromStorageSpaces.LOAD_STORAGE_SPACES: {
+      return {
+        ...state,
+        loading: true,
+      } as StorageSpaceState;
+    }
+
+    case fromStorageSpaces.LOAD_STORAGE_SPACES_SUCCESS: {
+      const theStorageSpaces = action.payload;
+      const entities = theStorageSpaces.reduce((aEntities: { [id: number]: StorageSpace }, aStorageSpace: StorageSpace) => {
+        return {
+          ...aEntities,
+          [aStorageSpace.id]: aStorageSpace,
+        };
+      }, {
+          ...state.entities,
+        });
+
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        entities,
+      };
+    }
+
+    case fromStorageSpaces.LOAD_STORAGE_SPACES_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      } as StorageSpaceState;
+    }
+
     case fromStorageSpaces.STORAGE_SPACE_CREATE_SUCCESS: {
       const theStorageSpace = action.payload as StorageSpace;
       const entities = {

@@ -1,0 +1,34 @@
+@import 'mixins.scss';
+
+.defendant {
+  @include flex-column();
+
+  h2 {
+    @include material-card-title();
+  }
+
+  .fields-container mat-form-field {
+      display: block;
+  }
+
+  .column {
+    @include flex-column();
+  }
+
+  .row {
+    @include flex-row();
+    align-items: center;
+
+    &.actions {
+      justify-content: flex-end;
+    }
+
+    mat-form-field {
+      flex-grow: 1;
+    }
+
+    .spacer {
+      flex-basis: 10px;
+    }
+  }
+}

@@ -6,17 +6,22 @@ import {
   AssetsService,
   AssetCurrency,
   AssetMeasurement,
+  AssetProperty,
   Category,
+  CrimeType,
   Decision,
+  Defendant,
+  Identifier,
   Institution,
+  PrecautionaryMeasure,
+  RecoveryBeneficiary,
   Solution,
   Stage,
   StorageSpace
 } from '@app/core';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import * as fromStore from '@app/core/store';
-import { AssetProperty } from '@app/core/store/actions/asset-properties.action';
 import { select, Store } from '@ngrx/store';
 
 import { combineLatest, Observable } from 'rxjs';
@@ -39,15 +44,22 @@ export enum AssetDetailState {
 })
 export class AssetDetailComponent implements OnInit {
   private asset$: Observable<Asset>;
-  private institutions$: Observable<Institution[]>;
-  private decisions$: Observable<Decision[]>;
-  private stages$: Observable<Stage[]>;
-  private assetProperty$: Observable<fromStore.AssetProperty>;
 
-  private categories$: Observable<Category[]> = this.store.pipe(select(fromStore.getAssetParentCategories));
-  private subcategories$: Observable<Category[]>;
-  private measurements: AssetMeasurement[];
-  private currencies: AssetCurrency[];
+  institutions$: Observable<Institution[]> = this.store.pipe(select(fromStore.getAllInstitutions));
+  decisions$: Observable<Decision[]> = this.store.pipe(select(fromStore.getAllDecisions));
+  stages$: Observable<Stage[]> = this.store.pipe(select(fromStore.getAllStages));
+  precautionaryMeasures$: Observable<PrecautionaryMeasure[]> = this.store.pipe(select(fromStore.getAllPrecautionaryMeasures));
+  recoveryBeneficiaries$: Observable<RecoveryBeneficiary[]> = this.store.pipe(select(fromStore.getAllRecoveryBeneficiaries));
+  crimeTypes$: Observable<CrimeType[]> = this.store.pipe(select(fromStore.getAllCrimeTypes));
+  categories$: Observable<Category[]> = this.store.pipe(select(fromStore.getAssetParentCategories));
+  identifiers$: Observable<Identifier[]> = this.store.pipe(select(fromStore.getAllIdentifiers));
+
+  assetProperty$: Observable<AssetProperty>;
+  subcategories$: Observable<Category[]>;
+  defendants$: Observable<Defendant[]>;
+
+  measurements: AssetMeasurement[];
+  currencies: AssetCurrency[];
 
   private state: AssetDetailState = AssetDetailState.View;
 
@@ -72,9 +84,7 @@ export class AssetDetailComponent implements OnInit {
 
       this.asset$ = this.store.pipe(select(fromStore.getAssetById(theId)));
       this.assetProperty$ = this.store.pipe(select(fromStore.getAssetPropertiesByAssetId(theId)));
-      this.institutions$ = this.store.pipe(select(fromStore.getAllInstitutions));
-      this.decisions$ = this.store.pipe(select(fromStore.getAllDecisions));
-      this.stages$ = this.store.pipe(select(fromStore.getAllStages));
+      this.defendants$ = this.store.pipe(select(fromStore.getAllDefendantsForAssetId(theId)));
     });
 
     this.asset$.pipe(take(1))
@@ -97,44 +107,45 @@ export class AssetDetailComponent implements OnInit {
   }
 
   isEditingAssetProperty$(): Observable<boolean> {
-    return combineLatest(
-      this.asset$,
-      this.assetProperty$,
-      (aAsset, aAssetProperty) => aAsset !== undefined && aAssetProperty !== undefined
+    return combineLatest([this.asset$, this.assetProperty$]).pipe(
+      map(([aAsset, aAssetProperty]) => aAsset !== undefined && aAssetProperty !== undefined)
     );
   }
 
   addProperty() {
-    switch (this.selectedProperty) {
-      case AssetProperties.SOLUTIE: {
-        this.asset$.subscribe((aAsset: Asset) => {
+    this.asset$.pipe(take(1)).subscribe((aAsset: Asset) => {
+      switch (this.selectedProperty) {
+        case AssetProperties.SOLUTIE: {
           const theSolution = new Solution();
           theSolution.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theSolution));
-        });
-        break;
-      }
+          break;
+        }
 
-      case AssetProperties.SPATIU: {
-        this.asset$.subscribe((aAsset: Asset) => {
+        case AssetProperties.SPATIU: {
           const theSpace = new StorageSpace();
           theSpace.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theSpace));
-        });
-        break;
-      }
+          break;
+        }
 
-      case AssetProperties.ADRESA: {
-        this.asset$.subscribe((aAsset: Asset) => {
+        case AssetProperties.ADRESA: {
           const theAddress = new Address();
           theAddress.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theAddress));
-        });
-        break;
-      }
-    }
+          break;
+        }
 
-    this.resetSelectedProperty();
+        case AssetProperties.INCULPAT: {
+          const theDefendant = new Defendant();
+          theDefendant.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theDefendant));
+          break;
+        }
+      }
+
+      this.resetSelectedProperty();
+    });
   }
 
   editAsset() {

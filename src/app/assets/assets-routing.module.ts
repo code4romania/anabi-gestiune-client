@@ -15,7 +15,11 @@ const routes: Routes = [
   },
   {
     path: 'detail/:assetId',
-    canActivate: [fromGuards.AssetsGuard, fromGuards.AssetDetailGuard],
+    canActivate: [
+      fromGuards.AssetsGuard,
+      fromGuards.AssetDetailGuard,
+      fromGuards.LoadDefendantsGuard,
+    ],
     component: fromContainers.AssetDetailComponent,
   },
 ];

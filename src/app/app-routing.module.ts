@@ -27,6 +27,10 @@ const routes: Routes = [
         loadChildren: './dictionaries/dictionaries.module#DictionariesModule',
       },
       {
+        path: 'storage-spaces',
+        loadChildren: './storage-spaces/storage-spaces.module#StorageSpacesModule',
+      },
+      {
         path: 'reports',
         loadChildren: './reports/reports.module#ReportsModule',
       },
@@ -48,7 +52,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, useHash: true }),
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
   exports: [
     RouterModule,

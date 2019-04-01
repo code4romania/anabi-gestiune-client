@@ -10,7 +10,7 @@
 
 // Define the default theme (same as the example above).
 $candy-app-primary : mat-palette($mat-congress-blue);
-$candy-app-accent : mat-palette($mat-white, A200, A100, A400);
+$candy-app-accent : mat-palette($mat-blue-grey, A200, A100, A400);
 $candy-app-theme : mat-light-theme($candy-app-primary, $candy-app-accent);
 
 // Include the default theme styles.

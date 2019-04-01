@@ -72,7 +72,5 @@ export class AssetsEffects {
     );
 
   constructor(private actions$: Actions,
-              private assetsService: AssetsService
-  ) {
-  }
+              private assetsService: AssetsService) { }
 }

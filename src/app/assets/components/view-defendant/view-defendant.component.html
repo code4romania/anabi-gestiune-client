@@ -1,0 +1,47 @@
+<section class="view-defendant" *ngIf="defendant">
+  <h2>Inculpat</h2>
+
+  <app-detailed-text description="Tip persoana" [text]="getDefendantType(defendant.isPerson)"></app-detailed-text>
+
+  <div *ngIf="defendant.isPerson">
+    <div class="double">
+      <app-detailed-text description="Nume" [text]="defendant.name"></app-detailed-text>
+      <app-detailed-text description="Prenume" [text]="defendant.firstName"></app-detailed-text>
+    </div>
+
+    <div class="double">
+      <app-detailed-text description="Nationalitate" [text]="defendant.nationality"></app-detailed-text>
+      <app-detailed-text
+        description="Identificator"
+        [text]="getIdentifier(defendant.identifierId)?.identifierType"
+      ></app-detailed-text>
+    </div>
+
+    <div class="double" *ngIf="defendant.birthdate.isValid()">
+      <app-detailed-text
+        [description]="getIdentifier(defendant.identifierId)?.identifierType"
+        [text]="defendant.identification"
+      ></app-detailed-text>
+      <app-detailed-text description="Data nasterii" [text]="defendant.getFormattedBirthDate()"></app-detailed-text>
+    </div>
+  </div>
+
+  <div *ngIf="!defendant.isPerson">
+    <div class="double">
+      <app-detailed-text description="Nume" [text]="defendant.name"></app-detailed-text>
+      <app-detailed-text description="Nationalitate" [text]="defendant.nationality"></app-detailed-text>
+    </div>
+
+    <div class="double">
+      <app-detailed-text
+        description="Identificator"
+        [text]="getIdentifier(defendant.identifierId)?.identifierType"
+      ></app-detailed-text>
+
+      <app-detailed-text
+        [description]="getIdentifier(defendant.identifierId)?.identifierType"
+        [text]="defendant.identification"
+      ></app-detailed-text>
+    </div>
+  </div>
+</section>

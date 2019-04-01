@@ -1,4 +1,4 @@
-import { AddressResponse } from './address-response.interface';
+import { AddressResponse } from './';
 
 export interface InstitutionResponse {
   id: number;
