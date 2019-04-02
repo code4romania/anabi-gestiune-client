@@ -1,17 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { InstitutionsComponent } from './institutions.component';
 
-import { InstitutionsRoutingModule } from './institutions-routing.module';
-
+// modules
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
+import { InstitutionsRoutingModule } from './institutions-routing.module';
+
+// guards
+import * as fromGuards from './guards';
+
+// containers
+import * as fromContainers from './containers';
 
 @NgModule({
-  declarations: [InstitutionsComponent],
   imports: [
     InstitutionsRoutingModule,
     CommonModule,
     SharedModule,
+  ],
+  declarations: [
+    ...fromContainers.components,
+  ],
+  providers: [
+    ...fromGuards.guards,
   ],
 })
 export class InstitutionsModule { }

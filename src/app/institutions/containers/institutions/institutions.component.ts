@@ -1,22 +1,19 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import * as fromStore from '@app/core/store';
 import { select, Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
 
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { LoadInstitutions } from '@app/core/store';
 
 @Component({
   selector: 'app-institutions',
   templateUrl: './institutions.component.html',
-  styleUrls: ['./institutions.component.scss', '../assets/containers/assets/assets.component.scss'],
+  styleUrls: ['./institutions.component.scss'],
 })
 export class InstitutionsComponent implements OnInit, AfterViewInit, OnDestroy {
   public tableConfig: any;
   private storeSubscription: Subscription;
-  public institutionsLoaded$: Observable<boolean>;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -25,15 +22,6 @@ export class InstitutionsComponent implements OnInit, AfterViewInit, OnDestroy {
     private store: Store<fromStore.CoreState>) { }
 
   ngOnInit() {
-    this.institutionsLoaded$ = this.store.pipe(select(fromStore.getInstitutionsLoaded))
-      .pipe(
-        tap(b => {
-          if (!b) {
-            this.store.dispatch(new LoadInstitutions())
-          }
-        })
-      );
-
     this.tableConfig = {
       displayedColumns: [
         'id',
@@ -71,5 +59,4 @@ export class InstitutionsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.storeSubscription.unsubscribe();
     }
   }
-
 }

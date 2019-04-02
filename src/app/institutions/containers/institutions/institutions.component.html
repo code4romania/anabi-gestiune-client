@@ -1,5 +1,5 @@
 <section id="institutions-page" class="page-view">
-  <div class="mat-elevation-z8 table-wrapper" *ngIf="(institutionsLoaded$ | async)">
+  <div class="mat-elevation-z8 table-wrapper">
     <mat-table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="asc">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
