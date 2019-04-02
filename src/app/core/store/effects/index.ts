@@ -11,7 +11,7 @@ import { PrecautionaryMeasuresEffects } from './precautionary-measures.effect';
 import { RecoveryBeneficiariesEffects } from './recovery-beneficiaries.effect';
 import { SolutionsEffects } from './solutions.effect';
 import { StagesEffects } from './stages.effect';
-import { StorageSpacesEffect } from './storage-spaces.effect';
+import { StorageSpacesEffects } from './storage-spaces.effect';
 
 export const effects: any[] = [
   AddressesEffect,
@@ -27,7 +27,7 @@ export const effects: any[] = [
   RecoveryBeneficiariesEffects,
   SolutionsEffects,
   StagesEffects,
-  StorageSpacesEffect,
+  StorageSpacesEffects,
 ];
 
 export * from './addresses.effect';

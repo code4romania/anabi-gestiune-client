@@ -1,0 +1,38 @@
+<section id="storage-spaces-page" class="page-view">
+  <div class="mat-elevation-z8 table-wrapper">
+    <div class="table-header">
+      <mat-form-field fxFlex>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Cauta spatiu de depozitare...">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="desc">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tip</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.type }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Adresa</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.getAddress() }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;"></mat-row>
+    </mat-table>
+
+    <div class="table-footer">
+      <mat-paginator #paginator [hidePageSize]="true" [pageSize]="20" [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+  </div>
+</section>
