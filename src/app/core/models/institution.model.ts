@@ -1,13 +1,9 @@
-import { Address } from './asset';
-import { Category } from './category.model';
 import { InstitutionResponse } from './institution-response.interface';
 
 export class Institution {
   id: number;
-  categoryId: number;
-  category: Category;
   name: string;
-  address: Address;
+  contactData: string;
 
   constructor(aData?: InstitutionResponse) {
     if (aData) {
@@ -15,14 +11,9 @@ export class Institution {
     }
   }
 
-  setCategory(aCategory: Category) {
-    this.category = aCategory;
-  }
-
   fromJson(aJson: InstitutionResponse) {
     this.id = aJson.id;
-    this.categoryId = aJson.categoryId;
     this.name = aJson.name;
-    this.address = new Address(aJson.address);
+    this.contactData = aJson.contactData;
   }
 }
