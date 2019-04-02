@@ -1,6 +1,26 @@
 import { Action } from '@ngrx/store';
 import { StorageSpace } from '../../models';
 
+// load storage spaces
+export const LOAD_STORAGE_SPACES = '[Storage Spaces] Load Storage Spaces';
+export const LOAD_STORAGE_SPACES_FAIL = '[Storage Spaces] Load Storage Spaces Fail';
+export const LOAD_STORAGE_SPACES_SUCCESS = '[Storage Spaces] Load Storage Spaces Success';
+
+export class LoadStorageSpaces implements Action {
+  readonly type: string = LOAD_STORAGE_SPACES;
+  constructor(public payload?: any) {}
+}
+
+export class LoadStorageSpacesFail implements Action {
+  readonly type: string = LOAD_STORAGE_SPACES_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class LoadStorageSpacesSuccess implements Action {
+  readonly type: string = LOAD_STORAGE_SPACES_SUCCESS;
+  constructor(public payload: StorageSpace[]) {}
+}
+
 // create storage space
 export const STORAGE_SPACE_CREATE = '[Storage Spaces] Create Storage Space';
 export const STORAGE_SPACE_CREATE_FAIL = '[Storage Spaces] Create Storage Space Fail';
@@ -25,4 +45,7 @@ export class CreateStorageSpaceSuccess implements Action {
 export type StorageSpacesAction =
   CreateStorageSpace
   | CreateStorageSpaceFail
-  | CreateStorageSpaceSuccess;
+  | CreateStorageSpaceSuccess
+  | LoadStorageSpaces
+  | LoadStorageSpacesFail
+  | LoadStorageSpacesSuccess;

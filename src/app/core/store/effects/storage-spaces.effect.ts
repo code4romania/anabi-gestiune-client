@@ -1,13 +1,35 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
-import { map, mapTo } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
 
+// model
 import { StorageSpace } from '../../models';
+
+// services
+import { StorageSpacesService } from '../../services';
+
+// actions
 import * as assetPropertiesActions from '../actions/asset-properties.action';
+import * as loadingActions from '../actions/loading.action';
 import * as storageSpaceActions from '../actions/storage-spaces.action';
 
 @Injectable()
-export class StorageSpacesEffect {
+export class StorageSpacesEffects {
+
+  @Effect()
+  loadStorageSpaces$ = this.actions$
+    .pipe(
+    ofType(storageSpaceActions.LOAD_STORAGE_SPACES),
+    switchMap(() => {
+      return this.storageSpaceService
+        .list()
+        .pipe(
+          map(aStorageSpaces => new storageSpaceActions.LoadStorageSpacesSuccess(aStorageSpaces)),
+          catchError(error => of(new storageSpaceActions.LoadStorageSpacesFail(error)))
+        )
+      })
+    );
 
   @Effect()
   createStorageSpace$ = this.actions$
@@ -25,6 +47,26 @@ export class StorageSpacesEffect {
       map((aStorageSpace: StorageSpace) => new assetPropertiesActions.DeleteProperty(aStorageSpace.getAsset().id))
     );
 
-  constructor(private actions$: Actions) {
+  @Effect()
+  showLoading$ = this.actions$
+    .pipe(
+      ofType(storageSpaceActions.LOAD_STORAGE_SPACES),
+      mapTo(new loadingActions.ShowLoading())
+    );
+
+  @Effect()
+  hideLoading$ = this.actions$
+    .pipe(
+      ofType(
+        storageSpaceActions.LOAD_STORAGE_SPACES_FAIL,
+        storageSpaceActions.LOAD_STORAGE_SPACES_SUCCESS
+      ),
+      mapTo(new loadingActions.HideLoading())
+    );
+
+  constructor(
+    private actions$: Actions,
+    private storageSpaceService: StorageSpacesService
+  ) {
   }
 }

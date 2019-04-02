@@ -71,8 +71,8 @@ export class AssetsEffects {
       mapTo(new loadingActions.HideLoading())
     );
 
-  constructor(private actions$: Actions,
-              private assetsService: AssetsService
-  ) {
-  }
+  constructor(
+    private actions$: Actions,
+    private assetsService: AssetsService
+  ) { }
 }

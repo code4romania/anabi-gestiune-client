@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -39,5 +39,4 @@ export const metaReducers: any[] = !environment.production ? [storeFreeze] : [];
     ...fromGuards.guards,
   ],
 })
-
 export class AppModule {}

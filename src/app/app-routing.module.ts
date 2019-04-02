@@ -27,6 +27,10 @@ const routes: Routes = [
         loadChildren: './dictionaries/dictionaries.module#DictionariesModule',
       },
       {
+        path: 'storage-spaces',
+        loadChildren: './storage-spaces/storage-spaces.module#StorageSpacesModule',
+      },
+      {
         path: 'reports',
         loadChildren: './reports/reports.module#ReportsModule',
       },
