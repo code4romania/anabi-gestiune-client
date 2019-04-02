@@ -39,6 +39,10 @@ const routes: Routes = [
         loadChildren: './admin/admin.module#AdminModule',
       },
       {
+        path: 'institutions',
+        loadChildren: './institutions/institutions.module#InstitutionsModule',
+      },
+      {
         path: '**',
         redirectTo: '/home',
       },
