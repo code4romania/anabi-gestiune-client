@@ -8,6 +8,8 @@ import * as fromSelectors from '../store/selectors';
 
 import { AssetsApiService } from '../http';
 import {
+  Address,
+  AddressResponse,
   Asset,
   AssetCurrency,
   AssetDetailResponse,
@@ -55,6 +57,28 @@ export class AssetsService {
       );
   }
 
+  public createAddress(aAddress: Address): Observable<Address> {
+    return this.assetsApiService.createAddress(aAddress.getAssetId(), aAddress.toJson())
+      .pipe(
+        map((aNewAddress: AddressResponse) => {
+          const theAddress = new Address(aNewAddress);
+          theAddress.setAsset(aAddress.getAsset());
+          return theAddress;
+        })
+      );
+  }
+
+  public updateAddress(aAddress: Address): Observable<Address> {
+    return this.assetsApiService.updateAddress(aAddress.getAssetId(), aAddress.toJson())
+      .pipe(
+        map((aNewAddress: AddressResponse) => {
+          const theAddress = new Address(aNewAddress);
+          theAddress.setAsset(aAddress.getAsset());
+          return theAddress;
+        })
+      );
+  }
+
   public measurements(): Observable<AssetMeasurement[]> {
     const measurements = [
       new AssetMeasurement({ id: 'buc', code: 'Bucati' }),
@@ -93,7 +117,6 @@ export class AssetsService {
         theAsset.setCategory(aCategory);
         theAsset.setSubcategory(aSubcategory);
         theAsset.setStage(aStage);
-
         return theAsset;
       }
     ).pipe(
