@@ -9,6 +9,7 @@ import { NotificationService } from './notification.service';
 import { PrecautionaryMeasuresService } from './precautionary-measures.service';
 import { RecoveryBeneficiariesService } from './recovery-beneficiaries.service';
 import { SolutionsService } from './solutions.service';
+import { StorageSpacesService } from './storage-spaces.service';
 
 export const services: any[] = [
   AssetsService,
@@ -22,6 +23,7 @@ export const services: any[] = [
   PrecautionaryMeasuresService,
   RecoveryBeneficiariesService,
   SolutionsService,
+  StorageSpacesService,
 ];
 
 export * from './assets.service';
@@ -35,3 +37,4 @@ export * from './notification.service';
 export * from './precautionary-measures.service';
 export * from './recovery-beneficiaries.service';
 export * from './solutions.service';
+export * from './storage-spaces.service';

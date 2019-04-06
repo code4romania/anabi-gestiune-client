@@ -27,4 +27,25 @@ export class StorageSpace extends AssetProperty {
       name: this.name,
     };
   }
+
+  getAddress(): string {
+    if (!this.address) {
+      return '';
+    }
+
+    // variables
+    let fullAddress = '';
+    let street = '';
+    let city = '';
+
+    if (this.address.county) {
+      city = this.address.county.name + ' ';
+      fullAddress += city
+    }
+    if (this.address.street) {
+      street = this.address.street;
+      fullAddress += street;
+    }
+    return fullAddress;
+  }
 }

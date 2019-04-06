@@ -9,3 +9,4 @@ export * from './defendant-form.model';
 export * from './defendant-request.interface';
 export * from './defendant-response.interface';
 export * from './storage-space.model';
+export * from './storage-space-response.interface';

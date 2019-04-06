@@ -17,7 +17,7 @@
       ></app-detailed-text>
     </div>
 
-    <div class="double">
+    <div class="double" *ngIf="defendant.birthdate.isValid()">
       <app-detailed-text
         [description]="getIdentifier(defendant.identifierId)?.identifierType"
         [text]="defendant.identification"

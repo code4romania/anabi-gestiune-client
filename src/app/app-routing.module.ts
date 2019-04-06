@@ -27,6 +27,10 @@ const routes: Routes = [
         loadChildren: './dictionaries/dictionaries.module#DictionariesModule',
       },
       {
+        path: 'storage-spaces',
+        loadChildren: './storage-spaces/storage-spaces.module#StorageSpacesModule',
+      },
+      {
         path: 'reports',
         loadChildren: './reports/reports.module#ReportsModule',
       },
@@ -37,6 +41,10 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: './admin/admin.module#AdminModule',
+      },
+      {
+        path: 'institutions',
+        loadChildren: './institutions/institutions.module#InstitutionsModule',
       },
       {
         path: '**',
