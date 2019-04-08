@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
-import { map, mapTo } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { Address } from '../../models';
+import { AssetsService } from '../../services';
 import * as addressesActions from '../actions/addresses.action';
 import * as assetPropertiesActions from '../actions/asset-properties.action';
 
@@ -14,7 +16,12 @@ export class AddressesEffect {
     .pipe(
       ofType(addressesActions.ADDRESS_CREATE),
       map((action: addressesActions.CreateAddress) => action.payload),
-      map(aPayload => new addressesActions.CreateAddressSuccess(aPayload))
+      switchMap(aPayload => {
+        return this.assetsService.createAddress(aPayload).pipe(
+          map(aAddress => new addressesActions.CreateAddressSuccess(aAddress)),
+          catchError(error => of(new addressesActions.CreateAddressFail(error)))
+        );
+      })
     );
 
   @Effect()
@@ -25,6 +32,9 @@ export class AddressesEffect {
       map((aAddress: Address) => new assetPropertiesActions.DeleteProperty(aAddress.getAsset().id))
     );
 
-  constructor(private actions$: Actions) {
+  constructor(
+    private actions$: Actions,
+    private assetsService: AssetsService
+  ) {
   }
 }

@@ -1,5 +1,6 @@
 import { AssetProperty, AssetPropertyType } from '../asset-property.model';
 import { AddressResponse } from './address-response.interface';
+import { CountyResponse } from './county-response.interface';
 import { County } from './county.model';
 
 export class Address extends AssetProperty {
@@ -33,5 +34,20 @@ export class Address extends AssetProperty {
     this.floor = aJson.floor;
     this.flatNo = aJson.flatNo;
     this.description = aJson.description;
+  }
+
+  toJson(): any {
+    return {
+      id: this.id,
+      countyId: this.countyId,
+      county: this.county,
+      street: this.street,
+      city: this.city,
+      building: this.building,
+      stair: this.stair,
+      floor: this.floor,
+      flatNo: this.flatNo,
+      description: this.description,
+    };
   }
 }
