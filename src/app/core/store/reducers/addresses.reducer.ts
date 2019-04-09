@@ -42,4 +42,3 @@ export function reducer(
 export const getAddressesEntities = (state: AddressesState) => state.entities;
 export const getAddressesLoading = (state: AddressesState) => state.loading;
 export const getAddressesLoaded = (state: AddressesState) => state.loaded;
-

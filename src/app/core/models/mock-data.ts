@@ -37,6 +37,22 @@ export const detailedAsset: Asset = new Asset();
 detailedAsset.fromAssetDetailResponseJson({
   id: 3,
   name: 'First asset',
+  address: {
+    id: 0,
+    countyId: 10,
+    county: {
+      id: 1,
+      name: 'Iasi',
+      abreviation: 'IS',
+    },
+    street: 'Mioritei',
+    city: 'Iasi',
+    building: '10',
+    stair: 'A',
+    floor: '10',
+    flatNo: '9',
+    description: 'First address description',
+  },
   description: 'First asset description',
   subcategoryId: 6,
   identifier: 'A1',

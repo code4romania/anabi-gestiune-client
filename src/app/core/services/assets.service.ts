@@ -68,17 +68,6 @@ export class AssetsService {
       );
   }
 
-  public updateAddress(aAddress: Address): Observable<Address> {
-    return this.assetsApiService.updateAddress(aAddress.getAssetId(), aAddress.toJson())
-      .pipe(
-        map((aNewAddress: AddressResponse) => {
-          const theAddress = new Address(aNewAddress);
-          theAddress.setAsset(aAddress.getAsset());
-          return theAddress;
-        })
-      );
-  }
-
   public measurements(): Observable<AssetMeasurement[]> {
     const measurements = [
       new AssetMeasurement({ id: 'buc', code: 'Bucati' }),
