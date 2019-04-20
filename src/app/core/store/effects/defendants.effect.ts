@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { Defendant } from '../../models';
 import { DefendantsService } from '../../services';
@@ -63,7 +63,7 @@ export class DefendantsEffects {
         this.defendantsService.deleteDefendant$(aPayload.assetId, aPayload.defendantId)
           .pipe(
             map((aResponse: number) => new defendantsActions.DeleteDefendantSuccess(aResponse)),
-            catchError(aError => of(new defendantsActions.DeleteDefendantFail(aError)))
+            catchError(() => of(new defendantsActions.DeleteDefendantFail(aPayload.defendantId)))
           )
       )
     );

@@ -62,7 +62,7 @@ export class DeleteDefendant implements Action {
 
 export class DeleteDefendantFail implements Action {
   readonly type: string = DEFENDANT_DELETE_FAIL;
-  constructor(public payload: string) {}
+  constructor(public payload: number) {}
 }
 
 export class DeleteDefendantSuccess implements Action {

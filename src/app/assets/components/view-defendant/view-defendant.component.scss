@@ -19,4 +19,9 @@
       flex-basis: 50%;
     }
   }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

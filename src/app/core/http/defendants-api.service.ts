@@ -25,7 +25,7 @@ export class DefendantsApiService {
       );
   }
 
-  public deleteDefendant(assetId: number, defendantId: number): Observable<any> {
+  public deleteDefendant(assetId: number, defendantId: number): Observable<number> {
     return this.http.delete<number>(`${environment.api_url}/assets/${assetId}/defendants/${defendantId}`)
       .pipe(
         catchError(aError => observableThrowError(aError))
