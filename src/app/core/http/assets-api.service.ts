@@ -64,8 +64,8 @@ export class AssetsApiService {
       );
   }
 
-  public updateAddress(id: number, address: AddressRequest): Observable<AssetDetailResponse> {
-    return this.http.put<AssetDetailResponse>(`${environment.api_url}/assets/${id}/address`, address)
+  public updateAddress(id: number, address: AddressRequest): Observable<AddressResponse> {
+    return this.http.put<AddressResponse>(`${environment.api_url}/assets/${id}/address`, address)
       .pipe(
         catchError(aError => observableThrowError(aError.error.errors))
       );

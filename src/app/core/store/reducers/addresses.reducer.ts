@@ -1,16 +1,16 @@
-import { Address } from '../../models';
+import { Address, IAddress } from '../../models';
 import * as fromAddresses from '../actions/addresses.action';
 
 export interface AddressesState {
-  entities: { [id: number]: Address };
-  loaded: { [id: number]: boolean };
-  loading: { [id: number]: boolean };
+  entities: { [id: number]: IAddress };
+  loaded: boolean;
+  loading: boolean;
 }
 
 export const initialState: AddressesState = {
   entities: {},
-  loaded: {},
-  loading: {},
+  loaded: false,
+  loading: false,
 };
 
 export function reducer(
@@ -19,7 +19,7 @@ export function reducer(
 ): AddressesState {
 
   switch (action.type) {
-    case fromAddresses.ADDRESS_CREATE_SUCCESS: {
+    case fromAddresses.AddressActionTypes.CreateAddressSuccess: {
       const theAddress = action.payload as Address;
       const entities = {
         ...state.entities,
@@ -28,6 +28,8 @@ export function reducer(
       return {
         ...state,
         entities,
+        loading: false,
+        loaded: true,
       } as AddressesState;
     }
 

@@ -65,6 +65,7 @@ export class AssetsService {
           const theAddress = new Address();
           theAddress.fromResponse(aNewAddress);
           theAddress.setAsset(aAddress.getAsset());
+          theAddress.setCounty(aAddress.county);
           return theAddress;
         })
       );

@@ -18,6 +18,17 @@ export interface IAddress {
   assetId: number;
 }
 
+export interface AddressForm {
+  county: County;
+  city: string;
+  street: string;
+  building: string;
+  stair: string;
+  floor: string;
+  flatNo: string;
+  description: string;
+}
+
 export class Address extends AssetProperty {
   id: number;
   countyId: number = null;
@@ -53,12 +64,20 @@ export class Address extends AssetProperty {
     this.assetId = aJson.assetId;
   }
 
+  fromForm(aForm: AddressForm) {
+    this.setCounty(aForm.county);
+    this.street = aForm.street;
+    this.city = aForm.city;
+    this.building = aForm.building;
+    this.stair = aForm.stair;
+    this.floor = aForm.floor;
+    this.flatNo = aForm.flatNo;
+    this.description = aForm.description;
+  }
+
   fromResponse(aJson: AddressResponse) {
     this.id = aJson.id || undefined;
     this.countyId = aJson.countyId;
-
-    this.county = new County();
-    this.county.fromResponse(aJson.county);
 
     this.street = aJson.street;
     this.city = aJson.city;
@@ -90,7 +109,6 @@ export class Address extends AssetProperty {
     return {
       id: this.id,
       countyId: this.countyId,
-      county: this.county,
       street: this.street,
       city: this.city,
       building: this.building,
@@ -99,5 +117,10 @@ export class Address extends AssetProperty {
       flatNo: this.flatNo,
       description: this.description,
     };
+  }
+
+  setCounty(aCounty: County) {
+    this.county = aCounty;
+    this.countyId = aCounty.id;
   }
 }

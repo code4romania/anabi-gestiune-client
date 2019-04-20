@@ -8,6 +8,7 @@ import {
   AssetMeasurement,
   AssetProperty,
   Category,
+  County,
   CrimeType,
   Decision,
   Defendant,
@@ -53,6 +54,7 @@ export class AssetDetailComponent implements OnInit {
   crimeTypes$: Observable<CrimeType[]> = this.store.pipe(select(fromStore.getAllCrimeTypes));
   categories$: Observable<Category[]> = this.store.pipe(select(fromStore.getAssetParentCategories));
   identifiers$: Observable<Identifier[]> = this.store.pipe(select(fromStore.getAllIdentifiers));
+  counties$: Observable<County[]> = this.store.pipe(select(fromStore.getAllCounties));
 
   assetProperty$: Observable<AssetProperty>;
   subcategories$: Observable<Category[]>;

@@ -1,16 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Address, AddressResponse } from '@app/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Address, AddressForm, County, IAddress } from '@app/core/models';
 
 import { cloneDeep } from 'lodash';
-
-export interface AddressFormValue {
-  countyId: number;
-  city: string;
-  street: string;
-  building: string;
-  description: string;
-}
 
 @Component({
   selector: 'app-edit-address',
@@ -20,25 +12,32 @@ export interface AddressFormValue {
 
 export class EditAddressComponent implements OnInit {
   @Input() address: Address;
+  @Input() counties: County[];
   @Output() onUpdate: EventEmitter<Address> = new EventEmitter<Address>();
   @Output() onCancel: EventEmitter<Address> = new EventEmitter<Address>();
   @Output() onSave: EventEmitter<Address> = new EventEmitter<Address>();
 
   public theAddress: Address;
   public addressForm: FormGroup = new FormGroup({
-    countyId: new FormControl(),
-    city: new FormControl(),
-    street: new FormControl(),
-    building: new FormControl(),
+    county: new FormControl('', [ Validators.required ]),
+    city: new FormControl('', [ Validators.required ]),
+    street: new FormControl('', [ Validators.required ]),
+    building: new FormControl('', [ Validators.required ]),
+    stair: new FormControl('', [ Validators.required ]),
+    floor: new FormControl('', [ Validators.required ]),
+    flatNo: new FormControl('', [ Validators.required ]),
     description: new FormControl(),
   });
 
   ngOnInit() {
-    this.addressForm.setValue({
-      countyId: this.address.countyId,
+    this.addressForm.patchValue({
+      county: this.address.county,
       city: this.address.city,
       street: this.address.street,
       building: this.address.building,
+      stair: this.address.stair,
+      floor: this.address.floor,
+      flatNo: this.address.flatNo,
       description: this.address.description,
     });
     this.onChanges();
@@ -52,10 +51,9 @@ export class EditAddressComponent implements OnInit {
     });
   }
 
-  updateAddress(aFormValue: AddressFormValue) {
+  updateAddress(aFormValue: AddressForm) {
     this.theAddress = cloneDeep(this.address);
-
-    this.theAddress.fromResponse(aFormValue as AddressResponse);
+    this.theAddress.fromForm(aFormValue);
   }
 
   cancel() {
