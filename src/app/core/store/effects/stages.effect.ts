@@ -12,7 +12,7 @@ export class StagesEffects {
   @Effect()
   loadStages$ = this.actions$
     .pipe(
-      ofType(stageActions.LOAD_STAGES),
+      ofType(stageActions.StageActionTypes.LoadStages),
       switchMap(() => {
         return this.assetsService
           .stages()

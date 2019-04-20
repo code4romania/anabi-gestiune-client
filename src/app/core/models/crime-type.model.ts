@@ -1,5 +1,3 @@
-import { CrimeTypeResponse } from './crime-type-response.interface';
-
 export interface ICrimeType {
   id: number;
   name: string;

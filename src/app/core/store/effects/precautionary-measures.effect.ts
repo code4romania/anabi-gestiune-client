@@ -12,7 +12,7 @@ export class PrecautionaryMeasuresEffects {
   @Effect()
   loadMeasures$ = this.actions$
     .pipe(
-      ofType(precautionaryMeasureActions.LOAD_PRECAUTIONARY_MEASURES),
+      ofType(precautionaryMeasureActions.PrecautionaryMeasuresActionTypes.LoadPrecautionaryMeasures),
       switchMap(() => {
         return this.precautionaryMeasuresService
           .list()

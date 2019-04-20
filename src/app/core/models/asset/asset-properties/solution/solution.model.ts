@@ -1,20 +1,35 @@
 import * as moment from 'moment';
 
-import { Decision } from '../../../decision.model';
-import { Institution } from '../../../institution.model';
-import { Journal } from '../../../journal.model';
-import { Stage } from '../../../stage.model';
-import { RecoveryDetails } from './recovery-details.model';
+import { Decision, IDecision } from '../../../decision.model';
+import { Institution, IInstitution } from '../../../institution.model';
+import { IJournal, Journal } from '../../../journal.model';
+import { IStage, Stage } from '../../../stage.model';
+import { Asset, IAsset } from '../../asset.model';
+import { IRecoveryDetails, RecoveryDetails } from './recovery-details.model';
 
 import { AssetProperty, AssetPropertyType } from '../../asset-property.model';
 
-import { SolutionDetails } from './solution-details.model';
-import { SolutionRequest } from './solution-request.interface';
-import {
-  ConfiscationDetailsResponse,
-  SequesterDetailsResponse,
-  SolutionResponse
-} from './solution-response.interface';
+import { ISolutionDetails, SolutionDetails } from './solution-details.model';
+import { ConfiscationDetailsResponse, SequesterDetailsResponse } from './solution-response.interface';
+
+export interface ISolution {
+  id: number;
+  stageId: number;
+  decisionId: number;
+  institutionId: number;
+  decisionDate: string;
+  decisionNumber: string;
+  institution: IInstitution;
+  decision: IDecision;
+  stage: IStage;
+  confiscationDetails: ConfiscationDetailsResponse;
+  sequesterDetails: SequesterDetailsResponse;
+  recoveryDetails: IRecoveryDetails;
+  solutionDetails: ISolutionDetails;
+  journal: IJournal;
+  asset: IAsset;
+  assetId: number;
+}
 
 export class Solution extends AssetProperty {
   id: number;
@@ -34,7 +49,7 @@ export class Solution extends AssetProperty {
   solutionDetails: SolutionDetails = new SolutionDetails();
   journal: Journal = new Journal();
 
-  constructor(aData?: SolutionResponse) {
+  constructor(aData?: ISolution) {
     super(AssetPropertyType.Solution);
 
     if (aData) {
@@ -73,7 +88,7 @@ export class Solution extends AssetProperty {
     this.solutionDetails = aSolutionDetails;
   }
 
-  fromJson(aJson: SolutionResponse) {
+  fromJson(aJson: ISolution) {
     this.id = aJson.id;
     this.stageId = aJson.stageId;
     this.decisionId = aJson.decisionId;
@@ -92,14 +107,20 @@ export class Solution extends AssetProperty {
     this.recoveryDetails = new RecoveryDetails(aJson.recoveryDetails);
     this.solutionDetails = new SolutionDetails(aJson.solutionDetails);
     this.journal = new Journal(aJson.journal);
+
+    this.asset = aJson.asset ? new Asset(aJson.asset) : undefined;
+    this.assetId = aJson.assetId;
   }
 
-  toJson(): SolutionRequest {
+  toJson(): ISolution {
     return {
       id: this.id,
       stageId: this.stageId,
       decisionId: this.decisionId,
       institutionId: this.institutionId,
+      stage: this.stage.toJson(),
+      decision: this.decision.toJson(),
+      institution: this.institution.toJson(),
       decisionDate: this.decisionDate ? this.decisionDate.format() : '',
       decisionNumber: this.decisionNumber,
       confiscationDetails: this.confiscationDetails,
@@ -107,6 +128,8 @@ export class Solution extends AssetProperty {
       recoveryDetails: this.recoveryDetails.toJson(),
       solutionDetails: this.solutionDetails.toJson(),
       journal: this.journal.toJson(),
-    } as SolutionResponse;
+      asset: this.asset.toJson(),
+      assetId: this.assetId,
+    } as ISolution;
   }
 }

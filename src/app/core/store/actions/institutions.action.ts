@@ -1,23 +1,25 @@
 import { Action } from '@ngrx/store';
 import { Institution } from '../../models';
 
-// load institutions
-export const LOAD_INSTITUTIONS = '[Institutions] Load Institutions';
-export const LOAD_INSTITUTIONS_FAIL = '[Institutions] Load Institutions Fail';
-export const LOAD_INSTITUTIONS_SUCCESS = '[Institutions] Load Institutions Success';
+export enum InstitutionsActionTypes {
+  LoadInstitutions = '[Institutions] Load Institutions',
+  LoadInstitutionsFail = '[Institutions] Load Institutions Fail',
+  LoadInstitutionsSuccess = '[Institutions] Load Institutions Success',
+}
 
+// load institutions
 export class LoadInstitutions implements Action {
-  readonly type: string = LOAD_INSTITUTIONS;
+  readonly type: string = InstitutionsActionTypes.LoadInstitutions;
   constructor(public payload?: any) {}
 }
 
 export class LoadInstitutionsFail implements Action {
-  readonly type: string = LOAD_INSTITUTIONS_FAIL;
+  readonly type: string = InstitutionsActionTypes.LoadInstitutionsFail;
   constructor(public payload: any) {}
 }
 
 export class LoadInstitutionsSuccess implements Action {
-  readonly type: string = LOAD_INSTITUTIONS_SUCCESS;
+  readonly type: string = InstitutionsActionTypes.LoadInstitutionsSuccess;
   constructor(public payload: Institution[]) {}
 }
 

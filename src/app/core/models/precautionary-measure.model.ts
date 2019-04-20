@@ -1,23 +1,27 @@
-import { PrecautionaryMeasureResponse } from './precautionary-measure-response.interface';
+export interface IPrecautionaryMeasure {
+  id: number;
+  measureType: number;
+  name: string;
+}
 
 export class PrecautionaryMeasure {
   id: number;
   measureType: number;
   name: string;
 
-  constructor(aData?: PrecautionaryMeasureResponse) {
+  constructor(aData?: IPrecautionaryMeasure) {
     if (aData) {
       this.fromJson(aData);
     }
   }
 
-  fromJson(aJson: PrecautionaryMeasureResponse) {
+  fromJson(aJson: IPrecautionaryMeasure) {
     this.id = aJson.id;
     this.measureType = aJson.measureType;
     this.name = aJson.name;
   }
 
-  toJson(): any {
+  toJson(): IPrecautionaryMeasure {
     return {
       id: this.id,
       measureType: this.measureType,

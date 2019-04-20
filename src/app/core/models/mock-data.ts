@@ -1,6 +1,14 @@
 import * as moment from 'moment';
 
-import { Asset, AssetResponse, Category, CategoryEntity, CategoryResponse, Solution } from './';
+import {
+  Asset,
+  AssetResponse,
+  Category,
+  CategoryEntity,
+  CategoryResponse,
+  ISolution,
+  Solution
+} from './';
 import { InstitutionResponse } from './institution-response.interface';
 import { PrecautionaryMeasureResponse } from './precautionary-measure-response.interface';
 
@@ -104,7 +112,7 @@ const firstSolution = new Solution({
     userCodeLastChange: moment('2018-01-04').format(),
     lastChangeDate: moment('2018-01-04').format(),
   },
-});
+} as ISolution);
 firstSolution.setAsset(firstAsset);
 
 const secondSolution = new Solution({
@@ -157,7 +165,7 @@ const secondSolution = new Solution({
     userCodeLastChange: moment('2018-02-04').format(),
     lastChangeDate: moment('2018-02-04').format(),
   },
-});
+} as ISolution);
 secondSolution.setAsset(secondAsset);
 
 const thirdSolution = new Solution({
@@ -210,7 +218,7 @@ const thirdSolution = new Solution({
     userCodeLastChange: moment('2018-03-04').format(),
     lastChangeDate: moment('2018-03-04').format(),
   },
-});
+} as ISolution);
 thirdSolution.setAsset(secondAsset);
 
 export const solutions: Solution[] = [

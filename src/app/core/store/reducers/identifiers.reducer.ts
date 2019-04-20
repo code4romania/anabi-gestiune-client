@@ -1,8 +1,8 @@
-import { Identifier } from '../../models';
+import { Identifier, IIdentifier } from '../../models';
 import * as fromIdentifiers from '../actions/identifiers.action';
 
 export interface IdentifierState {
-  entities: { [id: number]: Identifier };
+  entities: { [id: number]: IIdentifier };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,14 +19,14 @@ export function reducer(
 ): IdentifierState {
 
   switch (action.type) {
-    case fromIdentifiers.LOAD_IDENTIFIERS: {
+    case fromIdentifiers.IdentifiersActionTypes.LoadIdentifiers: {
       return {
         ...state,
         loading: true,
       } as IdentifierState;
     }
 
-    case fromIdentifiers.LOAD_IDENTIFIERS_FAIL: {
+    case fromIdentifiers.IdentifiersActionTypes.LoadIdentifiersFail: {
       return {
         ...state,
         loading: false,
@@ -34,7 +34,7 @@ export function reducer(
       } as IdentifierState;
     }
 
-    case fromIdentifiers.LOAD_IDENTIFIERS_SUCCESS: {
+    case fromIdentifiers.IdentifiersActionTypes.LoadIdentifiersSuccess: {
       const theIdentifiers = action.payload;
       const entities = theIdentifiers.reduce((aEntities: { [id: number]: Identifier }, aIdentifier: Identifier) => {
         return {

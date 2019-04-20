@@ -1,6 +1,19 @@
 import * as moment from 'moment';
 import { SolutionDetailsResponse } from './solution-details-response.interface';
 
+export interface ISolutionDetails {
+  source: string;
+  sentOnEmail: boolean;
+  fileNumber: string;
+  fileNumberParquet: string;
+  receivingDate: string;
+  isDefinitive: boolean;
+  definitiveDate: string;
+  sentToAuthoritiesDate: string;
+  crimeTypeId: number;
+  legalBasis: string;
+}
+
 export class SolutionDetails {
   source: string = '';
   sentOnEmail: boolean = false;
@@ -13,13 +26,13 @@ export class SolutionDetails {
   crimeTypeId: number = null;
   legalBasis: string = '';
 
-  constructor(aData?: SolutionDetailsResponse) {
+  constructor(aData?: ISolutionDetails) {
     if (aData) {
       this.fromJson(aData);
     }
   }
 
-  fromJson(aJson: SolutionDetailsResponse) {
+  fromJson(aJson: ISolutionDetails) {
     this.source = aJson.source;
     this.sentOnEmail = aJson.sentOnEmail;
     this.fileNumber = aJson.fileNumber;
@@ -32,7 +45,7 @@ export class SolutionDetails {
     this.legalBasis = aJson.legalBasis;
   }
 
-  toJson(): SolutionDetailsResponse {
+  toJson(): ISolutionDetails {
     return {
       source: this.source,
       sentOnEmail: this.sentOnEmail,

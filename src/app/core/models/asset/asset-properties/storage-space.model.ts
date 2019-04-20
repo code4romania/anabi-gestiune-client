@@ -1,5 +1,14 @@
 import { AssetProperty, AssetPropertyType } from '../asset-property.model';
-import { Address } from './address.model';
+import { Asset, IAsset } from '../asset.model';
+import { Address, IAddress } from './address.model';
+
+export interface IStorageSpace {
+  id: number;
+  address: IAddress;
+  name: string;
+  asset: IAsset;
+  assetId: number;
+}
 
 export class StorageSpace extends AssetProperty {
   id: number;
@@ -14,17 +23,21 @@ export class StorageSpace extends AssetProperty {
     }
   }
 
-  fromJson(aJson: any) {
+  fromJson(aJson: IStorageSpace) {
     this.id = aJson.id;
-    this.address = aJson.address;
+    this.address = new Address(aJson.address);
     this.name = aJson.name;
+    this.asset = aJson.asset ? new Asset(aJson.asset) : undefined;
+    this.assetId = aJson.assetId;
   }
 
-  toJson(): any {
+  toJson(): IStorageSpace {
     return {
       id: this.id,
-      address: this.address,
+      address: this.address.toJson(),
       name: this.name,
+      asset: this.asset.toJson(),
+      assetId: this.assetId,
     };
   }
 

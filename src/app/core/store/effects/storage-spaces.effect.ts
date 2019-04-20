@@ -20,7 +20,7 @@ export class StorageSpacesEffects {
   @Effect()
   loadStorageSpaces$ = this.actions$
     .pipe(
-    ofType(storageSpaceActions.LOAD_STORAGE_SPACES),
+    ofType(storageSpaceActions.StorageSpaceActionTypes.LoadStorageSpaces),
     switchMap(() => {
       return this.storageSpaceService
         .list()
@@ -34,7 +34,7 @@ export class StorageSpacesEffects {
   @Effect()
   createStorageSpace$ = this.actions$
     .pipe(
-      ofType(storageSpaceActions.STORAGE_SPACE_CREATE),
+      ofType(storageSpaceActions.StorageSpaceActionTypes.CreateStorageSpace),
       map((action: storageSpaceActions.CreateStorageSpace) => action.payload),
       map(aPayload => new storageSpaceActions.CreateStorageSpaceSuccess(aPayload))
     );
@@ -42,7 +42,7 @@ export class StorageSpacesEffects {
   @Effect()
   createStorageSpaceSuccess$ = this.actions$
     .pipe(
-      ofType(storageSpaceActions.STORAGE_SPACE_CREATE_SUCCESS),
+      ofType(storageSpaceActions.StorageSpaceActionTypes.CreateStorageSpaceSuccess),
       map((action: storageSpaceActions.CreateStorageSpaceSuccess) => action.payload),
       map((aStorageSpace: StorageSpace) => new assetPropertiesActions.DeleteProperty(aStorageSpace.getAsset().id))
     );
@@ -50,7 +50,7 @@ export class StorageSpacesEffects {
   @Effect()
   showLoading$ = this.actions$
     .pipe(
-      ofType(storageSpaceActions.LOAD_STORAGE_SPACES),
+      ofType(storageSpaceActions.StorageSpaceActionTypes.LoadStorageSpaces),
       mapTo(new loadingActions.ShowLoading())
     );
 
@@ -58,8 +58,8 @@ export class StorageSpacesEffects {
   hideLoading$ = this.actions$
     .pipe(
       ofType(
-        storageSpaceActions.LOAD_STORAGE_SPACES_FAIL,
-        storageSpaceActions.LOAD_STORAGE_SPACES_SUCCESS
+        storageSpaceActions.StorageSpaceActionTypes.LoadStorageSpacesFail,
+        storageSpaceActions.StorageSpaceActionTypes.LoadStorageSpacesSuccess
       ),
       mapTo(new loadingActions.HideLoading())
     );
