@@ -12,7 +12,7 @@ export class CrimeTypesEffects {
   @Effect()
   loadMeasures$ = this.actions$
     .pipe(
-      ofType(crimeTypeActions.CRIME_TYPES_LOAD),
+      ofType(crimeTypeActions.CrimeTypeActionTypes.LoadCrimeTypes),
       switchMap(() => {
         return this.crimeTypesService
           .list()

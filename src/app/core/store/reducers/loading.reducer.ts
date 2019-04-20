@@ -14,7 +14,7 @@ export function reducer(
 ): LoadingState {
 
   switch (action.type) {
-    case fromLoading.SHOW_LOADING: {
+    case fromLoading.LoadingActionTypes.ShowLoading: {
       const ttl = state.ttl + 1;
       return {
         ...state,
@@ -22,7 +22,7 @@ export function reducer(
       };
     }
 
-    case fromLoading.HIDE_LOADING: {
+    case fromLoading.LoadingActionTypes.HideLoading: {
       const ttl = state.ttl > 0 ? state.ttl - 1 : 0;
       return {
         ...state,

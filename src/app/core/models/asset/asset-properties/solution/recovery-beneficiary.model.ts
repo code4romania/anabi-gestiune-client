@@ -1,24 +1,27 @@
-import { RecoveryBeneficiaryResponse } from './recovery-beneficiary-response.interface';
+export interface IRecoveryBeneficiary {
+  id: number;
+  name: string;
+}
 
 export class RecoveryBeneficiary {
   id: number;
   name: string;
 
-  constructor(aData?: RecoveryBeneficiaryResponse) {
+  constructor(aData?: IRecoveryBeneficiary) {
     if (aData) {
       this.fromJson(aData);
     }
   }
 
-  fromJson(aJson: RecoveryBeneficiaryResponse) {
+  fromJson(aJson: IRecoveryBeneficiary) {
     this.id = aJson.id;
     this.name = aJson.name;
   }
 
-  toJson(): RecoveryBeneficiaryResponse {
+  toJson(): IRecoveryBeneficiary {
     return {
       id: this.id,
       name: this.name,
-    } as RecoveryBeneficiaryResponse;
+    } as IRecoveryBeneficiary;
   }
 }

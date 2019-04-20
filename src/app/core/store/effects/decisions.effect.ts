@@ -12,7 +12,7 @@ export class DecisionsEffects {
   @Effect()
   loadDecisions$ = this.actions$
     .pipe(
-      ofType(decisionActions.LOAD_DECISIONS),
+      ofType(decisionActions.DecisionsActionTypes.LoadDecisions),
       switchMap(() => {
         return this.decisionsService
           .list()

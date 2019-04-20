@@ -18,7 +18,7 @@ export class DefendantsEffects {
   @Effect()
   createDefendant$ = this.actions$
     .pipe(
-      ofType(defendantsActions.DEFENDANT_CREATE),
+      ofType(defendantsActions.DefendantsActionTypes.CreateDefendant),
       map((action: defendantsActions.CreateDefendant) => action.payload),
       switchMap(aPayload => {
         return this.defendantsService.createDefendant$(aPayload).pipe(
@@ -31,7 +31,7 @@ export class DefendantsEffects {
   @Effect()
   createDefendantSuccess$ = this.actions$
     .pipe(
-      ofType(defendantsActions.DEFENDANT_CREATE_SUCCESS),
+      ofType(defendantsActions.DefendantsActionTypes.CreateDefendantSuccess),
       map((action: defendantsActions.CreateDefendantSuccess) => action.payload),
       map((aDefendant: Defendant) => new assetPropertiesActions.DeleteProperty(aDefendant.getAsset().id))
     );
@@ -39,7 +39,7 @@ export class DefendantsEffects {
   @Effect()
   loadDefendants$ = this.actions$
     .pipe(
-      ofType(defendantsActions.DEFENDANTS_LOAD),
+      ofType(defendantsActions.DefendantsActionTypes.LoadDefendants),
       map((action: defendantsActions.LoadDefendants) => action.payload),
       mergeMap(aAssetId => this.store.pipe(select(assetSelectors.getAssetById(aAssetId)))),
       filter(aAsset => aAsset !== undefined),

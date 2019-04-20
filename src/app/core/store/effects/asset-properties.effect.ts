@@ -15,7 +15,7 @@ export class AssetPropertiesEffects {
   @Effect()
   createProperty$ = this.actions$
     .pipe(
-      ofType(assetPropertyActions.CREATE_PROPERTY),
+      ofType(assetPropertyActions.AssetPropertyActionTypes.CreateProperty),
       map((action: assetPropertyActions.CreateProperty) => action.payload),
       map((aPayload: AssetProperty) => {
         if (!aPayload) {

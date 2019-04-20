@@ -12,7 +12,7 @@ export class IdentifiersEffects {
   @Effect()
   loadIdentifiers$ = this.actions$
     .pipe(
-      ofType(identifierActions.LOAD_IDENTIFIERS),
+      ofType(identifierActions.IdentifiersActionTypes.LoadIdentifiers),
       switchMap(() => {
         return this.identifiersService.getAllIdentifiers$()
           .pipe(

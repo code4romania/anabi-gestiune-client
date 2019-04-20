@@ -1,8 +1,8 @@
-import { RecoveryBeneficiary } from '../../models';
+import { IRecoveryBeneficiary, RecoveryBeneficiary } from '../../models';
 import * as fromRecoveryBeneficiaries from '../actions/recovery-beneficiaries.action';
 
 export interface RecoveryBeneficiariesState {
-  entities: { [id: number]: RecoveryBeneficiary };
+  entities: { [id: number]: IRecoveryBeneficiary };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,14 +19,14 @@ export function reducer(
 ): RecoveryBeneficiariesState {
 
   switch (action.type) {
-    case fromRecoveryBeneficiaries.LOAD_RECOVERY_BENEFICIARIES: {
+    case fromRecoveryBeneficiaries.RecoveryBeneficiaryActionTypes.LoadRecoveryBeneficiaries: {
       return {
         ...state,
         loading: true,
       } as RecoveryBeneficiariesState;
     }
 
-    case fromRecoveryBeneficiaries.LOAD_RECOVERY_BENEFICIARIES_FAIL: {
+    case fromRecoveryBeneficiaries.RecoveryBeneficiaryActionTypes.LoadRecoveryBeneficiariesFail: {
       return {
         ...state,
         loading: false,
@@ -34,12 +34,12 @@ export function reducer(
       } as RecoveryBeneficiariesState;
     }
 
-    case fromRecoveryBeneficiaries.LOAD_RECOVERY_BENEFICIARIES_SUCCESS: {
+    case fromRecoveryBeneficiaries.RecoveryBeneficiaryActionTypes.LoadRecoveryBeneficiariesSuccess: {
       const theRecoveryBeneficiaries = action.payload;
       const entities = theRecoveryBeneficiaries.reduce((aEntities: { [id: number]: RecoveryBeneficiary }, aRB: RecoveryBeneficiary) => {
         return {
           ...aEntities,
-          [aRB.id]: aRB,
+          [aRB.id]: aRB.toJson(),
         };
       }, { ...state.entities });
 

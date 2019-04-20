@@ -1,8 +1,8 @@
-import { CrimeType } from '../../models';
+import { CrimeType, ICrimeType } from '../../models';
 import * as fromCrimeTypes from '../actions/crime-types.action';
 
 export interface CrimeTypesState {
-  entities: { [id: number]: CrimeType };
+  entities: { [id: number]: ICrimeType };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,14 +19,14 @@ export function reducer(
 ): CrimeTypesState {
 
   switch (action.type) {
-    case fromCrimeTypes.CRIME_TYPES_LOAD: {
+    case fromCrimeTypes.CrimeTypeActionTypes.LoadCrimeTypes: {
       return {
         ...state,
         loading: true,
       } as CrimeTypesState;
     }
 
-    case fromCrimeTypes.CRIME_TYPES_LOAD_FAIL: {
+    case fromCrimeTypes.CrimeTypeActionTypes.LoadCrimeTypesFail: {
       return {
         ...state,
         loading: false,
@@ -34,7 +34,7 @@ export function reducer(
       } as CrimeTypesState;
     }
 
-    case fromCrimeTypes.CRIME_TYPES_LOAD_SUCCESS: {
+    case fromCrimeTypes.CrimeTypeActionTypes.LoadCrimeTypesSuccess: {
       const theCrimeTypes = action.payload;
       const entities = theCrimeTypes.reduce((aEntities: { [id: number]: CrimeType }, aCrimeType: CrimeType) => {
         return {

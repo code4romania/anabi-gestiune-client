@@ -1,8 +1,8 @@
-import { Decision } from '../../models';
+import { Decision, IDecision } from '../../models';
 import * as fromDecisions from '../actions/decisions.action';
 
 export interface DecisionState {
-  entities: { [id: number]: Decision };
+  entities: { [id: number]: IDecision };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,19 +19,19 @@ export function reducer(
 ): DecisionState {
 
   switch (action.type) {
-    case fromDecisions.LOAD_DECISIONS: {
+    case fromDecisions.DecisionsActionTypes.LoadDecisions: {
       return {
         ...state,
         loading: true,
       } as DecisionState;
     }
 
-    case fromDecisions.LOAD_DECISIONS_SUCCESS: {
+    case fromDecisions.DecisionsActionTypes.LoadDecisionsSuccess: {
       const theDecisions = action.payload;
       const entities = theDecisions.reduce((aEntities: { [id: number]: Decision }, aDecision: Decision) => {
         return {
           ...aEntities,
-          [aDecision.id]: aDecision,
+          [aDecision.id]: aDecision.toJson(),
         };
       }, {
         ...state.entities,
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromDecisions.LOAD_DECISIONS_FAIL: {
+    case fromDecisions.DecisionsActionTypes.LoadDecisionsFail: {
       return {
         ...state,
         loading: false,

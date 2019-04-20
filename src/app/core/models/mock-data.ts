@@ -1,6 +1,14 @@
 import * as moment from 'moment';
 
-import { Asset, AssetResponse, Solution } from './';
+import {
+  Asset,
+  AssetResponse,
+  Category,
+  CategoryEntity,
+  CategoryResponse,
+  ISolution,
+  Solution
+} from './';
 import { InstitutionResponse } from './institution-response.interface';
 import { PrecautionaryMeasureResponse } from './precautionary-measure-response.interface';
 
@@ -104,7 +112,7 @@ const firstSolution = new Solution({
     userCodeLastChange: moment('2018-01-04').format(),
     lastChangeDate: moment('2018-01-04').format(),
   },
-});
+} as ISolution);
 firstSolution.setAsset(firstAsset);
 
 const secondSolution = new Solution({
@@ -157,7 +165,7 @@ const secondSolution = new Solution({
     userCodeLastChange: moment('2018-02-04').format(),
     lastChangeDate: moment('2018-02-04').format(),
   },
-});
+} as ISolution);
 secondSolution.setAsset(secondAsset);
 
 const thirdSolution = new Solution({
@@ -210,7 +218,7 @@ const thirdSolution = new Solution({
     userCodeLastChange: moment('2018-03-04').format(),
     lastChangeDate: moment('2018-03-04').format(),
   },
-});
+} as ISolution);
 thirdSolution.setAsset(secondAsset);
 
 export const solutions: Solution[] = [
@@ -236,6 +244,43 @@ export const precautionaryMeasures: PrecautionaryMeasureResponse[] = [
     name: 'Despagubiri acordate statului',
   } as PrecautionaryMeasureResponse,
 ];
+
+export const categoriesResponse: CategoryResponse[] = [
+  {
+    id: 1,
+    code: 'First category',
+    description: 'First category description',
+    parentId: null,
+    forEntity: CategoryEntity.Asset as string,
+  } as CategoryResponse,
+  {
+    id: 2,
+    code: 'Second category',
+    description: 'Second category description',
+    parentId: null,
+    forEntity: 'test',
+  } as CategoryResponse,
+  {
+    id: 3,
+    code: 'Third category',
+    description: 'Third category description',
+    parentId: 1,
+    forEntity: CategoryEntity.Asset as string,
+  } as CategoryResponse,
+  {
+    id: 4,
+    code: 'Fourth category',
+    description: 'Fourth category description',
+    parentId: 1,
+    forEntity: 'test',
+  } as CategoryResponse,
+];
+
+export const categories: Category[] = categoriesResponse.map(aCategoryResponse => {
+  const theCategory = new Category();
+  theCategory.fromResponse(aCategoryResponse);
+  return theCategory;
+});
 
 export const institutionsMockData: InstitutionResponse[] = (() => {
   const result: InstitutionResponse[] = [];

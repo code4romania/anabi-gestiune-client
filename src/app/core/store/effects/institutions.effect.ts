@@ -13,7 +13,7 @@ export class InstitutionsEffects {
   @Effect()
   loadInstitutions$ = this.actions$
     .pipe(
-      ofType(institutionActions.LOAD_INSTITUTIONS),
+      ofType(institutionActions.InstitutionsActionTypes.LoadInstitutions),
       switchMap(() => {
         return this.institutionsService
           .list()
@@ -27,7 +27,7 @@ export class InstitutionsEffects {
   @Effect()
   showLoading$ = this.actions$
     .pipe(
-      ofType(institutionActions.LOAD_INSTITUTIONS),
+      ofType(institutionActions.InstitutionsActionTypes.LoadInstitutions),
       mapTo(new loadingActions.ShowLoading())
     );
 
@@ -35,14 +35,15 @@ export class InstitutionsEffects {
   hideLoading$ = this.actions$
     .pipe(
       ofType(
-        institutionActions.LOAD_INSTITUTIONS_FAIL,
-        institutionActions.LOAD_INSTITUTIONS_SUCCESS
+        institutionActions.InstitutionsActionTypes.LoadInstitutionsFail,
+        institutionActions.InstitutionsActionTypes.LoadInstitutionsSuccess
       ),
       mapTo(new loadingActions.HideLoading())
     );
 
-  constructor(private actions$: Actions,
-              private institutionsService: InstitutionsService
+  constructor(
+    private actions$: Actions,
+    private institutionsService: InstitutionsService
   ) {
   }
 }

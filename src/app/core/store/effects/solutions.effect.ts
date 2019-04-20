@@ -14,7 +14,7 @@ export class SolutionsEffects {
   @Effect()
   loadSolutions$ = this.actions$
     .pipe(
-      ofType(solutionActions.LOAD_SOLUTIONS),
+      ofType(solutionActions.SolutionActionTypes.LoadSolutions),
       map((action: solutionActions.LoadSolutions) => action.payload),
       switchMap((aPayload) => {
         return this.solutionsService
@@ -29,7 +29,7 @@ export class SolutionsEffects {
   @Effect()
   createSolution$ = this.actions$
     .pipe(
-      ofType(solutionActions.CREATE_SOLUTION),
+      ofType(solutionActions.SolutionActionTypes.CreateSolution),
       map((action: solutionActions.CreateSolution) => action.payload),
       switchMap((aPayload) => {
         return this.solutionsService
@@ -44,7 +44,7 @@ export class SolutionsEffects {
   @Effect()
   createSolutionSuccess$ = this.actions$
     .pipe(
-      ofType(solutionActions.CREATE_SOLUTION_SUCCESS),
+      ofType(solutionActions.SolutionActionTypes.CreateSolutionSuccess),
       map((action: solutionActions.CreateSolutionSuccess) => action.payload),
       mapTo((aSolution: Solution) => new assetPropertiesActions.DeleteProperty(aSolution.getAsset().id))
     );
