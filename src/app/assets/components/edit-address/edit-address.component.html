@@ -5,59 +5,82 @@
 
     <div class="row">
       <mat-form-field>
-        <input matInput 
-                name="countyId"
-                maxlength="100"
-                placeholder="Numar judet"
-                formControlName="countyId"
-                required
-        />
+        <mat-select
+          placeholder="Judet"
+          formControlName="county"
+          required
+        >
+          <mat-option *ngFor="let theCounty of counties" [value]="theCounty">
+            {{ theCounty.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-      
+
       <div class="spacer"></div>
 
       <mat-form-field>
-        <input matInput 
-                name="city"
-                maxlength="100"
+        <input matInput
                 placeholder="Localitate"
                 formControlName="city"
                 required
         />
-      </mat-form-field>      
+      </mat-form-field>
     </div>
 
     <div class="row">
       <mat-form-field>
         <input matInput
-                name="street"
-                maxlength="100"
                 placeholder="Strada"
                 formControlName="street"
                 required
         />
       </mat-form-field>
-  
+
       <div class="spacer"></div>
 
       <mat-form-field>
         <input matInput
-                name="building"
-                maxlength="100"
                 placeholder="Numar bloc"
                 formControlName="building"
                 required
         />
-      </mat-form-field>    
+      </mat-form-field>
     </div>
-    
+
+    <div class="row">
+      <mat-form-field>
+        <input matInput
+               placeholder="Scara"
+               formControlName="stair"
+               required
+        />
+      </mat-form-field>
+
+      <div class="spacer"></div>
+
+      <mat-form-field>
+        <input matInput
+               placeholder="Etaj"
+               formControlName="floor"
+               required
+        />
+      </mat-form-field>
+
+      <div class="spacer"></div>
+
+      <mat-form-field>
+        <input matInput
+               placeholder="Apartament"
+               formControlName="flatNo"
+               required
+        />
+      </mat-form-field>
+    </div>
+
     <mat-form-field>
       <input matInput
-             name="description"
-             maxlength="1000"
              placeholder="Detalii"
              formControlName="description"
-             required
       />
     </mat-form-field>
 

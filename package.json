@@ -50,11 +50,10 @@
     "normalize.scss": "0.1.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
-    "typescript": "3.2.4",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.10.7",
+    "@angular-devkit/build-angular": "0.13.7",
     "@angular-devkit/core": "7.0.5",
     "@angular/cli": "7.3.7",
     "@angular/compiler-cli": "7.2.6",
@@ -80,6 +79,7 @@
     "protractor": "5.4.1",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
+    "typescript": "3.2.4",
     "webpack-bundle-analyzer": "3.0.3",
     "webpack-cli": "3.2.1"
   }

@@ -2,6 +2,7 @@ export * from './solution';
 
 export * from './address.model';
 export * from './address-response.interface';
+export * from './address-request.interface';
 export * from './county.model';
 export * from './county-response.interface';
 export * from './defendant.model';

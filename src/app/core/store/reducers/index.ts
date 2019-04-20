@@ -1,7 +1,9 @@
 import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+import * as fromAddresses from './addresses.reducer';
 import * as fromAssetProperties from './asset-properties.reducer';
 import * as fromAssets from './assets.reducer';
 import * as fromCategories from './categories.reducer';
+import * as fromCounties from './counties.reducer';
 import * as fromCrimeTypes from './crime-types.reducer';
 import * as fromDecisions from './decisions.reducer';
 import * as fromDefendants from './defendants.reducer';
@@ -19,9 +21,11 @@ export interface State {
 }
 
 export interface CoreState {
+  addresses: fromAddresses.AddressesState;
   assets: fromAssets.AssetState;
   assetProperties: fromAssetProperties.AssetPropertyState;
   categories: fromCategories.CategoryState;
+  counties: fromCounties.CountyState;
   crimeTypes: fromCrimeTypes.CrimeTypesState;
   decisions: fromDecisions.DecisionState;
   defendants: fromDefendants.DefendantsState;
@@ -36,9 +40,11 @@ export interface CoreState {
 }
 
 export const reducers: ActionReducerMap<CoreState> = {
+  addresses: fromAddresses.reducer,
   assets: fromAssets.reducer,
   assetProperties: fromAssetProperties.reducer,
   categories: fromCategories.reducer,
+  counties: fromCounties.reducer,
   crimeTypes: fromCrimeTypes.reducer,
   decisions: fromDecisions.reducer,
   defendants: fromDefendants.reducer,
@@ -54,9 +60,11 @@ export const reducers: ActionReducerMap<CoreState> = {
 
 export const getCoreState = createFeatureSelector<CoreState>('core');
 
+export { AddressesState } from './addresses.reducer';
 export { AssetState } from './assets.reducer';
 export { AssetPropertyState } from './asset-properties.reducer';
 export { CategoryState } from './categories.reducer';
+export { CountyState } from './counties.reducer';
 export { CrimeTypesState } from './crime-types.reducer';
 export { DecisionState } from './decisions.reducer';
 export { DefendantsState } from './defendants.reducer';
