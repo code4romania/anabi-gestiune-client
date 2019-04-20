@@ -5,6 +5,8 @@ import { catchError } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import {
+  AddressRequest,
+  AddressResponse,
   Asset,
   AssetCategory,
   AssetCurrency,
@@ -13,7 +15,7 @@ import {
   AssetRequest,
   AssetResponse,
   AssetSubcategory,
-  Stage
+  Stage,
 } from '../models';
 
 @Injectable()
@@ -52,6 +54,20 @@ export class AssetsApiService {
     return this.http.get<AssetDetailResponse>(`${environment.api_url}/assets/${id}`)
       .pipe(
         catchError(aError => observableThrowError(aError))
+      );
+  }
+
+  public createAddress(id: number, address: AddressRequest): Observable<AddressResponse> {
+    return this.http.post<AddressResponse>(`${environment.api_url}/assets/${id}/address`, address)
+      .pipe(
+        catchError(aError => observableThrowError(aError.error.errors))
+      );
+  }
+
+  public updateAddress(id: number, address: AddressRequest): Observable<AddressResponse> {
+    return this.http.put<AddressResponse>(`${environment.api_url}/assets/${id}/address`, address)
+      .pipe(
+        catchError(aError => observableThrowError(aError.error.errors))
       );
   }
 

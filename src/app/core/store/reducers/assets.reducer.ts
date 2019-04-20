@@ -1,8 +1,8 @@
-import { Asset } from '../../models';
+import { Asset, IAsset } from '../../models';
 import * as fromAssets from '../actions/assets.action';
 
 export interface AssetState {
-  entities: { [id: number]: Asset };
+  entities: { [id: number]: IAsset };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,19 +19,19 @@ export function reducer(
 ): AssetState {
 
   switch (action.type) {
-    case fromAssets.LOAD_ASSETS: {
+    case fromAssets.AssetActionTypes.LoadAssets: {
       return {
         ...state,
         loading: true,
       } as AssetState;
     }
 
-    case fromAssets.LOAD_ASSETS_SUCCESS: {
+    case fromAssets.AssetActionTypes.LoadAssetsSuccess: {
       const theAssets = action.payload;
       const entities = theAssets.reduce((aEntities: { [id: number]: Asset }, aAsset: Asset) => {
         return {
           ...aEntities,
-          [aAsset.id]: aAsset,
+          [aAsset.id]: aAsset.toJson(),
         };
       }, {
         ...state.entities,
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromAssets.LOAD_ASSETS_FAIL: {
+    case fromAssets.AssetActionTypes.LoadAssetsFail: {
       return {
         ...state,
         loading: false,
@@ -53,13 +53,13 @@ export function reducer(
       } as AssetState;
     }
 
-    case fromAssets.ASSET_UPDATE_SUCCESS:
-    case fromAssets.CREATE_ASSET_SUCCESS:
-    case fromAssets.LOAD_ASSET_DETAIL_SUCCESS: {
-      const theAsset = action.payload;
+    case fromAssets.AssetActionTypes.CreateAssetSuccess:
+    case fromAssets.AssetActionTypes.LoadAssetDetailSuccess:
+    case fromAssets.AssetActionTypes.UpdateAssetSuccess: {
+      const theAsset: Asset = action.payload;
       const entities = {
         ...state.entities,
-        [theAsset.id]: theAsset,
+        [theAsset.id]: theAsset.toJson(),
       };
 
       return {

@@ -1,5 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
+import { Solution } from '../../models';
 import * as fromFeature from '../reducers';
 import * as fromSolutions from '../reducers/solutions.reducer';
 
@@ -8,7 +9,20 @@ export const getSolutionState = createSelector(
   (state: fromFeature.CoreState) => state.solutions
 );
 
-export const getSolutionEntities = createSelector(getSolutionState, fromSolutions.getSolutionsEntities);
+const getSolutionEntitiesAsInterfaces = createSelector(getSolutionState, fromSolutions.getSolutionsEntities);
+export const getSolutionEntities = createSelector(
+  getSolutionEntitiesAsInterfaces,
+  (aEntities) => {
+    const theSolutions = Object.assign({}, aEntities);
+    const theResult: { [id: number]: Solution } = {};
+
+    Object.keys(theSolutions).map((aKey) => {
+      theResult[aKey] = new Solution(theSolutions[aKey]);
+    });
+
+    return theResult;
+  }
+);
 
 export const getAllSolutions = createSelector(getSolutionEntities, (entities) => {
   return Object.keys(entities).map(id => entities[parseInt(id, 10)]);

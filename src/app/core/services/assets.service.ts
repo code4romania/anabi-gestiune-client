@@ -8,10 +8,13 @@ import * as fromSelectors from '../store/selectors';
 
 import { AssetsApiService } from '../http';
 import {
+  Address,
+  AddressResponse,
   Asset,
   AssetCurrency,
   AssetDetailResponse,
   AssetMeasurement,
+  AssetRequest,
   AssetResponse,
   Category,
   Stage,
@@ -26,16 +29,16 @@ export class AssetsService {
   }
 
   public create(aAsset: Asset): Observable<Asset> {
-    return this.assetsApiService.create(aAsset.toJson())
+    return this.assetsApiService.create(this.toRequest(aAsset))
       .pipe(
-        mergeMap((aAssetResponse: AssetDetailResponse) => this.assetFromDetailResponse(aAssetResponse))
+        mergeMap((aAssetResponse: AssetDetailResponse) => this.fromDetailResponse(aAssetResponse))
       );
   }
 
   public update(aAsset: Asset): Observable<Asset> {
-    return this.assetsApiService.update(aAsset.id, aAsset.toJson())
+    return this.assetsApiService.update(aAsset.id, this.toRequest(aAsset))
       .pipe(
-        mergeMap((aAssetResponse: AssetDetailResponse) => this.assetFromDetailResponse(aAssetResponse))
+        mergeMap((aAssetResponse: AssetDetailResponse) => this.fromDetailResponse(aAssetResponse))
       );
   }
 
@@ -43,7 +46,7 @@ export class AssetsService {
     return this.assetsApiService.list()
       .pipe(
         mergeMap(a => a),
-        mergeMap((aAssetResponse: AssetResponse) => this.assetFromResponse(aAssetResponse)),
+        mergeMap((aAssetResponse: AssetResponse) => this.fromResponse(aAssetResponse)),
         toArray()
       );
   }
@@ -52,6 +55,19 @@ export class AssetsService {
     return this.assetsApiService.stages()
       .pipe(
         map((aResponse: StageResponse[]) => aResponse.map(aStage => new Stage(aStage)))
+      );
+  }
+
+  public createAddress(aAddress: Address): Observable<Address> {
+    return this.assetsApiService.createAddress(aAddress.getAssetId(), aAddress.toRequest())
+      .pipe(
+        map((aNewAddress: AddressResponse) => {
+          const theAddress = new Address();
+          theAddress.fromResponse(aNewAddress);
+          theAddress.setAsset(aAddress.getAsset());
+          theAddress.setCounty(aAddress.county);
+          return theAddress;
+        })
       );
   }
 
@@ -78,11 +94,27 @@ export class AssetsService {
   public loadAssetDetails(aAssetId: number) {
     return this.assetsApiService.assetDetails(aAssetId)
       .pipe(
-        mergeMap((aAssetResponse: AssetDetailResponse) => this.assetFromDetailResponse(aAssetResponse))
+        mergeMap((aAssetResponse: AssetDetailResponse) => this.fromDetailResponse(aAssetResponse))
       );
   }
 
-  private assetFromResponse(aResponse: AssetResponse): Observable<Asset> {
+  private toRequest(aAsset: Asset): AssetRequest {
+    return {
+      name: aAsset.name,
+      categoryId: aAsset.category ? aAsset.category.id : null,
+      subcategoryId: aAsset.subcategory ? aAsset.subcategory.id : null,
+      stageId: aAsset.stage ? aAsset.stage.id : null,
+      quantity: aAsset.quantity,
+      measureUnit: aAsset.measureUnit,
+      estimatedAmount: aAsset.estimatedAmount,
+      estimatedAmountCurrency: aAsset.estimatedAmountCurrency,
+      description: aAsset.description,
+      identifier: aAsset.identifier,
+      remarks: aAsset.remarks,
+    } as AssetRequest;
+  }
+
+  private fromResponse(aResponse: AssetResponse): Observable<Asset> {
     return zip(
       this.store.pipe(select(fromSelectors.getCategoryByName(aResponse.assetCategory))),
       this.store.pipe(select(fromSelectors.getCategoryByName(aResponse.assetSubcategory))),
@@ -93,7 +125,6 @@ export class AssetsService {
         theAsset.setCategory(aCategory);
         theAsset.setSubcategory(aSubcategory);
         theAsset.setStage(aStage);
-
         return theAsset;
       }
     ).pipe(
@@ -101,7 +132,7 @@ export class AssetsService {
     );
   }
 
-  private assetFromDetailResponse(aResponse: AssetDetailResponse): Observable<Asset> {
+  private fromDetailResponse(aResponse: AssetDetailResponse): Observable<Asset> {
     return zip(
       this.store.pipe(select(fromSelectors.getCategoryById(aResponse.subcategoryId))),
       this.store.pipe(select(fromSelectors.getStageById(aResponse.stageId))),

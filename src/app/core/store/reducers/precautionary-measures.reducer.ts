@@ -1,8 +1,8 @@
-import { PrecautionaryMeasure, PrecautionaryMeasureResponse } from '../../models';
+import { IPrecautionaryMeasure, PrecautionaryMeasure } from '../../models';
 import * as fromPrecautionaryMeasures from '../actions/precautionary-measures.action';
 
 export interface PrecautionaryMeasureState {
-  entities: { [id: number]: PrecautionaryMeasureResponse };
+  entities: { [id: number]: IPrecautionaryMeasure };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,14 +19,14 @@ export function reducer(
 ): PrecautionaryMeasureState {
 
   switch (action.type) {
-    case fromPrecautionaryMeasures.LOAD_PRECAUTIONARY_MEASURES: {
+    case fromPrecautionaryMeasures.PrecautionaryMeasuresActionTypes.LoadPrecautionaryMeasures: {
       return {
         ...state,
         loading: true,
       } as PrecautionaryMeasureState;
     }
 
-    case fromPrecautionaryMeasures.LOAD_PRECAUTIONARY_MEASURES_SUCCESS: {
+    case fromPrecautionaryMeasures.PrecautionaryMeasuresActionTypes.LoadPrecautionaryMeasuresSuccess: {
       const theMeasures = action.payload;
       const entities = theMeasures.reduce((aEntities: { [id: number]: PrecautionaryMeasure }, aMeasure: PrecautionaryMeasure) => {
         return {
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromPrecautionaryMeasures.LOAD_PRECAUTIONARY_MEASURES_FAIL: {
+    case fromPrecautionaryMeasures.PrecautionaryMeasuresActionTypes.LoadPrecautionaryMeasuresFail: {
       return {
         ...state,
         loading: false,

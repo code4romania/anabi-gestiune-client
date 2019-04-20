@@ -1,8 +1,8 @@
-import { Stage } from '../../models';
+import { IStage, Stage } from '../../models';
 import * as fromStages from '../actions/stages.action';
 
 export interface StageState {
-  entities: { [id: number]: Stage };
+  entities: { [id: number]: IStage };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,19 +19,19 @@ export function reducer(
 ): StageState {
 
   switch (action.type) {
-    case fromStages.LOAD_STAGES: {
+    case fromStages.StageActionTypes.LoadStages: {
       return {
         ...state,
         loading: true,
       } as StageState;
     }
 
-    case fromStages.LOAD_STAGES_SUCCESS: {
+    case fromStages.StageActionTypes.LoadStagesSuccess: {
       const theStages = action.payload;
       const entities = theStages.reduce((aEntities: { [id: number]: Stage }, aStage: Stage) => {
         return {
           ...aEntities,
-          [aStage.id]: aStage,
+          [aStage.id]: aStage.toJson(),
         };
       }, {
         ...state.entities,
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromStages.LOAD_STAGES_FAIL: {
+    case fromStages.StageActionTypes.LoadStagesFail: {
       return {
         ...state,
         loading: false,

@@ -1,16 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Address, AddressResponse } from '@app/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Address, AddressForm, County, IAddress } from '@app/core/models';
 
 import { cloneDeep } from 'lodash';
-
-export interface AddressFormValue {
-  countyId: number;
-  city: string;
-  street: string;
-  building: string;
-  description: string;
-}
 
 @Component({
   selector: 'app-edit-address',
@@ -20,22 +12,23 @@ export interface AddressFormValue {
 
 export class EditAddressComponent implements OnInit {
   @Input() address: Address;
+  @Input() counties: County[];
   @Output() onUpdate: EventEmitter<Address> = new EventEmitter<Address>();
   @Output() onCancel: EventEmitter<Address> = new EventEmitter<Address>();
   @Output() onSave: EventEmitter<Address> = new EventEmitter<Address>();
 
   public theAddress: Address;
   public addressForm: FormGroup = new FormGroup({
-    countyId: new FormControl(),
-    city: new FormControl(),
-    street: new FormControl(),
-    building: new FormControl(),
+    county: new FormControl('', [ Validators.required ]),
+    city: new FormControl('', [ Validators.required ]),
+    street: new FormControl(''),
+    building: new FormControl(''),
     description: new FormControl(),
   });
 
   ngOnInit() {
-    this.addressForm.setValue({
-      countyId: this.address.countyId,
+    this.addressForm.patchValue({
+      county: this.address.county,
       city: this.address.city,
       street: this.address.street,
       building: this.address.building,
@@ -52,10 +45,9 @@ export class EditAddressComponent implements OnInit {
     });
   }
 
-  updateAddress(aFormValue: AddressFormValue) {
+  updateAddress(aFormValue: AddressForm) {
     this.theAddress = cloneDeep(this.address);
-
-    this.theAddress.fromJson(aFormValue as AddressResponse);
+    this.theAddress.fromForm(aFormValue);
   }
 
   cancel() {
@@ -66,4 +58,15 @@ export class EditAddressComponent implements OnInit {
     this.onSave.emit(this.theAddress);
   }
 
+  getCounties(): County[] {
+    return this.counties.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      } else {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
 }

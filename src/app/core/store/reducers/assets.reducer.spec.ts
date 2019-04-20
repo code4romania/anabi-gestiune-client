@@ -1,4 +1,3 @@
-import { Asset, AssetResponse } from '../../models';
 import * as fromAssets from '../actions/assets.action';
 import { initialState, reducer, AssetState } from './assets.reducer';
 
@@ -25,8 +24,8 @@ describe('Assets Reducer', () => {
     const expectedState = {
       ...initialState,
       entities: {
-        1: theAssets[0],
-        2: theAssets[1],
+        1: theAssets[0].toJson(),
+        2: theAssets[1].toJson(),
       },
       loaded: true,
       loading: false,

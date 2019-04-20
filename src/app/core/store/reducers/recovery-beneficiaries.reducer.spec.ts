@@ -28,9 +28,9 @@ describe('RecoveryBeneficiaries Reducer', () => {
     const expectedState = {
       ...initialState,
       entities: {
-        1: theRecoveryBeneficiaries[0],
-        2: theRecoveryBeneficiaries[1],
-        3: theRecoveryBeneficiaries[2],
+        1: theRecoveryBeneficiaries[0].toJson(),
+        2: theRecoveryBeneficiaries[1].toJson(),
+        3: theRecoveryBeneficiaries[2].toJson(),
       },
       loaded: true,
       loading: false,

@@ -7,6 +7,7 @@ import {
   Category,
   Stage
 } from '@app/core';
+import { isEqual } from 'lodash';
 
 @Component({
   selector: 'app-edit-asset',
@@ -56,7 +57,7 @@ export class EditAssetComponent implements OnInit {
       measureUnit: this.asset.measureUnit,
       estimatedAmount: this.asset.estimatedAmount,
       estimatedAmountCurrency: this.asset.estimatedAmountCurrency,
-      remarks: this.asset.remarks,
+      remarks: this.asset.remarks || '',
     });
 
     this.editAssetForm.valueChanges.subscribe((formValue) => {
@@ -93,5 +94,9 @@ export class EditAssetComponent implements OnInit {
 
   cancel() {
     this.onCancel.emit();
+  }
+
+  compareCategories(aFirstCategory: Category, aSecondCategory: Category) {
+    return isEqual(aFirstCategory.toJson(), aSecondCategory.toJson());
   }
 }

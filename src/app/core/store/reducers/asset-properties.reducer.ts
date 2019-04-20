@@ -11,7 +11,7 @@ export const initialState: AssetPropertyState = {
 
 export function reducer(state = initialState, action: fromAssetProperties.AssetPropertiesAction): AssetPropertyState {
   switch (action.type) {
-    case fromAssetProperties.UPDATE_PROPERTY: {
+    case fromAssetProperties.AssetPropertyActionTypes.UpdateProperty: {
       const theProperty: AssetProperty = action.payload as AssetProperty;
       const entities = {
         ...state.entities,
@@ -24,7 +24,7 @@ export function reducer(state = initialState, action: fromAssetProperties.AssetP
       } as AssetPropertyState;
     }
 
-    case fromAssetProperties.CREATE_PROPERTY: {
+    case fromAssetProperties.AssetPropertyActionTypes.CreateProperty: {
       const theProperty: AssetProperty = action.payload as AssetProperty;
       const entities = {
         ...state.entities,
@@ -37,7 +37,7 @@ export function reducer(state = initialState, action: fromAssetProperties.AssetP
       } as AssetPropertyState;
     }
 
-    case fromAssetProperties.DELETE_PROPERTY: {
+    case fromAssetProperties.AssetPropertyActionTypes.DeleteProperty: {
       const theAssetId: number = action.payload as number;
       const entities = {
         ...state.entities,

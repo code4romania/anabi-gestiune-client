@@ -12,7 +12,7 @@ export class RecoveryBeneficiariesEffects {
   @Effect()
   loadRecoveryBeneficiaries$ = this.actions$
     .pipe(
-      ofType(recoveryBeneficiaryActions.LOAD_RECOVERY_BENEFICIARIES),
+      ofType(recoveryBeneficiaryActions.RecoveryBeneficiaryActionTypes.LoadRecoveryBeneficiaries),
       switchMap(() => {
         return this.recoveryBeneficiariesService
           .list()

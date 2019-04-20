@@ -26,8 +26,8 @@ describe('Solutions Reducer', () => {
     const expectedState = {
       ...initialState,
       entities: {
-        1: theSolutions[0],
-        2: theSolutions[1],
+        1: theSolutions[0].toJson(),
+        2: theSolutions[1].toJson(),
       },
       loaded: true,
       loading: false,
@@ -42,8 +42,8 @@ describe('Solutions Reducer', () => {
     const theInitialState = {
       ...initialState,
       entities: {
-        1: mockSolutions[0],
-        2: mockSolutions[1],
+        1: mockSolutions[0].toJson(),
+        2: mockSolutions[1].toJson(),
       },
       loaded: true,
       loading: false,
@@ -52,9 +52,9 @@ describe('Solutions Reducer', () => {
     const expectedState = {
       ...initialState,
       entities: {
-        1: mockSolutions[0],
-        2: mockSolutions[1],
-        3: mockSolutions[2],
+        1: mockSolutions[0].toJson(),
+        2: mockSolutions[1].toJson(),
+        3: mockSolutions[2].toJson(),
       },
       loaded: true,
       loading: false,

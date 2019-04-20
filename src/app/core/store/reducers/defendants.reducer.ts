@@ -23,7 +23,7 @@ export function reducer(
 ): DefendantsState {
 
   switch (action.type) {
-    case fromDefendants.DEFENDANT_CREATE_SUCCESS: {
+    case fromDefendants.DefendantsActionTypes.CreateDefendantSuccess: {
       const theDefendant = action.payload as Defendant;
       const entities = {
         ...state.entities,
@@ -35,7 +35,7 @@ export function reducer(
       } as DefendantsState;
     }
 
-    case fromDefendants.DEFENDANTS_LOAD: {
+    case fromDefendants.DefendantsActionTypes.LoadDefendants: {
       const theAssetId = action.payload;
 
       return {
@@ -47,7 +47,7 @@ export function reducer(
       } as DefendantsState;
     }
 
-    case fromDefendants.DEFENDANTS_LOAD_FAIL: {
+    case fromDefendants.DefendantsActionTypes.LoadDefendantsFail: {
       const theAssetId = action.payload;
 
       return {
@@ -63,7 +63,7 @@ export function reducer(
       } as DefendantsState;
     }
 
-    case fromDefendants.DEFENDANTS_LOAD_SUCCESS: {
+    case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
       const thePayload: fromDefendants.DefendantsSuccessPayload = action.payload;
       const theDefendants: Defendant[] = thePayload.defendants;
       const theAssetId = thePayload.asset.id;

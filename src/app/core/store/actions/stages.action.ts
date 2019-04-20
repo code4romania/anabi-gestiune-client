@@ -1,23 +1,25 @@
 import { Action } from '@ngrx/store';
 import { Stage } from '../../models';
 
-// load stages
-export const LOAD_STAGES = '[Stages] Load Stages';
-export const LOAD_STAGES_FAIL = '[Stages] Load Stages Fail';
-export const LOAD_STAGES_SUCCESS = '[Stages] Load Stages Success';
+export enum StageActionTypes {
+  LoadStages = '[Stages] Load Stages',
+  LoadStagesFail = '[Stages] Load Stages Fail',
+  LoadStagesSuccess = '[Stages] Load Stages Success',
+}
 
+// load stages
 export class LoadStages implements Action {
-  readonly type: string = LOAD_STAGES;
+  readonly type: string = StageActionTypes.LoadStages;
   constructor(public payload?: any) {}
 }
 
 export class LoadStagesFail implements Action {
-  readonly type: string = LOAD_STAGES_FAIL;
+  readonly type: string = StageActionTypes.LoadStagesFail;
   constructor(public payload: any) {}
 }
 
 export class LoadStagesSuccess implements Action {
-  readonly type: string = LOAD_STAGES_SUCCESS;
+  readonly type: string = StageActionTypes.LoadStagesSuccess;
   constructor(public payload: Stage[]) {}
 }
 

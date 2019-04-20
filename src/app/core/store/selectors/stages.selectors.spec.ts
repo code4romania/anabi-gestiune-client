@@ -38,15 +38,28 @@ describe('Stages Selectors', () => {
     return Object.keys(aState.core.stages.entities).map(id => aState.core.stages.entities[id]);
   };
 
+  const getEntitiesAsObjects = (aState: State) => {
+    const theResult: { [id: number]: Stage } = {};
+    Object.keys(aState.core.stages.entities).forEach(id => {
+      theResult[id] = new Stage(aState.core.stages.entities[id]);
+    });
+
+    return theResult;
+  };
+
+  const getEntitiesAsArrayOfObjects = (aState: State) => {
+    return Object.keys(aState.core.stages.entities).map(id => new Stage(aState.core.stages.entities[id]));
+  };
+
   beforeEach(() => {
     state = {
       core: {
         stages: {
           entities: {
-            1: theStages[0],
-            2: theStages[1],
-            3: theStages[2],
-            4: theStages[3],
+            1: theStages[0].toJson(),
+            2: theStages[1].toJson(),
+            3: theStages[2].toJson(),
+            4: theStages[3].toJson(),
           },
           loaded: true,
           loading: false,
@@ -65,13 +78,13 @@ describe('Stages Selectors', () => {
 
   describe('getStagesEntities', () => {
     it('should get the entities', () => {
-      expect(fromSelectors.getStagesEntities(state)).toEqual(coreState.stages.entities);
+      expect(fromSelectors.getStagesEntities(state)).toEqual(getEntitiesAsObjects(state));
     });
   });
 
   describe('getAllStages', () => {
     it('should get the stages', () => {
-      const expectedResult = getEntitiesAsArray(state);
+      const expectedResult = getEntitiesAsArrayOfObjects(state);
       expect(fromSelectors.getAllStages(state)).toEqual(expectedResult);
     });
   });
@@ -90,7 +103,7 @@ describe('Stages Selectors', () => {
 
   describe('getStageById', () => {
     it('should get a stage by id', () => {
-      expect(fromSelectors.getStageById(1)(state)).toEqual(coreState.stages.entities[1]);
+      expect(fromSelectors.getStageById(1)(state)).toEqual(new Stage(coreState.stages.entities[1]));
     });
 
     it('should return undefined if the id is not found', () => {
@@ -100,7 +113,7 @@ describe('Stages Selectors', () => {
 
   describe('getStageByName', () => {
     it('should get a stage by name', () => {
-      expect(fromSelectors.getStageByName('Stage 4')(state)).toEqual(coreState.stages.entities[4]);
+      expect(fromSelectors.getStageByName('Stage 4')(state)).toEqual(new Stage(coreState.stages.entities[4]));
     });
 
     it('should return undefined if the name is not found', () => {

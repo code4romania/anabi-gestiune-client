@@ -36,8 +36,8 @@ describe('Stages Reducer', () => {
     const expectedState = {
       ...initialState,
       entities: {
-        1: theStages[0],
-        2: theStages[1],
+        1: theStages[0].toJson(),
+        2: theStages[1].toJson(),
       },
       loaded: true,
       loading: false,

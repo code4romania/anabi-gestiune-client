@@ -1,8 +1,8 @@
-import { Institution } from '../../models';
+import { Institution, IInstitution } from '../../models';
 import * as fromInstitutions from '../actions/institutions.action';
 
 export interface InstitutionState {
-  entities: { [id: number]: Institution };
+  entities: { [id: number]: IInstitution };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,19 +19,19 @@ export function reducer(
 ): InstitutionState {
 
   switch (action.type) {
-    case fromInstitutions.LOAD_INSTITUTIONS: {
+    case fromInstitutions.InstitutionsActionTypes.LoadInstitutions: {
       return {
         ...state,
         loading: true,
       } as InstitutionState;
     }
 
-    case fromInstitutions.LOAD_INSTITUTIONS_SUCCESS: {
+    case fromInstitutions.InstitutionsActionTypes.LoadInstitutionsSuccess: {
       const theInstitutions = action.payload;
       const entities = theInstitutions.reduce((aEntities: { [id: number]: Institution }, aInstitution: Institution) => {
         return {
           ...aEntities,
-          [aInstitution.id]: aInstitution,
+          [aInstitution.id]: aInstitution.toJson(),
         };
       }, {
         ...state.entities,
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromInstitutions.LOAD_INSTITUTIONS_FAIL: {
+    case fromInstitutions.InstitutionsActionTypes.LoadInstitutionsFail: {
       return {
         ...state,
         loading: false,
