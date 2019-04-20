@@ -85,4 +85,19 @@ export class Address extends AssetProperty {
       assetId: this.assetId,
     };
   }
+
+  toRequest(): any {
+    return {
+      id: this.id,
+      countyId: this.countyId,
+      county: this.county,
+      street: this.street,
+      city: this.city,
+      building: this.building,
+      stair: this.stair,
+      floor: this.floor,
+      flatNo: this.flatNo,
+      description: this.description,
+    };
+  }
 }

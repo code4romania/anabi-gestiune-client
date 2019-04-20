@@ -1,4 +1,5 @@
 import { createFeatureSelector, ActionReducerMap } from '@ngrx/store';
+import * as fromAddresses from './addresses.reducer';
 import * as fromAssetProperties from './asset-properties.reducer';
 import * as fromAssets from './assets.reducer';
 import * as fromCategories from './categories.reducer';
@@ -19,6 +20,7 @@ export interface State {
 }
 
 export interface CoreState {
+  addresses: fromAddresses.AddressesState;
   assets: fromAssets.AssetState;
   assetProperties: fromAssetProperties.AssetPropertyState;
   categories: fromCategories.CategoryState;
@@ -36,6 +38,7 @@ export interface CoreState {
 }
 
 export const reducers: ActionReducerMap<CoreState> = {
+  addresses: fromAddresses.reducer,
   assets: fromAssets.reducer,
   assetProperties: fromAssetProperties.reducer,
   categories: fromCategories.reducer,
@@ -54,6 +57,7 @@ export const reducers: ActionReducerMap<CoreState> = {
 
 export const getCoreState = createFeatureSelector<CoreState>('core');
 
+export { AddressesState } from './addresses.reducer';
 export { AssetState } from './assets.reducer';
 export { AssetPropertyState } from './asset-properties.reducer';
 export { CategoryState } from './categories.reducer';
