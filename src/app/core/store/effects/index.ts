@@ -2,6 +2,7 @@ import { AddressesEffect } from './addresses.effect';
 import { AssetPropertiesEffects } from './asset-properties.effect';
 import { AssetsEffects } from './assets.effect';
 import { CategoriesEffects } from './categories.effect';
+import { CountiesEffects } from './counties.effect';
 import { CrimeTypesEffects } from './crime-types.effect';
 import { DecisionsEffects } from './decisions.effect';
 import { DefendantsEffects } from './defendants.effect';
@@ -18,6 +19,7 @@ export const effects: any[] = [
   AssetPropertiesEffects,
   AssetsEffects,
   CategoriesEffects,
+  CountiesEffects,
   CrimeTypesEffects,
   DecisionsEffects,
   DefendantsEffects,
@@ -34,6 +36,7 @@ export * from './addresses.effect';
 export * from './asset-properties.effect';
 export * from './assets.effect';
 export * from './categories.effect';
+export * from './counties.effect';
 export * from './crime-types.effect';
 export * from './decisions.effect';
 export * from './identifiers.effect';

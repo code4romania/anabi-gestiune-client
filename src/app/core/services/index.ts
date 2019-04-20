@@ -1,5 +1,6 @@
 import { AssetsService } from './assets.service';
 import { CategoriesService } from './categories.service';
+import { CountiesService } from './counties.service';
 import { CrimeTypesService } from './crime-types.service';
 import { DecisionsService } from './decisions.service';
 import { DefendantsService } from './defendants.service';
@@ -14,6 +15,7 @@ import { StorageSpacesService } from './storage-spaces.service';
 export const services: any[] = [
   AssetsService,
   CategoriesService,
+  CountiesService,
   CrimeTypesService,
   DecisionsService,
   DefendantsService,
@@ -28,6 +30,7 @@ export const services: any[] = [
 
 export * from './assets.service';
 export * from './categories.service';
+export * from './counties.service';
 export * from './crime-types.service';
 export * from './decisions.service';
 export * from './defendants.service';

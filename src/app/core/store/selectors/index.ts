@@ -1,6 +1,7 @@
 export * from './asset-properties.selectors';
 export * from './assets.selectors';
 export * from './categories.selectors';
+export * from './counties.selectors';
 export * from './crime-types.selectors';
 export * from './decisions.selectors';
 export * from './defendants.selectors';

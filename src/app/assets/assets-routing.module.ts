@@ -19,6 +19,7 @@ const routes: Routes = [
       fromGuards.AssetsGuard,
       fromGuards.AssetDetailGuard,
       fromGuards.LoadDefendantsGuard,
+      fromGuards.LoadCountiesGuard,
     ],
     component: fromContainers.AssetDetailComponent,
   },

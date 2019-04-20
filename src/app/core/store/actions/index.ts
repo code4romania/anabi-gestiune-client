@@ -2,6 +2,7 @@ export * from './addresses.action';
 export * from './asset-properties.action';
 export * from './assets.action';
 export * from './categories.action';
+export * from './counties.action';
 export * from './crime-types.action';
 export * from './decisions.action';
 export * from './defendants.action';
