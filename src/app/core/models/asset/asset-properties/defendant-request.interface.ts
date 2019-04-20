@@ -1,4 +1,5 @@
 export interface DefendantRequest {
+  id?: number;
   idNumber: string;
   idSerie: string;
   identification: string;

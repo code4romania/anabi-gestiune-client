@@ -1,4 +1,5 @@
 import { createSelector } from '@ngrx/store';
+import { Asset } from '../../models';
 
 import * as fromFeature from '../reducers';
 import * as fromAssets from '../reducers/assets.reducer';
@@ -8,7 +9,19 @@ export const getAssetState = createSelector(
   (state: fromFeature.CoreState) => state.assets
 );
 
-export const getAssetsEntities = createSelector(getAssetState, fromAssets.getAssetsEntities);
+const getAssetsEntitiesAsInterfaces = createSelector(getAssetState, fromAssets.getAssetsEntities);
+export const getAssetsEntities = createSelector(
+  getAssetsEntitiesAsInterfaces,
+  (aAssets) => {
+    const theAssets: { [id: number]: Asset } = {};
+    const theInterfaces = Object.assign({}, aAssets);
+    Object.keys(theInterfaces).map((aKey) => {
+      theAssets[aKey] = new Asset(theInterfaces[aKey]);
+    });
+
+    return theAssets;
+  }
+);
 
 export const getAllAssets = createSelector(getAssetsEntities, (entities) => {
   return Object.keys(entities).map(id => entities[parseInt(id, 10)]);

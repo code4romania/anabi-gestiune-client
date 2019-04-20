@@ -1,8 +1,21 @@
 import * as moment from 'moment';
 
+import { EvaluationCommitteeResponse } from './evaluation-committee-response.interface';
 import { EvaluationCommittee } from './evaluation-committee.model';
+import { RecoveryCommitteeResponse } from './recovery-committee-response.interface';
 import { RecoveryCommittee } from './recovery-committee.model';
-import { RecoveryDetailsResponse } from './recovery-details-response.interface';
+
+export interface IRecoveryDetails {
+  actualAmount: number;
+  actualAmountCurrency: string;
+  estimatedAmount: number;
+  estimatedAmountCurrency: string;
+  recoveryState: string;
+  evaluationCommittee: EvaluationCommitteeResponse;
+  recoveryCommittee: RecoveryCommitteeResponse;
+  lastActivity: string;
+  personResponsible: string;
+}
 
 export class RecoveryDetails {
   actualAmount: number = null;
@@ -15,13 +28,13 @@ export class RecoveryDetails {
   lastActivity: moment.Moment;
   personResponsible: string = '';
 
-  constructor(aData?: RecoveryDetailsResponse) {
+  constructor(aData?: IRecoveryDetails) {
     if (aData) {
       this.fromJson(aData);
     }
   }
 
-  fromJson(aJson: RecoveryDetailsResponse) {
+  fromJson(aJson: IRecoveryDetails) {
     this.actualAmount = aJson.actualAmount;
     this.actualAmountCurrency = aJson.actualAmountCurrency;
     this.estimatedAmount = aJson.estimatedAmount;
@@ -33,7 +46,7 @@ export class RecoveryDetails {
     this.personResponsible = aJson.personResponsible;
   }
 
-  toJson(): RecoveryDetailsResponse {
+  toJson(): IRecoveryDetails {
     return {
       actualAmount: this.actualAmount,
       actualAmountCurrency: this.actualAmountCurrency,
@@ -44,6 +57,6 @@ export class RecoveryDetails {
       recoveryCommittee: this.recoveryCommittee ? this.recoveryCommittee.toJson() : {},
       lastActivity: this.lastActivity ? this.lastActivity.format() : '',
       personResponsible: this.personResponsible,
-    } as RecoveryDetailsResponse;
+    } as IRecoveryDetails;
   }
 }

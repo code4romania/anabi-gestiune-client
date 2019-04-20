@@ -1,6 +1,22 @@
 import * as moment from 'moment';
 import { AssetProperty, AssetPropertyType } from '../asset-property.model';
+import { Asset, IAsset } from '../asset.model';
 import { DefendantForm, DefendantType } from './defendant-form.model';
+
+export interface IDefendant {
+  id: number;
+  idNumber: string;
+  idSerie: string;
+  identification: string;
+  isPerson: boolean;
+  name: string;
+  birthdate: string;
+  firstName: string;
+  identifierId: number;
+  nationality: string;
+  assetId: number;
+  asset: IAsset;
+}
 
 export class Defendant extends AssetProperty {
   id: number;
@@ -22,7 +38,7 @@ export class Defendant extends AssetProperty {
     }
   }
 
-  fromJson(aJson: any) {
+  fromJson(aJson: IDefendant) {
     this.id = aJson.id;
     this.idNumber = aJson.idNumber;
     this.idSerie = aJson.idSerie;
@@ -34,6 +50,10 @@ export class Defendant extends AssetProperty {
     this.identifierId = aJson.identifierId;
     this.nationality = aJson.nationality;
     this.assetId = aJson.assetId;
+
+    if (aJson.asset) {
+      this.setAsset(new Asset(aJson.asset));
+    }
   }
 
   fromForm(aForm: DefendantForm) {
@@ -58,7 +78,7 @@ export class Defendant extends AssetProperty {
     }
   }
 
-  toJson(): any {
+  toJson(): IDefendant {
     return {
       id: this.id,
       idNumber: this.idNumber,
@@ -66,11 +86,12 @@ export class Defendant extends AssetProperty {
       identification: this.identification,
       isPerson: this.isPerson,
       name: this.name,
-      birthdate: this.birthdate.isValid() ? this.birthdate.format() : undefined,
+      birthdate: this.birthdate.isValid() ? this.birthdate.toISOString() : undefined,
       firstName: this.firstName,
       identifierId: this.identifierId,
       nationality: this.nationality,
       assetId: this.assetId,
+      asset: this.asset.toJson(),
     };
   }
 

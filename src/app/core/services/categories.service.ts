@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { CategoriesApiService } from '../http';
-import { Category, CategoryResponse } from '../models';
+import { Category, CategoryEntity, CategoryResponse, ICategory } from '../models';
 
 @Injectable()
 export class CategoriesService {
@@ -14,7 +14,7 @@ export class CategoriesService {
   public list(): Observable<Category[]> {
     return this.categoriesApiService.list()
       .pipe(
-        map((aResponse: object[]) => aResponse.map((aCategory: CategoryResponse) => new Category(aCategory))),
+        map((aResponse: object[]) => aResponse.map((aCategory: CategoryResponse) => this.fromResponse(aCategory))),
         map((aCategories: Category[]) => {
           return aCategories.map((aCategory: Category) => {
             aCategory.setParent(this.findParent(aCategories, aCategory));
@@ -26,5 +26,11 @@ export class CategoriesService {
 
   private findParent(aCategoryList: Category[], aCategory: Category): Category {
     return aCategoryList.find(c => c.id === aCategory.parentId);
+  }
+
+  private fromResponse(aCategoryResponse: CategoryResponse): Category {
+    const theCategory = new Category();
+    theCategory.fromResponse(aCategoryResponse);
+    return theCategory;
   }
 }

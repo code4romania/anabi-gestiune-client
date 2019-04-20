@@ -1,45 +1,27 @@
-import { Category, CategoryEntity, CategoryResponse } from '../../models';
+import { Category } from '../../models';
 import { CategoryState } from '../reducers/categories.reducer';
 import { CoreState, State } from '../reducers/index';
 import * as fromSelectors from './categories.selectors';
+
+import { categories as mockCategories } from '../../models/mock-data';
 
 describe('Categories Selectors', () => {
   let state: State;
   let coreState: CoreState;
 
-  const theCategories = [
-    new Category({
-      id: 1,
-      code: 'First category',
-      description: 'First category description',
-      parentId: null,
-      forEntity: CategoryEntity.Asset as string,
-    } as CategoryResponse),
-    new Category({
-      id: 2,
-      code: 'Second category',
-      description: 'Second category description',
-      parentId: null,
-      forEntity: 'test',
-    } as CategoryResponse),
-    new Category({
-      id: 3,
-      code: 'Third category',
-      description: 'Third category description',
-      parentId: 1,
-      forEntity: CategoryEntity.Asset as string,
-    } as CategoryResponse),
-    new Category({
-      id: 4,
-      code: 'Fourth category',
-      description: 'Fourth category description',
-      parentId: 1,
-      forEntity: 'test',
-    } as CategoryResponse),
-  ];
+  const theCategories = [ ...mockCategories ];
 
   const getEntitiesAsArray = (aState: State) => {
-    return Object.keys(aState.core.categories.entities).map(id => aState.core.categories.entities[id]);
+    return Object.keys(aState.core.categories.entities).map(id => new Category(aState.core.categories.entities[id]));
+  };
+
+  const getEntitiesAsObjects = (aState: State) => {
+    const theEntities: { [id: number]: Category } = {};
+    Object.keys(aState.core.categories.entities).map(id => {
+      theEntities[id] = new Category(aState.core.categories.entities[id]);
+    });
+
+    return theEntities;
   };
 
   beforeEach(() => {
@@ -47,10 +29,10 @@ describe('Categories Selectors', () => {
       core: {
         categories: {
           entities: {
-            1: theCategories[0],
-            2: theCategories[1],
-            3: theCategories[2],
-            4: theCategories[3],
+            1: theCategories[0].toJson(),
+            2: theCategories[1].toJson(),
+            3: theCategories[2].toJson(),
+            4: theCategories[3].toJson(),
           },
           loaded: true,
           loading: false,
@@ -69,7 +51,7 @@ describe('Categories Selectors', () => {
 
   describe('getCategoriesEntities', () => {
     it('should get the entities', () => {
-      expect(fromSelectors.getCategoriesEntities(state)).toEqual(coreState.categories.entities);
+      expect(fromSelectors.getCategoriesEntities(state)).toEqual(getEntitiesAsObjects(state));
     });
   });
 
@@ -94,7 +76,7 @@ describe('Categories Selectors', () => {
 
   describe('getCategoryById', () => {
     it('should get a category by id', () => {
-      expect(fromSelectors.getCategoryById(1)(state)).toEqual(coreState.categories.entities[1]);
+      expect(fromSelectors.getCategoryById(1)(state)).toEqual(getEntitiesAsObjects(state)[1]);
     });
 
     it('should return undefined if the id is not found', () => {
@@ -124,7 +106,7 @@ describe('Categories Selectors', () => {
 
   describe('getCategoryByName', () => {
     it('should find a category by name', () => {
-      expect(fromSelectors.getCategoryByName('Third category')(state)).toEqual(coreState.categories.entities[3]);
+      expect(fromSelectors.getCategoryByName('Third category')(state)).toEqual(getEntitiesAsObjects(state)[3]);
     });
 
     it('should return undefined if the category is not found', () => {

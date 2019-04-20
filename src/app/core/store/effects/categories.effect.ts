@@ -12,7 +12,7 @@ export class CategoriesEffects {
   @Effect()
   loadCategories$ = this.actions$
     .pipe(
-      ofType(categoryActions.LOAD_CATEGORIES),
+      ofType(categoryActions.CategoryActionTypes.LoadCategories),
       switchMap(() => {
         return this.categoriesService
           .list()

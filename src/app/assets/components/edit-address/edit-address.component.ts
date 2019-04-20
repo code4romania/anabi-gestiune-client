@@ -55,7 +55,7 @@ export class EditAddressComponent implements OnInit {
   updateAddress(aFormValue: AddressFormValue) {
     this.theAddress = cloneDeep(this.address);
 
-    this.theAddress.fromJson(aFormValue as AddressResponse);
+    this.theAddress.fromResponse(aFormValue as AddressResponse);
   }
 
   cancel() {

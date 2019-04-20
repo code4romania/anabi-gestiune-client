@@ -1,8 +1,8 @@
-import { Category } from '../../models';
+import { Category, ICategory } from '../../models';
 import * as fromCategories from '../actions/categories.action';
 
 export interface CategoryState {
-  entities: { [id: number]: Category };
+  entities: { [id: number]: ICategory };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,19 +19,19 @@ export function reducer(
 ): CategoryState {
 
   switch (action.type) {
-    case fromCategories.LOAD_CATEGORIES: {
+    case fromCategories.CategoryActionTypes.LoadCategories: {
       return {
         ...state,
         loading: true,
       } as CategoryState;
     }
 
-    case fromCategories.LOAD_CATEGORIES_SUCCESS: {
+    case fromCategories.CategoryActionTypes.LoadCategoriesSuccess: {
       const theCategories = action.payload;
       const entities = theCategories.reduce((aEntities: { [id: number]: Category }, aCategory: Category) => {
         return {
           ...aEntities,
-          [aCategory.id]: aCategory,
+          [aCategory.id]: aCategory.toJson(),
         };
       }, {
         ...state.entities,
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromCategories.LOAD_CATEGORIES_FAIL: {
+    case fromCategories.CategoryActionTypes.LoadCategoriesFail: {
       return {
         ...state,
         loading: false,

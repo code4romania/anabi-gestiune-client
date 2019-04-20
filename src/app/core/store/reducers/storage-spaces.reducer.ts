@@ -1,8 +1,8 @@
-import { StorageSpace } from '../../models';
+import { IStorageSpace, StorageSpace } from '../../models';
 import * as fromStorageSpaces from '../actions/storage-spaces.action';
 
 export interface StorageSpaceState {
-  entities: { [id: number]: StorageSpace };
+  entities: { [id: number]: IStorageSpace };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,19 +19,19 @@ export function reducer(
 ): StorageSpaceState {
 
   switch (action.type) {
-    case fromStorageSpaces.LOAD_STORAGE_SPACES: {
+    case fromStorageSpaces.StorageSpaceActionTypes.LoadStorageSpaces: {
       return {
         ...state,
         loading: true,
       } as StorageSpaceState;
     }
 
-    case fromStorageSpaces.LOAD_STORAGE_SPACES_SUCCESS: {
+    case fromStorageSpaces.StorageSpaceActionTypes.LoadStorageSpacesSuccess: {
       const theStorageSpaces = action.payload;
       const entities = theStorageSpaces.reduce((aEntities: { [id: number]: StorageSpace }, aStorageSpace: StorageSpace) => {
         return {
           ...aEntities,
-          [aStorageSpace.id]: aStorageSpace,
+          [aStorageSpace.id]: aStorageSpace.toJson(),
         };
       }, {
           ...state.entities,
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromStorageSpaces.LOAD_STORAGE_SPACES_FAIL: {
+    case fromStorageSpaces.StorageSpaceActionTypes.LoadStorageSpacesFail: {
       return {
         ...state,
         loading: false,
@@ -53,7 +53,7 @@ export function reducer(
       } as StorageSpaceState;
     }
 
-    case fromStorageSpaces.STORAGE_SPACE_CREATE_SUCCESS: {
+    case fromStorageSpaces.StorageSpaceActionTypes.CreateStorageSpaceSuccess: {
       const theStorageSpace = action.payload as StorageSpace;
       const entities = {
         ...state.entities,

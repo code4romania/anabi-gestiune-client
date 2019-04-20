@@ -1,23 +1,25 @@
 import { Action } from '@ngrx/store';
 import { Identifier } from '../../models';
 
-// load identifiers
-export const LOAD_IDENTIFIERS = '[Identifiers] Load Identifiers';
-export const LOAD_IDENTIFIERS_FAIL = '[Identifiers] Load Identifiers Fail';
-export const LOAD_IDENTIFIERS_SUCCESS = '[Identifiers] Load Identifiers Success';
+export enum IdentifiersActionTypes {
+  LoadIdentifiers = '[Identifiers] Load Identifiers',
+  LoadIdentifiersFail = '[Identifiers] Load Identifiers Fail',
+  LoadIdentifiersSuccess = '[Identifiers] Load Identifiers Success',
+}
 
+// load identifiers
 export class LoadIdentifiers implements Action {
-  readonly type: string = LOAD_IDENTIFIERS;
+  readonly type: string = IdentifiersActionTypes.LoadIdentifiers;
   constructor(public payload?: any) {}
 }
 
 export class LoadIdentifiersFail implements Action {
-  readonly type: string = LOAD_IDENTIFIERS_FAIL;
+  readonly type: string = IdentifiersActionTypes.LoadIdentifiersFail;
   constructor(public payload: any) {}
 }
 
 export class LoadIdentifiersSuccess implements Action {
-  readonly type: string = LOAD_IDENTIFIERS_SUCCESS;
+  readonly type: string = IdentifiersActionTypes.LoadIdentifiersSuccess;
   constructor(public payload: Identifier[]) {}
 }
 

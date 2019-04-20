@@ -1,24 +1,27 @@
-import { CrimeTypeResponse } from './crime-type-response.interface';
+export interface ICrimeType {
+  id: number;
+  name: string;
+}
 
 export class CrimeType {
   id: number;
   name: string;
 
-  constructor(aData?: CrimeTypeResponse) {
+  constructor(aData?: ICrimeType) {
     if (aData) {
       this.fromJson(aData);
     }
   }
 
-  fromJson(aJson: CrimeTypeResponse) {
+  fromJson(aJson: ICrimeType) {
     this.id = aJson.id;
     this.name = aJson.name;
   }
 
-  toJson(): CrimeTypeResponse {
+  toJson(): ICrimeType {
     return {
       id: this.id,
       name: this.name,
-    } as CrimeTypeResponse;
+    } as ICrimeType;
   }
 }

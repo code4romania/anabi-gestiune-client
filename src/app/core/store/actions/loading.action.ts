@@ -1,16 +1,18 @@
 import { Action } from '@ngrx/store';
 
-// load stages
-export const SHOW_LOADING = '[Loading] Show';
-export const HIDE_LOADING = '[Loading] Hide';
+export enum LoadingActionTypes {
+  ShowLoading = '[Loading] Show',
+  HideLoading = '[Loading] Hide',
+}
 
+// show/hide
 export class ShowLoading implements Action {
-  readonly type: string = SHOW_LOADING;
+  readonly type: string = LoadingActionTypes.ShowLoading;
   constructor(public payload?: any) {}
 }
 
 export class HideLoading implements Action {
-  readonly type: string = HIDE_LOADING;
+  readonly type: string = LoadingActionTypes.HideLoading;
   constructor(public payload?: any) {}
 }
 

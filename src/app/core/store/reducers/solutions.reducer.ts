@@ -1,8 +1,8 @@
-import { Solution } from '../../models';
+import { ISolution, Solution } from '../../models';
 import * as fromSolutions from '../actions/solutions.action';
 
 export interface SolutionState {
-  entities: { [id: number]: Solution };
+  entities: { [id: number]: ISolution };
   loaded: boolean;
   loading: boolean;
 }
@@ -19,19 +19,19 @@ export function reducer(
 ): SolutionState {
 
   switch (action.type) {
-    case fromSolutions.LOAD_SOLUTIONS: {
+    case fromSolutions.SolutionActionTypes.LoadSolutions: {
       return {
         ...state,
         loading: true,
       } as SolutionState;
     }
 
-    case fromSolutions.LOAD_SOLUTIONS_SUCCESS: {
+    case fromSolutions.SolutionActionTypes.LoadSolutionsSuccess: {
       const theSolutions = action.payload;
       const entities = theSolutions.reduce((aEntities: { [id: number]: Solution }, aSolution: Solution) => {
         return {
           ...aEntities,
-          [aSolution.id]: aSolution,
+          [aSolution.id]: aSolution.toJson(),
         };
       }, {
         ...state.entities,
@@ -45,7 +45,7 @@ export function reducer(
       };
     }
 
-    case fromSolutions.LOAD_SOLUTIONS_FAIL: {
+    case fromSolutions.SolutionActionTypes.LoadSolutionsFail: {
       return {
         ...state,
         loading: false,
@@ -53,11 +53,11 @@ export function reducer(
       } as SolutionState;
     }
 
-    case fromSolutions.CREATE_SOLUTION_SUCCESS: {
-      const theSolution = action.payload;
+    case fromSolutions.SolutionActionTypes.CreateSolutionSuccess: {
+      const theSolution: Solution = action.payload;
       const entities = {
         ...state.entities,
-        [theSolution.id]: theSolution,
+        [theSolution.id]: theSolution.toJson(),
       };
       return {
         ...state,
