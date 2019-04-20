@@ -5,12 +5,16 @@ export interface DefendantsState {
   entities: { [id: number]: Defendant };
   loaded: { [id: number]: boolean };
   loading: { [id: number]: boolean };
+  deleted: { [id: number]: boolean };
+  deleting: { [id: number]: boolean };
 }
 
 export const initialState: DefendantsState = {
   entities: {},
   loaded: {},
   loading: {},
+  deleted: {},
+  deleting: {},
 };
 
 export function reducer(
@@ -85,6 +89,59 @@ export function reducer(
       } as DefendantsState;
     }
 
+    case fromDefendants.DEFENDANT_DELETE: {
+      const theDefendantId = (action.payload as fromDefendants.DeleteDefendantPayload).defendantId;
+
+      return {
+        ...state,
+        deleting: {
+          ...state.deleting,
+          [theDefendantId]: true,
+        },
+      } as DefendantsState
+    }
+
+    case fromDefendants.DEFENDANT_DELETE_FAIL: {
+      const theDefendantId = action.payload;
+
+      return {
+        ...state,
+        deleting: {
+          ...state.deleting,
+          [theDefendantId]: false,
+        },
+        deleted: {
+          ...state.deleted,
+          [theDefendantId]: false,
+        },
+      } as DefendantsState
+    }
+
+    case fromDefendants.DEFENDANT_DELETE_SUCCESS: {
+      const theDefendantId: number = action.payload;
+      // const entities = state.entities;
+      // var theDefendants: Defendant[] = []
+      // for(var key in Object.keys(entities)) {
+      //   theDefendants = [...theDefendants, entities[key]];
+      // }
+      // theDefendants = theDefendants.filter(d => d.id != theDefendantId);
+      const entities: { [id: number]: Defendant } = { ...state.entities }
+      delete entities[theDefendantId];
+
+      return {
+        ...state,
+        entities,
+        deleting: {
+          ...state.deleting,
+          [theDefendantId]: false,
+        },
+        deleted: {
+          ...state.deleted,
+          [theDefendantId]: true,
+        },
+      } as DefendantsState
+    }
+
     default: {
       return {
         ...state,
@@ -96,3 +153,5 @@ export function reducer(
 export const getDefendantsEntities = (state: DefendantsState) => state.entities;
 export const getDefendantsLoading = (state: DefendantsState) => state.loading;
 export const getDefendantsLoaded = (state: DefendantsState) => state.loaded;
+export const getDefendantsDeleting = (state: DefendantsState) => state.deleting;
+export const getDefendantsDeleted = (state: DefendantsState) => state.deleted;

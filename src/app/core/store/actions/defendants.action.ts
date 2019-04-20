@@ -46,6 +46,30 @@ export interface DefendantsSuccessPayload {
   asset: Asset;
 }
 
+export interface DeleteDefendantPayload {
+  assetId: number;
+  defendantId: number;
+}
+
+export const DEFENDANT_DELETE = '[Defendants] Delete Defendant';
+export const DEFENDANT_DELETE_FAIL = '[Defendants] Delete Defendant Fail';
+export const DEFENDANT_DELETE_SUCCESS = '[Defendants] Delete Defendant Success';
+
+export class DeleteDefendant implements Action {
+  readonly type: string = DEFENDANT_DELETE;
+  constructor(public payload: DeleteDefendantPayload) {}
+}
+
+export class DeleteDefendantFail implements Action {
+  readonly type: string = DEFENDANT_DELETE_FAIL;
+  constructor(public payload: string) {}
+}
+
+export class DeleteDefendantSuccess implements Action {
+  readonly type: string = DEFENDANT_DELETE_SUCCESS;
+  constructor(public payload: number) {}
+}
+
 // action types
 export type DefendantsAction =
   CreateDefendant
@@ -53,4 +77,7 @@ export type DefendantsAction =
   | CreateDefendantSuccess
   | LoadDefendants
   | LoadDefendantsFail
-  | LoadDefendantsSuccess;
+  | LoadDefendantsSuccess
+  | DeleteDefendant
+  | DeleteDefendantFail
+  | DeleteDefendantSuccess;

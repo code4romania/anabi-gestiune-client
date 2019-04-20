@@ -24,4 +24,11 @@ export class DefendantsApiService {
         catchError(aError => observableThrowError(aError))
       );
   }
+
+  public deleteDefendant(assetId: number, defendantId: number): Observable<any> {
+    return this.http.delete<number>(`${environment.api_url}/assets/${assetId}/defendants/${defendantId}`)
+      .pipe(
+        catchError(aError => observableThrowError(aError))
+      );
+  }
 }

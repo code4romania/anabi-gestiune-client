@@ -34,4 +34,8 @@ export class DefendantsService {
         toArray()
       )
   }
+
+  public deleteDefendant$(assetId: number, defendantId: number): Observable<any> {
+    return this.defendantsApiService.deleteDefendant(assetId, defendantId);
+  }
 }

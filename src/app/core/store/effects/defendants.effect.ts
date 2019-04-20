@@ -54,6 +54,20 @@ export class DefendantsEffects {
       })
     );
 
+  @Effect()
+  deleteDefendant$ = this.actions$
+    .pipe(
+      ofType(defendantsActions.DEFENDANT_DELETE),
+      map((action: defendantsActions.DeleteDefendant) => action.payload),
+      switchMap((aPayload: defendantsActions.DeleteDefendantPayload) =>
+        this.defendantsService.deleteDefendant$(aPayload.assetId, aPayload.defendantId)
+          .pipe(
+            map((aResponse: number) => new defendantsActions.DeleteDefendantSuccess(aResponse)),
+            catchError(aError => of(new defendantsActions.DeleteDefendantFail(aError)))
+          )
+      )
+    );
+
   constructor(
     private actions$: Actions,
     private defendantsService: DefendantsService,
