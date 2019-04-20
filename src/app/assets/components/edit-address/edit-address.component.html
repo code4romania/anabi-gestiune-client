@@ -10,7 +10,7 @@
           formControlName="county"
           required
         >
-          <mat-option *ngFor="let theCounty of counties" [value]="theCounty">
+          <mat-option *ngFor="let theCounty of getCounties(); trackBy: theCounty?.id" [value]="theCounty">
             {{ theCounty.name }}
           </mat-option>
         </mat-select>
@@ -19,68 +19,40 @@
       <div class="spacer"></div>
 
       <mat-form-field>
-        <input matInput
-                placeholder="Localitate"
-                formControlName="city"
-                required
+        <input
+          matInput
+          placeholder="Localitate"
+          formControlName="city"
+          required
         />
       </mat-form-field>
     </div>
 
     <div class="row">
       <mat-form-field>
-        <input matInput
-                placeholder="Strada"
-                formControlName="street"
-                required
+        <input
+          matInput
+          placeholder="Strada"
+          formControlName="street"
         />
       </mat-form-field>
 
       <div class="spacer"></div>
 
       <mat-form-field>
-        <input matInput
-                placeholder="Numar bloc"
-                formControlName="building"
-                required
-        />
-      </mat-form-field>
-    </div>
-
-    <div class="row">
-      <mat-form-field>
-        <input matInput
-               placeholder="Scara"
-               formControlName="stair"
-               required
-        />
-      </mat-form-field>
-
-      <div class="spacer"></div>
-
-      <mat-form-field>
-        <input matInput
-               placeholder="Etaj"
-               formControlName="floor"
-               required
-        />
-      </mat-form-field>
-
-      <div class="spacer"></div>
-
-      <mat-form-field>
-        <input matInput
-               placeholder="Apartament"
-               formControlName="flatNo"
-               required
+        <input
+          matInput
+          placeholder="Numar bloc"
+          formControlName="building"
         />
       </mat-form-field>
     </div>
 
     <mat-form-field>
-      <input matInput
-             placeholder="Detalii"
-             formControlName="description"
+      <input
+        matInput
+        placeholder="Detalii"
+        formControlName="description"
       />
     </mat-form-field>
 
