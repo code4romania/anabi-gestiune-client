@@ -17,14 +17,28 @@ describe('RecoveryBeneficiaries Selectors', () => {
     return Object.keys(aState.core.recoveryBeneficiaries.entities).map(id => aState.core.recoveryBeneficiaries.entities[id]);
   };
 
+  const getEntitiesAsObjects = (aState: State) => {
+    const theResult: { [id: number]: RecoveryBeneficiary } = {};
+    Object.keys(aState.core.recoveryBeneficiaries.entities).forEach(id => {
+      theResult[id] = new RecoveryBeneficiary(aState.core.recoveryBeneficiaries.entities[id]);
+    });
+
+    return theResult;
+  };
+
+  const getEntitiesAsArrayOfObjects = (aState: State) => {
+    return Object.keys(aState.core.recoveryBeneficiaries.entities)
+      .map(id => new RecoveryBeneficiary(aState.core.recoveryBeneficiaries.entities[id]));
+  };
+
   beforeEach(() => {
     state = {
       core: {
         recoveryBeneficiaries: {
           entities: {
-            1: theRecoveryBeneficiaries[0],
-            2: theRecoveryBeneficiaries[1],
-            3: theRecoveryBeneficiaries[2],
+            1: theRecoveryBeneficiaries[0].toJson(),
+            2: theRecoveryBeneficiaries[1].toJson(),
+            3: theRecoveryBeneficiaries[2].toJson(),
           },
           loaded: true,
           loading: false,
@@ -43,13 +57,13 @@ describe('RecoveryBeneficiaries Selectors', () => {
 
   describe('getRecoveryBeneficiariesEntities', () => {
     it('should get the entities', () => {
-      expect(fromSelectors.getRecoveryBeneficiariesEntities(state)).toEqual(coreState.recoveryBeneficiaries.entities);
+      expect(fromSelectors.getRecoveryBeneficiariesEntities(state)).toEqual(getEntitiesAsObjects(state));
     });
   });
 
   describe('getAllRecoveryBeneficiaries', () => {
     it('should get the recovery beneficiaries', () => {
-      const expectedResult = getEntitiesAsArray(state);
+      const expectedResult = getEntitiesAsArrayOfObjects(state);
       expect(fromSelectors.getAllRecoveryBeneficiaries(state)).toEqual(expectedResult);
     });
   });
