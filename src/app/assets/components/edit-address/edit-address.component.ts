@@ -21,11 +21,8 @@ export class EditAddressComponent implements OnInit {
   public addressForm: FormGroup = new FormGroup({
     county: new FormControl('', [ Validators.required ]),
     city: new FormControl('', [ Validators.required ]),
-    street: new FormControl('', [ Validators.required ]),
-    building: new FormControl('', [ Validators.required ]),
-    stair: new FormControl('', [ Validators.required ]),
-    floor: new FormControl('', [ Validators.required ]),
-    flatNo: new FormControl('', [ Validators.required ]),
+    street: new FormControl(''),
+    building: new FormControl(''),
     description: new FormControl(),
   });
 
@@ -35,9 +32,6 @@ export class EditAddressComponent implements OnInit {
       city: this.address.city,
       street: this.address.street,
       building: this.address.building,
-      stair: this.address.stair,
-      floor: this.address.floor,
-      flatNo: this.address.flatNo,
       description: this.address.description,
     });
     this.onChanges();
@@ -64,4 +58,15 @@ export class EditAddressComponent implements OnInit {
     this.onSave.emit(this.theAddress);
   }
 
+  getCounties(): County[] {
+    return this.counties.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      } else {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
 }
