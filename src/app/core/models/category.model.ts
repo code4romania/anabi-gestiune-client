@@ -33,7 +33,7 @@ export class Category {
     this.description = aCategoryResponse.description;
     this.parentId = aCategoryResponse.parentId || null;
     this.parent = aCategoryResponse.parent || undefined;
-    this.forEntity = aCategoryResponse.forEntity ? CategoryEntity[aCategoryResponse.forEntity] : undefined;
+    this.forEntity = aCategoryResponse.forEntity ? aCategoryResponse.forEntity as CategoryEntity : undefined;
   }
 
   fromJson(aCategory: ICategory) {
