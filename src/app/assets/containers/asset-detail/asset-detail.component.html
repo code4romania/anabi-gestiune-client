@@ -57,6 +57,14 @@
     </div>
   </section>
 
+  <section class="asset-details">
+    <div class="asset-details-card mat-elevation-z8" *ngFor="let theAddress of (addresses$ | async)">
+      <app-view-address
+        [address]="theAddress"
+      ></app-view-address>
+    </div>
+  </section>
+
   <section class="asset-details" *ngIf="isStateView()">
     <div class="asset-details-card mat-elevation-z2" *ngIf="!(isEditingAssetProperty$() | async); else editProperty">
       <h2>Adauga proprietati</h2>
