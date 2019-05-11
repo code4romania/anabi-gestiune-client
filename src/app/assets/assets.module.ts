@@ -15,7 +15,6 @@ import * as fromComponents from './components';
 
 // containers
 import * as fromContainers from './containers';
-import { ViewAddressComponent } from './components/view-address/view-address.component';
 
 @NgModule({
   imports: [

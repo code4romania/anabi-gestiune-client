@@ -1,16 +1,16 @@
-import { Address, IAddress } from '../../models';
+import { Address } from '../../models';
 import * as fromAddresses from '../actions/addresses.action';
 
 export interface AddressesState {
-  entities: { [id: number]: IAddress };
-  loaded: boolean;
-  loading: boolean;
+  entities: { [id: number]: Address };
+  loaded: { [id: number]: boolean };
+  loading: { [id: number]: boolean };
 }
 
 export const initialState: AddressesState = {
   entities: {},
-  loaded: false,
-  loading: false,
+  loaded: {},
+  loading: {},
 };
 
 export function reducer(
@@ -28,8 +28,60 @@ export function reducer(
       return {
         ...state,
         entities,
-        loading: false,
-        loaded: true,
+      } as AddressesState;
+    }
+
+    case fromAddresses.AddressActionTypes.LoadAddresses: {
+      const theAssetId = action.payload;
+
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          [theAssetId]: true,
+        },
+      } as AddressesState;
+    }
+
+    case fromAddresses.AddressActionTypes.LoadAddressesFail: {
+      const theAssetId = action.payload;
+
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          [theAssetId]: false,
+        },
+        loaded: {
+          ...state.loaded,
+          [theAssetId]: false,
+        },
+      } as AddressesState;
+    }
+
+    case fromAddresses.AddressActionTypes.LoadAddressesSuccess: {
+      const thePayload: fromAddresses.AddressesSuccessPayload = action.payload;
+      const theAddresses: Address[] = thePayload.addresses;
+      const theAssetId = thePayload.asset.id;
+
+      const entities = theAddresses.reduce((aEntities: { [id: number]: Address }, aAddress: Address) => {
+        return {
+          ...aEntities,
+          [aAddress.id]: aAddress.toJson(),
+        };
+      }, { ...state.entities });
+
+      return {
+        ...state,
+        entities,
+        loading: {
+          ...state.loading,
+          [theAssetId]: false,
+        },
+        loaded: {
+          ...state.loaded,
+          [theAssetId]: true,
+        },
       } as AddressesState;
     }
 

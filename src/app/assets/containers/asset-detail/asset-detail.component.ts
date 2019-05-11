@@ -88,7 +88,7 @@ export class AssetDetailComponent implements OnInit {
       this.asset$ = this.store.pipe(select(fromStore.getAssetById(theId)));
       this.assetProperty$ = this.store.pipe(select(fromStore.getAssetPropertiesByAssetId(theId)));
       this.defendants$ = this.store.pipe(select(fromStore.getAllDefendantsForAssetId(theId)));
-      // this.addresses$ = this.store.pipe(select(fromStore.getAllAddressesForAssetId(theId)));
+      this.addresses$ = this.store.pipe(select(fromStore.getAllAddressesForAssetId(theId)));
     });
 
     this.asset$.pipe(take(1))

@@ -1,20 +1,24 @@
 <section class="view-address" *ngIf="address">
   <h2>Adresa</h2>
 
-    <!--<div class="double">
-      <app-detailed-text description="Nationalitate" [text]="defendant.nationality"></app-detailed-text>
+    <div class="double">
       <app-detailed-text
-        [description]="Identificator"
-        [text]="getIdentifier(defendant.identifierId)?.identifierType"
+        description="Oras"
+        [text]="address.city"></app-detailed-text>
+      <app-detailed-text
+        [description]="Judet"
+        [text]="(address.county.name)"
       ></app-detailed-text>
     </div>
 
-    <div class="double" *ngIf="defendant.birthdate.isValid()">
+    <div class="double">
       <app-detailed-text
-        [description]="getIdentifier(defendant.identifierId)?.identifierType"
-        [text]="defendant.identification"
+        description="Strada"
+        [text]="address.street"
       ></app-detailed-text>
-      <app-detailed-text description="Data nasterii" [text]="defendant.getFormattedBirthDate()"></app-detailed-text>
-    </div>-->
+      <app-detailed-text
+        description="Bloc"
+        [text]="address.building"></app-detailed-text>
+    </div>
 </section>
 

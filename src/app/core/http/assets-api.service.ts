@@ -57,20 +57,6 @@ export class AssetsApiService {
       );
   }
 
-  public createAddress(id: number, address: AddressRequest): Observable<AddressResponse> {
-    return this.http.post<AddressResponse>(`${environment.api_url}/assets/${id}/address`, address)
-      .pipe(
-        catchError(aError => observableThrowError(aError.error.errors))
-      );
-  }
-
-  public updateAddress(id: number, address: AddressRequest): Observable<AddressResponse> {
-    return this.http.put<AddressResponse>(`${environment.api_url}/assets/${id}/address`, address)
-      .pipe(
-        catchError(aError => observableThrowError(aError.error.errors))
-      );
-  }
-
   public create(asset: AssetRequest): Observable<AssetDetailResponse> {
     return this.http.post<AssetDetailResponse>(`${environment.api_url}/assets/addminimalasset`, asset)
       .pipe(
