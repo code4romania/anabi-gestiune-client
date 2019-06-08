@@ -24,4 +24,4 @@ import * as fromGuards from './guards';
     ...fromGuards.guards,
   ],
 })
-export class SearchModule {}
+export class SearchModule { }

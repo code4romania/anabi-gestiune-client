@@ -8,7 +8,7 @@ import * as fromStore from '../../core/store';
 
 @Injectable()
 export class SearchGuard implements CanActivate {
-  constructor(private store: Store<fromStore.AssetState>) { }
+  constructor(private store: Store<fromStore.DecisionState>) { }
 
   canActivate(): Observable<boolean> {
     return this.hasSearchLoaded().pipe(
@@ -18,7 +18,7 @@ export class SearchGuard implements CanActivate {
   }
 
   hasSearchLoaded(): Observable<boolean> {
-    return this.store.pipe(select(fromStore.DecisionState))
+    return this.store.pipe(select(fromStore.getDecisionSearchLoaded))
       .pipe(
         tap(loaded => {
           if (!loaded) {

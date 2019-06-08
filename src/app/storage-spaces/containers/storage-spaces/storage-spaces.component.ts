@@ -41,7 +41,6 @@ export class StorageSpacesComponent implements OnInit, AfterViewInit {
   }
 
   refresh() {
-    console.log('StorageSpacesComponent: refreshed');
     this.store.pipe(select(fromStore.getAllStorageSpaces))
       .subscribe((aStorageSpaces) => {
         if (aStorageSpaces && aStorageSpaces.length > 0) {

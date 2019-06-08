@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Decision } from '../../models';
+import { Decision, DecisionFilter } from '../../models';
 
 export enum DecisionsActionTypes {
   LoadDecisions = '[Decisions] Load Decisions',
@@ -29,7 +29,7 @@ export class LoadDecisionsSuccess implements Action {
 // load search decisions
 export class LoadSearchDecisions implements Action {
   readonly type: string = DecisionsActionTypes.LoadDecisions;
-  constructor(public payload?: string) {}
+  constructor(public payload?: DecisionFilter) {}
 }
 
 export class LoadSearchDecisionsFail implements Action {

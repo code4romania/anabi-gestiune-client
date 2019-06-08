@@ -26,13 +26,14 @@ export class DecisionsEffects {
   @Effect()
   loadDecisionsSearch$ = this.actions$
     .pipe(
-      ofType(decisionActions.DecisionsActionTypes.LoadDecisions),
-      switchMap(() => {
+      ofType(decisionActions.DecisionsActionTypes.LoadSearchDecisions),
+      map((action: decisionActions.LoadSearchDecisions) => action.payload),
+      switchMap((aPayload) => {
         return this.decisionsService
-          .search(filter)
+          .search(aPayload)
           .pipe(
-            map(aDecisions => new decisionActions.LoadDecisionsSuccess(aDecisions)),
-            catchError(error => of(new decisionActions.LoadDecisionsFail(error)))
+            map(aDecisions => new decisionActions.LoadSearchDecisionsSuccess(aDecisions)),
+            catchError(error => of(new decisionActions.LoadSearchDecisionsFail(error)))
           )
       })
     );

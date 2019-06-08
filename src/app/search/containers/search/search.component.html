@@ -1,29 +1,45 @@
 <section id="search-page" class="page-view">
   <div class="mat-elevation-z8 table-wrapper">
-    <div class="table-header">
-      <mat-form-field fxFlex>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Cauta spatiu de depozitare...">
-      </mat-form-field>
+    <div class="table-header" fxLayout="row">
+      <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
+        <mat-form-field fxFlex="40">
+          <mat-select name="filterKey" placeholder="Categorie" formControlName="filterKey">
+            <mat-option>{{ filter.decisionNumber }}</mat-option>
+            <mat-option>{{ filter.fileNumber }}</mat-option>
+            <mat-option>{{ filter.personId }}</mat-option>
+            <mat-option>{{ filter.personName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="50">
+          <input required matInput name="filterValue" placeholder="Introdu numarul" formControlName="filterValue"/>
+        </mat-form-field>
+        <button fxFlex mat-raised-button><i class="material-icons">search</i></button>
+      </form>
     </div>
 
     <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="desc">
       <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
         <mat-cell *matCellDef="let storageSpace">{{ storageSpace.id }}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="defendantName">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
         <mat-cell *matCellDef="let storageSpace">{{ storageSpace.name }}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="type">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Tip</mat-header-cell>
+      <ng-container matColumnDef="decisionNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Numar decizie</mat-header-cell>
         <mat-cell *matCellDef="let storageSpace">{{ storageSpace.type }}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Adresa</mat-header-cell>
+      <ng-container matColumnDef="fileNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Numar dosar</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.getAddress() }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="stage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Stadiu</mat-header-cell>
         <mat-cell *matCellDef="let storageSpace">{{ storageSpace.getAddress() }}</mat-cell>
       </ng-container>
 
