@@ -1,0 +1,63 @@
+<section id="search-page" class="page-view">
+  <div class="mat-elevation-z8 table-wrapper">
+    <div class="table-header">
+      <mat-form-field fxFlex>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Cauta spatiu de depozitare...">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="desc">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.name }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tip</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.type }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Adresa</mat-header-cell>
+        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.getAddress() }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;"></mat-row>
+    </mat-table>
+
+    <div class="table-footer">
+      <mat-paginator #paginator [hidePageSize]="true" [pageSize]="20" [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+  </div>
+
+  <!--{{ page }}
+  <div>
+  <mat-form-field>
+    <input matInput placeholder="Numar decizie" [(ngModel)]="filter.decisionNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Numar dosar" [(ngModel)]="filter.fileNumber">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="CNP/CUI Inculpat" [(ngModel)]="filter.personId">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Nume Inculpat" [(ngModel)]="filter.personName">
+  </mat-form-field>
+    <button mat-button (click)="search()">Search</button>
+  </div>-->
+  <div>
+    Numar Decizie - Data Decizie - Numar Dosar - Instanta eminenta
+  </div>
+  <div *ngFor="let result of results">
+    {{result.number}} - {{result.date}} - {{result.fileNumber}} - {{result.emitterInstitution}} -
+    {{result.historicalStageId}}
+    <button [routerLink]="['/asset', 1]">Details</button>
+  </div>
+</section>

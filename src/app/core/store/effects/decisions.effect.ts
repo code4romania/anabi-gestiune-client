@@ -23,6 +23,20 @@ export class DecisionsEffects {
       })
     );
 
+  @Effect()
+  loadDecisionsSearch$ = this.actions$
+    .pipe(
+      ofType(decisionActions.DecisionsActionTypes.LoadDecisions),
+      switchMap(() => {
+        return this.decisionsService
+          .search(filter)
+          .pipe(
+            map(aDecisions => new decisionActions.LoadDecisionsSuccess(aDecisions)),
+            catchError(error => of(new decisionActions.LoadDecisionsFail(error)))
+          )
+      })
+    );
+
   constructor(private actions$: Actions,
               private decisionsService: DecisionsService
   ) {

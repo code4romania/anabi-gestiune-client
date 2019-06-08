@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SearchComponent } from './search.component';
+// guards
+import * as fromGuards from './guards';
+
+// pages
+import * as fromContainers from './containers';
 
 const routes: Routes = [
   {
     path: '',
-    component: SearchComponent,
+    canActivate: [fromGuards.SearchGuard],
+    component: fromContainers.SearchComponent,
   },
 ];
 
