@@ -34,7 +34,4 @@ export const getDecisionById = (aDecisionId: number) => createSelector(
   getDecisionsEntities,
   (entities) => entities[aDecisionId] || undefined
 );
-export const getDecisionSearchLoaded = (aDecisionFilter: DecisionFilter) => createSelector(
-  getDecisionsEntities,
-  (entities) => entities(aDecisionFilter) || undefined
-);
+export const getDecisionSearchLoaded = createSelector(getDecisionState, fromDecisions.getDecisionsLoaded);

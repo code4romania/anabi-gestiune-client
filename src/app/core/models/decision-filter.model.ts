@@ -9,4 +9,12 @@ export class DecisionFilter {
     this.fileNumber =  fileNumber || null;
     this.personId = personId || null;
     this.personName = personName || null;
-  }}
+  }
+
+  getFormValues(form) {
+    if (this.hasOwnProperty(form.filterKey)) {
+      this[form.filterKey] = form.filterValue
+      return
+    }
+  }
+}

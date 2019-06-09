@@ -21,24 +21,37 @@ import {
   NotificationService
 } from '@app/core';
 
+export enum FilterKeys {
+  DECISIONNUMBER = 'decisionNumber',
+  FILENUMBER = 'fileNumber',
+  PERSONID = 'personId',
+  PERSONNAME = 'personName',
+}
+
 @Component({
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   public tableConfig: any;
 
   private decisionsLoaded$: Observable<boolean>;
 
   public searchForm = new FormGroup({
     filterKey: new FormControl(),
-    filterValue: new FormControl('', [ Validators.required ]),
+    filterValue: new FormControl(),
   });
+
+  filterProperties = [
+    { name: 'Numar decizie', value: FilterKeys.DECISIONNUMBER },
+    { name: 'Numar dosar', value: FilterKeys.FILENUMBER },
+    { name: 'CNP/CUI Inculpat', value: FilterKeys.PERSONID },
+    { name: 'Nume Inculpat', value: FilterKeys.PERSONNAME },
+  ];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  results: DecisionSummary[];
   filter: DecisionFilter;
 
   constructor(
@@ -58,24 +71,25 @@ export class SearchComponent implements OnInit {
         'stage',
       ],
     };
-    this.refresh();
-    // this.search();
   }
 
-  refresh() {
-    // this.store.pipe(select(fromStore.getDecisionSearchLoaded()))
-    //   .subscribe((aStorageSpaces) => {
-    //     if (aStorageSpaces && aStorageSpaces.length > 0) {
-    //       this.tableConfig.dataSource = new MatTableDataSource(aStorageSpaces);
-    //       this.ngAfterViewInit();
-    //     }
-    //   });
+  ngAfterViewInit() {
+    if (this.tableConfig.dataSource) {
+      this.tableConfig.dataSource.sort = this.sort;
+      this.tableConfig.dataSource.paginator = this.paginator;
+    }
   }
 
   public onSubmit() {
+    this.filter.getFormValues(this.searchForm.value);
     this.decisionsApiService.search(this.filter)
       .subscribe(
-        (aResult) => this.results = aResult,
+        (aResult: DecisionSummary[]) => {
+          if (aResult && aResult.length > 0) {
+            this.tableConfig.dataSource = new MatTableDataSource(aResult);
+            this.ngAfterViewInit();
+          }
+        },
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_SEARCH_DECISIONS)
       );
   }

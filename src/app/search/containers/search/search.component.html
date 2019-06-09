@@ -1,79 +1,52 @@
 <section id="search-page" class="page-view">
   <div class="mat-elevation-z8 table-wrapper">
-    <div class="table-header" fxLayout="row">
-      <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
-        <mat-form-field fxFlex="40">
+    <div class="table-header">
+      <form (ngSubmit)="onSubmit()" [formGroup]="searchForm" fxLayout="row">
+        <mat-form-field fxFlex="29" fxFlexOffset="10">
           <mat-select name="filterKey" placeholder="Categorie" formControlName="filterKey">
-            <mat-option>{{ filter.decisionNumber }}</mat-option>
-            <mat-option>{{ filter.fileNumber }}</mat-option>
-            <mat-option>{{ filter.personId }}</mat-option>
-            <mat-option>{{ filter.personName }}</mat-option>
+            <mat-option *ngFor="let filterProperty of filterProperties" [value]="filterProperty.value">{{ filterProperty.name }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field fxFlex="50">
-          <input required matInput name="filterValue" placeholder="Introdu numarul" formControlName="filterValue"/>
+        <mat-form-field fxFlex="39">
+          <input matInput name="filterValue" placeholder="Introdu numarul" formControlName="filterValue"/>
         </mat-form-field>
-        <button fxFlex mat-raised-button><i class="material-icons">search</i></button>
+        <button fxFlex="10" mat-raised-button><i class="material-icons">search</i></button>
       </form>
     </div>
+    <div *ngIf="tableConfig.dataSource" class="table-content">
+      <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="desc">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+          <mat-cell *matCellDef="let decisionSummary">{{ decisionSummary.id }}</mat-cell>
+        </ng-container>
 
-    <mat-table #table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="desc">
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.id }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="defendantName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
+          <mat-cell *matCellDef="let decisionSummary">{{ decisionSummary.name }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="defendantName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Nume</mat-header-cell>
-        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.name }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="decisionNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Numar decizie</mat-header-cell>
+          <mat-cell *matCellDef="let decisionSummary">{{ decisionSummary.type }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="decisionNumber">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Numar decizie</mat-header-cell>
-        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.type }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="fileNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Numar dosar</mat-header-cell>
+          <mat-cell *matCellDef="let decisionSummary">{{ decisionSummary.getAddress() }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="fileNumber">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Numar dosar</mat-header-cell>
-        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.getAddress() }}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="stage">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Stadiu</mat-header-cell>
+          <mat-cell *matCellDef="let decisionSummary">{{ decisionSummary.getAddress() }}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="stage">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Stadiu</mat-header-cell>
-        <mat-cell *matCellDef="let storageSpace">{{ storageSpace.getAddress() }}</mat-cell>
-      </ng-container>
+        <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;"></mat-row>
+      </mat-table>
 
-      <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: tableConfig.displayedColumns;"></mat-row>
-    </mat-table>
-
-    <div class="table-footer">
-      <mat-paginator #paginator [hidePageSize]="true" [pageSize]="20" [showFirstLastButtons]="true"></mat-paginator>
+      <div class="table-footer">
+        <mat-paginator #paginator [hidePageSize]="true" [pageSize]="20" [showFirstLastButtons]="true"></mat-paginator>
+      </div>
     </div>
-  </div>
-
-  <!--{{ page }}
-  <div>
-  <mat-form-field>
-    <input matInput placeholder="Numar decizie" [(ngModel)]="filter.decisionNumber">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Numar dosar" [(ngModel)]="filter.fileNumber">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="CNP/CUI Inculpat" [(ngModel)]="filter.personId">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Nume Inculpat" [(ngModel)]="filter.personName">
-  </mat-form-field>
-    <button mat-button (click)="search()">Search</button>
-  </div>-->
-  <div>
-    Numar Decizie - Data Decizie - Numar Dosar - Instanta eminenta
-  </div>
-  <div *ngFor="let result of results">
-    {{result.number}} - {{result.date}} - {{result.fileNumber}} - {{result.emitterInstitution}} -
-    {{result.historicalStageId}}
-    <button [routerLink]="['/asset', 1]">Details</button>
   </div>
 </section>

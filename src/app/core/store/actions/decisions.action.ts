@@ -29,7 +29,7 @@ export class LoadDecisionsSuccess implements Action {
 // load search decisions
 export class LoadSearchDecisions implements Action {
   readonly type: string = DecisionsActionTypes.LoadDecisions;
-  constructor(public payload?: DecisionFilter) {}
+  constructor(public payload?: any) {}
 }
 
 export class LoadSearchDecisionsFail implements Action {

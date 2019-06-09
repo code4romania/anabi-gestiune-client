@@ -19,14 +19,27 @@
   display: flex;
   flex-direction: column;
 
+  .table-header {
+    form {
+      width: 100%;
+      mat-form-field {
+        margin-left: $anabi-table-margin;
+      }
+      button {
+        background-color: $search-button-color;
+        height: $search-button-height;
+        border-radius: 0px;
+      }
+    }
+  }
   .table-header,
   .table-footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    min-height: 60px;
-    padding: 0 $anabi-table-padding;
+    min-height: 100px;
+    padding: 2 * $anabi-table-padding;
 
     mat-form-field {
       flex-grow: 1;
