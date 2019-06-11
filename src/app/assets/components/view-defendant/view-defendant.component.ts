@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Defendant, DefendantType, Identifier } from '@app/core';
 import * as fromDefendants from '@app/core/store';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -20,7 +20,7 @@ export class ViewDefendantComponent implements OnInit {
   constructor(private store: Store<fromDefendants.DefendantsState>) { }
 
   ngOnInit(): void {
-    this.deleting$ = this.store.select(fromDefendants.getDefendantDeletingById(this.defendant.id));
+    this.deleting$ = this.store.pipe(select(fromDefendants.getDefendantDeletingById(this.defendant.id)));
   }
 
   getDefendantType(aIsPerson: boolean) {

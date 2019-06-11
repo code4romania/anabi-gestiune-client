@@ -47,7 +47,7 @@ export class DefendantsService {
       identification: aDefendant.identification,
       isPerson: aDefendant.isPerson,
       name: aDefendant.name,
-      birthdate: aDefendant.birthdate.isValid() ? aDefendant.birthdate.format() : undefined,
+      birthdate: aDefendant.birthdate && aDefendant.birthdate.isValid() ? aDefendant.birthdate.format() : undefined,
       firstName: aDefendant.firstName,
       identifierId: aDefendant.identifierId,
       nationality: aDefendant.nationality,

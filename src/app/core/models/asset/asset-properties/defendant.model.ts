@@ -86,7 +86,7 @@ export class Defendant extends AssetProperty {
       identification: this.identification,
       isPerson: this.isPerson,
       name: this.name,
-      birthdate: this.birthdate.isValid() ? this.birthdate.toISOString() : undefined,
+      birthdate: this.birthdate && this.birthdate.isValid() ? this.birthdate.toISOString() : undefined,
       firstName: this.firstName,
       identifierId: this.identifierId,
       nationality: this.nationality,
