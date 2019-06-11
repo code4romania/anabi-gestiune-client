@@ -48,7 +48,7 @@ export class EditAssetComponent implements OnInit {
   ngOnInit() {
     this.editAssetForm.setValue({
       name: this.asset.name,
-      description: this.asset.description,
+      description: this.asset.description || '',
       identifier: this.asset.identifier,
       category: this.asset.category,
       subcategory: this.asset.subcategory,
@@ -98,5 +98,9 @@ export class EditAssetComponent implements OnInit {
 
   compareCategories(aFirstCategory: Category, aSecondCategory: Category) {
     return isEqual(aFirstCategory.toJson(), aSecondCategory.toJson());
+  }
+
+  compareStages(aFirstStage: Stage, aSecondStage: Stage) {
+    return isEqual(aFirstStage.toJson(), aSecondStage.toJson());
   }
 }
