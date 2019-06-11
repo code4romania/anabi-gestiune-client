@@ -35,6 +35,10 @@ export class DefendantsService {
       )
   }
 
+  public deleteDefendant$(assetId: number, defendantId: number): Observable<any> {
+    return this.defendantsApiService.deleteDefendant(assetId, defendantId);
+  }
+
   private toRequest(aDefendant: Defendant): DefendantRequest {
     return {
       id: aDefendant.id,

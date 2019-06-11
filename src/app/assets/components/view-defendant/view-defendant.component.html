@@ -44,4 +44,12 @@
       ></app-detailed-text>
     </div>
   </div>
+  <section class="buttons">
+    <button 
+      mat-raised-button 
+      (click)="onDefendantDeleted()" 
+      color="warn"
+      [disabled]="deleting$ | async"
+    >Sterge</button>
+  </section>
 </section>
