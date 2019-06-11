@@ -175,6 +175,10 @@ export class AssetDetailComponent implements OnInit {
     this.setStateView();
   }
 
+  onDefendantDeleted(payload: fromStore.DeleteDefendantPayload) {
+    this.store.dispatch(new fromStore.DeleteDefendant(payload));
+  }
+
   private resetSelectedProperty() {
     this.selectedProperty = undefined;
   }
