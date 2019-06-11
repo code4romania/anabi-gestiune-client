@@ -35,6 +35,10 @@ export class DefendantsService {
       )
   }
 
+  public deleteDefendant$(assetId: number, defendantId: number): Observable<any> {
+    return this.defendantsApiService.deleteDefendant(assetId, defendantId);
+  }
+
   private toRequest(aDefendant: Defendant): DefendantRequest {
     return {
       id: aDefendant.id,
@@ -43,7 +47,7 @@ export class DefendantsService {
       identification: aDefendant.identification,
       isPerson: aDefendant.isPerson,
       name: aDefendant.name,
-      birthdate: aDefendant.birthdate.isValid() ? aDefendant.birthdate.format() : undefined,
+      birthdate: aDefendant.birthdate && aDefendant.birthdate.isValid() ? aDefendant.birthdate.format() : undefined,
       firstName: aDefendant.firstName,
       identifierId: aDefendant.identifierId,
       nationality: aDefendant.nationality,
