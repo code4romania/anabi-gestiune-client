@@ -70,7 +70,13 @@
       </div>
 
       <mat-form-field>
-        <mat-select name="stage" placeholder="Stare actuala" required formControlName="stage">
+        <mat-select
+          name="stage"
+          placeholder="Stare actuala"
+          required
+          formControlName="stage"
+          [compareWith]="compareStages"
+        >
           <mat-option *ngFor="let stage of stages" [value]="stage">{{ stage.name }}</mat-option>
         </mat-select>
 
