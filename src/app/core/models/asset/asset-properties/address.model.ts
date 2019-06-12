@@ -41,7 +41,7 @@ export class Address extends AssetProperty {
   flatNo: string;
   description: string = '';
 
-  constructor(aData?: IAddress) {
+  constructor(aData?: any) {
     super(AssetPropertyType.Address);
 
     if (aData) {
@@ -122,5 +122,9 @@ export class Address extends AssetProperty {
   setCounty(aCounty: County) {
     this.county = aCounty;
     this.countyId = aCounty.id;
+  }
+
+  getCounty(aCountyId: number) {
+
   }
 }
