@@ -18,15 +18,16 @@ export const getAddressesEntities = createSelector(
   fromAssets.getAssetsEntities,
   (aAddresses, aAssetEntities) => {
     const theAddresses = Object.assign({}, aAddresses);
+    const theResult: { [id: number]: Address } = {};
 
     Object.keys(theAddresses).map((aKey) => {
       const theAddress = new Address(theAddresses[aKey]);
       theAddress.setAsset(aAssetEntities[theAddress.getAssetId()]);
 
-      theAddresses[aKey] = theAddress;
+      theResult[aKey] = theAddress;
     });
 
-    return theAddresses;
+    return theResult;
   }
 );
 

@@ -1,8 +1,9 @@
-import { Address } from '../../models';
+import { first } from 'lodash';
+import { Address, IAddress } from '../../models';
 import * as fromAddresses from '../actions/addresses.action';
 
 export interface AddressesState {
-  entities: { [id: number]: Address };
+  entities: { [id: number]: IAddress };
   loaded: { [id: number]: boolean };
   loading: { [id: number]: boolean };
 }
@@ -60,9 +61,8 @@ export function reducer(
     }
 
     case fromAddresses.AddressActionTypes.LoadAddressesSuccess: {
-      const thePayload: fromAddresses.AddressesSuccessPayload = action.payload;
-      const theAddresses: Address[] = thePayload.addresses;
-      const theAssetId = thePayload.asset.id;
+      const theAddresses: Address[] = action.payload;
+      const theAssetId: number = first(theAddresses).getAssetId();
 
       const entities = theAddresses.reduce((aEntities: { [id: number]: Address }, aAddress: Address) => {
         return {

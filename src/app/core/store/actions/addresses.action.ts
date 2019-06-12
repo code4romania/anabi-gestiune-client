@@ -39,12 +39,7 @@ export class LoadAddressesFail implements Action {
 
 export class LoadAddressesSuccess implements Action {
   readonly type: string = AddressActionTypes.LoadAddressesSuccess;
-  constructor(public payload: AddressesSuccessPayload) {}
-}
-
-export interface AddressesSuccessPayload {
-  addresses: Address[];
-  asset: Asset;
+  constructor(public payload: Address[]) {}
 }
 
 // action types

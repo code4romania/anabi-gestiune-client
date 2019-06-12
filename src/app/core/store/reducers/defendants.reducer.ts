@@ -1,8 +1,8 @@
-import { Defendant } from '../../models';
+import { Defendant, IDefendant } from '../../models';
 import * as fromDefendants from '../actions/defendants.action';
 
 export interface DefendantsState {
-  entities: { [id: number]: Defendant };
+  entities: { [id: number]: IDefendant };
   loaded: { [id: number]: boolean };
   loading: { [id: number]: boolean };
   deleted: { [id: number]: boolean };
@@ -119,13 +119,7 @@ export function reducer(
 
     case fromDefendants.DEFENDANT_DELETE_SUCCESS: {
       const theDefendantId: number = action.payload;
-      // const entities = state.entities;
-      // var theDefendants: Defendant[] = []
-      // for(var key in Object.keys(entities)) {
-      //   theDefendants = [...theDefendants, entities[key]];
-      // }
-      // theDefendants = theDefendants.filter(d => d.id != theDefendantId);
-      const entities: { [id: number]: Defendant } = { ...state.entities }
+      const entities: { [id: number]: IDefendant } = { ...state.entities };
       delete entities[theDefendantId];
 
       return {

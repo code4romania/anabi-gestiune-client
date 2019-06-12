@@ -45,10 +45,7 @@ export class AddressesEffect {
       filter(aAsset => aAsset !== undefined),
       switchMap((aAsset) => {
         return this.addressesService.getAddresses$(aAsset).pipe(
-          map(aAddresses => new addressActions.LoadAddressesSuccess({
-            addresses: aAddresses,
-            asset: aAsset,
-          })),
+          map(aAddresses => new addressActions.LoadAddressesSuccess(aAddresses)),
           catchError(() => of(new addressActions.LoadAddressesFail(aAsset.id)))
         );
       })

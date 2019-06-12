@@ -8,7 +8,4 @@ import { Address } from '@app/core';
 })
 export class ViewAddressComponent {
   @Input() address: Address;
-
-  constructor() { }
-
 }
