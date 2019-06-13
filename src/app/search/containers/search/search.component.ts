@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
 import {
   MatDialog,
   MatDialogConfig,
@@ -8,11 +7,9 @@ import {
   MatSort,
   MatTableDataSource
 } from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Observable} from 'rxjs';
-
-import * as fromStore from '@app/core/store';
-import {select, Store} from '@ngrx/store';
 
 import {
   DecisionsApiService,
