@@ -8,6 +8,7 @@ export class DecisionSummary {
     stage: string;
     emitterInstitution: string;
     historicalStageId: number;
+    assetId: number;
 
     constructor(
       id: number,
@@ -18,7 +19,8 @@ export class DecisionSummary {
       decisionNumber: string,
       stage: string,
       emitterInstitution: string,
-      historicalStageId: number
+      historicalStageId: number,
+      assetId: number
     ) {
         this.id = id;
         this.name = name;
@@ -29,5 +31,6 @@ export class DecisionSummary {
         this.stage = stage;
         this.emitterInstitution = emitterInstitution;
         this.historicalStageId = historicalStageId;
+        this.assetId = assetId;
     }
 }

@@ -13,6 +13,11 @@ const routes: Routes = [
     canActivate: [fromGuards.SearchGuard],
     component: fromContainers.SearchComponent,
   },
+  {
+    path: 'asset',
+    canActivate: [fromGuards.SearchGuard],
+    component: fromContainers.SearchComponent,
+  },
 ];
 
 @NgModule({

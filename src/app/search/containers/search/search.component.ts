@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import {
   MatDialog,
   MatDialogConfig,
@@ -8,10 +9,10 @@ import {
   MatTableDataSource
 } from '@angular/material';
 
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 import * as fromStore from '@app/core/store';
-import { select, Store } from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 
 import {
   DecisionsApiService,
@@ -43,10 +44,10 @@ export class SearchComponent implements OnInit, AfterViewInit {
   });
 
   filterProperties = [
-    { name: 'Numar decizie', value: FilterKeys.DECISIONNUMBER },
-    { name: 'Numar dosar', value: FilterKeys.FILENUMBER },
-    { name: 'CNP/CUI Inculpat', value: FilterKeys.PERSONID },
-    { name: 'Nume Inculpat', value: FilterKeys.PERSONNAME },
+    {name: 'Numar decizie', value: FilterKeys.DECISIONNUMBER},
+    {name: 'Numar dosar', value: FilterKeys.FILENUMBER},
+    {name: 'CNP/CUI Inculpat', value: FilterKeys.PERSONID},
+    {name: 'Nume Inculpat', value: FilterKeys.PERSONNAME},
   ];
 
   @ViewChild(MatSort) sort: MatSort;
@@ -54,14 +55,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   filter: DecisionFilter;
 
-  constructor(
-    private decisionsApiService: DecisionsApiService,
-    private notificationService: NotificationService
-  ) {
+  constructor(private decisionsApiService: DecisionsApiService,
+              private notificationService: NotificationService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.filter = new DecisionFilter();
   }
 
   ngOnInit() {
+    // Table configuration
     this.tableConfig = {
       displayedColumns: [
         'id',
@@ -69,7 +71,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
         'defendantName',
         'decisionNumber',
         'stage',
+        'buttons',
       ],
+    };
+
+    // Querry parameters
+    const theParams = this.route.snapshot.params;
+    const theParamValues = Object.keys(theParams);
+    if (theParamValues && theParamValues.length > 0) {
+      const theFilter = Object.assign(this.filter, theParams);
+      this.search(theFilter);
     };
   }
 
@@ -82,7 +93,18 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   public onSubmit() {
     this.filter.getFormValues(this.searchForm.value);
-    this.decisionsApiService.search(this.filter)
+    const theFilter = this.filter;
+
+    const theFilterKey = this.searchForm.value.filterKey;
+    const theFilterValue = this.searchForm.value.filterValue;
+
+    this.router.navigate(['search/asset', { [theFilterKey]: theFilterValue } ]);
+
+    this.search(theFilter);
+  }
+
+  private search(filter) {
+    this.decisionsApiService.search(filter)
       .subscribe(
         (aResult: DecisionSummary[]) => {
           if (aResult && aResult.length > 0) {
@@ -92,5 +114,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
         },
         (aError) => this.notificationService.showError(ErrorStrings.ERROR_SEARCH_DECISIONS)
       );
+  }
+
+  public viewAsset(aDecisionSumarry: DecisionSummary) {
+    this.router.navigate(['/assets/detail', aDecisionSumarry.assetId]);
   }
 }

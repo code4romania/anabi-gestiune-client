@@ -4,7 +4,9 @@
       <form (ngSubmit)="onSubmit()" [formGroup]="searchForm" fxLayout="row">
         <mat-form-field fxFlex="29" fxFlexOffset="10">
           <mat-select name="filterKey" placeholder="Categorie" formControlName="filterKey">
-            <mat-option *ngFor="let filterProperty of filterProperties" [value]="filterProperty.value">{{ filterProperty.name }}</mat-option>
+            <mat-option *ngFor="let filterProperty of filterProperties" [value]="filterProperty.value">{{
+              filterProperty.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field fxFlex="39">
@@ -38,6 +40,14 @@
         <ng-container matColumnDef="stage">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Stadiu</mat-header-cell>
           <mat-cell *matCellDef="let decisionSummary">{{ decisionSummary.getAddress() }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="buttons">
+          <mat-header-cell *matHeaderCellDef>Overview</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-raised-button (click)="viewAsset(row)"><i class="material-icons">View</i></button>
+            <button mat-raised-button (click)="editAsset(row)"><i class="material-icons">Edit</i></button>
+          </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="tableConfig.displayedColumns"></mat-header-row>
