@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, mapTo, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { Address } from '../../models';
 import { AddressesService } from '../../services';
 import * as addressActions from '../actions/addresses.action';
 import * as assetPropertiesActions from '../actions/asset-properties.action';
+import * as loadingActions from '../actions/loading.action';
 import * as assetSelectors from '../selectors/assets.selectors';
+import * as countySelectors from '../selectors/counties.selectors';
 
 import { select, Store } from '@ngrx/store';
 import { AssetState } from '../reducers';
@@ -37,18 +39,36 @@ export class AddressesEffect {
     );
 
   @Effect()
-  loadAddresses$ = this.actions$
+  loadAddress$ = this.actions$
     .pipe(
       ofType(addressActions.AddressActionTypes.LoadAddresses),
       map((action: addressActions.LoadAddresses) => action.payload),
       mergeMap(aAssetId => this.store.pipe(select(assetSelectors.getAssetById(aAssetId)))),
-      filter(aAsset => aAsset !== undefined),
-      switchMap((aAsset) => {
-        return this.addressesService.getAddresses$(aAsset).pipe(
-          map(aAddresses => new addressActions.LoadAddressesSuccess(aAddresses)),
+      withLatestFrom(this.store.pipe(select(countySelectors.getCountiesEntities))),
+      filter(([aAsset, aCounties]) => aAsset !== undefined && Object.keys(aCounties).length > 0),
+      switchMap(([aAsset, aCounties]) => {
+        return this.addressesService.getAddress$(aAsset, aCounties).pipe(
+          map(aAddress => new addressActions.LoadAddressesSuccess([aAddress])),
           catchError(() => of(new addressActions.LoadAddressesFail(aAsset.id)))
         );
       })
+    );
+
+  @Effect()
+  showLoading$ = this.actions$
+    .pipe(
+      ofType(addressActions.AddressActionTypes.LoadAddresses),
+      mapTo(new loadingActions.ShowLoading())
+    );
+
+  @Effect()
+  hideLoading$ = this.actions$
+    .pipe(
+      ofType(
+        addressActions.AddressActionTypes.LoadAddressesFail,
+        addressActions.AddressActionTypes.LoadAddressesSuccess
+      ),
+      mapTo(new loadingActions.HideLoading())
     );
 
   constructor(

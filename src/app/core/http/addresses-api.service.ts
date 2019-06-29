@@ -25,8 +25,8 @@ export class AddressesApiService {
       );
   }
 
-  public getAddresses$(aAssetId: number): Observable<AddressResponse[]> {
-    return this.http.get<AddressResponse[]>(`${environment.api_url}/assets/${aAssetId}/address`)
+  public getAddress$(aAssetId: number): Observable<AddressResponse> {
+    return this.http.get<AddressResponse>(`${environment.api_url}/assets/${aAssetId}/address`)
       .pipe(
         catchError(aError => observableThrowError(aError))
       );

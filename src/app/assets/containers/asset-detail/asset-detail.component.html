@@ -53,6 +53,7 @@
       <app-view-defendant
         [defendant]="theDefendant"
         [identifiers]="identifiers$ | async"
+        [isDeleting]="(isDefendantDeleting$(theDefendant.id) | async)"
         (defendantDeleted)="onDefendantDeleted($event)"
       ></app-view-defendant>
     </div>

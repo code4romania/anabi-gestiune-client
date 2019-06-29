@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 
 import { AddressesApiService } from '../http';
-import { Address, AddressResponse, Asset } from '../models';
+import { Address, AddressResponse, Asset, County } from '../models';
 
 @Injectable()
 export class AddressesService {
@@ -24,17 +24,16 @@ export class AddressesService {
       );
   }
 
-  public getAddresses$(aAsset: Asset): Observable<Address[]> {
-    return this.addressesApiService.getAddresses$(aAsset.id)
+  public getAddress$(aAsset: Asset, aCounties: { [id: number]: County }): Observable<Address> {
+    return this.addressesApiService.getAddress$(aAsset.id)
       .pipe(
-        mergeMap(aAddresses => aAddresses),
         map((aNewAddress: AddressResponse) => {
           const theAddress = new Address();
           theAddress.fromResponse(aNewAddress);
           theAddress.setAsset(aAsset);
+          theAddress.setCounty(aCounties[aNewAddress.countyId]);
           return theAddress;
-        }),
-        toArray()
+        })
       )
   }
 }
