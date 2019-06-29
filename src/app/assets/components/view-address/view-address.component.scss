@@ -1,0 +1,22 @@
+@import 'mixins';
+
+.view-address {
+  h2 {
+    @include material-card-title();
+  }
+
+  app-detailed-text {
+    @include flex-column();
+    @include flex-grow();
+    margin-bottom: 16px;
+  }
+
+  .double {
+    display: flex;
+    flex-direction: row;
+
+    app-detailed-text {
+      flex-basis: 50%;
+    }
+  }
+}

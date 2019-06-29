@@ -123,4 +123,8 @@ export class Address extends AssetProperty {
     this.county = aCounty;
     this.countyId = aCounty.id;
   }
+
+  getCountyName() {
+    return this.county ? this.county.name : '';
+  }
 }

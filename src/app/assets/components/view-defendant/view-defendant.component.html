@@ -49,7 +49,7 @@
       mat-raised-button 
       (click)="onDefendantDeleted()" 
       color="warn"
-      [disabled]="deleting$ | async"
+      [disabled]="isDeleting"
     >Sterge</button>
   </section>
 </section>

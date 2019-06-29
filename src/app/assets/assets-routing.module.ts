@@ -10,7 +10,10 @@ import * as fromContainers from './containers';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [fromGuards.AssetsGuard],
+    canActivate: [
+      fromGuards.AssetsGuard,
+      fromGuards.LoadCountiesGuard,
+    ],
     component: fromContainers.AssetsComponent,
   },
   {
@@ -18,8 +21,9 @@ const routes: Routes = [
     canActivate: [
       fromGuards.AssetsGuard,
       fromGuards.AssetDetailGuard,
-      fromGuards.LoadDefendantsGuard,
       fromGuards.LoadCountiesGuard,
+      fromGuards.LoadDefendantsGuard,
+      fromGuards.LoadAddressesGuard,
     ],
     component: fromContainers.AssetDetailComponent,
   },

@@ -1,0 +1,32 @@
+<section class="view-address" *ngIf="address">
+  <h2>Adresa</h2>
+
+  <div class="double">
+    <app-detailed-text
+      description="Oras"
+      [text]="address.city"
+    ></app-detailed-text>
+    <app-detailed-text
+      description="Judet"
+      [text]="address.getCountyName()"
+    ></app-detailed-text>
+  </div>
+
+  <div class="double">
+    <app-detailed-text
+      description="Strada"
+      [text]="address.street"
+    ></app-detailed-text>
+    <app-detailed-text
+      description="Bloc"
+      [text]="address.building"
+    ></app-detailed-text>
+  </div>
+
+  <app-detailed-text
+    *ngIf="address.description"
+    description="Detalii"
+    [text]="address.description"
+  ></app-detailed-text>
+</section>
+

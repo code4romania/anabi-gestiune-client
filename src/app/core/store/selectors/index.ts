@@ -1,3 +1,4 @@
+export * from './addresses.selectors';
 export * from './asset-properties.selectors';
 export * from './assets.selectors';
 export * from './categories.selectors';
