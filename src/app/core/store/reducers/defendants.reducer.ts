@@ -1,8 +1,9 @@
-import { Defendant } from '../../models';
+import { first } from 'lodash';
+import { Defendant, IDefendant } from '../../models';
 import * as fromDefendants from '../actions/defendants.action';
 
 export interface DefendantsState {
-  entities: { [id: number]: Defendant };
+  entities: { [id: number]: IDefendant };
   loaded: { [id: number]: boolean };
   loading: { [id: number]: boolean };
   deleted: { [id: number]: boolean };
@@ -64,9 +65,8 @@ export function reducer(
     }
 
     case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
-      const thePayload: fromDefendants.DefendantsSuccessPayload = action.payload;
-      const theDefendants: Defendant[] = thePayload.defendants;
-      const theAssetId = thePayload.asset.id;
+      const theDefendants: Defendant[] = action.payload;
+      const theAssetId = first(theDefendants).getAssetId();
 
       const entities = theDefendants.reduce((aEntities: { [id: number]: Defendant }, aDefendant: Defendant) => {
         return {
@@ -89,8 +89,8 @@ export function reducer(
       } as DefendantsState;
     }
 
-    case fromDefendants.DEFENDANT_DELETE: {
-      const theDefendantId = (action.payload as fromDefendants.DeleteDefendantPayload).defendantId;
+    case fromDefendants.DefendantsActionTypes.DeleteDefendant: {
+      const theDefendantId = (action.payload as Defendant).id;
 
       return {
         ...state,
@@ -101,7 +101,7 @@ export function reducer(
       } as DefendantsState
     }
 
-    case fromDefendants.DEFENDANT_DELETE_FAIL: {
+    case fromDefendants.DefendantsActionTypes.DeleteDefendantFail: {
       const theDefendantId = action.payload;
 
       return {
@@ -117,15 +117,9 @@ export function reducer(
       } as DefendantsState
     }
 
-    case fromDefendants.DEFENDANT_DELETE_SUCCESS: {
+    case fromDefendants.DefendantsActionTypes.DeleteDefendantSuccess: {
       const theDefendantId: number = action.payload;
-      // const entities = state.entities;
-      // var theDefendants: Defendant[] = []
-      // for(var key in Object.keys(entities)) {
-      //   theDefendants = [...theDefendants, entities[key]];
-      // }
-      // theDefendants = theDefendants.filter(d => d.id != theDefendantId);
-      const entities: { [id: number]: Defendant } = { ...state.entities }
+      const entities: { [id: number]: IDefendant } = { ...state.entities };
       delete entities[theDefendantId];
 
       return {

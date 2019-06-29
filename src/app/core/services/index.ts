@@ -1,3 +1,4 @@
+import { AddressesService } from './addresses.service';
 import { AssetsService } from './assets.service';
 import { CategoriesService } from './categories.service';
 import { CountiesService } from './counties.service';
@@ -13,6 +14,7 @@ import { SolutionsService } from './solutions.service';
 import { StorageSpacesService } from './storage-spaces.service';
 
 export const services: any[] = [
+  AddressesService,
   AssetsService,
   CategoriesService,
   CountiesService,
@@ -28,6 +30,7 @@ export const services: any[] = [
   StorageSpacesService,
 ];
 
+export * from './addresses.service';
 export * from './assets.service';
 export * from './categories.service';
 export * from './counties.service';

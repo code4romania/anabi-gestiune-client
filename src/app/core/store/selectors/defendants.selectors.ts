@@ -18,15 +18,16 @@ export const getDefendantsEntities = createSelector(
   fromAssets.getAssetsEntities,
   (aDefendants, aAssetEntities) => {
     const theDefendants = Object.assign({}, aDefendants);
+    const theResult: { [id: number]: Defendant } = {};
 
     Object.keys(theDefendants).map((aKey) => {
       const theDefendant = new Defendant(theDefendants[aKey]);
       theDefendant.setAsset(aAssetEntities[theDefendant.getAssetId()]);
 
-      theDefendants[aKey] = theDefendant;
+      theResult[aKey] = theDefendant;
     });
 
-    return theDefendants;
+    return theResult;
   }
 );
 

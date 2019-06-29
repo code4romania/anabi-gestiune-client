@@ -1,3 +1,4 @@
+import { AddressesApiService } from './addresses-api.service';
 import { AssetsApiService } from './assets-api.service';
 import { CategoriesApiService } from './categories-api.service';
 import { CountiesApiService } from './counties-api.service';
@@ -13,6 +14,7 @@ import { StagesApiService } from './stages-api.service';
 import { StorageSpacesApiService } from './storage-spaces-api.service';
 
 export const httpServices: any[] = [
+  AddressesApiService,
   AssetsApiService,
   CategoriesApiService,
   CountiesApiService,
@@ -28,6 +30,7 @@ export const httpServices: any[] = [
   StorageSpacesApiService,
 ];
 
+export * from './addresses-api.service';
 export * from './assets-api.service';
 export * from './categories-api.service';
 export * from './counties-api.service';
