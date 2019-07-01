@@ -56,7 +56,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
               private notificationService: NotificationService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.filter = new DecisionFilter();
   }
 
   ngOnInit() {
@@ -73,10 +72,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
     };
 
     // Querry parameters
+    const aFilter = new DecisionFilter();
     const theParams = this.route.snapshot.params;
     const theParamValues = Object.keys(theParams);
+
     if (theParamValues && theParamValues.length > 0) {
-      const theFilter = Object.assign(this.filter, theParams);
+      const theFilter = Object.assign(aFilter, theParams);
       this.search(theFilter);
     };
   }
@@ -89,8 +90,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   public onSubmit() {
-    this.filter.getFormValues(this.searchForm.value);
-    const theFilter = this.filter;
+    const aFilter = new DecisionFilter();
+    aFilter.getFormValues(this.searchForm.value);
+    const theFilter = aFilter;
 
     const theFilterKey = this.searchForm.value.filterKey;
     const theFilterValue = this.searchForm.value.filterValue;
@@ -115,5 +117,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   public viewAsset(aDecisionSumarry: DecisionSummary) {
     this.router.navigate(['/assets/detail', aDecisionSumarry.assetId]);
+  }
+
+  public editAsset(aDecisionSumarry: DecisionSummary) {
+    alert('This should edit something');
   }
 }
