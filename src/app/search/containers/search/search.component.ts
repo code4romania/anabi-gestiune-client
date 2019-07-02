@@ -33,8 +33,6 @@ export enum FilterKeys {
 export class SearchComponent implements OnInit, AfterViewInit {
   public tableConfig: any;
 
-  private decisionsLoaded$: Observable<boolean>;
-
   public searchForm = new FormGroup({
     filterKey: new FormControl(),
     filterValue: new FormControl(),
@@ -49,8 +47,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  filter: DecisionFilter;
 
   constructor(private decisionsApiService: DecisionsApiService,
               private notificationService: NotificationService,
@@ -74,9 +70,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
     // Querry parameters
     const aFilter = new DecisionFilter();
     const theParams = this.route.snapshot.params;
-    const theParamValues = Object.keys(theParams);
+    const theParamKey = Object.keys(theParams);
 
-    if (theParamValues && theParamValues.length > 0) {
+    if (theParamKey && theParamKey.length > 0) {
       const theFilter = Object.assign(aFilter, theParams);
       this.search(theFilter);
     };
@@ -102,8 +98,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.search(theFilter);
   }
 
-  private search(filter) {
-    this.decisionsApiService.search(filter)
+  private search(aFilter: DecisionFilter) {
+    this.decisionsApiService.search(aFilter)
       .subscribe(
         (aResult: DecisionSummary[]) => {
           if (aResult && aResult.length > 0) {
@@ -117,9 +113,5 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   public viewAsset(aDecisionSumarry: DecisionSummary) {
     this.router.navigate(['/assets/detail', aDecisionSumarry.assetId]);
-  }
-
-  public editAsset(aDecisionSumarry: DecisionSummary) {
-    alert('This should edit something');
   }
 }
