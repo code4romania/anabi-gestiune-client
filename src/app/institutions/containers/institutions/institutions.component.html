@@ -3,7 +3,7 @@
     <mat-table [dataSource]="tableConfig.dataSource" matSort fxFlex matSortActive="id" matSortDirection="asc">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-        <mat-cell *matCellDef="let institution">{{ institution.id }}</mat-cell>
+        <mat-cell *matCellDef="let institution">{{ institution.businessId }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="name">
