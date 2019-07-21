@@ -1,5 +1,5 @@
 export interface InstitutionResponse {
-  id: number;
+  businessId: number;
   name: string;
   contactData: string;
 }
