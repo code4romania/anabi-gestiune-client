@@ -15,7 +15,7 @@ export function reducer(state = initialState, action: fromAssetProperties.AssetP
       const theProperty: AssetProperty = action.payload as AssetProperty;
       const entities = {
         ...state.entities,
-        [theProperty.getAsset().id]: theProperty,
+        [theProperty.getAssetId()]: theProperty,
       };
 
       return {
@@ -28,7 +28,7 @@ export function reducer(state = initialState, action: fromAssetProperties.AssetP
       const theProperty: AssetProperty = action.payload as AssetProperty;
       const entities = {
         ...state.entities,
-        [theProperty.getAsset().id]: theProperty,
+        [theProperty.getAssetId()]: theProperty,
       };
 
       return {

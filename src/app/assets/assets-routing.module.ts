@@ -19,9 +19,9 @@ const routes: Routes = [
   {
     path: 'detail/:assetId',
     canActivate: [
+      fromGuards.LoadCountiesGuard,
       fromGuards.AssetsGuard,
       fromGuards.AssetDetailGuard,
-      fromGuards.LoadCountiesGuard,
       fromGuards.LoadDefendantsGuard,
       fromGuards.LoadAddressesGuard,
     ],
