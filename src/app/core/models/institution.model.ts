@@ -22,7 +22,7 @@ export class Institution {
   }
 
   toJson(): IInstitution {
-    return { 
+    return {
       businessId: this.businessId,
       name: this.name,
       contactData: this.contactData,

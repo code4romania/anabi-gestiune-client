@@ -66,26 +66,35 @@ export function reducer(
 
     case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
       const theDefendants: Defendant[] = action.payload;
-      const theAssetId = first(theDefendants).getAssetId();
+      let theAssetId;
 
       const entities = theDefendants.reduce((aEntities: { [id: number]: Defendant }, aDefendant: Defendant) => {
+        theAssetId = aDefendant.getAssetId();
         return {
           ...aEntities,
           [aDefendant.id]: aDefendant.toJson(),
         };
       }, { ...state.entities });
 
+      let loading = { ...state.loading };
+      let loaded = { ...state.loaded };
+      if (theAssetId) {
+        loading = {
+          ...state.loading,
+          [theAssetId]: false,
+        };
+
+        loaded = {
+          ...state.loaded,
+          [theAssetId]: true,
+        };
+      }
+
       return {
         ...state,
         entities,
-        loading: {
-          ...state.loading,
-          [theAssetId]: false,
-        },
-        loaded: {
-          ...state.loaded,
-          [theAssetId]: true,
-        },
+        loading,
+        loaded,
       } as DefendantsState;
     }
 
