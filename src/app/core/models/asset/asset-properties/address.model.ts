@@ -100,7 +100,7 @@ export class Address extends AssetProperty {
       floor: this.floor,
       flatNo: this.flatNo,
       description: this.description,
-      asset: this.asset.toJson(),
+      asset: this.asset ? this.asset.toJson() : undefined,
       assetId: this.assetId,
     };
   }

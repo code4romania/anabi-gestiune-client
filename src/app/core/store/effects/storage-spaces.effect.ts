@@ -44,7 +44,7 @@ export class StorageSpacesEffects {
     .pipe(
       ofType(storageSpaceActions.StorageSpaceActionTypes.CreateStorageSpaceSuccess),
       map((action: storageSpaceActions.CreateStorageSpaceSuccess) => action.payload),
-      map((aStorageSpace: StorageSpace) => new assetPropertiesActions.DeleteProperty(aStorageSpace.getAsset().id))
+      map((aStorageSpace: StorageSpace) => new assetPropertiesActions.DeleteProperty(aStorageSpace.getAssetId()))
     );
 
   @Effect()

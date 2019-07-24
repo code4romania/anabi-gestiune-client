@@ -34,9 +34,9 @@ export class StorageSpace extends AssetProperty {
   toJson(): IStorageSpace {
     return {
       id: this.id,
-      address: this.address.toJson(),
+      address: this.address ? this.address.toJson() : undefined,
       name: this.name,
-      asset: this.asset.toJson(),
+      asset: this.asset ? this.asset.toJson() : undefined,
       assetId: this.assetId,
     };
   }
