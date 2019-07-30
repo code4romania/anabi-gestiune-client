@@ -26,7 +26,7 @@ export class DecisionsApiService {
           }
       }
 
-      return this.http.get<DecisionSummary[]>(environment.api_url + '/decisions/search', { params })
+      return this.http.get<DecisionSummary[]>(environment.api_url + '/search/asset', { params })
         .pipe(
           catchError(aError => observableThrowError(aError))
         );
