@@ -24,13 +24,13 @@ export class AssetDetailGuard implements CanActivate {
   hasDetailedAsset(aId: number): Observable<boolean> {
     return this.store.pipe(select(fromStore.hasDetailByAssetId(aId)))
       .pipe(
-        tap((hasDetail: boolean) => {
-          if (!hasDetail) {
-            this.store.dispatch(new fromStore.LoadAssetDetail(aId));
-          }
-        }),
-        filter((hasDetail: boolean) => hasDetail),
-        take(1)
-      );
+      tap((hasDetail: boolean) => {
+        if (!hasDetail) {
+          this.store.dispatch(new fromStore.LoadAssetDetail(aId));
+        }
+      }),
+      filter((hasDetail: boolean) => hasDetail),
+      take(1)
+    );
   }
 }

@@ -1,11 +1,19 @@
 export interface IDecision {
   id: number;
-  name: string;
+  defendantName: string;
+  decisionNumber: string;
+  fileNumber: string;
+  stage: string;
+  assetId: number;
 }
 
 export class Decision {
   id: number;
-  name: string;
+  defendantName: string;
+  decisionNumber: string;
+  fileNumber: string;
+  stage: string;
+  assetId: number;
 
   constructor(aData?: IDecision) {
     if (aData) {
@@ -15,13 +23,21 @@ export class Decision {
 
   fromJson(aJson: IDecision) {
     this.id = aJson.id;
-    this.name = aJson.name;
+    this.defendantName = aJson.defendantName;
+    this.decisionNumber = aJson.decisionNumber;
+    this.fileNumber = aJson.fileNumber;
+    this.stage = aJson.stage;
+    this.assetId = aJson.assetId;
   }
 
   toJson(): IDecision {
     return {
       id: this.id,
-      name: this.name,
+      defendantName: this.defendantName,
+      decisionNumber: this.decisionNumber,
+      fileNumber: this.fileNumber,
+      stage: this.stage,
+      assetId: this.assetId,
     } as IDecision;
   }
 }
