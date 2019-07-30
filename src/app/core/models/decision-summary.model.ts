@@ -1,15 +1,24 @@
 export class DecisionSummary {
-    number: string;
-    date: Date;
+    id: number;
+    defendantName: string;
+    decisionNumber: string;
     fileNumber: string;
-    emitterInstitution: string;
-    historicalStageId: number;
+    stage: string;
+    assetId: number;
 
-    constructor(number: string, date: Date, fileNumber: string, emitterInstitution: string, historicalStageId: number) {
-        this.number = number;
-        this.date = date;
+    constructor(
+      id: number,
+      defendantName: string,
+      decisionNumber: string,
+      fileNumber: string,
+      stage: string,
+      assetId: number
+    ) {
+        this.id = id;
+        this.defendantName = defendantName;
+        this.decisionNumber = decisionNumber;
         this.fileNumber = fileNumber;
-        this.emitterInstitution = emitterInstitution;
-        this.historicalStageId = historicalStageId;
+        this.stage = stage;
+        this.assetId = assetId;
     }
 }

@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import { Decision } from '@app/core/models/decision.model';
+import { Decision, DecisionFilter } from '../../models';
 import * as fromFeature from '../reducers';
 import * as fromDecisions from '../reducers/decisions.reducer';
 
@@ -34,3 +34,4 @@ export const getDecisionById = (aDecisionId: number) => createSelector(
   getDecisionsEntities,
   (entities) => entities[aDecisionId] || undefined
 );
+export const getDecisionSearchLoaded = createSelector(getDecisionState, fromDecisions.getDecisionsLoaded);
