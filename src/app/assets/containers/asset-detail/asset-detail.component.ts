@@ -44,7 +44,7 @@ export enum AssetDetailState {
   styleUrls: ['asset-detail.component.scss'],
 })
 export class AssetDetailComponent implements OnInit {
-  private asset$: Observable<Asset>;
+  asset$: Observable<Asset>;
 
   institutions$: Observable<Institution[]> = this.store.pipe(select(fromStore.getAllInstitutions));
   decisions$: Observable<Decision[]> = this.store.pipe(select(fromStore.getAllDecisions));
@@ -59,6 +59,7 @@ export class AssetDetailComponent implements OnInit {
   assetProperty$: Observable<AssetProperty>;
   subcategories$: Observable<Category[]>;
   defendants$: Observable<Defendant[]>;
+  addresses$: Observable<Address[]>;
 
   measurements: AssetMeasurement[];
   currencies: AssetCurrency[];
@@ -87,6 +88,7 @@ export class AssetDetailComponent implements OnInit {
       this.asset$ = this.store.pipe(select(fromStore.getAssetById(theId)));
       this.assetProperty$ = this.store.pipe(select(fromStore.getAssetPropertiesByAssetId(theId)));
       this.defendants$ = this.store.pipe(select(fromStore.getAllDefendantsForAssetId(theId)));
+      this.addresses$ = this.store.pipe(select(fromStore.getAllAddressesForAssetId(theId)));
     });
 
     this.asset$.pipe(take(1))
@@ -175,8 +177,20 @@ export class AssetDetailComponent implements OnInit {
     this.setStateView();
   }
 
-  onDefendantDeleted(payload: fromStore.DeleteDefendantPayload) {
-    this.store.dispatch(new fromStore.DeleteDefendant(payload));
+  isDefendantDeleting$(aDefendantId: number) {
+    return this.store.pipe(select(fromStore.getDefendantDeletingById(aDefendantId)));
+  }
+
+  onDefendantDeleted(aDefendant: Defendant) {
+    this.store.dispatch(new fromStore.DeleteDefendant(aDefendant));
+  }
+
+  isStateView(): boolean {
+    return this.state === AssetDetailState.View;
+  }
+
+  isStateEdit(): boolean {
+    return this.state === AssetDetailState.Edit;
   }
 
   private resetSelectedProperty() {
@@ -189,13 +203,5 @@ export class AssetDetailComponent implements OnInit {
 
   private setStateView() {
     this.state = AssetDetailState.View;
-  }
-
-  isStateView(): boolean {
-    return this.state === AssetDetailState.View;
-  }
-
-  isStateEdit(): boolean {
-    return this.state === AssetDetailState.Edit;
   }
 }

@@ -59,7 +59,7 @@ export class Solution extends AssetProperty {
 
   setInstitution(aInstitution: Institution) {
     this.institution = aInstitution;
-    this.institutionId = aInstitution.id;
+    this.institutionId = aInstitution.businessId;
   }
 
   getInstitution(): Institution {

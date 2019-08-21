@@ -46,7 +46,7 @@ export class EditAssetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editAssetForm.setValue({
+    this.editAssetForm.patchValue({
       name: this.asset.name,
       description: this.asset.description || '',
       identifier: this.asset.identifier,

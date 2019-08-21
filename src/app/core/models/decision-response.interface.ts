@@ -1,4 +1,8 @@
 export interface DecisionResponse {
   id: number;
-  name: string;
+  defendantName: string;
+  decisionNumber: string;
+  fileNumber: string;
+  stage: string;
+  assetId: number;
 }

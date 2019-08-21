@@ -7,30 +7,30 @@ import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 import * as fromStore from '../../core/store';
 
 @Injectable()
-export class AssetDetailGuard implements CanActivate {
-  constructor(private store: Store<fromStore.AssetState>) {
+export class LoadAddressesGuard implements CanActivate {
+  constructor(private store: Store<fromStore.AddressesState>) {
   }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     const theAssetId = parseInt((route.params as any).assetId, 10);
 
-    return this.hasDetailedAsset(theAssetId)
+    return this.hasAddressesLoaded(theAssetId)
       .pipe(
         switchMap(() => of(true)),
         catchError(() => of(false))
       );
   }
 
-  hasDetailedAsset(aId: number): Observable<boolean> {
-    return this.store.pipe(select(fromStore.hasDetailByAssetId(aId)))
+  hasAddressesLoaded(aId: number): Observable<boolean> {
+    return this.store.pipe(select(fromStore.getAddressesLoadedForAssetId(aId)))
       .pipe(
-      tap((hasDetail: boolean) => {
-        if (!hasDetail) {
-          this.store.dispatch(new fromStore.LoadAssetDetail(aId));
-        }
-      }),
-      filter((hasDetail: boolean) => hasDetail),
-      take(1)
-    );
+        tap((aLoaded: boolean) => {
+          if (!aLoaded) {
+            this.store.dispatch(new fromStore.LoadAddresses(aId));
+          }
+        }),
+        filter((aLoaded: boolean) => aLoaded),
+        take(1)
+      );
   }
 }

@@ -58,19 +58,6 @@ export class AssetsService {
       );
   }
 
-  public createAddress(aAddress: Address): Observable<Address> {
-    return this.assetsApiService.createAddress(aAddress.getAssetId(), aAddress.toRequest())
-      .pipe(
-        map((aNewAddress: AddressResponse) => {
-          const theAddress = new Address();
-          theAddress.fromResponse(aNewAddress);
-          theAddress.setAsset(aAddress.getAsset());
-          theAddress.setCounty(aAddress.county);
-          return theAddress;
-        })
-      );
-  }
-
   public measurements(): Observable<AssetMeasurement[]> {
     const measurements = [
       new AssetMeasurement({ id: 'buc', code: 'Bucati' }),

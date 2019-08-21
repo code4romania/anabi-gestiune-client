@@ -1,11 +1,11 @@
 export interface IInstitution {
-  id: number;
+  businessId: number;
   name: string;
   contactData: string;
 }
 
 export class Institution {
-  id: number;
+  businessId: number;
   name: string;
   contactData: string;
 
@@ -16,14 +16,14 @@ export class Institution {
   }
 
   fromJson(aJson: IInstitution) {
-    this.id = aJson.id;
+    this.businessId = aJson.businessId;
     this.name = aJson.name;
     this.contactData = aJson.contactData;
   }
 
   toJson(): IInstitution {
     return {
-      id: this.id,
+      businessId: this.businessId,
       name: this.name,
       contactData: this.contactData,
     };

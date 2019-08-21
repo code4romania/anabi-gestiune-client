@@ -45,10 +45,7 @@ export class DefendantsEffects {
       filter(aAsset => aAsset !== undefined),
       switchMap((aAsset) => {
         return this.defendantsService.getDefendants$(aAsset).pipe(
-          map(aDefendants => new defendantsActions.LoadDefendantsSuccess({
-            defendants: aDefendants,
-            asset: aAsset,
-          })),
+          map(aDefendants => new defendantsActions.LoadDefendantsSuccess(aDefendants)),
           catchError(() => of(new defendantsActions.LoadDefendantsFail(aAsset.id)))
         );
       })
@@ -57,13 +54,13 @@ export class DefendantsEffects {
   @Effect()
   deleteDefendant$ = this.actions$
     .pipe(
-      ofType(defendantsActions.DEFENDANT_DELETE),
+      ofType(defendantsActions.DefendantsActionTypes.DeleteDefendant),
       map((action: defendantsActions.DeleteDefendant) => action.payload),
-      switchMap((aPayload: defendantsActions.DeleteDefendantPayload) =>
-        this.defendantsService.deleteDefendant$(aPayload.assetId, aPayload.defendantId)
+      switchMap((aDefendant: Defendant) =>
+        this.defendantsService.deleteDefendant$(aDefendant.getAssetId(), aDefendant.id)
           .pipe(
             map((aResponse: number) => new defendantsActions.DeleteDefendantSuccess(aResponse)),
-            catchError(() => of(new defendantsActions.DeleteDefendantFail(aPayload.defendantId)))
+            catchError(() => of(new defendantsActions.DeleteDefendantFail(aDefendant.id)))
           )
       )
     );

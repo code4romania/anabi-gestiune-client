@@ -31,7 +31,7 @@ export function reducer(
       const entities = theInstitutions.reduce((aEntities: { [id: number]: Institution }, aInstitution: Institution) => {
         return {
           ...aEntities,
-          [aInstitution.id]: aInstitution.toJson(),
+          [aInstitution.businessId]: aInstitution.toJson(),
         };
       }, {
         ...state.entities,

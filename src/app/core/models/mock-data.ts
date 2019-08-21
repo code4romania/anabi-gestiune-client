@@ -302,7 +302,7 @@ export const institutionsMockData: InstitutionResponse[] = (() => {
   const result: InstitutionResponse[] = [];
   for (let i = 0; i < 70; i++) {
     result.push({
-      id: i,
+      businessId: i,
       name: 'Name ' + i,
       contactData: `Telefon: 071234567${i} \nAdresa: Strada nr. ${i} Bucuresti`,
     } as InstitutionResponse)
