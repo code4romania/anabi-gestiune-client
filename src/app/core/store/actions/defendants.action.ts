@@ -1,3 +1,4 @@
+import { DefendantsPayload } from '@app/core/models/defendants-payload';
 import { Action } from '@ngrx/store';
 import { Defendant } from '../../models';
 
@@ -42,7 +43,7 @@ export class LoadDefendantsFail implements Action {
 
 export class LoadDefendantsSuccess implements Action {
   readonly type: string = DefendantsActionTypes.LoadDefendantsSuccess;
-  constructor(public payload: Defendant[]) {}
+  constructor(public payload: DefendantsPayload ) {}
 }
 
 export class DeleteDefendant implements Action {

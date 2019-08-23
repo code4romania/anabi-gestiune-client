@@ -1,4 +1,4 @@
-import { first } from 'lodash';
+import { DefendantsPayload } from '@app/core/models/defendants-payload';
 import { Defendant, IDefendant } from '../../models';
 import * as fromDefendants from '../actions/defendants.action';
 
@@ -8,6 +8,7 @@ export interface DefendantsState {
   loading: { [id: number]: boolean };
   deleted: { [id: number]: boolean };
   deleting: { [id: number]: boolean };
+  assetsToDefendantsCount: { [id: number]: number };
 }
 
 export const initialState: DefendantsState = {
@@ -16,6 +17,7 @@ export const initialState: DefendantsState = {
   loading: {},
   deleted: {},
   deleting: {},
+  assetsToDefendantsCount: {},
 };
 
 export function reducer(
@@ -38,7 +40,6 @@ export function reducer(
 
     case fromDefendants.DefendantsActionTypes.LoadDefendants: {
       const theAssetId = action.payload;
-
       return {
         ...state,
         loading: {
@@ -65,36 +66,36 @@ export function reducer(
     }
 
     case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
-      const theDefendants: Defendant[] = action.payload;
-      let theAssetId;
-
+      const payload: DefendantsPayload = action.payload;
+      const theDefendants: Defendant[] = payload.defendants;
       const entities = theDefendants.reduce((aEntities: { [id: number]: Defendant }, aDefendant: Defendant) => {
-        theAssetId = aDefendant.getAssetId();
         return {
           ...aEntities,
           [aDefendant.id]: aDefendant.toJson(),
         };
       }, { ...state.entities });
 
+      const defendantsCount = {};
+      defendantsCount[payload.id] = theDefendants.length;
       let loading = { ...state.loading };
       let loaded = { ...state.loaded };
-      if (theAssetId) {
+      if (payload.id) {
         loading = {
           ...state.loading,
-          [theAssetId]: false,
+          [payload.id]: false,
         };
 
         loaded = {
           ...state.loaded,
-          [theAssetId]: true,
+          [payload.id]: true,
         };
       }
-
       return {
         ...state,
         entities,
         loading,
         loaded,
+        assetsToDefendantsCount: defendantsCount,
       } as DefendantsState;
     }
 

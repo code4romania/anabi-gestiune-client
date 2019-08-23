@@ -31,7 +31,7 @@ export class AddressesService {
           const theAddress = new Address();
           theAddress.fromResponse(aNewAddress);
           theAddress.setAsset(aAsset);
-          theAddress.setCounty(aCounties[aNewAddress.countyId]);
+          theAddress.setCounty(aNewAddress.countyId === 0 ? new County() : aCounties[aNewAddress.countyId]);
           return theAddress;
         })
       )

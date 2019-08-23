@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import { Defendant } from '../../models';
 import { DefendantsService } from '../../services';
@@ -9,6 +9,7 @@ import * as assetPropertiesActions from '../actions/asset-properties.action';
 import * as defendantsActions from '../actions/defendants.action';
 import * as assetSelectors from '../selectors/assets.selectors';
 
+import { DefendantsPayload } from '@app/core/models/defendants-payload';
 import { select, Store } from '@ngrx/store';
 import { AssetState } from '../reducers';
 
@@ -45,7 +46,7 @@ export class DefendantsEffects {
       filter(aAsset => aAsset !== undefined),
       switchMap((aAsset) => {
         return this.defendantsService.getDefendants$(aAsset).pipe(
-          map(aDefendants => new defendantsActions.LoadDefendantsSuccess(aDefendants)),
+          map(aDefendants => new defendantsActions.LoadDefendantsSuccess(new DefendantsPayload(aAsset.id, aDefendants))),
           catchError(() => of(new defendantsActions.LoadDefendantsFail(aAsset.id)))
         );
       })
