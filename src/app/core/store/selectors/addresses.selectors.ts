@@ -42,7 +42,7 @@ export const getAllAddresses = createSelector(
 );
 export const getAllAddressesForAssetId = (aAssetId: number) => createSelector(
   getAllAddresses,
-  (aAddresses) => aAddresses.filter(aAddress => aAddress).filter(aAddress => aAddress.getAssetId() === +aAssetId)
+  (aAddresses) => aAddresses.filter(aAddress => aAddress && aAddress.getAssetId() === +aAssetId)
 );
 
 export const getAddressesLoaded = createSelector(getAddressesState, fromAddresses.getAddressesLoaded);

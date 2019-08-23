@@ -1,4 +1,3 @@
-import { DefendantsPayload } from '@app/core/models/defendants-payload';
 import { Defendant, IDefendant } from '../../models';
 import * as fromDefendants from '../actions/defendants.action';
 
@@ -8,7 +7,6 @@ export interface DefendantsState {
   loading: { [id: number]: boolean };
   deleted: { [id: number]: boolean };
   deleting: { [id: number]: boolean };
-  assetsToDefendantsCount: { [id: number]: number };
 }
 
 export const initialState: DefendantsState = {
@@ -17,7 +15,6 @@ export const initialState: DefendantsState = {
   loading: {},
   deleted: {},
   deleting: {},
-  assetsToDefendantsCount: {},
 };
 
 export function reducer(
@@ -28,8 +25,6 @@ export function reducer(
   switch (action.type) {
     case fromDefendants.DefendantsActionTypes.CreateDefendantSuccess: {
       const theDefendant = action.payload as Defendant;
-      const assetsToDefendantsCount: {[id: number]: number} = {};
-      assetsToDefendantsCount[theDefendant.getAssetId()] = state.assetsToDefendantsCount[theDefendant.getAssetId()] + 1;
       const entities = {
         ...state.entities,
         [theDefendant.id]: theDefendant.toJson(),
@@ -37,7 +32,6 @@ export function reducer(
       return {
         ...state,
         entities,
-        assetsToDefendantsCount,
       } as DefendantsState;
     }
 
@@ -69,8 +63,7 @@ export function reducer(
     }
 
     case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
-      const payload: DefendantsPayload = action.payload;
-      const theDefendants: Defendant[] = payload.defendants;
+      const theDefendants: Defendant[] = action.payload.defendants;
       const entities = theDefendants.reduce((aEntities: { [id: number]: Defendant }, aDefendant: Defendant) => {
         return {
           ...aEntities,
@@ -78,19 +71,17 @@ export function reducer(
         };
       }, { ...state.entities });
 
-      const defendantsCount = {};
-      defendantsCount[payload.id] = theDefendants.length;
       let loading = { ...state.loading };
       let loaded = { ...state.loaded };
-      if (payload.id) {
+      if (action.payload.id) {
         loading = {
           ...state.loading,
-          [payload.id]: false,
+          [action.payload.id]: false,
         };
 
         loaded = {
           ...state.loaded,
-          [payload.id]: true,
+          [action.payload.id]: true,
         };
       }
       return {
@@ -98,21 +89,17 @@ export function reducer(
         entities,
         loading,
         loaded,
-        assetsToDefendantsCount: defendantsCount,
       } as DefendantsState;
     }
 
     case fromDefendants.DefendantsActionTypes.DeleteDefendant: {
       const theDefendant = (action.payload as Defendant);
-      const assetsToDefendantsCount: {[id: number]: number} = {};
-      assetsToDefendantsCount[theDefendant.getAssetId()] = state.assetsToDefendantsCount[theDefendant.getAssetId()] - 1;
       return {
         ...state,
         deleting: {
           ...state.deleting,
           [theDefendant.id]: true,
         },
-        assetsToDefendantsCount,
       } as DefendantsState
     }
 

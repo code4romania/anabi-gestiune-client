@@ -9,7 +9,6 @@ import * as assetPropertiesActions from '../actions/asset-properties.action';
 import * as defendantsActions from '../actions/defendants.action';
 import * as assetSelectors from '../selectors/assets.selectors';
 
-import { DefendantsPayload } from '@app/core/models/defendants-payload';
 import { select, Store } from '@ngrx/store';
 import { AssetState } from '../reducers';
 
@@ -46,7 +45,7 @@ export class DefendantsEffects {
       filter(aAsset => aAsset !== undefined),
       switchMap((aAsset) => {
         return this.defendantsService.getDefendants$(aAsset).pipe(
-          map(aDefendants => new defendantsActions.LoadDefendantsSuccess(new DefendantsPayload(aAsset.id, aDefendants))),
+          map(aDefendants => new defendantsActions.LoadDefendantsSuccess({id: aAsset.id, defendants: aDefendants})),
           catchError(() => of(new defendantsActions.LoadDefendantsFail(aAsset.id)))
         );
       })

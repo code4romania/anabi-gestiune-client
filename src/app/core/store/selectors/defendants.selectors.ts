@@ -44,13 +44,8 @@ export const getAllDefendantsForAssetId = (aAssetId: number) => createSelector(
 
 export const getDefendantsLoaded = createSelector(getDefendantsState, fromDefendants.getDefendantsLoaded);
 export const getDefendantsLoadedForAssetId = (aAssetId: number) => createSelector(
-  getDefendantsState,
-  (defendantsState) => {
-    if (aAssetId in defendantsState.assetsToDefendantsCount) {
-      return defendantsState.loaded[aAssetId] || [];
-    }
-    return false;
-  }
+  getDefendantsLoaded,
+  (aLoaded) => aLoaded[aAssetId] || false
 );
 
 export const getDefendantsLoading = createSelector(getDefendantsState, fromDefendants.getDefendantsLoading);
