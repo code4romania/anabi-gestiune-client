@@ -28,6 +28,8 @@ export function reducer(
   switch (action.type) {
     case fromDefendants.DefendantsActionTypes.CreateDefendantSuccess: {
       const theDefendant = action.payload as Defendant;
+      const assetsToDefendantsCount: {[id: number]: number} = {};
+      assetsToDefendantsCount[theDefendant.getAssetId()] = state.assetsToDefendantsCount[theDefendant.getAssetId()] + 1;
       const entities = {
         ...state.entities,
         [theDefendant.id]: theDefendant.toJson(),
@@ -35,6 +37,7 @@ export function reducer(
       return {
         ...state,
         entities,
+        assetsToDefendantsCount,
       } as DefendantsState;
     }
 
@@ -100,14 +103,16 @@ export function reducer(
     }
 
     case fromDefendants.DefendantsActionTypes.DeleteDefendant: {
-      const theDefendantId = (action.payload as Defendant).id;
-
+      const theDefendant = (action.payload as Defendant);
+      const assetsToDefendantsCount: {[id: number]: number} = {};
+      assetsToDefendantsCount[theDefendant.getAssetId()] = state.assetsToDefendantsCount[theDefendant.getAssetId()] - 1;
       return {
         ...state,
         deleting: {
           ...state.deleting,
-          [theDefendantId]: true,
+          [theDefendant.id]: true,
         },
+        assetsToDefendantsCount,
       } as DefendantsState
     }
 
