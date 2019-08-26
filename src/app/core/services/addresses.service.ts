@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, mergeMap, toArray } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { AddressesApiService } from '../http';
 import { Address, AddressResponse, Asset, County } from '../models';
@@ -31,7 +31,9 @@ export class AddressesService {
           const theAddress = new Address();
           theAddress.fromResponse(aNewAddress);
           theAddress.setAsset(aAsset);
-          theAddress.setCounty(aNewAddress.countyId === 0 ? new County() : aCounties[aNewAddress.countyId]);
+          if (aNewAddress.countyId) {
+            theAddress.setCounty(aCounties[aNewAddress.countyId]);
+          }
           return theAddress;
         })
       )

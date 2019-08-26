@@ -63,7 +63,10 @@ export function reducer(
     }
 
     case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
-      const theDefendants: Defendant[] = action.payload.defendants;
+      const thePayload = (action as fromDefendants.LoadDefendantsSuccess).payload;
+      const theAssetId = thePayload.id;
+      const theDefendants: Defendant[] = thePayload.defendants;
+
       const entities = theDefendants.reduce((aEntities: { [id: number]: Defendant }, aDefendant: Defendant) => {
         return {
           ...aEntities,
@@ -73,15 +76,16 @@ export function reducer(
 
       let loading = { ...state.loading };
       let loaded = { ...state.loaded };
-      if (action.payload.id) {
+
+      if (theAssetId) {
         loading = {
           ...state.loading,
-          [action.payload.id]: false,
+          [theAssetId]: false,
         };
 
         loaded = {
           ...state.loaded,
-          [action.payload.id]: true,
+          [theAssetId]: true,
         };
       }
       return {

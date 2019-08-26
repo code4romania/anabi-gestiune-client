@@ -45,7 +45,7 @@ export class DefendantsEffects {
       filter(aAsset => aAsset !== undefined),
       switchMap((aAsset) => {
         return this.defendantsService.getDefendants$(aAsset).pipe(
-          map(aDefendants => new defendantsActions.LoadDefendantsSuccess({id: aAsset.id, defendants: aDefendants})),
+          map(aDefendants => new defendantsActions.LoadDefendantsSuccess({ id: aAsset.id, defendants: aDefendants })),
           catchError(() => of(new defendantsActions.LoadDefendantsFail(aAsset.id)))
         );
       })
