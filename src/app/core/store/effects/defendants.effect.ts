@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ofType, Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import { Defendant } from '../../models';
 import { DefendantsService } from '../../services';
@@ -45,7 +45,7 @@ export class DefendantsEffects {
       filter(aAsset => aAsset !== undefined),
       switchMap((aAsset) => {
         return this.defendantsService.getDefendants$(aAsset).pipe(
-          map(aDefendants => new defendantsActions.LoadDefendantsSuccess(aDefendants)),
+          map(aDefendants => new defendantsActions.LoadDefendantsSuccess({ id: aAsset.id, defendants: aDefendants })),
           catchError(() => of(new defendantsActions.LoadDefendantsFail(aAsset.id)))
         );
       })

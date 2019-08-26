@@ -19,6 +19,9 @@ export const getAddressesEntities = createSelector(
   (aAddresses, aAssetEntities) => {
     const theAddresses = Object.assign({}, aAddresses);
     const theResult: { [id: number]: Address } = {};
+    if (Object.keys(theAddresses).length === 0) {
+      return theResult;
+    }
 
     Object.keys(theAddresses).map((aKey) => {
       const theAddress = new Address(theAddresses[aKey]);
@@ -39,7 +42,7 @@ export const getAllAddresses = createSelector(
 );
 export const getAllAddressesForAssetId = (aAssetId: number) => createSelector(
   getAllAddresses,
-  (aAddresses) => aAddresses.filter(aAddress => aAddress.getAssetId() === +aAssetId)
+  (aAddresses) => aAddresses.filter(aAddress => aAddress && aAddress.getAssetId() === +aAssetId)
 );
 
 export const getAddressesLoaded = createSelector(getAddressesState, fromAddresses.getAddressesLoaded);

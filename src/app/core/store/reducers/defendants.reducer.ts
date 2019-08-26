@@ -1,4 +1,3 @@
-import { first } from 'lodash';
 import { Defendant, IDefendant } from '../../models';
 import * as fromDefendants from '../actions/defendants.action';
 
@@ -38,7 +37,6 @@ export function reducer(
 
     case fromDefendants.DefendantsActionTypes.LoadDefendants: {
       const theAssetId = action.payload;
-
       return {
         ...state,
         loading: {
@@ -65,11 +63,11 @@ export function reducer(
     }
 
     case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
-      const theDefendants: Defendant[] = action.payload;
-      let theAssetId;
+      const thePayload = (action as fromDefendants.LoadDefendantsSuccess).payload;
+      const theAssetId = thePayload.id;
+      const theDefendants: Defendant[] = thePayload.defendants;
 
       const entities = theDefendants.reduce((aEntities: { [id: number]: Defendant }, aDefendant: Defendant) => {
-        theAssetId = aDefendant.getAssetId();
         return {
           ...aEntities,
           [aDefendant.id]: aDefendant.toJson(),
@@ -78,6 +76,7 @@ export function reducer(
 
       let loading = { ...state.loading };
       let loaded = { ...state.loaded };
+
       if (theAssetId) {
         loading = {
           ...state.loading,
@@ -89,7 +88,6 @@ export function reducer(
           [theAssetId]: true,
         };
       }
-
       return {
         ...state,
         entities,
@@ -99,13 +97,12 @@ export function reducer(
     }
 
     case fromDefendants.DefendantsActionTypes.DeleteDefendant: {
-      const theDefendantId = (action.payload as Defendant).id;
-
+      const theDefendant = (action.payload as Defendant);
       return {
         ...state,
         deleting: {
           ...state.deleting,
-          [theDefendantId]: true,
+          [theDefendant.id]: true,
         },
       } as DefendantsState
     }
