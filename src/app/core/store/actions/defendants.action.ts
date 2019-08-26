@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Defendant } from '../../models';
+import { Defendant, DefendantPayload } from '../../models';
 
 export enum DefendantsActionTypes {
   CreateDefendant = '[Defendants] Create Defendant',
@@ -37,12 +37,12 @@ export class LoadDefendants implements Action {
 
 export class LoadDefendantsFail implements Action {
   readonly type: string = DefendantsActionTypes.LoadDefendantsFail;
-  constructor(public payload: any) {}
+  constructor(public payload: number) {}
 }
 
 export class LoadDefendantsSuccess implements Action {
   readonly type: string = DefendantsActionTypes.LoadDefendantsSuccess;
-  constructor(public payload: Defendant[]) {}
+  constructor(public payload: DefendantPayload) {}
 }
 
 export class DeleteDefendant implements Action {
