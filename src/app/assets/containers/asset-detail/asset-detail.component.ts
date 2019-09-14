@@ -96,7 +96,7 @@ export class AssetDetailComponent implements OnInit {
       this.addresses$ = this.store.pipe(select(fromStore.getAllAddressesForAssetId(theId)));
     });
 
-    // Initialize each asset property form as view
+    // Initialize each property state in view mode
     this.defendants$.subscribe(defendants => defendants
       .forEach(defendant =>  this.propertyStates[defendant.id] = AssetDetailState.View));
 

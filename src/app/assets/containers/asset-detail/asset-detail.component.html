@@ -100,49 +100,49 @@
     </div>
 
     <ng-template #editProperty>
-        <app-edit-solution
-          class="asset-details-card mat-elevation-z8"
-          *ngIf="(assetProperty$ | async)?.isSolution()"
-          [crimeTypes]="crimeTypes$ | async"
-          [decisions]="decisions$ | async"
-          [institutions]="institutions$ | async"
-          [stages]="stages$ | async"
-          [precautionaryMeasures]="(precautionaryMeasures$ | async)"
-          [recoveryBeneficiaries]="(recoveryBeneficiaries$ | async)"
-          [solution]="assetProperty$ | async"
-          (onUpdate)="onPropertyUpdate($event)"
-          (onCancel)="onPropertyCancel($event)"
-          (onSave)="onPropertySave($event)"
-        ></app-edit-solution>
+      <app-edit-solution
+        class="asset-details-card mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)?.isSolution()"
+        [crimeTypes]="crimeTypes$ | async"
+        [decisions]="decisions$ | async"
+        [institutions]="institutions$ | async"
+        [stages]="stages$ | async"
+        [precautionaryMeasures]="(precautionaryMeasures$ | async)"
+        [recoveryBeneficiaries]="(recoveryBeneficiaries$ | async)"
+        [solution]="assetProperty$ | async"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-solution>
 
-        <app-edit-storage
-          class="asset-details-card mat-elevation-z8"
-          *ngIf="(assetProperty$ | async)?.isStorageSpace()"
-          [storageSpace]="assetProperty$ | async"
-          (onUpdate)="onPropertyUpdate($event)"
-          (onCancel)="onPropertyCancel($event)"
-          (onSave)="onPropertySave($event)"
-        ></app-edit-storage>
+      <app-edit-storage
+        class="asset-details-card mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)?.isStorageSpace()"
+        [storageSpace]="assetProperty$ | async"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-storage>
 
-        <app-edit-address
-          class="asset-details-card mat-elevation-z8"
-          *ngIf="(assetProperty$ | async)?.isAddress()"
-          [address]="(assetProperty$ | async)"
-          [counties]="(counties$ | async)"
-          (onUpdate)="onPropertyUpdate($event)"
-          (onCancel)="onPropertyCancel($event)"
-          (onSave)="onPropertySave($event)"
-        ></app-edit-address>
+      <app-edit-address
+        class="asset-details-card mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)?.isAddress()"
+        [address]="(assetProperty$ | async)"
+        [counties]="(counties$ | async)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-address>
 
-        <app-edit-defendant
-          class="asset-details-card mat-elevation-z8"
-          *ngIf="(assetProperty$ | async)?.isDefendant()"
-          [defendant]="(assetProperty$ | async)"
-          [identifiers]="(identifiers$ | async)"
-          (onUpdate)="onPropertyUpdate($event)"
-          (onCancel)="onPropertyCancel($event)"
-          (onSave)="onPropertySave($event)"
-        ></app-edit-defendant>
+      <app-edit-defendant
+        class="asset-details-card mat-elevation-z8"
+        *ngIf="(assetProperty$ | async)?.isDefendant()"
+        [defendant]="(assetProperty$ | async)"
+        [identifiers]="(identifiers$ | async)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-defendant>
     </ng-template>
   </section>
 </div>

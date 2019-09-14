@@ -11,8 +11,8 @@
     "ng": "ng",
     "preinstall": "npm install -g @angular/cli",
     "start": "ng serve --host localhost --port 5000",
-    "start:fake": "ng serve --env fake --host localhost --port 5000",
-    "start:local": "ng serve --env local --host localhost --port 5000",
+    "start:fake": "ng serve --configuration=fake --host localhost --port 5000",
+    "start:local": "ng serve --configuration=local --host localhost --port 5000",
     "test": "ng test --watch=false --code-coverage",
     "test:watch": "ng test --code-coverage"
   },
