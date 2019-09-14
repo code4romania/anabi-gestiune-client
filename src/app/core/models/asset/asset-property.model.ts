@@ -1,5 +1,7 @@
 import { Asset } from './asset.model';
 
+import { Address, Defendant, Solution, StorageSpace } from './asset-properties';
+
 export enum AssetPropertyType {
   Address = 'Address',
   Defendant = 'Defendant',
@@ -10,6 +12,7 @@ export enum AssetPropertyType {
 export abstract class AssetProperty {
   protected asset: Asset;
   protected assetId: number;
+  protected abstract id: number;
   private _type: AssetPropertyType;
 
   protected constructor(aType: AssetPropertyType) {
@@ -21,6 +24,10 @@ export abstract class AssetProperty {
     this.assetId = aAsset.id;
   }
 
+  getId(): number {
+    return this.id;
+  }
+
   getAsset(): Asset {
     return this.asset;
   }
@@ -29,19 +36,19 @@ export abstract class AssetProperty {
     return this.assetId;
   }
 
-  isAddress(): boolean {
+  isAddress(): this is Address {
     return this.getType() === AssetPropertyType.Address;
   }
 
-  isDefendant(): boolean {
+  isDefendant(): this is Defendant {
     return this.getType() === AssetPropertyType.Defendant;
   }
 
-  isSolution(): boolean {
+  isSolution(): this is Solution {
     return this.getType() === AssetPropertyType.Solution;
   }
 
-  isStorageSpace(): boolean {
+  isStorageSpace(): this is StorageSpace {
     return this.getType() === AssetPropertyType.StorageSpace;
   }
 

@@ -11,6 +11,9 @@ export enum DefendantsActionTypes {
   DeleteDefendant = '[Defendants] Delete Defendant',
   DeleteDefendantFail = '[Defendants] Delete Defendant Fail',
   DeleteDefendantSuccess = '[Defendants] Delete Defendant Success',
+  UpdateDefendant = '[Defendants] Update Defendant',
+  UpdateDefendantFail = '[Defendants] Update Defendant Fail',
+  UpdateDefendantSuccess = '[Defendants] Update Defendant Success',
 }
 
 // create defendant
@@ -60,6 +63,21 @@ export class DeleteDefendantSuccess implements Action {
   constructor(public payload: number) {}
 }
 
+export class UpdateDefendant implements Action {
+  readonly type: string = DefendantsActionTypes.UpdateDefendant;
+  constructor(public payload: Defendant) {}
+}
+
+export class UpdateDefendantFail implements Action {
+  readonly type: string = DefendantsActionTypes.UpdateDefendantFail;
+  constructor(public payload: Defendant) {}
+}
+
+export class UpdateDefendantSuccess implements Action {
+  readonly type: string = DefendantsActionTypes.UpdateDefendantSuccess;
+  constructor(public payload: Defendant) {}
+}
+
 // action types
 export type DefendantsAction =
   CreateDefendant
@@ -70,4 +88,7 @@ export type DefendantsAction =
   | LoadDefendantsSuccess
   | DeleteDefendant
   | DeleteDefendantFail
-  | DeleteDefendantSuccess;
+  | DeleteDefendantSuccess
+  | UpdateDefendant
+  | UpdateDefendantFail
+  | UpdateDefendantSuccess;

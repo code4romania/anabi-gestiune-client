@@ -31,4 +31,12 @@ export class DefendantsApiService {
         catchError(aError => observableThrowError(aError))
       );
   }
+
+  public updateDefendant(assetId: number, aDefendantRequest: DefendantRequest): Observable<DefendantResponse> {
+    return this.http.put<DefendantResponse>(
+      `${environment.api_url}/assets/${assetId}/defendants/${aDefendantRequest.id}`, aDefendantRequest)
+      .pipe(
+        catchError(aError => observableThrowError(aError))
+      )
+  }
 }

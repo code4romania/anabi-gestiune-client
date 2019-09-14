@@ -11,6 +11,7 @@ export class ViewDefendantComponent {
   @Input() identifiers: Identifier[];
   @Input() isDeleting: boolean;
   @Output() defendantDeleted: EventEmitter<Defendant> = new EventEmitter<Defendant>();
+  @Output() defendantEdit: EventEmitter<Defendant> = new EventEmitter<Defendant>();
 
   getDefendantType(aIsPerson: boolean) {
     return aIsPerson ? DefendantType.Person.toString() : DefendantType.Company.toString();
@@ -22,5 +23,9 @@ export class ViewDefendantComponent {
 
   onDefendantDeleted() {
     this.defendantDeleted.emit(this.defendant);
+  }
+
+  onDefendantEdit() {
+    this.defendantEdit.emit(this.defendant);
   }
 }

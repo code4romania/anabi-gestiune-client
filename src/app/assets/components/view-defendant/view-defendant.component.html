@@ -45,11 +45,16 @@
     </div>
   </div>
   <section class="buttons">
-    <button 
-      mat-raised-button 
-      (click)="onDefendantDeleted()" 
+    <button
+      mat-raised-button
+      (click)="onDefendantDeleted()"
       color="warn"
       [disabled]="isDeleting"
     >Sterge</button>
+    <button
+      mat-raised-button
+      (click)="onDefendantEdit()"
+      color="primary"
+    >Modifica</button>
   </section>
 </section>

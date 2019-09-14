@@ -3,7 +3,7 @@
 
   <form [formGroup]="defendantForm" (ngSubmit)="save()">
     <mat-form-field>
-      <mat-select placeholder="Tip inculpat" 
+      <mat-select placeholder="Tip inculpat"
                   formControlName="defendantType"
       >
         <mat-option *ngFor="let option of defendantTypeOptions" [value]="option">
@@ -97,8 +97,8 @@
     </div>
 
     <div class="row actions">
-      <button mat-button (click)="cancel()">ANULEAZA</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid">SALVEAZA</button>
+      <button mat-button (click)="cancel()">Anuleaza</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid">Salveaza</button>
     </div>
   </form>
 </section>
