@@ -121,7 +121,9 @@ export class AssetDetailComponent implements OnInit {
 
   isEditingAssetProperty$(): Observable<boolean> {
     return combineLatest([this.asset$, this.assetProperty$]).pipe(
-      map(([aAsset, aAssetProperty]) => aAsset !== undefined && aAssetProperty !== undefined )
+      map(([aAsset, aAssetProperty]) =>
+        aAsset !== undefined && aAssetProperty !== undefined && aAssetProperty.getId() === undefined
+      )
     );
   }
 
@@ -172,6 +174,10 @@ export class AssetDetailComponent implements OnInit {
 
   onPropertySave(aProperty: AssetProperty) {
     this.store.dispatch(new fromStore.CreateProperty(aProperty));
+  }
+
+  onPropertyUpdate(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.UpdateProperty(aProperty));
   }
 
   onPropertyEdit(aProperty: AssetProperty) {

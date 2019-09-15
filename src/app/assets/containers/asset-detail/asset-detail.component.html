@@ -63,7 +63,8 @@
         [identifiers]="identifiers$ | async"
         *ngIf="getPropertyState(theDefendant.id) === 'edit'"
         (onCancel)="setPropertyStateView(theDefendant.id)"
-        (onSave)="onPropertyEdit(theDefendant)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onSave)="onPropertyEdit($event)"
       > </app-edit-defendant>
     </div>
   </section>

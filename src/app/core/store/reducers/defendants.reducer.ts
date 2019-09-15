@@ -62,6 +62,60 @@ export function reducer(
       } as DefendantsState;
     }
 
+    case fromDefendants.DefendantsActionTypes.UpdateDefendant: {
+
+      const defendant = action.payload;
+
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          [defendant.id]: true,
+        },
+        loaded: {
+          ...state.loaded,
+          [defendant.id]: false,
+        },
+      }
+    }
+
+    case fromDefendants.DefendantsActionTypes.UpdateDefendantSuccess: {
+
+      const defendant = action.payload;
+
+      return {
+        ...state,
+        entities: {
+          ...state.entities,
+          [defendant.id]: defendant,
+        },
+        loading: {
+          ...state.loading,
+          [defendant.id]: false,
+        },
+        loaded: {
+          ...state.loaded,
+          [defendant.id]: true,
+        },
+      }
+    }
+
+    case fromDefendants.DefendantsActionTypes.UpdateDefendantFail: {
+      const defendant = action.payload;
+
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          [defendant.id]: false,
+        },
+        loaded: {
+          ...state.loaded,
+          [defendant.id]: false,
+        },
+      }
+    }
+
     case fromDefendants.DefendantsActionTypes.LoadDefendantsSuccess: {
       const thePayload = (action as fromDefendants.LoadDefendantsSuccess).payload;
       const theAssetId = thePayload.id;

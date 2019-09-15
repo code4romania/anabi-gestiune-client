@@ -84,10 +84,12 @@ export class EditDefendantComponent implements OnInit {
   }
 
   get isFormValid(): boolean {
-    return this.isPerson(this.defendantType) &&
-      this.defendantForm.get('pf').valid ||
-      this.isCompany(this.defendantType) &&
-      this.defendantForm.get('pj').valid
+
+    if (this.isPerson(this.defendantType)) {
+      return this.defendantForm.get('pf').valid;
+    }
+
+    return this.defendantForm.get('pj').valid;
   }
 
   get defendantType(): string {
