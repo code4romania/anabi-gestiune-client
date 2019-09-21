@@ -42,6 +42,24 @@ export class AssetPropertiesEffects {
       })
     );
 
+  @Effect()
+  persistProperty$ = this.actions$
+      .pipe(
+        ofType(assetPropertyActions.AssetPropertyActionTypes.PersistProperty),
+        map(({ payload }: assetPropertyActions.PersistProperty) => {
+
+          if (!payload) {
+            return;
+          }
+
+          if (payload.isDefendant()) {
+            return new defendantActions.UpdateDefendant(payload);
+          }
+
+          return;
+        })
+      )
+
   constructor(private actions$: Actions) {
   }
 }

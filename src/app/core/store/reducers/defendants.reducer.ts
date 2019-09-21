@@ -87,7 +87,7 @@ export function reducer(
         ...state,
         entities: {
           ...state.entities,
-          [defendant.id]: defendant,
+          [defendant.id]: defendant.toJson(),
         },
         loading: {
           ...state.loading,

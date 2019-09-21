@@ -34,13 +34,13 @@ export enum AssetProperties {
   ADRESA = 'adresa',
 }
 
-export enum AssetDetailState {
+export enum FormState {
   View = 'view',
   Edit = 'edit',
 }
 
 interface IPropertyStateMap {
-  [propId: string]: AssetDetailState
+  [propId: string]: FormState
 }
 
 @Component({
@@ -68,7 +68,7 @@ export class AssetDetailComponent implements OnInit {
   measurements: AssetMeasurement[];
   currencies: AssetCurrency[];
 
-  private state: AssetDetailState = AssetDetailState.View;
+  private state: FormState = FormState.View;
   private propertyStates: IPropertyStateMap = {};
 
   properties = [
@@ -97,8 +97,10 @@ export class AssetDetailComponent implements OnInit {
     });
 
     // Initialize each property state in view mode
-    this.defendants$.subscribe(defendants => defendants
-      .forEach(defendant =>  this.propertyStates[defendant.id] = AssetDetailState.View));
+    this.defendants$
+      .pipe(take(1))
+      .subscribe(defendants => defendants
+        .forEach(defendant =>  this.propertyStates[defendant.id] = FormState.View));
 
     this.asset$.pipe(take(1))
       .subscribe((aAsset: Asset) => this.getSubcategories(aAsset.category.id));
@@ -180,13 +182,9 @@ export class AssetDetailComponent implements OnInit {
     this.store.dispatch(new fromStore.UpdateProperty(aProperty));
   }
 
-  onPropertyEdit(aProperty: AssetProperty) {
-
-    if (aProperty.isDefendant()) {
-      this.store.dispatch(new fromStore.UpdateDefendant(aProperty))
-    }
-
-    this.propertyStates[aProperty.getId()] = AssetDetailState.View;
+  onPropertyPersist(aProperty: AssetProperty) {
+    this.store.dispatch(new fromStore.PersistProperty(aProperty));
+    this.propertyStates[aProperty.getId()] = FormState.View;
   }
 
   onEditAsset(aAsset: Asset) {
@@ -207,23 +205,31 @@ export class AssetDetailComponent implements OnInit {
   }
 
   isStateView(): boolean {
-    return this.state === AssetDetailState.View;
+    return this.state === FormState.View;
   }
 
   isStateEdit(): boolean {
-    return this.state === AssetDetailState.Edit;
+    return this.state === FormState.Edit;
   }
 
-  getPropertyState(id: string): AssetDetailState {
-    return this.propertyStates[id] || AssetDetailState.View;
+  getPropertyState(id: string): FormState {
+    return this.propertyStates[id] || FormState.View;
+  }
+
+  isPropertyStateView(id: string): boolean {
+    return this.propertyStates[id] === FormState.View;
+  }
+
+  isPropertyStateEdit(id: string): boolean {
+    return this.propertyStates[id] === FormState.Edit;
   }
 
   setPropertyStateView(id: string): void {
-    this.propertyStates[id] = AssetDetailState.View;
+    this.propertyStates[id] = FormState.View;
   }
 
   setPropertyStateEdit(id: string): void {
-    this.propertyStates[id] = AssetDetailState.Edit;
+    this.propertyStates[id] = FormState.Edit;
   }
 
   private resetSelectedProperty() {
@@ -231,10 +237,10 @@ export class AssetDetailComponent implements OnInit {
   }
 
   private setStateEdit() {
-    this.state = AssetDetailState.Edit;
+    this.state = FormState.Edit;
   }
 
   private setStateView() {
-    this.state = AssetDetailState.View;
+    this.state = FormState.View;
   }
 }

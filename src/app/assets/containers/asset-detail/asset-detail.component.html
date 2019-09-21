@@ -52,7 +52,7 @@
     <div class="asset-details-card mat-elevation-z8" *ngFor="let theDefendant of (defendants$ | async)">
       <app-view-defendant
         [defendant]="theDefendant"
-        *ngIf="getPropertyState(theDefendant.id) === 'view'"
+        *ngIf="isPropertyStateView(theDefendant.id)"
         [identifiers]="identifiers$ | async"
         [isDeleting]="(isDefendantDeleting$(theDefendant.id) | async)"
         (defendantDeleted)="onDefendantDeleted($event)"
@@ -61,10 +61,10 @@
       <app-edit-defendant
         [defendant]="theDefendant"
         [identifiers]="identifiers$ | async"
-        *ngIf="getPropertyState(theDefendant.id) === 'edit'"
+        *ngIf="isPropertyStateEdit(theDefendant.id)"
         (onCancel)="setPropertyStateView(theDefendant.id)"
         (onUpdate)="onPropertyUpdate($event)"
-        (onSave)="onPropertyEdit($event)"
+        (onSave)="onPropertyPersist($event)"
       > </app-edit-defendant>
     </div>
   </section>
