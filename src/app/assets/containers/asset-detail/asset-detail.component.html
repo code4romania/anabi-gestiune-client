@@ -52,10 +52,20 @@
     <div class="asset-details-card mat-elevation-z8" *ngFor="let theDefendant of (defendants$ | async)">
       <app-view-defendant
         [defendant]="theDefendant"
+        *ngIf="isPropertyStateView(theDefendant.id)"
         [identifiers]="identifiers$ | async"
         [isDeleting]="(isDefendantDeleting$(theDefendant.id) | async)"
         (defendantDeleted)="onDefendantDeleted($event)"
+        (defendantEdit)="setPropertyStateEdit(theDefendant.id)"
       ></app-view-defendant>
+      <app-edit-defendant
+        [defendant]="theDefendant"
+        [identifiers]="identifiers$ | async"
+        *ngIf="isPropertyStateEdit(theDefendant.id)"
+        (onCancel)="setPropertyStateView(theDefendant.id)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onSave)="onPropertyPersist($event)"
+      > </app-edit-defendant>
     </div>
   </section>
 
@@ -92,7 +102,7 @@
 
     <ng-template #editProperty>
       <app-edit-solution
-        class="mat-elevation-z8"
+        class="asset-details-card mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isSolution()"
         [crimeTypes]="crimeTypes$ | async"
         [decisions]="decisions$ | async"
@@ -107,7 +117,7 @@
       ></app-edit-solution>
 
       <app-edit-storage
-        class="mat-elevation-z8"
+        class="asset-details-card mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isStorageSpace()"
         [storageSpace]="assetProperty$ | async"
         (onUpdate)="onPropertyUpdate($event)"
@@ -116,7 +126,7 @@
       ></app-edit-storage>
 
       <app-edit-address
-        class="mat-elevation-z8"
+        class="asset-details-card mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isAddress()"
         [address]="(assetProperty$ | async)"
         [counties]="(counties$ | async)"
@@ -126,7 +136,7 @@
       ></app-edit-address>
 
       <app-edit-defendant
-        class="mat-elevation-z8"
+        class="asset-details-card mat-elevation-z8"
         *ngIf="(assetProperty$ | async)?.isDefendant()"
         [defendant]="(assetProperty$ | async)"
         [identifiers]="(identifiers$ | async)"

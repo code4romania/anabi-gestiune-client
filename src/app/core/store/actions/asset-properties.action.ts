@@ -5,6 +5,7 @@ export enum AssetPropertyActionTypes {
   CreateProperty = '[Asset Properties] Create Property',
   DeleteProperty = '[Asset Properties] Delete Property',
   UpdateProperty = '[Asset Properties] Update Property',
+  PersistProperty = '[Asset Properties] Persist Property',
 }
 
 // update properties
@@ -23,8 +24,14 @@ export class DeleteProperty implements Action {
   constructor(public payload: number) {}
 }
 
+export class PersistProperty implements Action {
+  readonly type: string = AssetPropertyActionTypes.PersistProperty;
+  constructor(public payload: AssetProperty) {}
+}
+
 // action types
 export type AssetPropertiesAction =
   CreateProperty
   | UpdateProperty
-  | DeleteProperty;
+  | DeleteProperty
+  | PersistProperty;

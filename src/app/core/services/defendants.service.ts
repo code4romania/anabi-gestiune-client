@@ -11,14 +11,18 @@ export class DefendantsService {
   constructor(private defendantsApiService: DefendantsApiService) {
   }
 
+  private handleResponse(response: DefendantResponse, asset: Asset) {
+    const theDefendant = new Defendant(response);
+    theDefendant.setAsset(asset);
+    return theDefendant
+  }
+
   public createDefendant$(aDefendant: Defendant): Observable<Defendant> {
     return this.defendantsApiService.createDefendant$(aDefendant.getAsset().id, this.toRequest(aDefendant))
       .pipe(
-        map((aNewDefendant: DefendantResponse) => {
-          const theDefendant = new Defendant(aNewDefendant);
-          theDefendant.setAsset(aDefendant.getAsset());
-          return theDefendant;
-        })
+        map((aNewDefendant: DefendantResponse) =>
+          this.handleResponse(aNewDefendant, aDefendant.getAsset())
+        )
       );
   }
 
@@ -26,17 +30,24 @@ export class DefendantsService {
     return this.defendantsApiService.getDefendants$(aAsset.id)
       .pipe(
         mergeMap(aDefendants => aDefendants),
-        map((aNewDefendant: DefendantResponse) => {
-          const theDefendant = new Defendant(aNewDefendant);
-          theDefendant.setAsset(aAsset);
-          return theDefendant;
-        }),
+        map((aNewDefendant: DefendantResponse) =>
+          this.handleResponse(aNewDefendant, aAsset)
+        ),
         toArray()
       )
   }
 
   public deleteDefendant$(assetId: number, defendantId: number): Observable<any> {
     return this.defendantsApiService.deleteDefendant(assetId, defendantId);
+  }
+
+  public updateDefendant$(assetId: number, aDefendant: Defendant) {
+    return this.defendantsApiService.updateDefendant(assetId, this.toRequest(aDefendant))
+      .pipe(
+        map((response: DefendantResponse) =>
+          this.handleResponse(response, aDefendant.getAsset())
+        )
+      )
   }
 
   private toRequest(aDefendant: Defendant): DefendantRequest {

@@ -65,6 +65,19 @@ export class DefendantsEffects {
       )
     );
 
+  @Effect()
+  updateDefendant$ = this.actions$
+    .pipe(
+      ofType(defendantsActions.DefendantsActionTypes.UpdateDefendant),
+      map((action: defendantsActions.UpdateDefendant) => action.payload),
+      switchMap((aDefendant: Defendant) =>
+        this.defendantsService.updateDefendant$(aDefendant.getAssetId(), aDefendant).pipe(
+          map(defendant => new defendantsActions.UpdateDefendantSuccess(defendant)),
+          catchError(() => of(new defendantsActions.UpdateDefendantFail(aDefendant)))
+        )
+      )
+    )
+
   constructor(
     private actions$: Actions,
     private defendantsService: DefendantsService,

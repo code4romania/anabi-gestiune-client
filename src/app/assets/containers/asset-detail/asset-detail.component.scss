@@ -49,8 +49,4 @@
       justify-content: flex-end;
     }
   }
-
-  app-edit-solution, app-edit-storage, app-edit-address, app-edit-defendant {
-    @include material-card();
-  }
 }

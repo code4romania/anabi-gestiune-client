@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError as observableThrowError,  Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { DefendantRequest, DefendantResponse } from '../models';
@@ -30,5 +30,20 @@ export class DefendantsApiService {
       .pipe(
         catchError(aError => observableThrowError(aError))
       );
+  }
+
+  public updateDefendant(assetId: number, aDefendantRequest: DefendantRequest): Observable<DefendantResponse> {
+
+    return this.http.put<DefendantResponse>(
+      `${environment.api_url}/assets/${assetId}/defendant/${aDefendantRequest.id}`, aDefendantRequest)
+      .pipe(
+        map(response => {
+          // FIXME: When doing a `PUT` the API doesn't return the
+          // correct ID of the resource
+          response.id = aDefendantRequest.id;
+          return response
+        }),
+        catchError(aError => observableThrowError(aError))
+      )
   }
 }
