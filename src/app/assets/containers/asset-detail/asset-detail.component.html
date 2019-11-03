@@ -59,7 +59,8 @@
         (defendantEdit)="setPropertyStateEdit(theDefendant.id)"
       ></app-view-defendant>
       <app-edit-defendant
-        [defendant]="theDefendant"
+        [entity]="theDefendant"
+        title="Inculpat"
         [identifiers]="identifiers$ | async"
         *ngIf="isPropertyStateEdit(theDefendant.id)"
         (onCancel)="setPropertyStateView(theDefendant.id)"
@@ -137,8 +138,20 @@
 
       <app-edit-defendant
         class="asset-details-card mat-elevation-z8"
+        title="Inculpat"
         *ngIf="(assetProperty$ | async)?.isDefendant()"
-        [defendant]="(assetProperty$ | async)"
+        [entity]="(assetProperty$ | async)"
+        [identifiers]="(identifiers$ | async)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-defendant>
+
+      <app-edit-defendant
+        class="asset-details-card mat-elevation-z8"
+        title="Proprietar"
+        *ngIf="(assetProperty$ | async)?.isOwner()"
+        [entity]="(assetProperty$ | async)"
         [identifiers]="(identifiers$ | async)"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"

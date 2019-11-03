@@ -1,9 +1,9 @@
 <section class="defendant">
-  <h2>Inculpat</h2>
+  <h2>{{ title }}</h2>
 
   <form [formGroup]="defendantForm" (ngSubmit)="save()">
     <mat-form-field>
-      <mat-select placeholder="Tip inculpat"
+      <mat-select placeholder="{{'Tip ' + title}}"
                   formControlName="defendantType"
       >
         <mat-option *ngFor="let option of defendantTypeOptions" [value]="option">

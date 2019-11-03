@@ -14,6 +14,7 @@ import {
   Defendant,
   Identifier,
   Institution,
+  Owner,
   PrecautionaryMeasure,
   RecoveryBeneficiary,
   Solution,
@@ -32,6 +33,7 @@ export enum AssetProperties {
   INCULPAT = 'inculpat',
   SPATIU = 'spatiu',
   ADRESA = 'adresa',
+  PROPRIETAR = 'proprietar',
 }
 
 export enum FormState {
@@ -76,7 +78,9 @@ export class AssetDetailComponent implements OnInit {
     { name: 'Inculpat', value: AssetProperties.INCULPAT },
     { name: 'Spatiu', value: AssetProperties.SPATIU },
     { name: 'Adresa', value: AssetProperties.ADRESA },
+    { name: 'Proprietar', value: AssetProperties.PROPRIETAR },
   ];
+
   selectedProperty: string;
 
   constructor(
@@ -159,6 +163,12 @@ export class AssetDetailComponent implements OnInit {
           theDefendant.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theDefendant));
           break;
+        }
+
+        case AssetProperties.PROPRIETAR: {
+          const theOwner = new Owner();
+          theOwner.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theOwner));
         }
       }
 

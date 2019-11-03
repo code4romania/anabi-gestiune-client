@@ -8,6 +8,7 @@ import { DecisionsEffects } from './decisions.effect';
 import { DefendantsEffects } from './defendants.effect';
 import { IdentifiersEffects } from './identifiers.effect';
 import { InstitutionsEffects } from './institutions.effect';
+import { OwnersEffects } from './owner.effects';
 import { PrecautionaryMeasuresEffects } from './precautionary-measures.effect';
 import { RecoveryBeneficiariesEffects } from './recovery-beneficiaries.effect';
 import { SolutionsEffects } from './solutions.effect';
@@ -30,6 +31,7 @@ export const effects: any[] = [
   SolutionsEffects,
   StagesEffects,
   StorageSpacesEffects,
+  OwnersEffects,
 ];
 
 export * from './addresses.effect';
@@ -46,3 +48,4 @@ export * from './recovery-beneficiaries.effect';
 export * from './solutions.effect';
 export * from './stages.effect';
 export * from './storage-spaces.effect';
+export * from './owner.effects';
