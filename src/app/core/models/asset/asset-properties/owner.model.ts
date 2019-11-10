@@ -6,7 +6,6 @@ import { Asset } from '../asset.model';
 import { IDefendant } from './';
 
 import { DefendantForm, DefendantType } from './defendant-form.model';
-import { DefendantPayload } from './defendant-payload.interface'
 import { DefendantRequest } from './defendant-request.interface';
 
 /**
@@ -16,7 +15,11 @@ import { DefendantRequest } from './defendant-request.interface';
  */
 export type IOwner = IDefendant;
 
-export type OwnerPayload = DefendantPayload;
+export interface OwnerPayload {
+  id: number;
+  owners: Owner[];
+}
+
 export type OwnerForm = DefendantForm;
 export type OwnerRequest = DefendantRequest;
 export type OwnerResponse = DefendantRequest;
@@ -27,8 +30,8 @@ export class Owner extends AssetProperty {
 
   protected asset: Asset;
   protected assetId: number;
-  protected id: number;
 
+  id: number;
   idNumber: string;
   idSerie: string;
   identification: string;

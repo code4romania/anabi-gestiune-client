@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 
 import { OwnersApiService } from '../http';
 import { Asset, Owner, OwnerRequest, OwnerResponse } from '../models';
@@ -18,6 +18,28 @@ export class OwnersService {
           this.handleResponse(newOwner, owner.getAsset())
         )
       )
+  }
+
+  public getOwners$(aAsset: Asset): Observable<Owner[]> {
+    return this.apiService.getOwners$(aAsset.id)
+      .pipe(
+        mergeMap(owners => owners),
+        map((newOwner) =>
+          this.handleResponse(newOwner, aAsset)),
+        toArray()
+      );
+  }
+
+  public deleteOwner$(assetId: number, ownerId: number): Observable<any> {
+    return this.apiService.deleteOwner$(assetId, ownerId);
+  }
+
+  public updateOwner$(assetId: number, aOwner: Owner) {
+    return this.apiService.updateOwner$(assetId, this.toRequest(aOwner))
+      .pipe(
+        map(resp =>
+          this.handleResponse(resp, aOwner.getAsset()))
+      );
   }
 
   private handleResponse(response: OwnerResponse, asset: Asset) {

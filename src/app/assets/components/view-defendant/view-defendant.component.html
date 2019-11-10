@@ -1,5 +1,5 @@
 <section class="view-defendant" *ngIf="defendant">
-  <h2>Inculpat</h2>
+  <h2>{{title}}</h2>
 
   <app-detailed-text description="Tip persoana" [text]="getDefendantType(defendant.isPerson)"></app-detailed-text>
 

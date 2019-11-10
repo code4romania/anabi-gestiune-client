@@ -66,6 +66,7 @@ export class AssetDetailComponent implements OnInit {
   subcategories$: Observable<Category[]>;
   defendants$: Observable<Defendant[]>;
   addresses$: Observable<Address[]>;
+  owners$: Observable<Owner[]>;
 
   measurements: AssetMeasurement[];
   currencies: AssetCurrency[];
@@ -98,6 +99,7 @@ export class AssetDetailComponent implements OnInit {
       this.assetProperty$ = this.store.pipe(select(fromStore.getAssetPropertiesByAssetId(theId)));
       this.defendants$ = this.store.pipe(select(fromStore.getAllDefendantsForAssetId(theId)));
       this.addresses$ = this.store.pipe(select(fromStore.getAllAddressesForAssetId(theId)));
+      this.owners$ = this.store.pipe(select(fromStore.getAllOwnersForAssetId(theId)));
     });
 
     // Initialize each property state in view mode
