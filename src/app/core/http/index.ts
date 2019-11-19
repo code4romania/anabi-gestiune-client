@@ -7,6 +7,7 @@ import { DecisionsApiService } from './decisions-api.service';
 import { DefendantsApiService } from './defendants-api.service';
 import { IdentifiersApiService } from './identifiers-api.service';
 import { InstitutionsApiService } from './institutions-api.service';
+import { OwnersApiService } from './owner-api.service';
 import { PrecautionaryMeasuresApiService } from './precautionary-measures-api.service';
 import { RecoveryBeneficiariesApiService } from './recovery-beneficiaries-api.service';
 import { SolutionsApiService } from './solutions-api.service';
@@ -28,6 +29,7 @@ export const httpServices: any[] = [
   SolutionsApiService,
   StagesApiService,
   StorageSpacesApiService,
+  OwnersApiService,
 ];
 
 export * from './addresses-api.service';
@@ -44,3 +46,4 @@ export * from './recovery-beneficiaries-api.service';
 export * from './solutions-api.service';
 export * from './stages-api.service';
 export * from './storage-spaces-api.service';
+export * from './owner-api.service';

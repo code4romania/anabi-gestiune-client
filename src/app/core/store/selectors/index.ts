@@ -14,3 +14,4 @@ export * from './recovery-beneficiaries.selectors';
 export * from './solutions.selectors';
 export * from './stages.selectors';
 export * from './storage-spaces.selectors';
+export * from './owners.selectors';

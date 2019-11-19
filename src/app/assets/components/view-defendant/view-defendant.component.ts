@@ -7,9 +7,12 @@ import { Defendant, DefendantType, Identifier } from '@app/core';
   styleUrls: ['./view-defendant.component.scss'],
 })
 export class ViewDefendantComponent {
+
   @Input() defendant: Defendant;
   @Input() identifiers: Identifier[];
   @Input() isDeleting: boolean;
+  @Input() title: string;
+
   @Output() defendantDeleted: EventEmitter<Defendant> = new EventEmitter<Defendant>();
   @Output() defendantEdit: EventEmitter<Defendant> = new EventEmitter<Defendant>();
 

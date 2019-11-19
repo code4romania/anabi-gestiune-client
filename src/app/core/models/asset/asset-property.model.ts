@@ -1,12 +1,13 @@
 import { Asset } from './asset.model';
 
-import { Address, Defendant, Solution, StorageSpace } from './asset-properties';
+import { Address, Defendant, Owner, Solution, StorageSpace } from './asset-properties';
 
 export enum AssetPropertyType {
   Address = 'Address',
   Defendant = 'Defendant',
   Solution = 'Solution',
   StorageSpace = 'StorageSpace',
+  Owner = 'Owner',
 }
 
 export abstract class AssetProperty {
@@ -50,6 +51,10 @@ export abstract class AssetProperty {
 
   isStorageSpace(): this is StorageSpace {
     return this.getType() === AssetPropertyType.StorageSpace;
+  }
+
+  isOwner(): this is Owner {
+    return this._type === AssetPropertyType.Owner;
   }
 
   getAssetPropertyType(): AssetPropertyType {

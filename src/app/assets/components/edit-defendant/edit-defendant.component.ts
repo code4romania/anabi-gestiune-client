@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Defendant, DefendantType, Identifier, ROMANIA } from '@app/core/models';
 import { cloneDeep } from 'lodash';
 
+// TODO: Extract into something more generic
+// for entities that are a person
 @Component({
   selector: 'app-edit-defendant',
   templateUrl: './edit-defendant.component.html',
@@ -10,13 +12,16 @@ import { cloneDeep } from 'lodash';
 })
 export class EditDefendantComponent implements OnInit {
 
-  @Input() defendant: Defendant;
+  @Input() entity: Defendant;
   @Input() identifiers: Identifier[];
+  @Input() title: string = '';
+
   @Output() onUpdate: EventEmitter<Defendant> = new EventEmitter<Defendant>();
   @Output() onCancel: EventEmitter<Defendant> = new EventEmitter<Defendant>();
   @Output() onSave: EventEmitter<Defendant> = new EventEmitter<Defendant>();
 
   theDefendant: Defendant;
+
   defendantTypeOptions: string[] = [
     DefendantType.Person,
     DefendantType.Company,
@@ -25,7 +30,7 @@ export class EditDefendantComponent implements OnInit {
   defendantForm: FormGroup;
 
   ngOnInit() {
-    this.theDefendant = cloneDeep(this.defendant);
+    this.theDefendant = cloneDeep(this.entity);
 
     this.defendantForm = new FormGroup({
       defendantType: new FormControl(
@@ -76,7 +81,7 @@ export class EditDefendantComponent implements OnInit {
 
   onChanges() {
     this.defendantForm.valueChanges.subscribe(aFormValue => {
-      this.theDefendant = cloneDeep(this.defendant);
+      this.theDefendant = cloneDeep(this.entity);
       this.theDefendant.fromForm(aFormValue);
 
       this.onUpdate.emit(this.theDefendant);

@@ -53,19 +53,34 @@
       <app-view-defendant
         [defendant]="theDefendant"
         *ngIf="isPropertyStateView(theDefendant.id)"
+        title="Inculpat"
         [identifiers]="identifiers$ | async"
         [isDeleting]="(isDefendantDeleting$(theDefendant.id) | async)"
         (defendantDeleted)="onDefendantDeleted($event)"
         (defendantEdit)="setPropertyStateEdit(theDefendant.id)"
       ></app-view-defendant>
       <app-edit-defendant
-        [defendant]="theDefendant"
+        [entity]="theDefendant"
+        title="Inculpat"
         [identifiers]="identifiers$ | async"
         *ngIf="isPropertyStateEdit(theDefendant.id)"
         (onCancel)="setPropertyStateView(theDefendant.id)"
         (onUpdate)="onPropertyUpdate($event)"
         (onSave)="onPropertyPersist($event)"
       > </app-edit-defendant>
+    </div>
+  </section>
+
+  <section class="asset-details">
+    <div class="asset-details-card mat-elevation-z8" *ngFor="let theOwner of (owners$ | async)">
+      <app-view-defendant
+        [defendant]="theOwner"
+        [identifiers]="identifiers$ | async"
+        title="Proprietar"
+        [isDeleting]="(isDefendantDeleting$(theOwner.id) | async)"
+        (defendantDeleted)="onDefendantDeleted($event)"
+        (defendantEdit)="setPropertyStateEdit(theOwner.id)"
+      ></app-view-defendant>
     </div>
   </section>
 
@@ -137,8 +152,20 @@
 
       <app-edit-defendant
         class="asset-details-card mat-elevation-z8"
+        title="Inculpat"
         *ngIf="(assetProperty$ | async)?.isDefendant()"
-        [defendant]="(assetProperty$ | async)"
+        [entity]="(assetProperty$ | async)"
+        [identifiers]="(identifiers$ | async)"
+        (onUpdate)="onPropertyUpdate($event)"
+        (onCancel)="onPropertyCancel($event)"
+        (onSave)="onPropertySave($event)"
+      ></app-edit-defendant>
+
+      <app-edit-defendant
+        class="asset-details-card mat-elevation-z8"
+        title="Proprietar"
+        *ngIf="(assetProperty$ | async)?.isOwner()"
+        [entity]="(assetProperty$ | async)"
         [identifiers]="(identifiers$ | async)"
         (onUpdate)="onPropertyUpdate($event)"
         (onCancel)="onPropertyCancel($event)"

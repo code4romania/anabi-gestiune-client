@@ -10,6 +10,7 @@ import * as fromDefendants from './defendants.reducer';
 import * as fromIdentifiers from './identifiers.reducer';
 import * as fromInstitutions from './institutions.reducer';
 import * as fromLoading from './loading.reducer';
+import * as fromOwners from './owners.reducer';
 import * as fromPrecautionaryMeasures from './precautionary-measures.reducer';
 import * as fromRecoveryBeneficiaries from './recovery-beneficiaries.reducer';
 import * as fromSolutions from './solutions.reducer';
@@ -32,6 +33,7 @@ export interface CoreState {
   identifiers: fromIdentifiers.IdentifierState;
   institutions: fromInstitutions.InstitutionState;
   loading: fromLoading.LoadingState;
+  owners: fromOwners.OwnersState;
   precautionaryMeasures: fromPrecautionaryMeasures.PrecautionaryMeasureState;
   recoveryBeneficiaries: fromRecoveryBeneficiaries.RecoveryBeneficiariesState;
   solutions: fromSolutions.SolutionState;
@@ -51,6 +53,7 @@ export const reducers: ActionReducerMap<CoreState> = {
   identifiers: fromIdentifiers.reducer,
   institutions: fromInstitutions.reducer,
   loading: fromLoading.reducer,
+  owners: fromOwners.reducer,
   precautionaryMeasures: fromPrecautionaryMeasures.reducer,
   recoveryBeneficiaries: fromRecoveryBeneficiaries.reducer,
   solutions: fromSolutions.reducer,
@@ -71,6 +74,7 @@ export { DefendantsState } from './defendants.reducer';
 export { IdentifierState } from './identifiers.reducer';
 export { InstitutionState } from './institutions.reducer';
 export { LoadingState } from './loading.reducer';
+export { OwnersState } from './owners.reducer';
 export { PrecautionaryMeasureState } from './precautionary-measures.reducer';
 export { RecoveryBeneficiariesState } from './recovery-beneficiaries.reducer';
 export { SolutionState } from './solutions.reducer';

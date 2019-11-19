@@ -8,6 +8,7 @@ import { DefendantsService } from './defendants.service';
 import { IdentifiersService } from './identifiers.service';
 import { InstitutionsService } from './institutions.service';
 import { NotificationService } from './notification.service';
+import { OwnersService } from './owner.service';
 import { PrecautionaryMeasuresService } from './precautionary-measures.service';
 import { RecoveryBeneficiariesService } from './recovery-beneficiaries.service';
 import { SolutionsService } from './solutions.service';
@@ -28,6 +29,7 @@ export const services: any[] = [
   RecoveryBeneficiariesService,
   SolutionsService,
   StorageSpacesService,
+  OwnersService,
 ];
 
 export * from './addresses.service';
@@ -44,3 +46,4 @@ export * from './precautionary-measures.service';
 export * from './recovery-beneficiaries.service';
 export * from './solutions.service';
 export * from './storage-spaces.service';
+export * from './owner.service';

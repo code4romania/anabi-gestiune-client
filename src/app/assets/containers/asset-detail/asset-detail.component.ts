@@ -14,6 +14,7 @@ import {
   Defendant,
   Identifier,
   Institution,
+  Owner,
   PrecautionaryMeasure,
   RecoveryBeneficiary,
   Solution,
@@ -32,6 +33,7 @@ export enum AssetProperties {
   INCULPAT = 'inculpat',
   SPATIU = 'spatiu',
   ADRESA = 'adresa',
+  PROPRIETAR = 'proprietar',
 }
 
 export enum FormState {
@@ -64,6 +66,7 @@ export class AssetDetailComponent implements OnInit {
   subcategories$: Observable<Category[]>;
   defendants$: Observable<Defendant[]>;
   addresses$: Observable<Address[]>;
+  owners$: Observable<Owner[]>;
 
   measurements: AssetMeasurement[];
   currencies: AssetCurrency[];
@@ -76,7 +79,9 @@ export class AssetDetailComponent implements OnInit {
     { name: 'Inculpat', value: AssetProperties.INCULPAT },
     { name: 'Spatiu', value: AssetProperties.SPATIU },
     { name: 'Adresa', value: AssetProperties.ADRESA },
+    { name: 'Proprietar', value: AssetProperties.PROPRIETAR },
   ];
+
   selectedProperty: string;
 
   constructor(
@@ -94,6 +99,7 @@ export class AssetDetailComponent implements OnInit {
       this.assetProperty$ = this.store.pipe(select(fromStore.getAssetPropertiesByAssetId(theId)));
       this.defendants$ = this.store.pipe(select(fromStore.getAllDefendantsForAssetId(theId)));
       this.addresses$ = this.store.pipe(select(fromStore.getAllAddressesForAssetId(theId)));
+      this.owners$ = this.store.pipe(select(fromStore.getAllOwnersForAssetId(theId)));
     });
 
     // Initialize each property state in view mode
@@ -159,6 +165,12 @@ export class AssetDetailComponent implements OnInit {
           theDefendant.setAsset(aAsset);
           this.store.dispatch(new fromStore.UpdateProperty(theDefendant));
           break;
+        }
+
+        case AssetProperties.PROPRIETAR: {
+          const theOwner = new Owner();
+          theOwner.setAsset(aAsset);
+          this.store.dispatch(new fromStore.UpdateProperty(theOwner));
         }
       }
 
