@@ -23,14 +23,18 @@
     </mat-form-field>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <mat-form-field fxFlex="29">
+      <mat-form-field fxFlex="34">
         <input matInput name="countyCode" placeholder="Cod Judet" maxlength="2" required formControlName="countyCode" />
         <mat-error *ngIf="hasError('countyCode', 'required')">
             Codul judetului este obligatoriu.
           </mat-error>
+
+          <mat-error *ngIf="hasError('countyCode', 'invalid')">
+            Codul judetului este invalid.
+          </mat-error>
       </mat-form-field>
 
-      <mat-form-field fxFlex="69">
+      <mat-form-field fxFlex="64">
         <input matInput name="city" placeholder="Oras" maxlength="30" required formControlName="city" />
         <mat-error *ngIf="hasError('city', 'required')">
             Orasul este obligatoriu.

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { StorageSpace, StorageSpacesService, StorageSpaceRequest } from '@app/core';
-import { StorageSpaceTypes } from '@app/core/models/storage-space-types';
+import { CountiesService, StorageSpace, StorageSpacesService, StorageSpaceRequest } from '@app/core';
+import { StorageSpaceType } from '@app/core/models/storage-space-types';
+import { CountyCodeExistsValidator } from '@app/storage-spaces/validators/county-code-exists-validator';
 
 @Component({
   selector: 'app-add-storage-space',
@@ -12,16 +13,20 @@ import { StorageSpaceTypes } from '@app/core/models/storage-space-types';
 export class AddStorageSpaceComponent implements OnInit {
 
   newItemForm: FormGroup;
-  storageSpaceTypes = StorageSpaceTypes;
+  storageSpaceTypes = StorageSpaceType;
 
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddStorageSpaceComponent>,
-    private storageSpacesService: StorageSpacesService) {
+    private storageSpacesService: StorageSpacesService,
+    private countiesService: CountiesService) {
     this.newItemForm = this.formBuilder.group({
       name: new FormControl(),
       storageSpaceType: new FormControl(),
-      countyCode: new FormControl(),
+      countyCode: new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [CountyCodeExistsValidator(this.countiesService)],
+      }),
       city: new FormControl(),
       street: new FormControl(),
       building: new FormControl(),
@@ -43,5 +48,4 @@ export class AddStorageSpaceComponent implements OnInit {
     const formControl: AbstractControl = this.newItemForm.controls[formControlName];
     return formControl.getError(errorName) ? true : false;
   }
-
 }
