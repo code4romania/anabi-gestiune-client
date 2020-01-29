@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>Adaugare spatiu de depozitare</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="newItemForm" fxLayout="column">
+    <mat-form-field>
+      <input matInput name="name" #name placeholder="Nume" maxlength="200" required formControlName="name" />
+      <mat-error *ngIf="hasError('name', 'required')">
+        Numele este obligatoriu.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Tipul spatiului de depozitare</mat-label>
+      <mat-select formControlName="storageSpaceType" required name="storageSpaceType">
+        <mat-option *ngFor="let item of storageSpaceTypes" [value]="item.id">
+          {{item.name}}
+        </mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="hasError('storageSpaceType', 'required')">
+        Tipul spatiului de depozitare este obligatoriu.
+      </mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="29">
+        <input matInput name="countyCode" placeholder="Cod Judet" maxlength="2" required formControlName="countyCode" />
+        <mat-error *ngIf="hasError('countyCode', 'required')">
+            Codul judetului este obligatoriu.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="69">
+        <input matInput name="city" placeholder="Oras" maxlength="30" required formControlName="city" />
+        <mat-error *ngIf="hasError('city', 'required')">
+            Orasul este obligatoriu.
+          </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="49">
+        <input matInput name="street" placeholder="Strada" maxlength="100" required formControlName="street" />
+        <mat-error *ngIf="hasError('street', 'required')">
+            Strada este obligatorie.
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="49">
+        <input matInput name="building" placeholder="Bloc/Cladire" maxlength="10" required formControlName="building" />
+        <mat-error *ngIf="hasError('building', 'required')">
+            Blocul/Cladirea sunt obligatorii.
+          </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <textarea matInput name="details" #details placeholder="Detalii" maxlength="2000"
+        formControlName="details"></textarea>
+      <mat-hint align="end">{{ details.value.length }} / 2000</mat-hint>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout fxLayoutAlign="end center">
+  <button mat-button mat-dialog-close>ANULEAZA</button>
+  <button mat-raised-button [disabled]="!newItemForm.valid" color="primary" (click)="save()">SALVEAZA</button>
+</mat-dialog-actions>

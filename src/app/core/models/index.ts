@@ -21,3 +21,4 @@ export * from './precautionary-measure-response.interface';
 export * from './stage.model';
 export * from './stage-response.interface';
 export * from './category-response.interface';
+export * from './storage-space-request';
