@@ -1,15 +1,13 @@
-import { NgModule } from '@angular/core';
-
 // modules
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { StorageSpacesRoutingModule } from './storage-spaces-routing.module';
-
 // containers
 import * as fromContainers from './containers';
-
+import { AddStorageSpaceComponent } from './containers/add-storage-space/add-storage-space.component';
 // guards
 import * as fromGuards from './guards';
+import { StorageSpacesRoutingModule } from './storage-spaces-routing.module';
 
 @NgModule({
   imports: [
@@ -18,7 +16,11 @@ import * as fromGuards from './guards';
     StorageSpacesRoutingModule,
   ],
   declarations: [
-    ...fromContainers.components,
+    [...fromContainers.components],
+    AddStorageSpaceComponent,
+  ],
+  entryComponents: [
+    ...fromContainers.entryComponents,
   ],
   providers: [
     ...fromGuards.guards,
