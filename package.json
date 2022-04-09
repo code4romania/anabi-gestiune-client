@@ -45,7 +45,7 @@
     "hammerjs": "2.0.8",
     "lodash": "4.17.19",
     "material-design-icons": "^3.0.1",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "node-sass": "4.10.0",
     "normalize.scss": "0.1.0",
     "rxjs": "~6.4.0",
